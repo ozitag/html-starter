@@ -1,0 +1,70 @@
+{
+    "appName": "blakit:APP_NAME",
+    "tmpPath": ".tmp",
+    "sourcePath": "app",
+    "destPath": "dist",
+    "hbsPath": "templates",
+    "stylesPath": "static/css",
+    "scriptsPath": "static/js",
+    "imagesPath": "static/images",
+    "fontsPath": "static/fonts",
+    "contentPath": "content",
+    "vendorPath": "libs",
+    "combinedNameCSS": "combined.min.css",
+    "combinedNameJS": "combined.min.js",
+    "sassOptions": {
+        "container": "",
+        "sourcemap": true,
+        "precision": 10,
+        "style": "expanded",
+        "compass": true
+    },
+    "autoprefixerBrowsers": [
+        "ie >= 10",
+        "ie_mob >= 10",
+        "ff >= 30",
+        "chrome >= 34",
+        "safari >= 7",
+        "opera >= 23",
+        "ios >= 7",
+        "android >= 4.4",
+        "bb >= 10"
+    ],
+    "cssminOptions": {
+        "compatibility": "ie8",
+        "keepSpecialComments": "*",
+        "advanced": false
+    },
+    "uncss": false,
+    "uncssOptions": {
+        "html": [
+            ".tmp/!*.html"
+        ],
+        "ignore": [],
+        "ignoreSheets": []
+    },
+    "htmlmin": false,
+    "htmlminOptions": {
+        "removeComments": true,
+        "collapseWhitespace": true,
+        "collapseBooleanAttributes": true,
+        "removeAttributeQuotes": true,
+        "useShortDoctype": true,
+        "removeScriptTypeAttributes": true,
+        "removeStyleLinkTypeAttributes": true,
+        "minifyJS": true,
+        "minifyCSS": true
+    },
+    "uglifyOptions": {
+        "preserveComments": "some"
+    },
+    "browser": "Google Chrome Canary",
+    "psiConfig": {
+        "strategy": "desktop",
+        "threshold": 80
+    },
+    "w3cjsOptions": {
+        "doctype": "HTML5",
+        "charset": "utf-8"
+    }
+}

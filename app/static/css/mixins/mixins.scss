@@ -1,0 +1,133 @@
+@mixin tablet-and-phone() {
+  @media(max-width: 960px) {
+    @content;
+  }
+}
+
+@mixin no-mobile {
+  @media (min-width: 640px) {
+    @content;
+  }
+}
+
+@mixin tablet() {
+  @media(min-width: 640px) and (max-width: 959px) {
+    @content;
+  }
+}
+
+@mixin mobile() {
+  @media (max-width: 639px) {
+    @content;
+  }
+}
+
+@mixin desktop() {
+  @media(min-width: 960px) {
+    @content;
+  }
+}
+
+@mixin sticky-footer($footer-height, $wrapper-selector: unquote("#wrapper"), $container-selector: unquote("#container"), $footer-selector: unquote("#footer")) {
+  html, body {
+    height: 100%;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  #{$wrapper-selector} {
+    min-height: 100%;
+    height: auto !important;
+    margin-bottom: -$footer-height;
+    #{$container-selector} {
+      padding: 0 0 $footer-height 0;
+    }
+  }
+  #{$footer-selector} {
+    min-height: $footer-height;
+  }
+}
+
+@mixin link-underline {
+  text-decoration: underline;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+@mixin rotate($deg:180deg) {
+  transform: rotate($deg);
+}
+
+@mixin digital_list() {
+  list-style-type: none;
+  counter-reset: li-counter;
+  li {
+    position: relative;
+  }
+  li::before {
+    content: counter(li-counter);
+    counter-increment: li-counter;
+    display: inline-block !important;
+  }
+}
+
+@mixin valign($width: 100%) {
+  position: absolute;
+  top: 50%;
+  width: $width;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+@mixin triangle($width, $dir, $color) {
+  @if $dir == up {
+    width: 0;
+    height: 0;
+    border-left: $width/2 solid transparent;
+    border-right: $width/2 solid transparent;
+    border-bottom: $width/2 solid $color;
+  } @else if $dir == down {
+    width: 0;
+    height: 0;
+    border-left: $width/2 solid transparent;
+    border-right: $width/2 solid transparent;
+    border-top: $width/2 solid $color;
+  } @else if $dir == right {
+    width: 0;
+    height: 0;
+    border-top: $width solid transparent;
+    border-bottom: $width solid transparent;
+    border-left: $width solid $color;
+  } @else if $dir == left {
+    width: 0;
+    height: 0;
+    border-top: $width solid transparent;
+    border-bottom: $width solid transparent;
+    border-right: $width solid $color;
+  }
+}
+
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin placeholder {
+  &::-webkit-input-placeholder {
+    @content
+  }
+  &:-moz-placeholder {
+    @content
+  }
+  &::-moz-placeholder {
+    @content
+  }
+  &:-ms-input-placeholder {
+    @content
+  }
+}

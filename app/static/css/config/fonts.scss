@@ -1,0 +1,45 @@
+$fonts_dir: '../fonts/';
+
+@mixin font($family, $name) {
+  $font_file_path: $fonts_dir + $family;
+
+  @font-face {
+    font-family: $name;
+    src: url($font_file_path + '.eot');
+    src: url($font_file_path + '.eot?#iefix') format('embedded-opentype'),
+    url($font_file_path + '.woff') format('woff'),
+    url($font_file_path + '.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+}
+
+@mixin font-mixin($font_name) {
+  font-family: "#{$font_name}", Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+
+@include font("MyriadPro/Regular", "MyriadPro-Regular");
+@mixin myriad(){
+    @include font-mixin("MyriadPro-Regular");
+}
+
+@include font("MyriadPro/Semibold", "MyriadPro-Semibold");
+@mixin semibold(){
+    @include font-mixin("MyriadPro-Semibold");
+}
+@include font("MyriadPro/Bold", "MyriadPro-Bold");
+@mixin bold(){
+    @include font-mixin("MyriadPro-Bold");
+}
+@include font("MyriadPro/It", "MyriadPro-Italic");
+@mixin italic(){
+  @include font-mixin("MyriadPro-Italic");
+}
+@mixin arial() {
+  font-family: Arial, sans-serif;
+}
+@mixin calibri() {
+  font-family: Calibri, sans-serif;
+}
