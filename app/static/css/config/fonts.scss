@@ -24,22 +24,3 @@ $fonts_dir: '../fonts/';
 @mixin myriad(){
     @include font-mixin("MyriadPro-Regular");
 }
-
-@include font("MyriadPro/Semibold", "MyriadPro-Semibold");
-@mixin semibold(){
-    @include font-mixin("MyriadPro-Semibold");
-}
-@include font("MyriadPro/Bold", "MyriadPro-Bold");
-@mixin bold(){
-    @include font-mixin("MyriadPro-Bold");
-}
-@include font("MyriadPro/It", "MyriadPro-Italic");
-@mixin italic(){
-  @include font-mixin("MyriadPro-Italic");
-}
-@mixin arial() {
-  font-family: Arial, sans-serif;
-}
-@mixin calibri() {
-  font-family: Calibri, sans-serif;
-}

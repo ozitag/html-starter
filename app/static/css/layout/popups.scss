@@ -15,23 +15,6 @@
   background: #fff;
   min-width: 300px;
   min-height: 300px;
-  position: absolute;
   z-index: 100001;
-  left: 50%;
-  top: 50%;
-  margin-top: -150px;
-  margin-left: -150px;
-  &--register,
-  &--search,
-  &--application {
-    margin-top: -300px;
-    margin-left: -330px;
-  }
-  &--cities {
-    margin-top: -225px;
-    margin-left: -125px;
-  }
-  &--write {
-    margin-top: -175px;
-  }
+  @include align;
 }

@@ -1,71 +1,35 @@
-@mixin tablet-and-phone() {
-  @media(max-width: 960px) {
-    @content;
+@mixin clearfix() {
+  &:before,
+  &:after {
+    content: " "; // 1
+    display: table; // 2
+  }
+  &:after {
+    clear: both;
   }
 }
 
-@mixin no-mobile {
-  @media (min-width: 640px) {
-    @content;
-  }
-}
+@mixin align($horizontal: true, $vertical: true, $transform: null) {
+  position: absolute;
 
-@mixin tablet() {
-  @media(min-width: 640px) and (max-width: 959px) {
-    @content;
-  }
-}
+  @if ($horizontal) { left: 50%; }
+  @if ($vertical)   { top: 50%; }
 
-@mixin mobile() {
-  @media (max-width: 639px) {
-    @content;
+  @if ($horizontal and $vertical) {
+    transform: translate(-50%, -50%), $transform;
+  } @else if ($horizontal) {
+    transform: translate(-50%, 0), $transform;
+  } @else {
+    transform: translate(0, -50%), $transform;
   }
-}
-
-@mixin desktop() {
-  @media(min-width: 960px) {
-    @content;
-  }
-}
-
-@mixin sticky-footer($footer-height, $wrapper-selector: unquote("#wrapper"), $container-selector: unquote("#container"), $footer-selector: unquote("#footer")) {
-  html, body {
-    height: 100%;
-  }
-  body {
-    margin: 0;
-    padding: 0;
-  }
-  #{$wrapper-selector} {
-    min-height: 100%;
-    height: auto !important;
-    margin-bottom: -$footer-height;
-    #{$container-selector} {
-      padding: 0 0 $footer-height 0;
-    }
-  }
-  #{$footer-selector} {
-    min-height: $footer-height;
-  }
-}
-
-@mixin link-underline {
-  text-decoration: underline;
-  &:hover {
-    text-decoration: none;
-  }
-}
-
-@mixin rotate($deg:180deg) {
-  transform: rotate($deg);
 }
 
 @mixin digital_list() {
   list-style-type: none;
   counter-reset: li-counter;
-  li {
-    position: relative;
-  }
+
+  li { position: relative; }
+
   li::before {
     content: counter(li-counter);
     counter-increment: li-counter;
@@ -73,12 +37,49 @@
   }
 }
 
-@mixin valign($width: 100%) {
+@mixin fill($digit: 0) {
   position: absolute;
-  top: 50%;
-  width: $width;
-  left: 0;
-  transform: translateY(-50%);
+  top: $digit;
+  bottom: $digit;
+  left: $digit;
+  right: $digit;
+}
+
+@mixin filter() {
+  filter: grayscale(1) brightness(1.15);
+  opacity: .65;
+}
+
+@mixin letter-spacing($photoshop) {
+  letter-spacing: #{$photoshop / 1000}em;
+}
+
+@mixin link-underline {
+  text-decoration: underline;
+  &:hover { text-decoration: none; }
+}
+
+@mixin placeholder {
+  &::-webkit-input-placeholder {
+    @content
+  }
+  &:-moz-placeholder {
+    @content
+  }
+  &::-moz-placeholder {
+    @content
+  }
+  &:-ms-input-placeholder {
+    @content
+  }
+}
+
+@mixin rotate($deg:180deg) {
+  transform: rotate($deg);
+}
+
+@mixin transition($property: all) {
+  transition: $property .3s linear;
 }
 
 @mixin triangle($width, $dir, $color) {
@@ -109,25 +110,63 @@
   }
 }
 
-@mixin clearfix {
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
+@mixin sticky-footer($footer-height, $wrapper-selector: unquote("#wrapper"), $container-selector: unquote("#container"), $footer-selector: unquote("#footer")) {
+  html, body {
+    height: 100%;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  #{$wrapper-selector} {
+    min-height: 100%;
+    height: auto !important;
+    margin-bottom: -$footer-height;
+    #{$container-selector} {
+      padding: 0 0 $footer-height 0;
+    }
+  }
+  #{$footer-selector} {
+    min-height: $footer-height;
   }
 }
 
-@mixin placeholder {
-  &::-webkit-input-placeholder {
-    @content
+@mixin tablet-and-phone() {
+  @media(max-width: 960px) {
+    @content;
   }
-  &:-moz-placeholder {
-    @content
+}
+
+@mixin no-mobile {
+  @media (min-width: 768px) {
+    @content;
   }
-  &::-moz-placeholder {
-    @content
+}
+
+@mixin tablet() {
+  @media(min-width: 768px) and (max-width: 960px) {
+    @content;
   }
-  &:-ms-input-placeholder {
-    @content
+}
+
+@mixin mobile() {
+  @media (max-width: 767px) {
+    @content;
   }
+}
+
+@mixin desktop() {
+  @media(min-width: 960px) {
+    @content;
+  }
+}
+
+@mixin small_desktop() {
+  @media(max-width: 1099px) and (min-width: 1000px) {
+    @content;
+  }
+}
+
+@function hsla-calc ($color, $opacity) {
+  @return hsla(hue($color), saturation($color), lightness($color), $opacity)
 }

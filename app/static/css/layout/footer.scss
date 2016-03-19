@@ -1,3 +1,5 @@
+@include sticky-footer(320px, '.page-wrap', '.page-wrap-inner', '.page-footer');
+
 .page-footer {
-    @include sticky-footer(320px, '.page-wrap', '.page-wrap-inner', '.page-footer');
+
 }
