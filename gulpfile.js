@@ -16,39 +16,6 @@ var gulp = require('gulp'),
     reload = browserSync.reload,
     config = require('./config.json');
 
-// Lint HTML
-gulp.task('htmlhint', function () {
-    return gulp.src(config.tmpPath + '/**/*.html')
-        .pipe(reload({stream: true, once: true}))
-        // TODO: Исключить проверку doctype для папки ajax
-        .pipe($.htmlhint('.htmlhintrc'))
-        .pipe($.htmlhint.reporter());
-});
-
-// Lint CSS
-gulp.task('csslint', function () {
-    return gulp.src([
-        config.tmpPath + '/' + config.stylesPath + '/**/*.css',
-        '!' + config.tmpPath + '/' + config.stylesPath + '/**/*.min.css',
-        '!' + config.tmpPath + '/' + config.stylesPath + '/libs/**'
-    ])
-        .pipe(reload({stream: true, once: true}))
-        .pipe($.csslint('.csslintrc'))
-        .pipe($.csslint.reporter());
-});
-
-// Lint JavaScript
-gulp.task('jshint', function () {
-    return gulp.src([
-        config.sourcePath + '/' + config.scriptsPath + '/**/*.js',
-        '!' + config.sourcePath + '/' + config.scriptsPath + '/**/*.min.js',
-        '!' + config.sourcePath + '/' + config.scriptsPath + '/libs/**/*.js'
-    ])
-        .pipe(reload({stream: true, once: true}))
-        .pipe($.jshint('.jshintrc'))
-        .pipe($.jshint.reporter('jshint-stylish'));
-});
-
 // Optimize images
 gulp.task('images', function () {
     return gulp.src([
@@ -133,6 +100,11 @@ gulp.task('styles', function () {
             console.error('Sass error:', err.message);
         })
         .pipe($.autoprefixer({browsers: config.autoprefixerBrowsers}))
+        // Minify twbs styles
+        .pipe($.if('*.css', $.cssmin(config.cssminOptions)))
+        .pipe($.rename(function (path) {
+            path.basename += '.min'
+        }))
         .pipe(gulp.dest(config.destPath + '/' + config.stylesPath))
         .pipe($.sourcemaps.write())
         .pipe(gulp.dest(config.tmpPath + '/' + config.stylesPath))
@@ -160,8 +132,24 @@ gulp.task('styles:twbs', function () {
 });
 
 // Scripts task
-gulp.task('scripts', function () {
-    return gulp.src(config.sourcePath + '/' + config.scriptsPath + '/**/*.js')
+gulp.task('ui-js', function () {
+    return gulp.src(config.sourcePath + '/' + config.scriptsPath + '/ui.js')
+        .pipe(gulp.dest(config.destPath + '/' + config.scriptsPath))
+        .pipe($.size({title: 'scripts'}));
+});
+
+// Scripts task
+gulp.task('plugins-js', function () {
+    return gulp.src([
+            config.sourcePath + '/' + config.scriptsPath + '/**/*.js',
+            '!' + config.sourcePath + '/' + config.scriptsPath +  '/ui.js'
+        ])
+        // Minify twbs styles
+        .pipe($.if('*.js', $.concat('plugins.js')))
+        .pipe($.if('plugins.js', $.uglify()))
+        .pipe($.rename(function (path) {
+            path.basename += '.min'
+        }))
         .pipe(gulp.dest(config.destPath + '/' + config.scriptsPath))
         .pipe($.size({title: 'scripts'}));
 });
@@ -234,7 +222,7 @@ gulp.task('clear', function (done) {
 });
 
 // Watch files for changes & reload
-gulp.task('serve', ['hbs', 'styles', 'styles:twbs'], function () {
+gulp.task('serve', ['hbs', 'styles', 'styles:twbs', 'ui-js', 'plugins-js'], function () {
     browserSync({
         notify: false,
         // Customize the BrowserSync console logging prefix
@@ -248,7 +236,7 @@ gulp.task('serve', ['hbs', 'styles', 'styles:twbs'], function () {
         server: [config.tmpPath, config.sourcePath]
     });
 
-    gulp.watch([config.sourcePath + '/**/*.html'], ['htmlhint']);
+    gulp.watch([config.sourcePath + '/**/*.html']);
     gulp.watch([config.sourcePath + '/' + config.hbsPath + '/**/*.hbs'], ['watch:hbs']);
     gulp.watch([
         config.sourcePath + '/' + config.stylesPath + '/**/*.{scss, sass, css}',
@@ -259,7 +247,7 @@ gulp.task('serve', ['hbs', 'styles', 'styles:twbs'], function () {
         config.sourcePath + '/' + config.stylesPath + '/libs/twbs.scss',
         config.sourcePath + '/' + config.stylesPath + '/libs/_bootstrap-variables.scss'
     ], ['styles:twbs', reload]);
-    gulp.watch([config.sourcePath + '/' + config.scriptsPath + '/**/*.js'], ['jshint']);
+    gulp.watch([config.sourcePath + '/' + config.scriptsPath + '/**/*.js']);
     gulp.watch([
         config.sourcePath + '/' + config.imagesPath + '/**/*',
         config.sourcePath + '/' + config.contentPath + '/' + config.imagesPath + '/**/*'
@@ -285,7 +273,7 @@ gulp.task('serve:dist', ['default'], function () {
 
 // Build production files, the default task
 gulp.task('default', ['clean'], function (cb) {
-    runSequence('hbs', 'styles', 'styles:twbs', 'scripts', ['lint', 'html', 'images', 'fonts', 'copy'], 'w3cjs', cb);
+    runSequence('hbs', 'styles', 'styles:twbs', 'ui-js', 'plugins-js', ['html', 'images', 'fonts', 'copy'], cb);
 });
 
 // Run PageSpeed Insights
@@ -306,25 +294,15 @@ gulp.task('pagespeed', ['default'], function (cb) {
     });
 });
 
-// Validate HTML
-gulp.task('w3cjs', function () {
-    return;
-    return gulp.src(config.destPath + '/**/*.html')
-        .pipe($.w3cjs(config.w3cjsOptions));
-});
-
 // Helpers
 gulp.task('watch:hbs', function (cb) {
-    runSequence('hbs', 'htmlhint', cb);
+    runSequence('hbs', cb);
 });
 
 gulp.task('watch:styles', function (cb) {
-    runSequence('styles', 'csslint', cb);
+    runSequence('styles', cb);
 });
 
-gulp.task('lint', function (cb) {
-    runSequence('htmlhint', 'csslint', 'jshint', cb);
-});
 
 
 gulp.task('svgSprite', function () {
