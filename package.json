@@ -2,8 +2,9 @@
   "devDependencies": {
     "del": "*",
     "gulp": "3.*",
-    "gulp-sass": "2.*",
-    "gulp-autoprefixer": "3.*"
+    "gulp-size": "*",
+    "gulp-sass": "*",
+    "gulp-autoprefixer": "*"
   },
   "engines": {
     "node": ">=0.10.0"

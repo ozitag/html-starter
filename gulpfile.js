@@ -8,6 +8,7 @@
 var config = require('./config.json');
 var del = require('del');
 var gulp = require('gulp');
+var size = require('gulp-size');
 var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 
@@ -23,5 +24,6 @@ gulp.task('styles', function () {
             browsers: ['last 100 versions'],
             cascade: 1
         }))
-        .pipe(gulp.dest(config.tmpPath + '/css'));
+        .pipe(gulp.dest(config.tmpPath + '/css'))
+        .pipe(size({title: 'styles'}));
 });
