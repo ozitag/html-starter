@@ -1,15 +1,11 @@
-@import "mixins/mixins";
-@import "config/colors";
-@import "config/fonts";
-@import "svg/svg";
-
-$images_dir: '../images/';
-
-
-@import "common";
-
+@import "imports";
 
 @import "layout/header";
 @import "layout/breadcrumbs";
 @import "layout/footer";
 @import "layout/popups";
+
+body{
+  transition: 1s all ease;
+  color: red;
+}

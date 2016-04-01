@@ -1,8 +1,8 @@
 @mixin clearfix() {
   &:before,
   &:after {
-    content: " "; // 1
-    display: table; // 2
+    content: " ";
+    display: table;
   }
   &:after {
     clear: both;
@@ -12,8 +12,12 @@
 @mixin align($horizontal: true, $vertical: true, $transform: null) {
   position: absolute;
 
-  @if ($horizontal) { left: 50%; }
-  @if ($vertical)   { top: 50%; }
+  @if ($horizontal) {
+    left: 50%;
+  }
+  @if ($vertical) {
+    top: 50%;
+  }
 
   @if ($horizontal and $vertical) {
     transform: translate(-50%, -50%), $transform;
@@ -28,7 +32,9 @@
   list-style-type: none;
   counter-reset: li-counter;
 
-  li { position: relative; }
+  li {
+    position: relative;
+  }
 
   li::before {
     content: counter(li-counter);
@@ -56,7 +62,9 @@
 
 @mixin link-underline {
   text-decoration: underline;
-  &:hover { text-decoration: none; }
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 @mixin placeholder {
