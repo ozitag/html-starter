@@ -4,6 +4,7 @@
   "sourcePath": "app",
   "destPath": "dist",
   "hbsPath": "templates",
+  "staticPath": "static",
   "stylesPath": "static/css",
   "scriptsPath": "static/js",
   "imagesPath": "static/images",

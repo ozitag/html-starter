@@ -1,10 +1,16 @@
 {
   "devDependencies": {
     "del": "*",
+    "browser-sync": "*",
+    "run-sequence": "*",
     "gulp": "3.*",
     "gulp-size": "*",
     "gulp-sass": "*",
-    "gulp-autoprefixer": "*"
+    "gulp-autoprefixer": "*",
+    "gulp-copy": "*",
+    "gulp-compile-handlebars": "*",
+    "gulp-plumber": "*",
+    "gulp-rename": "*"
   },
   "engines": {
     "node": ">=0.10.0"
