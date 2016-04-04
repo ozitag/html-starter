@@ -16,7 +16,9 @@
     "jshint-stylish": "*",
     "gulp-csslint": "*",
     "gulp-htmlhint": "*",
-    "gulp-util": "*"
+    "gulp-svg-sprite": "*",
+    "gulp-debug": "*",
+    "gulp-svgmin": "*"
   },
   "engines": {
     "node": ">=0.10.0"

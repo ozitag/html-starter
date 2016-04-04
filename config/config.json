@@ -9,5 +9,6 @@
   "scriptsPath": "static/js",
   "imagesPath": "static/images",
   "fontsPath": "static/fonts",
+  "svgPath": "static/svg",
   "contentPath": "content"
 }

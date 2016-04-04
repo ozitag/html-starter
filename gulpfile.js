@@ -5,7 +5,7 @@
  */
 'use strict';
 
-const config = require('./config.json');
+const config = require('./config/config.json');
 const del = require('del');
 const browserSync = require('browser-sync');
 const reload = browserSync.reload;
@@ -21,7 +21,9 @@ const compileHandlebars = require('gulp-compile-handlebars');
 const jshint = require('gulp-jshint');
 const csslint = require('gulp-csslint');
 const htmlhint = require('gulp-htmlhint');
-const gutil = require('gulp-util');
+const svgSprite = require('gulp-svg-sprite');
+const debug = require('gulp-debug');
+const svgmin = require('gulp-svgmin');
 
 gulp.task('clean',
     del.bind(null, [config.tmpPath, config.destPath], {dot: true})
@@ -35,7 +37,7 @@ gulp.task('styles', function () {
             cascade: 1
         }))
         .pipe(gulp.dest(config.tmpPath + '/static/css'))
-        .pipe(csslint('.csslintrc'))
+        .pipe(csslint('./config/.csslintrc'))
         .pipe(csslint.reporter())
         .pipe(reload({stream: true, once: true}))
         .pipe(size({title: 'styles'}));
@@ -43,19 +45,21 @@ gulp.task('styles', function () {
 
 gulp.task('static', function () {
     return gulp.src([
-        '!./' + config.sourcePath + '/' + config.staticPath + '/css',
-        '!./' + config.sourcePath + '/' + config.staticPath + '/css/**',
-        '!./' + config.sourcePath + '/' + config.staticPath + '/js',
-        '!./' + config.sourcePath + '/' + config.staticPath + '/js/**',
-        './' + config.sourcePath + '/' + config.staticPath + '/**'
-    ])
+            '!./' + config.sourcePath + '/' + config.staticPath + '/css',
+            '!./' + config.sourcePath + '/' + config.staticPath + '/css/**',
+            '!./' + config.sourcePath + '/' + config.staticPath + '/js',
+            '!./' + config.sourcePath + '/' + config.staticPath + '/js/**',
+            '!./' + config.sourcePath + '/' + config.staticPath + '/svg',
+            '!./' + config.sourcePath + '/' + config.staticPath + '/svg/**',
+            './' + config.sourcePath + '/' + config.staticPath + '/**'
+        ])
         .pipe(gulp.dest('./' + config.tmpPath + '/static/'))
         .pipe(reload({stream: true, once: true}));
 });
 
 gulp.task('hintjs', function () {
     return gulp.src(['./' + config.sourcePath + '/' + config.staticPath + '/js/**', '!./' + config.sourcePath + '/' + config.staticPath + '/js/libs/**'])
-        .pipe(jshint('.jshintrc'))
+        .pipe(jshint('./config/.jshintrc'))
         .pipe(jshint.reporter('jshint-stylish'));
 });
 
@@ -101,7 +105,7 @@ gulp.task('hbs', function () {
         .pipe(rename(function (path) {
             path.extname = ".html"
         }))
-        .pipe(htmlhint('.htmlhintrc'))
+        .pipe(htmlhint('./config/.htmlhintrc'))
         .pipe(htmlhint.reporter())
         .pipe(gulp.dest(config.tmpPath + '/html'))
         .pipe(reload({stream: true, once: true}))
@@ -118,20 +122,30 @@ gulp.task('serve', ['hbs', 'static', 'scripts', 'styles'], function () {
     gulp.watch([config.sourcePath + '/' + config.stylesPath + '/**/*.{scss, sass, css}'], ['styles']);
     gulp.watch([config.sourcePath + '/' + config.scriptsPath + '/**/*.js'], ['scripts']);
     gulp.watch([config.sourcePath + '/' + config.hbsPath + '/**/*'], ['hbs']);
+    gulp.watch([config.sourcePath + '/' + config.svgPath + '/src/**/*'], ['svg']);
 });
 
-function htmllintReporter(filepath, issues) {
-    if (issues.length > 0) {
-        issues.forEach(function (issue) {
-            gutil.log(gutil.colors.cyan('[gulp-htmllint] ') + gutil.colors.white(filepath + ' [' + issue.line + ',' + issue.column + ']: ') + gutil.colors.red('(' + issue.code + ') ' + issue.msg));
-        });
-
-        process.exitCode = 1;
-    }
-}
-
-/*
- gulp.task('watch:styles', function (cb) {
- runSequence('styles', 'csslint', cb);
- });
- */
+gulp.task('svg', function () {
+    return gulp.src(config.sourcePath + '/' + config.svgPath + '/**/*.svg')
+        .pipe(svgmin())
+        .pipe(svgSprite({
+            mode: {
+                css: {
+                    "spacing": {
+                        "padding": 5
+                    },
+                    layout: "diagonal",
+                    dest: "./",
+                    sprite: config.tmpPath + "/static/images/svg/sprite.svg",
+                    bust: false,
+                    render: {
+                        "scss": {
+                            "dest": config.sourcePath + '/' + config.stylesPath + "/svg/_sprite.scss",
+                            "template": "./config/sprite-template.scss"
+                        }
+                    }
+                }
+            }
+        }))
+        .pipe(gulp.dest("./"));
+});
