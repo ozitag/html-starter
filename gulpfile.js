@@ -118,7 +118,7 @@ gulp.task('content', function () {
         .pipe(gulp.dest(config.tmpPath + '/html/'));
 });
 
-gulp.task('prepare', ['hbs', 'static', 'scripts', 'styles']);
+gulp.task('prepare', ['hbs', 'static', 'scripts', 'styles', 'svg']);
 
 gulp.task('serve', ['prepare'], function () {
     browserSync({
