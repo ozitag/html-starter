@@ -111,6 +111,11 @@ gulp.task('hbs', function () {
         .pipe(reload({stream: true, once: true}))
 });
 
+gulp.task('content', function () {
+    return gulp.src(config.sourcePath + '/' + config.contentPath + '/**/*')
+        .pipe(gulp.dest(config.tmpPath + '/html/'));
+});
+
 gulp.task('serve', ['hbs', 'static', 'scripts', 'styles'], function () {
     browserSync({
         notify: false,
