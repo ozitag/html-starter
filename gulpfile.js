@@ -24,6 +24,8 @@ const htmlhint = require('gulp-htmlhint');
 const svgSprite = require('gulp-svg-sprite');
 const debug = require('gulp-debug');
 const svgmin = require('gulp-svgmin');
+const imagemin = require('gulp-imagemin');
+const w3cjs = require('gulp-w3cjs');
 
 gulp.task('clean',
     del.bind(null, [config.tmpPath, config.destPath], {dot: true})
@@ -116,7 +118,9 @@ gulp.task('content', function () {
         .pipe(gulp.dest(config.tmpPath + '/html/'));
 });
 
-gulp.task('serve', ['hbs', 'static', 'scripts', 'styles'], function () {
+gulp.task('prepare', ['hbs', 'static', 'scripts', 'styles']);
+
+gulp.task('serve', ['prepare'], function () {
     browserSync({
         notify: false,
         logPrefix: 'WSK',
@@ -154,3 +158,21 @@ gulp.task('svg', function () {
         }))
         .pipe(gulp.dest("./"));
 });
+
+gulp.task('min_images', function () {
+    return gulp.src(config.tmpPath + '/static/images/**/*')
+        .pipe(imagemin({
+            progressive: true
+        }))
+        .pipe(gulp.dest(config.tmpPath + '/static/images'));
+});
+
+gulp.task('dist', function () {
+    return gulp.src(config.tmpPath + '/**/*').pipe(gulp.dest(config.destPath + '/'));
+});
+
+gulp.task('build', function () {
+    runSequence('prepare', 'min_images', 'dist');
+});
+
+gulp.task('default', ['build']);

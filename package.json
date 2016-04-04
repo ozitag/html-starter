@@ -18,7 +18,9 @@
     "gulp-htmlhint": "*",
     "gulp-svg-sprite": "*",
     "gulp-debug": "*",
-    "gulp-svgmin": "*"
+    "gulp-svgmin": "*",
+    "gulp-w3cjs": "*",
+    "gulp-imagemin": "*"
   },
   "engines": {
     "node": ">=0.10.0"
