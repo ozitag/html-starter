@@ -3,6 +3,7 @@
     "del": "*",
     "browser-sync": "*",
     "run-sequence": "*",
+    "jshint": "*",
     "gulp": "3.*",
     "gulp-size": "*",
     "gulp-sass": "*",
@@ -10,7 +11,12 @@
     "gulp-copy": "*",
     "gulp-compile-handlebars": "*",
     "gulp-plumber": "*",
-    "gulp-rename": "*"
+    "gulp-rename": "*",
+    "gulp-jshint": "*",
+    "jshint-stylish": "*",
+    "gulp-csslint": "*",
+    "gulp-htmlhint": "*",
+    "gulp-util": "*"
   },
   "engines": {
     "node": ">=0.10.0"

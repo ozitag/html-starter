@@ -8,6 +8,7 @@
 const config = require('./config.json');
 const del = require('del');
 const browserSync = require('browser-sync');
+const reload = browserSync.reload;
 const runSequence = require('run-sequence');
 const gulp = require('gulp');
 const size = require('gulp-size');
@@ -17,8 +18,11 @@ const plumber = require('gulp-plumber');
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
 const compileHandlebars = require('gulp-compile-handlebars');
+const jshint = require('gulp-jshint');
+const csslint = require('gulp-csslint');
+const htmlhint = require('gulp-htmlhint');
+const gutil = require('gulp-util');
 
-// Clean dist and tmp folder
 gulp.task('clean',
     del.bind(null, [config.tmpPath, config.destPath], {dot: true})
 );
@@ -31,6 +35,9 @@ gulp.task('styles', function () {
             cascade: 1
         }))
         .pipe(gulp.dest(config.tmpPath + '/static/css'))
+        .pipe(csslint('.csslintrc'))
+        .pipe(csslint.reporter())
+        .pipe(reload({stream: true, once: true}))
         .pipe(size({title: 'styles'}));
 });
 
@@ -38,8 +45,24 @@ gulp.task('static', function () {
     return gulp.src([
         '!./' + config.sourcePath + '/' + config.staticPath + '/css',
         '!./' + config.sourcePath + '/' + config.staticPath + '/css/**',
+        '!./' + config.sourcePath + '/' + config.staticPath + '/js',
+        '!./' + config.sourcePath + '/' + config.staticPath + '/js/**',
         './' + config.sourcePath + '/' + config.staticPath + '/**'
-    ]).pipe(gulp.dest('./' + config.tmpPath + '/static/'));
+    ])
+        .pipe(gulp.dest('./' + config.tmpPath + '/static/'))
+        .pipe(reload({stream: true, once: true}));
+});
+
+gulp.task('hintjs', function () {
+    return gulp.src(['./' + config.sourcePath + '/' + config.staticPath + '/js/**', '!./' + config.sourcePath + '/' + config.staticPath + '/js/libs/**'])
+        .pipe(jshint('.jshintrc'))
+        .pipe(jshint.reporter('jshint-stylish'));
+});
+
+gulp.task('scripts', ['hintjs'], function () {
+    return gulp.src(['./' + config.sourcePath + '/' + config.staticPath + '/js/**'])
+        .pipe(gulp.dest(config.tmpPath + '/static/js'))
+        .pipe(reload({stream: true, once: true}));
 });
 
 gulp.task('hbs', function () {
@@ -78,10 +101,13 @@ gulp.task('hbs', function () {
         .pipe(rename(function (path) {
             path.extname = ".html"
         }))
+        .pipe(htmlhint('.htmlhintrc'))
+        .pipe(htmlhint.reporter())
         .pipe(gulp.dest(config.tmpPath + '/html'))
+        .pipe(reload({stream: true, once: true}))
 });
 
-gulp.task('serve', ['hbs', 'static', 'styles'], function () {
+gulp.task('serve', ['hbs', 'static', 'scripts', 'styles'], function () {
     browserSync({
         notify: false,
         logPrefix: 'WSK',
@@ -90,10 +116,22 @@ gulp.task('serve', ['hbs', 'static', 'styles'], function () {
     });
 
     gulp.watch([config.sourcePath + '/' + config.stylesPath + '/**/*.{scss, sass, css}'], ['styles']);
+    gulp.watch([config.sourcePath + '/' + config.scriptsPath + '/**/*.js'], ['scripts']);
+    gulp.watch([config.sourcePath + '/' + config.hbsPath + '/**/*'], ['hbs']);
 });
 
+function htmllintReporter(filepath, issues) {
+    if (issues.length > 0) {
+        issues.forEach(function (issue) {
+            gutil.log(gutil.colors.cyan('[gulp-htmllint] ') + gutil.colors.white(filepath + ' [' + issue.line + ',' + issue.column + ']: ') + gutil.colors.red('(' + issue.code + ') ' + issue.msg));
+        });
+
+        process.exitCode = 1;
+    }
+}
+
 /*
-gulp.task('watch:styles', function (cb) {
-    runSequence('styles', 'csslint', cb);
-});
-*/
+ gulp.task('watch:styles', function (cb) {
+ runSequence('styles', 'csslint', cb);
+ });
+ */
