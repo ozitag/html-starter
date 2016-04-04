@@ -38,7 +38,7 @@ gulp.task('styles', function () {
             browsers: ['last 100 versions'],
             cascade: 1
         }))
-        .pipe(gulp.dest(config.tmpPath + '/static/css'))
+        .pipe(gulp.dest(config.tmpPath + '/' + config.staticPath + '/css'))
         .pipe(csslint('./config/.csslintrc'))
         .pipe(csslint.reporter())
         .pipe(reload({stream: true, once: true}))
@@ -55,7 +55,7 @@ gulp.task('static', function () {
             '!./' + config.sourcePath + '/' + config.staticPath + '/svg/**',
             './' + config.sourcePath + '/' + config.staticPath + '/**'
         ])
-        .pipe(gulp.dest('./' + config.tmpPath + '/static/'))
+        .pipe(gulp.dest('./' + config.tmpPath + '/' + config.staticPath + '/'))
         .pipe(reload({stream: true, once: true}));
 });
 
@@ -67,7 +67,7 @@ gulp.task('hintjs', function () {
 
 gulp.task('scripts', ['hintjs'], function () {
     return gulp.src(['./' + config.sourcePath + '/' + config.staticPath + '/js/**'])
-        .pipe(gulp.dest(config.tmpPath + '/static/js'))
+        .pipe(gulp.dest(config.tmpPath + '/' + config.staticPath + '/js'))
         .pipe(reload({stream: true, once: true}));
 });
 
@@ -145,7 +145,7 @@ gulp.task('svg', function () {
                     },
                     layout: "diagonal",
                     dest: "./",
-                    sprite: config.tmpPath + "/static/images/svg/sprite.svg",
+                    sprite: config.tmpPath + '/' + config.staticPath + '/images/svg/sprite.svg',
                     bust: false,
                     render: {
                         "scss": {
@@ -160,11 +160,11 @@ gulp.task('svg', function () {
 });
 
 gulp.task('min_images', function () {
-    return gulp.src(config.tmpPath + '/static/images/**/*')
+    return gulp.src(config.tmpPath + '/' + config.staticPath + '/images/**/*')
         .pipe(imagemin({
             progressive: true
         }))
-        .pipe(gulp.dest(config.tmpPath + '/static/images'));
+        .pipe(gulp.dest(config.tmpPath + '/' + config.staticPath + '/images'));
 });
 
 gulp.task('dist', function () {
