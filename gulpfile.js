@@ -118,7 +118,9 @@ gulp.task('content', function () {
         .pipe(gulp.dest(config.tmpPath + '/html/'));
 });
 
-gulp.task('prepare', ['hbs', 'static', 'scripts', 'styles', 'svg']);
+gulp.task('prepare', ['clean'], function () {
+    runSequence('hbs', 'static', 'scripts', 'styles', 'svg');
+});
 
 gulp.task('serve', ['prepare'], function () {
     browserSync({
@@ -128,10 +130,12 @@ gulp.task('serve', ['prepare'], function () {
         server: [config.tmpPath, config.sourcePath]
     });
 
+    console.log(config.sourcePath + '/' + config.svgPath + '/**/*');
+
     gulp.watch([config.sourcePath + '/' + config.stylesPath + '/**/*.{scss, sass, css}'], ['styles']);
     gulp.watch([config.sourcePath + '/' + config.scriptsPath + '/**/*.js'], ['scripts']);
     gulp.watch([config.sourcePath + '/' + config.hbsPath + '/**/*'], ['hbs']);
-    gulp.watch([config.sourcePath + '/' + config.svgPath + '/src/**/*'], ['svg']);
+    gulp.watch([config.sourcePath + '/' + config.svgPath + '/*.svg'], ['svg']);
 });
 
 gulp.task('svg', function () {
@@ -171,8 +175,13 @@ gulp.task('dist', function () {
     return gulp.src(config.tmpPath + '/**/*').pipe(gulp.dest(config.destPath + '/'));
 });
 
+gulp.task('dist_content', function () {
+    return gulp.src(config.sourcePath + '/' + config.contentPath + '/**/*')
+        .pipe(gulp.dest(config.destPath + '/' + config.contentPath));
+});
+
 gulp.task('build', function () {
-    runSequence('prepare', 'min_images', 'dist');
+    runSequence('clean', 'hbs', 'static', 'scripts', 'styles', 'svg', 'min_images', 'dist', 'dist_content');
 });
 
 gulp.task('default', ['build']);
