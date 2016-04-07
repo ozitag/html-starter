@@ -20,7 +20,9 @@
     "gulp-debug": "*",
     "gulp-svgmin": "*",
     "gulp-w3cjs": "*",
-    "gulp-imagemin": "*"
+    "gulp-imagemin": "*",
+    "gulp-ftp": "*",
+    "gulp-util": "*"
   },
   "engines": {
     "node": ">=0.10.0"
