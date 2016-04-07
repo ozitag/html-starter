@@ -26,6 +26,8 @@ const debug = require('gulp-debug');
 const svgmin = require('gulp-svgmin');
 const imagemin = require('gulp-imagemin');
 const w3cjs = require('gulp-w3cjs');
+const ftp = require('gulp-ftp');
+const gutil = require('gulp-util');
 
 gulp.task('clean',
     del.bind(null, [config.tmpPath, config.destPath], {dot: true})
@@ -184,4 +186,23 @@ gulp.task('build', function () {
     runSequence('clean', 'hbs', 'static', 'scripts', 'styles', 'svg', 'min_images', 'dist', 'dist_content');
 });
 
-gulp.task('default', ['build']);
+gulp.task('default', function () {
+    runSequence('clean', 'hbs', 'static', 'scripts', 'styles', 'svg', 'min_images', 'dist', 'dist_content', 'ftp')
+});
+
+gulp.task('ftp', function () {
+    var ftpConfig = 'ftp' in config ? config.ftp : null;
+
+    if (ftpConfig === null || ftpConfig.enabled == false) {
+        return;
+    }
+
+    return gulp.src(config.destPath + '/**/*')
+        .pipe(ftp({
+            host: ftpConfig.host,
+            user: ftpConfig.login,
+            pass: ftpConfig.password,
+            remotePath: ftpConfig.remotePath
+        }))
+        .pipe(gutil.noop());
+});

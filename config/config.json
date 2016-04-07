@@ -10,5 +10,12 @@
   "imagesPath": "static/images",
   "fontsPath": "static/fonts",
   "svgPath": "static/svg",
-  "contentPath": "content"
+  "contentPath": "content",
+  "ftp": {
+    "enabled": false,
+    "host": "FTP.ozis.by",
+    "login": "ozisby",
+    "password": "Kee6ohmo",
+    "remotePath": "/projects/diold.ozis.by"
+  }
 }
