@@ -2,7 +2,7 @@
     "use strict";
 
     var MOBILE_WIDTH = 767;
-    var TABLET_WIDTH = 960;
+    var TABLET_WIDTH = 1180;
 
     var Layout = {
         _listeners: [],

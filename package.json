@@ -22,7 +22,11 @@
     "gulp-w3cjs": "*",
     "gulp-imagemin": "*",
     "gulp-ftp": "*",
-    "gulp-util": "*"
+    "gulp-util": "*",
+    "gulp-concat": "*",
+    "gulp-uglifyjs": "*",
+    "gulp-html-replace": "*",
+    "gulp-cssmin": "*"
   },
   "engines": {
     "node": ">=0.10.0"

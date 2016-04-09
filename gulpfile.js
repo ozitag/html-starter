@@ -7,6 +7,7 @@
 
 const config = require('./config/config.json');
 const del = require('del');
+const fs = require('fs');
 const browserSync = require('browser-sync');
 const reload = browserSync.reload;
 const runSequence = require('run-sequence');
@@ -28,6 +29,10 @@ const imagemin = require('gulp-imagemin');
 const w3cjs = require('gulp-w3cjs');
 const ftp = require('gulp-ftp');
 const gutil = require('gulp-util');
+const concat = require('gulp-concat');
+const uglify = require('gulp-uglifyjs');
+const htmlReplace = require('gulp-html-replace');
+const cssmin = require('gulp-cssmin');
 
 gulp.task('clean',
     del.bind(null, [config.tmpPath, config.destPath], {dot: true})
@@ -69,7 +74,7 @@ gulp.task('hintjs', function () {
 
 gulp.task('scripts', ['hintjs'], function () {
     return gulp.src(['./' + config.sourcePath + '/' + config.staticPath + '/js/**'])
-        .pipe(gulp.dest(config.tmpPath + '/' + config.staticPath + '/js'))
+        .pipe(gulp.dest(config.tmpPath + '/' + config.staticPath + '/js/'))
         .pipe(reload({stream: true, once: true}));
 });
 
@@ -132,8 +137,6 @@ gulp.task('serve', ['prepare'], function () {
         server: [config.tmpPath, config.sourcePath]
     });
 
-    console.log(config.sourcePath + '/' + config.svgPath + '/**/*');
-
     gulp.watch([config.sourcePath + '/' + config.stylesPath + '/**/*.{scss, sass, css}'], ['styles']);
     gulp.watch([config.sourcePath + '/' + config.scriptsPath + '/**/*.js'], ['scripts']);
     gulp.watch([config.sourcePath + '/' + config.hbsPath + '/**/*'], ['hbs']);
@@ -174,7 +177,10 @@ gulp.task('min_images', function () {
 });
 
 gulp.task('dist', function () {
-    return gulp.src(config.tmpPath + '/**/*').pipe(gulp.dest(config.destPath + '/'));
+    return gulp.src([
+        config.tmpPath + '/**/*',
+        '!' + config.tmpPath + '/' + config.scriptsPath + '/**/*'
+    ]).pipe(gulp.dest(config.destPath + '/'));
 });
 
 gulp.task('dist_content', function () {
@@ -182,12 +188,57 @@ gulp.task('dist_content', function () {
         .pipe(gulp.dest(config.destPath + '/' + config.contentPath));
 });
 
+gulp.task('prepare_js', function () {
+    const dir = config.tmpPath + '/' + config.scriptsPath + '/';
+    const libsDir = dir + 'libs/';
+
+    const result = [].concat(libsDir + 'jquery.js', fs.readdirSync(libsDir).filter(function (filename) {
+        return filename != 'jquery.js' && filename != 'jquery.min.js';
+    }).map(function (filename) {
+        return libsDir + filename;
+    }), fs.readdirSync(dir).filter(function (filename) {
+        return filename !== 'libs';
+    }).sort(function (a, b) {
+        if (a == 'helpers')return -1;
+        if (b == 'helpers')return 1;
+        return 0;
+    }).map(function (filename) {
+        return dir + filename
+    }).filter(function (filename) {
+        return fs.statSync(filename).isDirectory();
+    }).map(function (filename) {
+        return filename + '/**/*.js';
+    }), dir + '*.js');
+
+    const buildPath = config.destPath + '/' + config.scriptsPath + '/';
+    return gulp.src(result)
+        .pipe(concat('all.js'))
+        .pipe(gulp.dest(buildPath))
+        .pipe(uglify())
+        .pipe(rename('all.min.js'))
+        .pipe(gulp.dest(buildPath))
+});
+
+gulp.task('prepare_html', function () {
+    return gulp.src(config.destPath + '/html/**/*.html')
+        .pipe(htmlReplace({
+            scripts: '../' + config.scriptsPath + '/all.min.js'
+        }))
+        .pipe(gulp.dest(config.destPath + '/html/'));
+});
+
+gulp.task('prepare_css', function () {
+    return gulp.src(config.destPath + '/' + config.stylesPath + '/**/*.css')
+        .pipe(cssmin())
+        .pipe(gulp.dest(config.destPath + '/' + config.stylesPath))
+});
+
 gulp.task('build', function () {
-    runSequence('clean', 'hbs', 'static', 'scripts', 'styles', 'svg', 'min_images', 'dist', 'dist_content');
+    runSequence('clean', 'hbs', 'static', 'scripts', 'styles', 'svg', 'min_images', 'dist', 'dist_content', 'prepare_html', 'prepare_css', 'prepare_js');
 });
 
 gulp.task('default', function () {
-    runSequence('clean', 'hbs', 'static', 'scripts', 'styles', 'svg', 'min_images', 'dist', 'dist_content', 'ftp')
+    runSequence('clean', 'hbs', 'static', 'scripts', 'styles', 'svg', 'min_images', 'dist', 'dist_content', 'prepare_html', 'prepare_css', 'prepare_js', 'ftp')
 });
 
 gulp.task('ftp', function () {

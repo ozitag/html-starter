@@ -1,4 +1,4 @@
-(function () {
+(function (global) {
 
     'use strict';
 
@@ -7,6 +7,8 @@
         $overlay: null,
 
         $popup: null,
+
+        listeners: {},
 
         showOverlay: function (callback) {
             this.$overlay.fadeIn(callback);
@@ -29,23 +31,38 @@
         open: function (url) {
             var that = this;
 
+            if (this.$popup && this.$popup.length) {
+                that.hide();
+            }
+
             this.showOverlay(function () {
                 that.$popup = that.createInstance();
                 $.get(url, function (response) {
                     that.$popup.html(response);
+
+                    var popupId = that.$popup.find('.popup').data('popup-id');
+
+                    if (popupId in that.listeners) {
+                        var listeners = that.listeners[popupId];
+                        for (var i = 0; i < listeners.length; i++) {
+                            listeners[i](that.$popup);
+                        }
+                    }
                 });
             });
         },
 
         hide: function () {
-            this.$popup.remove();
+            if (this.$popup) {
+                this.$popup.remove();
+            }
             this.hideOverlay();
         },
 
         bindEvents: function () {
             var that = this;
 
-            $('[data-popup-ajax]').on('click', function () {
+            $('body').on('click', '[data-popup-ajax]', function () {
                 Popups.open($(this).data('popup-ajax'));
                 return false;
             });
@@ -63,6 +80,15 @@
             });
         },
 
+
+        addListener: function (popupId, callback) {
+            if (popupId in this.listeners === false) {
+                this.listeners[popupId] = [];
+            }
+
+            this.listeners[popupId].push(callback);
+        },
+
         Init: function () {
             this.$overlay = $('<div/>').addClass('popup-overlay').appendTo($('body'));
 
@@ -70,7 +96,5 @@
         }
     };
 
-    $(function () {
-        Popups.Init();
-    });
-})();
+    global.Popups = Popups;
+})(window);
