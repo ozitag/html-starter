@@ -82,14 +82,19 @@ gulp.task('scripts', ['hintjs'], function () {
 
 gulp.task('fix_js_src', function () {
     return gulp.src(config.tmpPath + '/html/**/*.html')
-        .pipe(cheerio(function ($) {
-            $('script').each(function () {
-                var src = $(this).attr('src');
-                if (src.substr(0, 5) !== 'http:' && src.substr(0, 6) !== 'https:') {
-                    src = '/' + config.scriptsPath + '/' + src;
-                }
-                $(this).attr('src', src);
-            });
+        .pipe(cheerio({
+            run: function ($) {
+                $('script').each(function () {
+                    var src = $(this).attr('src');
+                    if (src.substr(0, 5) !== 'http:' && src.substr(0, 6) !== 'https:') {
+                        src = '/' + config.scriptsPath + '/' + src;
+                    }
+                    $(this).attr('src', src);
+                });
+            },
+            parserOptions: {
+                decodeEntities: false
+            }
         }))
         .pipe(gulp.dest(config.tmpPath + '/html/'));
 });
