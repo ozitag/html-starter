@@ -33,6 +33,7 @@ const concat = require('gulp-concat');
 const uglify = require('gulp-uglifyjs');
 const htmlReplace = require('gulp-html-replace');
 const cssmin = require('gulp-cssmin');
+const domSrc = require('gulp-dom-src');
 
 gulp.task('clean',
     del.bind(null, [config.tmpPath, config.destPath], {dot: true})
@@ -189,34 +190,14 @@ gulp.task('dist_content', function () {
 });
 
 gulp.task('prepare_js', function () {
-    const dir = config.tmpPath + '/' + config.scriptsPath + '/';
-    const libsDir = dir + 'libs/';
-
-    const result = [].concat(libsDir + 'jquery.js', fs.readdirSync(libsDir).filter(function (filename) {
-        return filename != 'jquery.js' && filename != 'jquery.min.js';
-    }).map(function (filename) {
-        return libsDir + filename;
-    }), fs.readdirSync(dir).filter(function (filename) {
-        return filename !== 'libs';
-    }).sort(function (a, b) {
-        if (a == 'helpers')return -1;
-        if (b == 'helpers')return 1;
-        return 0;
-    }).map(function (filename) {
-        return dir + filename
-    }).filter(function (filename) {
-        return fs.statSync(filename).isDirectory();
-    }).map(function (filename) {
-        return filename + '/**/*.js';
-    }), dir + '*.js');
-
     const buildPath = config.destPath + '/' + config.scriptsPath + '/';
-    return gulp.src(result)
+
+    return domSrc({file: config.tmpPath + '/html/home.html', selector: 'script', attribute: 'src'})
         .pipe(concat('all.js'))
         .pipe(gulp.dest(buildPath))
         .pipe(uglify())
         .pipe(rename('all.min.js'))
-        .pipe(gulp.dest(buildPath))
+        .pipe(gulp.dest(buildPath));
 });
 
 gulp.task('prepare_html', function () {

@@ -26,7 +26,8 @@
     "gulp-concat": "*",
     "gulp-uglifyjs": "*",
     "gulp-html-replace": "*",
-    "gulp-cssmin": "*"
+    "gulp-cssmin": "*",
+    "gulp-dom-src": "*"
   },
   "engines": {
     "node": ">=0.10.0"
