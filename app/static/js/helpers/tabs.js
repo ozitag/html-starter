@@ -54,7 +54,7 @@
 
     $.fn.tabs = function (options) {
         $(this).each(function () {
-            new Tabs($(this), options)
+            new Tabs($(this), options);
         });
     };
 
