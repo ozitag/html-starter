@@ -27,7 +27,8 @@
     "gulp-uglifyjs": "*",
     "gulp-html-replace": "*",
     "gulp-cssmin": "*",
-    "gulp-dom-src": "*"
+    "gulp-dom-src": "*",
+    "gulp-cheerio": "*"
   },
   "engines": {
     "node": ">=0.10.0"

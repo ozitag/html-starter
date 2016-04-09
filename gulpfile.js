@@ -34,6 +34,7 @@ const uglify = require('gulp-uglifyjs');
 const htmlReplace = require('gulp-html-replace');
 const cssmin = require('gulp-cssmin');
 const domSrc = require('gulp-dom-src');
+const cheerio = require('gulp-cheerio');
 
 gulp.task('clean',
     del.bind(null, [config.tmpPath, config.destPath], {dot: true})
@@ -79,6 +80,19 @@ gulp.task('scripts', ['hintjs'], function () {
         .pipe(reload({stream: true, once: true}));
 });
 
+gulp.task('fix_js_src', function () {
+    return gulp.src(config.tmpPath + '/html/**/*.html')
+        .pipe(cheerio(function ($) {
+            $('script').each(function () {
+                var src = $(this).attr('src');
+                if (src.substr(0, 5) !== 'http:' && src.substr(0, 6) !== 'https:') {
+                    src = '/' + config.scriptsPath + '/' + src;
+                }
+                $(this).attr('src', src);
+            });
+        }))
+        .pipe(gulp.dest(config.tmpPath + '/html/'));
+});
 gulp.task('hbs', function () {
     const data = {
             title: config.appName
@@ -120,6 +134,10 @@ gulp.task('hbs', function () {
         .pipe(gulp.dest(config.tmpPath + '/html'))
         .pipe(reload({stream: true, once: true}))
 });
+gulp.task('build_html', function () {
+    runSequence('hbs', 'fix_js_src');
+});
+
 
 gulp.task('content', function () {
     return gulp.src(config.sourcePath + '/' + config.contentPath + '/**/*')
@@ -127,7 +145,7 @@ gulp.task('content', function () {
 });
 
 gulp.task('prepare', ['clean'], function () {
-    runSequence('hbs', 'static', 'scripts', 'styles', 'svg');
+    runSequence('hbs', 'fix_js_src', 'static', 'scripts', 'styles', 'svg');
 });
 
 gulp.task('serve', ['prepare'], function () {
@@ -140,7 +158,7 @@ gulp.task('serve', ['prepare'], function () {
 
     gulp.watch([config.sourcePath + '/' + config.stylesPath + '/**/*.{scss, sass, css}'], ['styles']);
     gulp.watch([config.sourcePath + '/' + config.scriptsPath + '/**/*.js'], ['scripts']);
-    gulp.watch([config.sourcePath + '/' + config.hbsPath + '/**/*'], ['hbs']);
+    gulp.watch([config.sourcePath + '/' + config.hbsPath + '/**/*'], ['build_html']);
     gulp.watch([config.sourcePath + '/' + config.svgPath + '/*.svg'], ['svg']);
 });
 
@@ -189,6 +207,7 @@ gulp.task('dist_content', function () {
         .pipe(gulp.dest(config.destPath + '/' + config.contentPath));
 });
 
+
 gulp.task('prepare_js', function () {
     const buildPath = config.destPath + '/' + config.scriptsPath + '/';
 
@@ -215,11 +234,11 @@ gulp.task('prepare_css', function () {
 });
 
 gulp.task('build', function () {
-    runSequence('clean', 'hbs', 'static', 'scripts', 'styles', 'svg', 'min_images', 'dist', 'dist_content', 'prepare_html', 'prepare_css', 'prepare_js');
+    runSequence('clean', 'hbs', 'fix_js_src', 'static', 'scripts', 'styles', 'svg', 'min_images', 'dist', 'dist_content', 'prepare_html', 'prepare_css', 'prepare_js');
 });
 
 gulp.task('default', function () {
-    runSequence('clean', 'hbs', 'static', 'scripts', 'styles', 'svg', 'min_images', 'dist', 'dist_content', 'prepare_html', 'prepare_css', 'prepare_js', 'ftp')
+    runSequence('clean', 'hbs', 'fix_js_src', 'static', 'scripts', 'styles', 'svg', 'min_images', 'dist', 'dist_content', 'prepare_html', 'prepare_css', 'prepare_js', 'ftp')
 });
 
 gulp.task('ftp', function () {
