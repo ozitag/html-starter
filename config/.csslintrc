@@ -16,7 +16,7 @@
     "ids": false,
     "import": false,
     "important": false,
-    "known-properties": true,
+    "known-properties": false,
     "outline-none": false,
     "overqualified-elements": false,
     "qualified-headings": false,
@@ -26,7 +26,7 @@
     "text-indent": false,
     "underscore-property-hack": true,
     "unique-headings": false,
-    "universal-selector": true,
+    "universal-selector": false,
     "unqualified-attributes": false,
     "vendor-prefix": false,
     "zero-units": false
