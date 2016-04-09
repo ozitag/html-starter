@@ -11,8 +11,6 @@
             }
         }, options);
 
-        console.log(options);
-
         var $tabButtons = this.$elem.find(options.tabsSelector);
         if ($tabButtons.length === 0) {
             return;
