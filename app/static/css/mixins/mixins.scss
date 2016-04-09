@@ -178,3 +178,9 @@
 @function hsla-calc ($color, $opacity) {
   @return hsla(hue($color), saturation($color), lightness($color), $opacity)
 }
+
+@mixin png-icon($name, $width, $height) {
+  background: url($images_dir + $name + ".png")no-repeat;
+  width: $width + px;
+  height: $height + px;
+}
