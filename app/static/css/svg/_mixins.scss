@@ -172,7 +172,7 @@ $sprite: map-get($icons, sprite) !default;
 /// .lt-ie9 .class:hover {
 /// 	background-position: -36px -36px;
 /// }
-@mixin sprite($icon, $display: block, $type: all) {
+@mixin sprite($icon, $display: block, $type: all, $width: auto, $height: auto) {
   @if $type == all {
     // Shares the backgrounds
 
@@ -186,8 +186,16 @@ $sprite: map-get($icons, sprite) !default;
 
   // Outputs dimensions in em
   @if $type == all or $type == size {
-    width: mq-px2em(map-get($iconMap, width));
-    height: mq-px2em(map-get($iconMap, height));
+    @if ($width == auto) {
+      width: mq-px2em(map-get($iconMap, width));
+    } @else {
+      width: $width;
+    }
+    @if ($height == auto) {
+      height: mq-px2em(map-get($iconMap, height));
+    } @else {
+      height: $height;
+    }
   }
 
   // Outputs background position in em
@@ -203,9 +211,9 @@ $sprite: map-get($icons, sprite) !default;
   }
 }
 
-@mixin sprite_hover_opacity($icon, $percent){
+@mixin sprite_hover_opacity($icon, $percent) {
   @include sprite($icon);
-  &:hover{
+  &:hover {
     opacity: $percent / 100;
   }
 }
