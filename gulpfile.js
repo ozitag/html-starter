@@ -86,6 +86,9 @@ gulp.task('fix_js_src', function () {
             run: function ($) {
                 $('script').each(function () {
                     var src = $(this).attr('src');
+					if(!src){
+                        return;
+                    }
                     if (src.substr(0, 5) !== 'http:' && src.substr(0, 6) !== 'https:') {
                         src = '../' + config.scriptsPath + '/' + src;
                     }
