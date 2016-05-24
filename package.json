@@ -29,7 +29,8 @@
     "gulp-html-replace": "*",
     "gulp-cssmin": "*",
     "gulp-dom-src": "*",
-    "gulp-cheerio": "*"
+    "gulp-cheerio": "*",
+    "gulp-trim": "^1.0.2"
   },
   "engines": {
     "node": ">=0.10.0"

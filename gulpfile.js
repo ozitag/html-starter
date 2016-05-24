@@ -36,6 +36,7 @@ const cssmin = require('gulp-cssmin');
 const domSrc = require('gulp-dom-src');
 const cheerio = require('gulp-cheerio');
 const Finder = require('fs-finder');
+const trim = require('gulp-trim');
 
 gulp.task('clean',
     del.bind(null, [config.tmpPath, config.destPath], {dot: true})
@@ -137,6 +138,7 @@ gulp.task('hbs', function () {
         }))
         .pipe(htmlhint('./config/.htmlhintrc'))
         .pipe(htmlhint.reporter())
+        .pipe(trim())
         .pipe(gulp.dest(config.tmpPath + '/html'))
         .pipe(reload({stream: true, once: true}))
 });
@@ -251,7 +253,7 @@ gulp.task('prepare_meta', function () {
 
     for (var i = 0; i < templates.length; i++) {
         var template_path = templates[i];
-        var template_p = template_path.lastIndexOf("/");
+        var template_p = Math.max(template_path.lastIndexOf("/"), template_path.lastIndexOf("\\"));
         var template_fileName = template_path.substr(template_p + 1);
         var template_desc = template_fileName.substring(template_fileName, template_fileName.lastIndexOf('.'));
 
@@ -280,7 +282,7 @@ gulp.task('prepare_meta', function () {
         dirPath = dirPath.replace("\\", '/', dirPath);
 
         html += '<div class="col-md-3 col-sm-4 col-xs-12"> ' +
-            '<div class="page-default__item_title">'+ id +'</div>' +
+            '<div class="page-default__item_title">' + id + '</div>' +
             '<a class="page-default__item js-hover-item" title="' + id + '" href="' + htmlPath + '" style="background: url(/' + dirPath + ')no-repeat top center;"></a>' +
             ' </div>';
     }
@@ -290,7 +292,10 @@ gulp.task('prepare_meta', function () {
 });
 
 gulp.task('copyMetaFiles', function () {
-    return gulp.src(config.sourcePath + '/' + config.metaPath + '/*.{png,jpg,jpeg}')
+    return gulp.src(config.sourcePath + '/' + config.metaPath + '/*')
+        .pipe(imagemin({
+            progressive: true
+        }))
         .pipe(gulp.dest(config.destPath + '/' + config.metaPath));
 });
 
