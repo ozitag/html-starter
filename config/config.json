@@ -1,5 +1,6 @@
 {
   "appName": "blakit:APP_NAME",
+  "siteNmae": "Site name",
   "tmpPath": ".tmp",
   "sourcePath": "app",
   "destPath": "dist",
@@ -11,6 +12,7 @@
   "fontsPath": "static/fonts",
   "svgPath": "static/svg",
   "contentPath": "content",
+  "metaPath": ".meta",
   "ftp": {
     "enabled": false,
     "host": "FTP.ozis.by",

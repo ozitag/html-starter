@@ -1,6 +1,7 @@
 {
   "devDependencies": {
     "del": "*",
+    "fs-finder": "^1.8.1",
     "browser-sync": "*",
     "run-sequence": "*",
     "jshint": "*",

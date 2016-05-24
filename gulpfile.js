@@ -35,6 +35,7 @@ const htmlReplace = require('gulp-html-replace');
 const cssmin = require('gulp-cssmin');
 const domSrc = require('gulp-dom-src');
 const cheerio = require('gulp-cheerio');
+const Finder = require('fs-finder');
 
 gulp.task('clean',
     del.bind(null, [config.tmpPath, config.destPath], {dot: true})
@@ -86,9 +87,6 @@ gulp.task('fix_js_src', function () {
             run: function ($) {
                 $('script').each(function () {
                     var src = $(this).attr('src');
-					if(!src){
-                        return;
-                    }
                     if (src.substr(0, 5) !== 'http:' && src.substr(0, 6) !== 'https:') {
                         src = '../' + config.scriptsPath + '/' + src;
                     }
@@ -168,6 +166,7 @@ gulp.task('serve', ['prepare'], function () {
     gulp.watch([config.sourcePath + '/' + config.scriptsPath + '/**/*.js'], ['scripts']);
     gulp.watch([config.sourcePath + '/' + config.hbsPath + '/**/*'], ['build_html']);
     gulp.watch([config.sourcePath + '/' + config.svgPath + '/*.svg'], ['svg']);
+    gulp.watch([config.sourcePath + '/' + config.metaPath + '/*.{png,jpg,jpeg}'], ['prepare_meta']);
 });
 
 gulp.task('svg', function () {
@@ -241,13 +240,60 @@ gulp.task('prepare_css', function () {
         .pipe(gulp.dest(config.destPath + '/' + config.stylesPath))
 });
 
-gulp.task('build', function () {
-    runSequence('clean', 'hbs', 'fix_js_src', 'static', 'scripts', 'styles', 'svg', 'min_images', 'dist', 'dist_content', 'prepare_html', 'prepare_css', 'prepare_js');
+
+gulp.task('prepare_meta', function () {
+    var files = Finder.in('./app/.meta/').findFiles();
+    var templates = Finder.in('./app/templates/').findFiles();
+
+    var html = "";
+
+    var pageNames = {};
+
+    for (var i = 0; i < templates.length; i++) {
+        var template_path = templates[i];
+        var template_p = template_path.lastIndexOf("/");
+        var template_fileName = template_path.substr(template_p + 1);
+        var template_desc = template_fileName.substring(template_fileName, template_fileName.lastIndexOf('.'));
+
+        if (template_desc == 'index') {
+            continue;
+        }
+
+        var file = fs.readFileSync(templates[i]).toString();
+
+        if (file.indexOf('{{!') != -1) {
+            pageNames[template_desc] = file.substring(3, file.indexOf("}}"));
+        }
+    }
+
+    for (var j = 0; j < files.length; j++) {
+        var path = files[j];
+
+        var dir = path.indexOf('.meta');
+        var dirPath = path.substr(dir);
+        var p = path.lastIndexOf("/");
+        var fileName = path.substr(p + 1);
+        var desc = fileName.substring(fileName.lastIndexOf('_') + 1, fileName.lastIndexOf('.'));
+        var htmlPath = desc + '.html';
+        var id = pageNames[desc];
+
+        dirPath = dirPath.replace("\\", '/', dirPath);
+
+        html += '<div class="col-md-3 col-sm-4 col-xs-12"> ' +
+            '<div class="page-default__item_title">'+ id +'</div>' +
+            '<a class="page-default__item js-hover-item" title="' + id + '" href="' + htmlPath + '" style="background: url(/' + dirPath + ')no-repeat top center;"></a>' +
+            ' </div>';
+    }
+
+    var templateFile = fs.readFileSync('./config/template.html').toString();
+    fs.writeFile(config.destPath + '/' + 'html/index.html', templateFile.replace('{{items}}', html).replace(/{{siteName}}/g, config.siteName));
 });
 
-gulp.task('default', function () {
-    runSequence('clean', 'hbs', 'fix_js_src', 'static', 'scripts', 'styles', 'svg', 'min_images', 'dist', 'dist_content', 'prepare_html', 'prepare_css', 'prepare_js', 'ftp')
+gulp.task('copyMetaFiles', function () {
+    return gulp.src(config.sourcePath + '/' + config.metaPath + '/*.{png,jpg,jpeg}')
+        .pipe(gulp.dest(config.destPath + '/' + config.metaPath));
 });
+
 
 gulp.task('ftp', function () {
     var ftpConfig = 'ftp' in config ? config.ftp : null;
@@ -256,7 +302,7 @@ gulp.task('ftp', function () {
         return;
     }
 
-    return gulp.src(config.destPath + '/**/*')
+    return gulp.src([config.destPath + '/**/*', '!**/.git/**'], {dot: true})
         .pipe(ftp({
             host: ftpConfig.host,
             user: ftpConfig.login,
@@ -264,4 +310,12 @@ gulp.task('ftp', function () {
             remotePath: ftpConfig.remotePath
         }))
         .pipe(gutil.noop());
+});
+
+gulp.task('build', function () {
+    runSequence('clean', 'hbs', 'fix_js_src', 'static', 'scripts', 'styles', 'svg', 'min_images', 'dist', 'dist_content', 'prepare_html', 'prepare_css', 'prepare_js', 'copyMetaFiles', 'prepare_meta');
+});
+
+gulp.task('default', function () {
+    runSequence('clean', 'hbs', 'fix_js_src', 'static', 'scripts', 'styles', 'svg', 'min_images', 'dist', 'dist_content', 'prepare_html', 'prepare_css', 'prepare_js', 'copyMetaFiles', 'prepare_meta', 'ftp')
 });
