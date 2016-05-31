@@ -288,7 +288,12 @@ gulp.task('prepare_meta', function () {
     }
 
     var templateFile = fs.readFileSync('./config/template.html').toString();
-    fs.writeFile(config.destPath + '/' + 'html/index.html', templateFile.replace('{{items}}', html).replace(/{{siteName}}/g, config.siteName));
+    
+    if (fs.existsSync(config.destPath + '/' + 'html/'))
+        fs.writeFile(config.destPath + '/' + 'html/index.html', templateFile.replace('{{items}}', html).replace(/{{siteName}}/g, config.siteName));
+
+    if (fs.existsSync(config.tmpPath + '/' + 'html/'))
+        fs.writeFile(config.tmpPath + '/' + 'html/index.html', templateFile.replace('{{items}}', html).replace(/{{siteName}}/g, config.siteName));
 });
 
 gulp.task('copyMetaFiles', function () {
