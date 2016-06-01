@@ -283,7 +283,7 @@ gulp.task('prepare_meta', function () {
 
         html += '<div class="col-md-3 col-sm-4 col-xs-12"> ' +
             '<div class="page-default__item_title">' + id + '</div>' +
-            '<a class="page-default__item js-hover-item" title="' + id + '" href="' + htmlPath + '" style="background: url(/' + dirPath + ')no-repeat top center;"></a>' +
+            '<a class="page-default__item js-hover-item" title="' + id + '" href="' + htmlPath + '" style="background: url("../' + dirPath + '") no-repeat top center;"></a>' +
             ' </div>';
     }
 
