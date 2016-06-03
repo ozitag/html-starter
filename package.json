@@ -23,6 +23,7 @@
     "gulp-w3cjs": "*",
     "gulp-imagemin": "*",
     "gulp-ftp": "*",
+    "gulp-sftp": "*",
     "gulp-util": "*",
     "gulp-concat": "*",
     "gulp-uglifyjs": "*",

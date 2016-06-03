@@ -15,6 +15,7 @@
   "metaPath": ".meta",
   "ftp": {
     "enabled": false,
+    "isSFTP": false,
     "host": "FTP.ozis.by",
     "login": "ozisby",
     "password": "Kee6ohmo",
