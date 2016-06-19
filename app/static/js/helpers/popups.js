@@ -28,7 +28,7 @@
             return popup;
         },
 
-        open: function (url) {
+        open: function (url, callback) {
             var that = this;
 
             if (this.$popup && this.$popup.length) {
@@ -48,6 +48,10 @@
                             listeners[i](that.$popup);
                         }
                     }
+
+                    if (typeof callback !== 'undefined') {
+                        callback(that.$popup, popupId, url);
+                    }
                 });
             });
         },
@@ -62,7 +66,8 @@
         bindEvents: function () {
             var that = this;
 
-            $('body').on('click', '[data-popup-ajax]', function () {
+            $('body').on('click', '[data-popup-ajax]:not([data-popup-auto=0])', function () {
+                $('body').addClass('popup-opened');
                 Popups.open($(this).data('popup-ajax'));
                 return false;
             });
@@ -71,11 +76,13 @@
                 var target = $(e.target);
                 if (target.hasClass('popup-overlay')) {
                     that.hide();
+                    $('body').removeClass('popup-opened');
                 }
             });
 
             this.$overlay.on('click', '.js-close-wnd', function () {
                 that.hide();
+                $('body').removeClass('popup-opened');
                 return false;
             });
         },
