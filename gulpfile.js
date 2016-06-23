@@ -28,7 +28,6 @@ const svgmin = require('gulp-svgmin');
 const imagemin = require('gulp-imagemin');
 const w3cjs = require('gulp-w3cjs');
 const ftp = require('gulp-ftp');
-const sftp = require('gulp-sftp');
 const gutil = require('gulp-util');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglifyjs');
@@ -221,20 +220,28 @@ gulp.task('dist_content', function () {
 gulp.task('prepare_js', function () {
     const buildPath = config.destPath + '/' + config.scriptsPath + '/';
 
-    return domSrc({file: config.tmpPath + '/html/home.html', selector: 'script', attribute: 'src'})
-        .pipe(concat('all.js'))
-        .pipe(gulp.dest(buildPath))
-        .pipe(uglify())
-        .pipe(rename('all.min.js'))
-        .pipe(gulp.dest(buildPath));
+    if (config.concatScripts == false) {
+        return gulp.src(config.tmpPath + '/' + config.scriptsPath + '/**/*').pipe(gulp.dest(buildPath));
+    }
+    else {
+        return domSrc({file: config.tmpPath + '/html/home.html', selector: 'script', attribute: 'src'})
+            .pipe(concat('all.js'))
+            .pipe(gulp.dest(buildPath))
+            .pipe(uglify())
+            .pipe(rename('all.min.js'))
+            .pipe(gulp.dest(buildPath));
+    }
 });
 
 gulp.task('prepare_html', function () {
-    return gulp.src(config.destPath + '/html/**/*.html')
-        .pipe(htmlReplace({
+    var pipe = gulp.src(config.destPath + '/html/**/*.html');
+    if (config.concatScripts) {
+        pipe.pipe(htmlReplace({
             scripts: '../' + config.scriptsPath + '/all.min.js'
         }))
-        .pipe(gulp.dest(config.destPath + '/html/'));
+    }
+    pipe.pipe(gulp.dest(config.destPath + '/html/'));
+    return pipe;
 });
 
 gulp.task('prepare_css', function () {
@@ -284,17 +291,12 @@ gulp.task('prepare_meta', function () {
 
         html += '<div class="col-md-3 col-sm-4 col-xs-12"> ' +
             '<div class="page-default__item_title">' + id + '</div>' +
-            '<a class="page-default__item js-hover-item" title="' + id + '" href="' + htmlPath + '" style="background: url(/' + dirPath + ')no-repeat top center;"></a>' +
+            '<a class="page-default__item js-hover-item" title="' + id + '" href="' + htmlPath + '" style="background: url(../' + dirPath + ')no-repeat top center;"></a>' +
             ' </div>';
     }
 
     var templateFile = fs.readFileSync('./config/template.html').toString();
-
-    if (fs.existsSync(config.destPath + '/' + 'html/'))
-        fs.writeFile(config.destPath + '/' + 'html/index.html', templateFile.replace('{{items}}', html).replace(/{{siteName}}/g, config.siteName));
-
-    if (fs.existsSync(config.tmpPath + '/' + 'html/'))
-        fs.writeFile(config.tmpPath + '/' + 'html/index.html', templateFile.replace('{{items}}', html).replace(/{{siteName}}/g, config.siteName));
+    fs.writeFile(config.destPath + '/' + 'html/index.html', templateFile.replace('{{items}}', html).replace(/{{siteName}}/g, config.siteName));
 });
 
 gulp.task('copyMetaFiles', function () {
@@ -313,10 +315,8 @@ gulp.task('ftp', function () {
         return;
     }
 
-    var func = 'isSFTP' in ftpConfig && ftpConfig.isSFTP ? sftp : ftp;
-
     return gulp.src([config.destPath + '/**/*', '!**/.git/**'], {dot: true})
-        .pipe(func({
+        .pipe(ftp({
             host: ftpConfig.host,
             user: ftpConfig.login,
             pass: ftpConfig.password,
