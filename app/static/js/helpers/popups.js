@@ -10,6 +10,8 @@
 
         listeners: {},
 
+        onClose: null,
+
         showOverlay: function (callback) {
             this.$overlay.fadeIn(callback);
         },
@@ -20,8 +22,6 @@
 
         createInstance: function () {
             var popup = $('<div/>').addClass('popup-wrapper');
-
-            popup.html('<div id="circleG"><div id="circleG_1" class="circleG"></div> <div id="circleG_2" class="circleG"> </div><div id="circleG_3" class="circleG"> </div> </div>');
 
             popup.appendTo(this.$overlay);
 
@@ -56,11 +56,90 @@
             });
         },
 
+        openById: function (id, callback, callback_on_close) {
+            var that = this;
+
+            var $popup = $('#' + id).clone();
+            $popup.show();
+            if ($popup.length === 0) {
+                return;
+            }
+
+            if (this.$popup && this.$popup.length) {
+                that.hide();
+            }
+
+            if (callback_on_close) {
+                this.onClose = callback_on_close;
+            }
+            
+            this.showOverlay(function () {
+                that.$popup = that.createInstance();
+                that.$popup.append($popup);
+
+                var popupId = that.$popup.find('.popup').data('popup-id');
+
+                if (popupId in that.listeners) {
+                    var listeners = that.listeners[popupId];
+                    for (var i = 0; i < listeners.length; i++) {
+                        listeners[i](that.$popup);
+                    }
+                }
+
+                if (typeof callback !== 'undefined' && callback) {
+                    callback(that.$popup, popupId, url);
+                }
+            });
+        },
+
+        openFrame: function (url, width, height) {
+            var that = this;
+
+            if (this.$popup && this.$popup.length) {
+                that.hide();
+            }
+
+            var $frame = $('<iframe/>').hide();
+            $frame.attr('src', url);
+            $frame.attr('width', '100%');
+            $frame.attr('height', '100%');
+            $frame.attr('border', 0);
+            $frame.css('border', 0);
+
+            var popupWidth = width ? width : 300;
+            var popupHeight = height ? height : 300;
+
+            var $popup = $('<div/>').addClass('popup').css({
+                width: popupWidth + 'px',
+                height: popupHeight + 'px'
+            }).addClass('popup-frame');
+
+            var $loader = $('<div class="preloader-overlay" style="display: block"><div class="preloader-block"> <div class="preloader-block__circle_01"></div> <div class="preloader-block__circle_02"></div> <div class="preloader-block__circle_03"></div> <div class="preloader-block__circle_04"></div> <div class="preloader-block__circle_05"></div> <div class="preloader-block__circle_06"></div> <div class="preloader-block__circle_07"></div> <div class="preloader-block__circle_08"></div> <div class="preloader-block__circle_09"></div> <div class="preloader-block__circle_10"></div> <div class="preloader-block__circle_11"></div> <div class="preloader-block__circle_12"></div> </div> </div> ');
+            $popup.append($loader);
+            $popup.append('<a href="#" class="popup__close icon-close-popup js-close-wnd"></a>');
+            $popup.append($frame);
+
+            $frame.on('load', function () {
+                $loader.remove();
+                $frame.show();
+            });
+
+            this.showOverlay(function () {
+                that.$popup = that.createInstance();
+                that.$popup.append($popup);
+            });
+        },
+
         hide: function () {
             if (this.$popup) {
                 this.$popup.remove();
             }
             this.hideOverlay();
+
+            if (this.onClose) {
+                this.onClose();
+                this.onClose = null;
+            }
         },
 
         bindEvents: function () {
@@ -69,6 +148,14 @@
             $('body').on('click', '[data-popup-ajax]:not([data-popup-auto=0])', function () {
                 $('body').addClass('popup-opened');
                 Popups.open($(this).data('popup-ajax'));
+                return false;
+            }).on('click', '[data-popup-frame]:not([data-popup-auto=0])', function () {
+                $('body').addClass('popup-opened');
+                Popups.openFrame($(this).data('popup-frame'), $(this).data('frame-width'), $(this).data('frame-height'));
+                return false;
+            }).on('click', '[data-popup]:not([data-popup-auto=0])', function () {
+                $('body').addClass('popup-opened');
+                Popups.openById($(this).data('popup'));
                 return false;
             });
 
@@ -86,7 +173,6 @@
                 return false;
             });
         },
-
 
         addListener: function (popupId, callback) {
             if (popupId in this.listeners === false) {
