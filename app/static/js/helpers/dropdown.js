@@ -6,6 +6,7 @@
         this.$elem = $elem;
 
         this.prefix = 'prefix' in options ? options.prefix : '';
+        this.placeholder = 'placeholder' in options ? options.placeholder : $elem.data('placeholder');
 
         this.$container = null;
         this.$cityLabel = null;
@@ -99,6 +100,11 @@
         this.bindEvents();
 
         this.setActiveValue(this.$elem.find('option').first().val());
+
+        if(this.placeholder){
+            this.activeLabel = this.placeholder;
+            this.$cityLabel.text(this.activeLabel);
+        }
     }
 
     $.fn.dropdown = function (options) {
