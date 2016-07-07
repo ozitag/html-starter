@@ -1,6 +1,6 @@
 {
   "appName": "blakit:APP_NAME",
-  "siteNmae": "Site name",
+  "siteName": "Site name",
   "tmpPath": ".tmp",
   "sourcePath": "app",
   "destPath": "dist",
