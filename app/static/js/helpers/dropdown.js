@@ -9,6 +9,7 @@
         this.placeholder = 'placeholder' in options ? options.placeholder : $elem.data('placeholder');
 
         this.$container = null;
+        this.$header = null;
         this.$cityLabel = null;
         this.$dropDown = null;
 
@@ -22,9 +23,9 @@
         this.buildHtml = function () {
             this.$container = $('<div>').addClass('dropdown-container').height(that.$elem.height());
 
-            var $header = $('<div>').addClass('dropdown-header').text(that.prefix ? that.prefix + ' ' : '');
-            $header.append('<a href="#" class="dropdown-arrow"></a>');
-            this.$cityLabel = $('<span>').appendTo($header);
+            this.$header = $('<div>').addClass('dropdown-header').text(that.prefix ? that.prefix + ' ' : '');
+            this.$header.append('<a href="#" class="dropdown-arrow"></a>');
+            this.$cityLabel = $('<span>').appendTo(this.$header);
 
             this.$dropDown = $('<div>').addClass('dropdown-box');
 
@@ -33,7 +34,7 @@
                 that.$dropDown.append('<span><a href="#" data-value="' + $(this).val() + '">' + $(this).text() + '</a></span>');
             });
 
-            this.$container.append($header);
+            this.$container.append(this.$header);
             this.$container.append(this.$dropDown);
 
             this.$elem.hide();
@@ -43,6 +44,8 @@
 
 
         this.setActiveValue = function (value) {
+            this.$header.removeClass('dropdown-header--placeholder');
+
             this.activeValue = value;
             this.activeLabel = this.options[value];
 
@@ -99,11 +102,13 @@
         this.buildHtml();
         this.bindEvents();
 
-        this.setActiveValue(this.$elem.find('option').first().val());
-
         if(this.placeholder){
             this.activeLabel = this.placeholder;
             this.$cityLabel.text(this.activeLabel);
+            this.$header.addClass('dropdown-header--placeholder');
+        }
+        else{
+            this.setActiveValue(this.$elem.find('option').first().val());
         }
     }
 

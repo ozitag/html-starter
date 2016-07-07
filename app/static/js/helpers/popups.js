@@ -87,7 +87,7 @@
                 }
 
                 if (typeof callback !== 'undefined' && callback) {
-                    callback(that.$popup, popupId, url);
+                    callback(that.$popup, popupId);
                 }
             });
         },
