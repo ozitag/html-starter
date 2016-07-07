@@ -153,7 +153,7 @@ gulp.task('content', function () {
 });
 
 gulp.task('prepare', ['clean'], function () {
-    runSequence('hbs', 'fix_js_src', 'static', 'scripts', 'styles', 'svg');
+    runSequence('hbs', 'fix_js_src', 'static', 'scripts', 'styles', 'svg', 'prepare_meta');
 });
 
 gulp.task('serve', ['prepare'], function () {
@@ -161,7 +161,8 @@ gulp.task('serve', ['prepare'], function () {
         notify: false,
         logPrefix: 'WSK',
         browser: "Google Chrome Canary",
-        server: [config.tmpPath, config.sourcePath]
+        server: [config.tmpPath, config.sourcePath],
+        startPath: '/html/'
     });
 
     gulp.watch([config.sourcePath + '/' + config.stylesPath + '/**/*.{scss, sass, css}'], ['styles']);
@@ -296,7 +297,7 @@ gulp.task('prepare_meta', function () {
     }
 
     var templateFile = fs.readFileSync('./config/template.html').toString();
-    fs.writeFile(config.destPath + '/' + 'html/index.html', templateFile.replace('{{items}}', html).replace(/{{siteName}}/g, config.siteName));
+    fs.writeFile(config.tmpPath + '/' + 'html/index.html', templateFile.replace('{{items}}', html).replace(/{{siteName}}/g, config.siteName));
 });
 
 gulp.task('copyMetaFiles', function () {
@@ -326,9 +327,9 @@ gulp.task('ftp', function () {
 });
 
 gulp.task('build', function () {
-    runSequence('clean', 'hbs', 'fix_js_src', 'static', 'scripts', 'styles', 'svg', 'min_images', 'dist', 'dist_content', 'prepare_html', 'prepare_css', 'prepare_js', 'copyMetaFiles', 'prepare_meta');
+    runSequence('clean', 'hbs', 'fix_js_src', 'static', 'scripts', 'styles', 'svg', 'min_images', 'prepare_meta', 'dist', 'dist_content', 'prepare_html', 'prepare_css', 'prepare_js', 'copyMetaFiles');
 });
 
 gulp.task('default', function () {
-    runSequence('clean', 'hbs', 'fix_js_src', 'static', 'scripts', 'styles', 'svg', 'min_images', 'dist', 'dist_content', 'prepare_html', 'prepare_css', 'prepare_js', 'copyMetaFiles', 'prepare_meta', 'ftp')
+    runSequence('clean', 'hbs', 'fix_js_src', 'static', 'scripts', 'styles', 'svg', 'min_images', 'prepare_meta', 'dist', 'dist_content', 'prepare_html', 'prepare_css', 'prepare_js', 'copyMetaFiles', 'ftp')
 });
