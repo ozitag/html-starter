@@ -108,7 +108,8 @@
             this.$header.addClass('dropdown-header--placeholder');
         }
         else{
-            this.setActiveValue(this.$elem.find('option').first().val());
+            var value = this.$elem.val() ? this.$elem.val() : this.$elem.find('option').first().val();
+            this.setActiveValue(value);
         }
     }
 
