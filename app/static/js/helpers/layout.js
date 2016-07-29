@@ -48,7 +48,7 @@
             });
         },
 
-        isTouchDevice: function(){
+        isTouchDevice: function () {
             return 'ontouchstart' in document.documentElement;
         },
 
@@ -79,7 +79,9 @@
                 documentClick = false;
             });
             $(document).on('click touchend', function (e) {
-                if (e.type === "click") documentClick = true;
+                if (e.type === "click") {
+                    documentClick = true;
+                }
                 if (documentClick) {
                     Layout.fireDocumentClick(e);
                 }

@@ -10,8 +10,6 @@
 
         listeners: {},
 
-        onClose: null,
-
         showOverlay: function (callback) {
             this.$overlay.fadeIn(callback);
         },
@@ -56,7 +54,7 @@
             });
         },
 
-        openById: function (id, callback, callback_on_close) {
+        openById: function (id, callback) {
             var that = this;
 
             var $popup = $('#' + id).clone();
@@ -69,10 +67,6 @@
                 that.hide();
             }
 
-            if (callback_on_close) {
-                this.onClose = callback_on_close;
-            }
-            
             this.showOverlay(function () {
                 that.$popup = that.createInstance();
                 that.$popup.append($popup);
@@ -86,7 +80,7 @@
                     }
                 }
 
-                if (typeof callback !== 'undefined' && callback) {
+                if (typeof callback !== 'undefined') {
                     callback(that.$popup, popupId);
                 }
             });
@@ -135,11 +129,6 @@
                 this.$popup.remove();
             }
             this.hideOverlay();
-
-            if (this.onClose) {
-                this.onClose();
-                this.onClose = null;
-            }
         },
 
         bindEvents: function () {
