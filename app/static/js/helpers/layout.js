@@ -2,12 +2,14 @@
     "use strict";
 
     var MOBILE_WIDTH = 767;
-    var TABLET_WIDTH = 1180;
+    var TABLET_WIDTH = 992;
 
     var Layout = {
         _listeners: [],
+        _documentClickListeners: [],
 
         is_mobile: 0,
+        is_tablet: 0,
 
         isMobileLayout: function () {
             return $(window).width() <= MOBILE_WIDTH;
@@ -25,9 +27,7 @@
             this._listeners.push(func);
         },
 
-        changeMode: function (mode) {
-            this.is_mobile = mode;
-
+        _fireChangeMode: function () {
             var that = this;
 
             setTimeout(function () {
@@ -37,20 +37,57 @@
             }, 0);
         },
 
+
+        addDocumentClickHandler: function (handler) {
+            this._documentClickListeners.push(handler);
+        },
+
+        fireDocumentClick: function (e) {
+            this._documentClickListeners.forEach(function (handler) {
+                handler(e);
+            });
+        },
+
+        isTouchDevice: function(){
+            return 'ontouchstart' in document.documentElement;
+        },
+
         init: function () {
             this.is_mobile = this.isMobileLayout();
 
             $(window).on('resize', function () {
-                var is_mobile = Layout.isMobileLayout();
-                if (is_mobile !== Layout.is_mobile) {
-                    Layout.changeMode(is_mobile);
+                var isMobile = Layout.isMobileLayout();
+                var isTablet = Layout.isTabletLayout();
+
+                if (isMobile !== Layout.is_mobile) {
+                    Layout.is_mobile = isMobile;
+                    Layout._fireChangeMode();
+                }
+                else if (isTablet !== Layout.is_tablet) {
+                    Layout.is_tablet = isTablet;
+                    Layout._fireChangeMode();
+                }
+            });
+
+            Layout._fireChangeMode();
+
+            var documentClick = false;
+            $(document).on('touchstart', function () {
+                documentClick = true;
+            });
+            $(document).on('touchmove', function () {
+                documentClick = false;
+            });
+            $(document).on('click touchend', function (e) {
+                if (e.type === "click") documentClick = true;
+                if (documentClick) {
+                    Layout.fireDocumentClick(e);
                 }
             });
         }
     };
 
     Layout.init();
-
 
     global.Layout = Layout;
 
