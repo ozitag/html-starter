@@ -16,6 +16,7 @@
     "gulp-jshint": "*",
     "jshint-stylish": "*",
     "gulp-csslint": "*",
+    "gulp-csslint-report": "*",
     "gulp-htmlhint": "*",
     "gulp-svg-sprite": "*",
     "gulp-debug": "*",

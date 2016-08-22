@@ -37,6 +37,7 @@ const domSrc = require('gulp-dom-src');
 const cheerio = require('gulp-cheerio');
 const Finder = require('fs-finder');
 const trim = require('gulp-trim');
+const cssLintReporter = require('gulp-csslint-report');
 
 gulp.task('clean',
     del.bind(null, [config.tmpPath, config.destPath], {dot: true})
@@ -51,7 +52,7 @@ gulp.task('styles', function () {
         }))
         .pipe(gulp.dest(config.tmpPath + '/' + config.staticPath + '/css'))
         .pipe(csslint('./config/.csslintrc'))
-        .pipe(csslint.reporter())
+        .pipe(cssLintReporter())
         .pipe(reload({stream: true, once: true}))
         .pipe(size({title: 'styles'}));
 });
@@ -114,7 +115,7 @@ gulp.task('hbs', function () {
                 times: function (n, block) {
                     var accum = '';
                     for (var i = 0; i < n; ++i)
-                        accum += block.fn(i);
+                        accum += block.fn(i + 1);
                     return accum;
                 },
                 ifCond: function (v1, v2, options) {
