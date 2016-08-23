@@ -285,7 +285,7 @@ gulp.task('prepare_meta', function () {
         var dirPath = path.substr(dir);
         var p = path.lastIndexOf("/");
         var fileName = path.substr(p + 1);
-        var desc = fileName.substring(fileName.lastIndexOf('_') + 1, fileName.lastIndexOf('.'));
+        var desc = fileName.substring(fileName.indexOf('_') + 1, fileName.lastIndexOf('.'));
         var htmlPath = desc + '.html';
         var id = pageNames[desc];
 
