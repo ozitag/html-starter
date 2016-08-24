@@ -247,11 +247,11 @@ gulp.task('prepare_html', function () {
 });
 
 gulp.task('prepare_css', function () {
-    return gulp.src(config.destPath + '/' + config.stylesPath + '/**/*.css')
-        .pipe(cssmin())
+    return config.cssMin ? gulp.src(config.destPath + '/' + config.stylesPath + '/**/*.css')
+        .pipe(cssmin()).pipe(gulp.dest(config.destPath + '/' + config.stylesPath)) :
+        gulp.src(config.destPath + '/' + config.stylesPath + '/**/*.css')
         .pipe(gulp.dest(config.destPath + '/' + config.stylesPath))
 });
-
 
 gulp.task('prepare_meta', function () {
     var files = Finder.in('./app/.meta/').findFiles();
