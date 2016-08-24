@@ -44,7 +44,7 @@ gulp.task('clean',
 );
 
 gulp.task('styles', function () {
-    return gulp.src('./' + config.sourcePath + '/' + config.stylesPath + '/main.scss')
+    return gulp.src('./' + config.sourcePath + '/' + config.stylesPath + '/*.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer({
             browsers: ['last 100 versions'],
