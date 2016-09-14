@@ -1,0 +1,61 @@
+.page-ui_toolkit {
+  padding-top: 30px;
+  padding-bottom: 100px;
+
+  &__title {
+    @include bold;
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  &__section {
+    padding: 20px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+    margin-bottom: 30px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &_title {
+      text-transform: uppercase;
+      font-size: 18px;
+      @include bold;
+      margin-bottom: 20px;
+    }
+
+    &_list {
+      @include clearfix;
+
+      > li {
+        margin-bottom: 20px;
+        margin-right: 20px;
+        float: left;
+
+        &:last-child {
+          margin-right: 0;
+          margin-bottom: 0;
+        }
+
+        > div {
+          min-width: 20px;
+          min-height: 20px;
+        }
+      }
+    }
+  }
+}
+
+/////////////////////// BUTTONS
+
+.btn {
+  display: inline-block;
+  vertical-align: top;
+  border: 0;
+  @include transition(all);
+  cursor: pointer;
+  text-decoration: none !important;
+}
