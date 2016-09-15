@@ -184,10 +184,3 @@
   width: $width + px;
   height: $height + px;
 }
-
-@mixin placeholder () {
-  ::-webkit-input-placeholder {@content;}
-  :-moz-placeholder           {@content;}
-  ::-moz-placeholder          {@content;}
-  :-ms-input-placeholder      {@content;}
-}
