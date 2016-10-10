@@ -33,8 +33,16 @@
                 that.hide();
             }
 
+            var $loader = $('<div class="preloader-overlay" style="display: block"><div class="preloader-block"> <div class="preloader-block__circle_01"></div> <div class="preloader-block__circle_02"></div> <div class="preloader-block__circle_03"></div> <div class="preloader-block__circle_04"></div> <div class="preloader-block__circle_05"></div> <div class="preloader-block__circle_06"></div> <div class="preloader-block__circle_07"></div> <div class="preloader-block__circle_08"></div> <div class="preloader-block__circle_09"></div> <div class="preloader-block__circle_10"></div> <div class="preloader-block__circle_11"></div> <div class="preloader-block__circle_12"></div> </div> </div> ');
+            that.$overlay.append($loader);
+
             this.showOverlay(function () {
                 that.$popup = that.createInstance();
+
+                if (that.$popup.length === 1) {
+                    $loader.remove();
+                }
+
                 $.get(url, function (response) {
                     that.$popup.html(response);
 
