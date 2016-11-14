@@ -345,9 +345,9 @@ gulp.task('ftp', function () {
 });
 
 gulp.task('build', function () {
-    runSequence('clean', 'hbs', 'fix_js_src', 'static', 'scripts', 'styles', 'svg', 'min_images', 'prepare_meta', 'dist', 'dist_content', 'prepare_html', 'prepare_title', 'prepare_css', 'prepare_js', 'copyMetaFiles');
+    runSequence('clean', 'hbs', 'fix_js_src', 'static', 'scripts', 'styles', 'svg', 'min_images', 'prepare_meta', 'dist', 'dist_content', 'prepare_html', 'prepare_css', 'prepare_js', 'copyMetaFiles');
 });
 
 gulp.task('default', function () {
-    runSequence('clean', 'hbs', 'fix_js_src', 'static', 'scripts', 'styles', 'svg', 'min_images', 'prepare_meta', 'dist', 'dist_content', 'prepare_html', 'prepare_title', 'prepare_css', 'prepare_js', 'copyMetaFiles', 'ftp')
+    runSequence('clean', 'hbs', 'fix_js_src', 'static', 'scripts', 'styles', 'svg', 'min_images', 'prepare_meta', 'dist', 'dist_content', 'prepare_html', 'prepare_css', 'prepare_js', 'copyMetaFiles', 'ftp')
 });
