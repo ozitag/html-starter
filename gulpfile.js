@@ -59,14 +59,14 @@ gulp.task('styles', function () {
 
 gulp.task('static', function () {
     return gulp.src([
-        '!./' + config.sourcePath + '/' + config.staticPath + '/css',
-        '!./' + config.sourcePath + '/' + config.staticPath + '/css/**',
-        '!./' + config.sourcePath + '/' + config.staticPath + '/js',
-        '!./' + config.sourcePath + '/' + config.staticPath + '/js/**',
-        '!./' + config.sourcePath + '/' + config.staticPath + '/svg',
-        '!./' + config.sourcePath + '/' + config.staticPath + '/svg/**',
-        './' + config.sourcePath + '/' + config.staticPath + '/**'
-    ])
+            '!./' + config.sourcePath + '/' + config.staticPath + '/css',
+            '!./' + config.sourcePath + '/' + config.staticPath + '/css/**',
+            '!./' + config.sourcePath + '/' + config.staticPath + '/js',
+            '!./' + config.sourcePath + '/' + config.staticPath + '/js/**',
+            '!./' + config.sourcePath + '/' + config.staticPath + '/svg',
+            '!./' + config.sourcePath + '/' + config.staticPath + '/svg/**',
+            './' + config.sourcePath + '/' + config.staticPath + '/**'
+        ])
         .pipe(gulp.dest('./' + config.tmpPath + '/' + config.staticPath + '/'))
         .pipe(reload({stream: true, once: true}));
 });
@@ -103,7 +103,7 @@ gulp.task('fix_js_src', function () {
 });
 gulp.task('hbs', function () {
     const data = {
-            title: config.appName
+            j_title: ''
         },
         options = {
             ignorePartials: true,
@@ -127,11 +127,12 @@ gulp.task('hbs', function () {
             }
         };
 
+
     return gulp.src([
-        config.sourcePath + '/' + config.hbsPath + '/**/*.hbs',
-        '!' + config.sourcePath + '/' + config.hbsPath + '/layouts/**/*.hbs',
-        '!' + config.sourcePath + '/' + config.hbsPath + '/partials/**/*.hbs'
-    ])
+            config.sourcePath + '/' + config.hbsPath + '/**/*.hbs',
+            '!' + config.sourcePath + '/' + config.hbsPath + '/layouts/**/*.hbs',
+            '!' + config.sourcePath + '/' + config.hbsPath + '/partials/**/*.hbs'
+        ])
         .pipe(plumber())
         .pipe(compileHandlebars(data, options))
         .pipe(rename(function (path) {
@@ -143,8 +144,9 @@ gulp.task('hbs', function () {
         .pipe(gulp.dest(config.tmpPath + '/html'))
         .pipe(reload({stream: true, once: true}))
 });
+
 gulp.task('build_html', function () {
-    runSequence('hbs', 'fix_js_src');
+    runSequence('hbs', 'prepare_meta', 'fix_js_src');
 });
 
 
@@ -250,12 +252,13 @@ gulp.task('prepare_css', function () {
     return config.cssMin ? gulp.src(config.destPath + '/' + config.stylesPath + '/**/*.css')
         .pipe(cssmin()).pipe(gulp.dest(config.destPath + '/' + config.stylesPath)) :
         gulp.src(config.destPath + '/' + config.stylesPath + '/**/*.css')
-        .pipe(gulp.dest(config.destPath + '/' + config.stylesPath))
+            .pipe(gulp.dest(config.destPath + '/' + config.stylesPath))
 });
 
 gulp.task('prepare_meta', function () {
     var files = Finder.in('./app/.meta/').findFiles();
     var templates = Finder.in('./app/templates/').findFiles();
+    var tmpFiles = Finder.in('./.tmp/html/').findFiles();
 
     var html = "";
 
@@ -276,6 +279,20 @@ gulp.task('prepare_meta', function () {
         if (file.indexOf('{{!') != -1) {
             pageNames[template_desc] = file.substring(3, file.indexOf("}}"));
         }
+    }
+
+    for (var k = 0; k < tmpFiles.length; k++) {
+        var tpm_template_path = tmpFiles[k];
+        var tpm_template_p = Math.max(tpm_template_path.lastIndexOf("/"), tpm_template_path.lastIndexOf("\\"));
+        var tpm_template_fileName = tpm_template_path.substr(tpm_template_p + 1);
+        var tpm_template_desc = tpm_template_fileName.substring(tpm_template_fileName, tpm_template_fileName.lastIndexOf('.'));
+
+        if (tpm_template_desc == 'index') {
+            continue;
+        }
+
+        var hbs = fs.readFileSync(tpm_template_path).toString();
+        fs.writeFile(config.tmpPath + '/' + 'html/'+ tpm_template_desc +'.html', hbs.replace(/<title>(.*)/, '<title>' + pageNames[tpm_template_desc] + '</title>'));
     }
 
     for (var j = 0; j < files.length; j++) {
@@ -328,9 +345,9 @@ gulp.task('ftp', function () {
 });
 
 gulp.task('build', function () {
-    runSequence('clean', 'hbs', 'fix_js_src', 'static', 'scripts', 'styles', 'svg', 'min_images', 'prepare_meta', 'dist', 'dist_content', 'prepare_html', 'prepare_css', 'prepare_js', 'copyMetaFiles');
+    runSequence('clean', 'hbs', 'fix_js_src', 'static', 'scripts', 'styles', 'svg', 'min_images', 'prepare_meta', 'dist', 'dist_content', 'prepare_html', 'prepare_title', 'prepare_css', 'prepare_js', 'copyMetaFiles');
 });
 
 gulp.task('default', function () {
-    runSequence('clean', 'hbs', 'fix_js_src', 'static', 'scripts', 'styles', 'svg', 'min_images', 'prepare_meta', 'dist', 'dist_content', 'prepare_html', 'prepare_css', 'prepare_js', 'copyMetaFiles', 'ftp')
+    runSequence('clean', 'hbs', 'fix_js_src', 'static', 'scripts', 'styles', 'svg', 'min_images', 'prepare_meta', 'dist', 'dist_content', 'prepare_html', 'prepare_title', 'prepare_css', 'prepare_js', 'copyMetaFiles', 'ftp')
 });
