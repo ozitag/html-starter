@@ -1,4 +1,4 @@
-(function () {
+(function ($) {
     'use strict';
 
     function Tabs($elem, options) {
@@ -61,4 +61,4 @@
     $(function () {
         $('.js-tabs-container').tabs();
     });
-})();
+})(jQuery);

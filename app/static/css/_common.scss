@@ -1,12 +1,12 @@
 * {
-  outline: none;
+  outline: none !important;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
 body {
-
+  min-width: 320px;
 }
 
 input{

@@ -13,8 +13,8 @@
   "svgPath": "static/svg",
   "contentPath": "content",
   "metaPath": ".meta",
-  "concatScripts": true,
-  "cssMin": true,
+  "concatScripts": false,
+  "cssMin": false,
   "ftp": {
     "enabled": false,
     "isSFTP": false,

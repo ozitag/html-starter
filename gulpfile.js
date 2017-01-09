@@ -320,9 +320,9 @@ gulp.task('prepare_meta', function () {
 
 gulp.task('copyMetaFiles', function () {
     return gulp.src(config.sourcePath + '/' + config.metaPath + '/*')
-        .pipe(imagemin({
-            progressive: true
-        }))
+        //.pipe(imagemin({
+        //    progressive: true
+        //}))
         .pipe(gulp.dest(config.destPath + '/' + config.metaPath));
 });
 

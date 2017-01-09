@@ -1,4 +1,4 @@
-(function (global) {
+(function (global, $) {
 
     'use strict';
 
@@ -65,8 +65,9 @@
         openById: function (id, callback) {
             var that = this;
 
-            var $popup = $('#' + id).clone();
+            var $popup = $('#' + id);
             $popup.show();
+
             if ($popup.length === 0) {
                 return;
             }
@@ -118,7 +119,7 @@
 
             var $loader = $('<div class="preloader-overlay" style="display: block"><div class="preloader-block"> <div class="preloader-block__circle_01"></div> <div class="preloader-block__circle_02"></div> <div class="preloader-block__circle_03"></div> <div class="preloader-block__circle_04"></div> <div class="preloader-block__circle_05"></div> <div class="preloader-block__circle_06"></div> <div class="preloader-block__circle_07"></div> <div class="preloader-block__circle_08"></div> <div class="preloader-block__circle_09"></div> <div class="preloader-block__circle_10"></div> <div class="preloader-block__circle_11"></div> <div class="preloader-block__circle_12"></div> </div> </div> ');
             $popup.append($loader);
-            $popup.append('<a href="#" class="popup__close icon-close-popup js-close-wnd"></a>');
+            $popup.append('<a href="#" class="popup-close icon-close-popup js-close-wnd"></a>');
             $popup.append($frame);
 
             $frame.on('load', function () {
@@ -134,7 +135,7 @@
 
         hide: function () {
             if (this.$popup) {
-                this.$popup.remove();
+                this.$popup.fadeOut();
             }
             this.hideOverlay();
         },
@@ -164,6 +165,14 @@
                 }
             });
 
+            this.$overlay.on('click', '.popup', function (e) {
+                var target = $(e.target);
+                if (target.is('.popup')) {
+                    that.hide();
+                    $('body').removeClass('popup-opened');
+                }
+            });
+
             this.$overlay.on('click', '.js-close-wnd', function () {
                 that.hide();
                 $('body').removeClass('popup-opened');
@@ -187,4 +196,4 @@
     };
 
     global.Popups = Popups;
-})(window);
+})(window, jQuery);

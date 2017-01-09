@@ -1,4 +1,4 @@
-(function () {
+(function ($) {
     "use strict";
 
     function Dropdown($elem, options) {
@@ -182,4 +182,4 @@
             $(this).data('dropdown-guid', dropdownId);
         });
     };
-})();
+})(jQuery);
