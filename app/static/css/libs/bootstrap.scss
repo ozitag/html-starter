@@ -1,5 +1,5 @@
-$table: 720px;
-$desktop: 960px;
+$tabletWidth: 720px;
+$desktopWidth: 960px;
 
 $gutter: 10px;
 
@@ -315,12 +315,12 @@ hr {
 }
 @media (min-width: $tabletMedia) {
   .container {
-    width: $tablet;
+    width: $tabletWidth;
   }
 }
 @media (min-width: $desktopMedia) {
   .container {
-    width: $desktop;
+    width: $desktopWidth;
   }
 }
 
