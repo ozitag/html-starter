@@ -1,4 +1,4 @@
-(function (global, $) {
+(function (global) {
 
     'use strict';
 
@@ -7,8 +7,12 @@
         $overlay: null,
 
         $popup: null,
+        popupMode: null,
 
         listeners: {},
+        beforeListeners: {},
+
+        popupsOpened: [],
 
         showOverlay: function (callback) {
             this.$overlay.fadeIn(callback);
@@ -16,6 +20,7 @@
 
         hideOverlay: function () {
             this.$overlay.fadeOut();
+            $('body').removeClass('popup-opened');
         },
 
         createInstance: function () {
@@ -35,6 +40,8 @@
 
             var $loader = $('<div class="preloader-overlay" style="display: block"><div class="preloader-block"> <div class="preloader-block__circle_01"></div> <div class="preloader-block__circle_02"></div> <div class="preloader-block__circle_03"></div> <div class="preloader-block__circle_04"></div> <div class="preloader-block__circle_05"></div> <div class="preloader-block__circle_06"></div> <div class="preloader-block__circle_07"></div> <div class="preloader-block__circle_08"></div> <div class="preloader-block__circle_09"></div> <div class="preloader-block__circle_10"></div> <div class="preloader-block__circle_11"></div> <div class="preloader-block__circle_12"></div> </div> </div> ');
             that.$overlay.append($loader);
+
+            that.popupMode = 'ajax';
 
             this.showOverlay(function () {
                 that.$popup = that.createInstance();
@@ -65,8 +72,9 @@
         openById: function (id, callback) {
             var that = this;
 
+            $('body').addClass('popup-opened');
+
             var $popup = $('#' + id);
-            $popup.show();
 
             if ($popup.length === 0) {
                 return;
@@ -76,22 +84,39 @@
                 that.hide();
             }
 
-            this.showOverlay(function () {
-                that.$popup = that.createInstance();
-                that.$popup.append($popup);
+            that.popupMode = 'id';
 
-                var popupId = that.$popup.find('.popup').data('popup-id');
+            var waitCallback = function (callback) {
+                callback();
+            };
 
-                if (popupId in that.listeners) {
-                    var listeners = that.listeners[popupId];
-                    for (var i = 0; i < listeners.length; i++) {
-                        listeners[i](that.$popup);
+            var popupId = $popup.data('popup-id');
+            if (popupId in this.beforeListeners) {
+                waitCallback = this.beforeListeners[popupId];
+            }
+            
+            waitCallback(function () {
+                that.showOverlay(function () {
+                    $('body').addClass('popup-opened');
+                    $popup.show();
+
+                    that.$popup = that.createInstance();
+                    that.$popup.append($popup);
+
+                    var popupId = that.$popup.find('.popup').data('popup-id');
+
+                    if (popupId in that.listeners) {
+                        var listeners = that.listeners[popupId];
+                        for (var i = 0; i < listeners.length; i++) {
+                            listeners[i](that.$popup.find('.popup'), that.popupsOpened.indexOf(id) === -1);
+                        }
                     }
-                }
+                    that.popupsOpened.push(id);
 
-                if (typeof callback !== 'undefined') {
-                    callback(that.$popup, popupId);
-                }
+                    if (typeof callback !== 'undefined') {
+                        callback(that.$popup, popupId);
+                    }
+                });
             });
         },
 
@@ -119,7 +144,7 @@
 
             var $loader = $('<div class="preloader-overlay" style="display: block"><div class="preloader-block"> <div class="preloader-block__circle_01"></div> <div class="preloader-block__circle_02"></div> <div class="preloader-block__circle_03"></div> <div class="preloader-block__circle_04"></div> <div class="preloader-block__circle_05"></div> <div class="preloader-block__circle_06"></div> <div class="preloader-block__circle_07"></div> <div class="preloader-block__circle_08"></div> <div class="preloader-block__circle_09"></div> <div class="preloader-block__circle_10"></div> <div class="preloader-block__circle_11"></div> <div class="preloader-block__circle_12"></div> </div> </div> ');
             $popup.append($loader);
-            $popup.append('<a href="#" class="popup-close icon-close-popup js-close-wnd"></a>');
+            $popup.append('<a href="#" class="popup__close icon-close-popup js-close-wnd"></a>');
             $popup.append($frame);
 
             $frame.on('load', function () {
@@ -134,9 +159,19 @@
         },
 
         hide: function () {
-            if (this.$popup) {
-                this.$popup.fadeOut();
+
+            if (this.popupMode == 'id') {
+                if (this.$popup) {
+                    this.$popup.find('.popup').hide().appendTo($('body'));
+                    this.$popup.remove();
+                }
             }
+            else if (this.popupMode == 'ajax') {
+                if (this.$popup) {
+                    this.$popup.remove();
+                }
+            }
+
             this.hideOverlay();
         },
 
@@ -159,15 +194,7 @@
 
             this.$overlay.on('click', function (e) {
                 var target = $(e.target);
-                if (target.hasClass('popup-overlay')) {
-                    that.hide();
-                    $('body').removeClass('popup-opened');
-                }
-            });
-
-            this.$overlay.on('click', '.popup', function (e) {
-                var target = $(e.target);
-                if (target.is('.popup')) {
+                if (target.hasClass('popup-overlay') || target.hasClass('slider-item')) {
                     that.hide();
                     $('body').removeClass('popup-opened');
                 }
@@ -178,6 +205,10 @@
                 $('body').removeClass('popup-opened');
                 return false;
             });
+        },
+
+        addBeforeListener: function (popupId, callback) {
+            this.beforeListeners[popupId] = callback;
         },
 
         addListener: function (popupId, callback) {
@@ -196,4 +227,4 @@
     };
 
     global.Popups = Popups;
-})(window, jQuery);
+})(window);
