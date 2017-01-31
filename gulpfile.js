@@ -163,7 +163,6 @@ gulp.task('serve', ['prepare'], function () {
     browserSync({
         notify: false,
         logPrefix: 'WSK',
-        browser: "Google Chrome Canary",
         server: [config.tmpPath, config.sourcePath],
         startPath: '/html/'
     });
