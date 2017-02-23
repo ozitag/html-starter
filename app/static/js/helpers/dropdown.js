@@ -25,6 +25,11 @@
         this.activeLabel = null;
 
         var dropdownOpened = false;
+        
+        this.$elem.on('change', function () {
+            that.setActiveValue($(this).val(), false);
+        });
+
 
         this.buildHtml = function () {
 
@@ -67,14 +72,18 @@
         };
 
 
-        this.setActiveValue = function (value) {
+        this.setActiveValue = function (value, forceTrigger) {
+            forceTrigger = typeof forceTrigger === 'undefined' ? true : !!forceTrigger;
             this.$header.removeClass('dropdown-header--placeholder');
 
             this.activeValue = value;
             this.activeLabel = this.options[value];
 
             this.$cityLabel.text(this.activeLabel);
-            this.$elem.val(this.activeValue).trigger('change');
+            
+            if (forceTrigger) {
+                this.$elem.val(this.activeValue).trigger('change');
+            }
         };
 
         this.showDropdown = function () {
