@@ -194,7 +194,7 @@
 
             this.$overlay.on('click', function (e) {
                 var target = $(e.target);
-                if (target.hasClass('popup-overlay') || target.hasClass('slider-item')) {
+                if (target.hasClass('popup-overlay') || target.hasClass('slider-item') || target.hasClass('popup')) {
                     that.hide();
                     $('body').removeClass('popup-opened');
                 }

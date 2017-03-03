@@ -12,9 +12,17 @@
 }
 
 .popup {
-  background: #fff;
-  min-width: 300px;
-  min-height: 300px;
   z-index: 100001;
-  @include align;
+  @include align(false,true);
+  left: 0;
+  width: 100%;
+  padding: 50px 0;
+  max-height: 100%;
+  overflow: auto;
+  overflow-x: hidden;
+
+  &-inner {
+    margin: 0 auto;
+    background-color: #ffffff;
+  }
 }

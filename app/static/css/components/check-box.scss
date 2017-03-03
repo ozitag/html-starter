@@ -5,7 +5,7 @@
     &:not(checked) {
       display: none;
 
-      .checkbox-label {
+      + .checkbox-label {
         position: relative;
         padding-left: 30px;
         line-height: 20px;
