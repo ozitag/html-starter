@@ -18,9 +18,9 @@
   "ftp": {
     "enabled": false,
     "isSFTP": false,
-    "host": "FTP.ozis.by",
-    "login": "ozisby",
-    "password": "Kee6ohmo",
-    "remotePath": "/projects/diold.ozis.by"
+    "host": "",
+    "login": "",
+    "password": "",
+    "remotePath": "
   }
 }
