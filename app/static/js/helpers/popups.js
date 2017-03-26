@@ -14,13 +14,47 @@
 
         popupsOpened: [],
 
+        disabled: false,
+
         showOverlay: function (callback) {
+            this.createOverlay();
             this.$overlay.fadeIn(callback);
         },
 
         hideOverlay: function () {
             this.$overlay.fadeOut();
-            $('body').removeClass('popup-opened');
+        },
+
+        createOverlay: function () {
+            var that = this;
+
+            if (this.$overlay !== null) {
+                return false;
+            }
+
+            this.$overlay = $('<div/>').addClass('popup-overlay').css('display', 'none').appendTo($('body'));
+
+            this.$overlay.on('click', function (e) {
+                var target = $(e.target);
+                if (target.hasClass('popup-overlay')) {
+                    that.hide();
+                    $('body').removeClass('popup-opened');
+                }
+            });
+
+            this.$overlay.on('click', '.popup', function (e) {
+                var target = $(e.target);
+                if (target.is('.popup')) {
+                    that.hide();
+                    $('body').removeClass('popup-opened');
+                }
+            });
+
+            this.$overlay.on('click', '.js-close-wnd', function () {
+                that.hide();
+                $('body').removeClass('popup-opened');
+                return false;
+            });
         },
 
         createInstance: function () {
@@ -32,6 +66,10 @@
         },
 
         open: function (url, callback) {
+			if (this.disabled) {
+                return;
+            }
+			
             var that = this;
 
             if (this.$popup && this.$popup.length) {
@@ -70,7 +108,11 @@
         },
 
         openById: function (id, callback) {
-            var that = this;
+			if (this.disabled) {
+                return;
+            }
+			
+			var that = this;
 
             $('body').addClass('popup-opened');
 
@@ -121,6 +163,10 @@
         },
 
         openFrame: function (url, width, height) {
+			if (this.disabled) {
+                return;
+            }
+			
             var that = this;
 
             if (this.$popup && this.$popup.length) {
@@ -176,8 +222,6 @@
         },
 
         bindEvents: function () {
-            var that = this;
-
             $('body').on('click', '[data-popup-ajax]:not([data-popup-auto=0])', function () {
                 $('body').addClass('popup-opened');
                 Popups.open($(this).data('popup-ajax'));
@@ -189,20 +233,6 @@
             }).on('click', '[data-popup]:not([data-popup-auto=0])', function () {
                 $('body').addClass('popup-opened');
                 Popups.openById($(this).data('popup'));
-                return false;
-            });
-
-            this.$overlay.on('click', function (e) {
-                var target = $(e.target);
-                if (target.hasClass('popup-overlay') || target.hasClass('slider-item') || target.hasClass('popup')) {
-                    that.hide();
-                    $('body').removeClass('popup-opened');
-                }
-            });
-
-            this.$overlay.on('click', '.js-close-wnd', function () {
-                that.hide();
-                $('body').removeClass('popup-opened');
                 return false;
             });
         },
@@ -220,9 +250,11 @@
         },
 
         Init: function () {
-            this.$overlay = $('<div/>').addClass('popup-overlay').appendTo($('body'));
-
             this.bindEvents();
+        },
+
+        Disable: function () {
+            this.disabled = true;
         }
     };
 
