@@ -14,13 +14,5 @@
   "contentPath": "content",
   "metaPath": ".meta",
   "concatScripts": false,
-  "cssMin": false,
-  "ftp": {
-    "enabled": false,
-    "isSFTP": false,
-    "host": "",
-    "login": "",
-    "password": "",
-    "remotePath": ""
-  }
+  "cssMin": true
 }
