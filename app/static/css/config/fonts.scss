@@ -26,3 +26,7 @@ $fonts_dir: '../fonts/';
     @include font-mixin("MyriadPro-Regular");
 }
 */
+
+@mixin bold() {
+  font-weight: 700;
+}
