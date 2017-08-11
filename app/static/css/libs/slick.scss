@@ -1,9 +1,9 @@
 /* Slider */
 
 .slick-slider {
+    position: relative;
     display: block;
     box-sizing: border-box;
-    -moz-box-sizing: border-box;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -68,7 +68,6 @@
     }
     img {
         display: block;
-        margin: 0 auto;
     }
     &.slick-loading img {
         display: none;
@@ -96,8 +95,4 @@
 }
 .slick-arrow.slick-hidden {
     display: none;
-}
-
-.slick-arrow:hover{
-    opacity: .7;
 }

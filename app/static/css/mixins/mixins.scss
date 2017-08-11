@@ -139,11 +139,9 @@
   }
 }
 
-$tablet: 959px;
-$desktop: 960px;
 
 @mixin tablet-and-phone() {
-  @media(max-width: $tablet) {
+  @media(max-width: $tablet-and-phoneMedia) {
     @content;
   }
 }
@@ -155,7 +153,7 @@ $desktop: 960px;
 }
 
 @mixin tablet() {
-  @media(min-width: 768px) and (max-width: $tablet) {
+  @media(min-width: 768px) and (max-width: $tabletMedia) {
     @content;
   }
 }
@@ -167,7 +165,7 @@ $desktop: 960px;
 }
 
 @mixin desktop() {
-  @media(min-width: $desktop) {
+  @media(min-width: $desktopMedia) {
     @content;
   }
 }
