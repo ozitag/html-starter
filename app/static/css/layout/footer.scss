@@ -1,5 +1,5 @@
-//@include sticky-footer(320px, '.page-wrap', '.page-wrap-inner', '.page-footer');
-
-.page-footer {
-
+.footer {
+  flex-shrink: 0;
+  padding: 20px 0;
+  border-top: 1px solid #f9f9f9;
 }

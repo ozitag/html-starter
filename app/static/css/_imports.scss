@@ -1,9 +1,11 @@
 @import "mixins/mixins";
-@import "config/colors";
+@import "config/variables";
 @import "config/fonts";
+@import "config/options";
 @import "svg/svg";
 
-//@import "libs/bootstrap";
+@import "libs/nomolize";
+@import "libs/grid";
 
 $images_dir: '../images/';
 

@@ -6,7 +6,7 @@
         this.$elem = $elem;
 
         options = $.extend({
-            tabsSelector: '.js-tabs a',
+            tabsSelector: '.js-tabs ._link',
             onShow: function () {
             }
         }, options);
@@ -18,9 +18,9 @@
 
         var tabsData = {};
         $tabButtons.each(function () {
-            tabsData[$(this).attr('href')] = {
+            tabsData[$(this).data('id')] = {
                 button: $(this),
-                content: $($(this).attr('href')),
+                content: $('#' + $(this).data('id')),
                 activated: false
             };
         });
@@ -44,10 +44,10 @@
             }
         };
 
-        this.showTab($tabButtons.first().attr('href'));
+        this.showTab(this.$elem.find('.js-tabs ._link.active').data('id'));
 
         $tabButtons.on('click', function () {
-            that.showTab($(this).attr('href'));
+            that.showTab($(this).data('id'));
             return false;
         });
     }

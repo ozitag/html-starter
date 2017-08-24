@@ -140,38 +140,34 @@
 }
 
 
+@mixin mobile() {
+  @media (max-width: $mobileMedia) {
+    @content;
+  }
+}
+
+
+@mixin no-mobile {
+  @media (min-width: $mobileMedia + 1) {
+    @content;
+  }
+}
+
+@mixin tablet() {
+  @media(min-width: $mobileMedia) and (max-width: $tabletMedia) {
+    @content;
+  }
+}
+
 @mixin tablet-and-phone() {
   @media(max-width: $tablet-and-phoneMedia) {
     @content;
   }
 }
 
-@mixin no-mobile {
-  @media (min-width: 768px) {
-    @content;
-  }
-}
-
-@mixin tablet() {
-  @media(min-width: 768px) and (max-width: $tabletMedia) {
-    @content;
-  }
-}
-
-@mixin mobile() {
-  @media (max-width: 767px) {
-    @content;
-  }
-}
 
 @mixin desktop() {
   @media(min-width: $desktopMedia) {
-    @content;
-  }
-}
-
-@mixin small_desktop() {
-  @media(max-width: 1099px) and (min-width: 1000px) {
     @content;
   }
 }
