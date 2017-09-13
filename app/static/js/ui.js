@@ -3,13 +3,17 @@
 
     var App = {
         init: function () {
-
+            $('.js-dropdown-box').each(function () {
+                $(this).dropdown({
+                    prefix: $(this).data('prefix')
+                });
+            });
         }
     };
 
     $(function () {
         $(window).on("load", function () {
-           App.init();
+            App.init();
         });
 
         document.documentElement.addEventListener('touchstart', function (event) {

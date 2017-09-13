@@ -15,18 +15,27 @@ $fonts_dir: '../fonts/';
 }
 
 @mixin font-mixin($font_name) {
-  font-family: "#{$font_name}", Arial, sans-serif;
+  font-family: "#{$font_name}", 'Arial', 'Helvetica', 'Tahoma', sans-serif;
   font-weight: normal;
   font-style: normal;
 }
 
-/*
-@include font("MyriadPro/Regular", "MyriadPro-Regular");
-@mixin myriad(){
-    @include font-mixin("MyriadPro-Regular");
+@include font("Roboto/Light", "Roboto-Light");
+@mixin light() {
+  @include font-mixin("Roboto-Light");
 }
-*/
 
+@include font("Roboto/Regular", "Roboto-Regular");
+@mixin regular() {
+  @include font-mixin("Roboto-Regular");
+}
+
+@include font("Roboto/Medium", "Roboto-Medium");
+@mixin medium() {
+  @include font-mixin("Roboto-Medium");
+}
+
+@include font("Roboto/Bold", "Roboto-Bold");
 @mixin bold() {
-  font-weight: 700;
+  @include font-mixin("Roboto-Bold");
 }

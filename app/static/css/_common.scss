@@ -12,12 +12,15 @@
 
 body {
   min-width: 320px;
-  font-family: 'Arial', 'Helvetica', 'Tahoma', sans-serif;
+  @include regular;
+  font-size: 14px;
 }
 
 input {
   -webkit-appearance: none;
   border-radius: 0;
+  @include regular;
+  font-size: 14px;
 
   &::-ms-clear {
     display: none !important;
@@ -29,102 +32,12 @@ button {
   border: 0;
   background-color: transparent;
   cursor: pointer;
-}
-
-ul {
-  padding: 0;
-  margin: 0;
-  list-style-type: none;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-  transition: 0.3s;
-
-  &:hover,
-  &:focus {
-    color: inherit;
-    text-decoration: none;
-  }
-}
-
-img {
-  max-width: 100%;
+  @include regular;
+  font-size: 14px;
 }
 
 main {
   display: block;
-}
-
-h1, .h1 {
-  margin: 0;
-  @include bold;
-  font-size: 36px;
-  line-height: 48px;
-
-  @include mobile {
-    font-size: 27px;
-    line-height: 36px;
-  }
-}
-
-h2, .h2 {
-  margin: 0;
-  @include bold;
-  font-size: 30px;
-  line-height: 35px;
-
-  @include mobile {
-    font-size: 22px;
-    line-height: 30px;
-  }
-}
-
-h3, .h3 {
-  margin: 0;
-  @include bold;
-  font-size: 22px;
-  line-height: 30px;
-
-  @include mobile {
-    font-size: 18px;
-    line-height: 24px;
-  }
-}
-
-h4, .h4 {
-  margin: 0;
-  @include bold;
-  font-size: 18px;
-  line-height: 24px;
-
-  @include mobile {
-    font-size: 15px;
-    line-height: 20px;
-  }
-}
-
-p {
-  line-height: 22px;
-  margin-bottom: 18px;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-
-  @include mobile {
-    font-size: 13px;
-    line-height: 18px;
-  }
-
-  a {
-
-  }
-}
-
-b {
-  @include bold;
 }
 
 .hidden-md {
