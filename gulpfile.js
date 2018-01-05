@@ -37,7 +37,27 @@ const domSrc = require('gulp-dom-src');
 const cheerio = require('gulp-cheerio');
 const Finder = require('fs-finder');
 const trim = require('gulp-trim');
+const replace = require('gulp-replace');
 const cssLintReporter = require('gulp-csslint-report');
+// const webshot = require('gulp-webshot');
+
+//
+// gulp.task('webshot', function() {
+//     // return gulp.src('./Users/andreykulakovski/Desktop/work/TestTestTest/wp-content/themes/unident/html/.tmp/html/about.html')
+//     return gulp.src(config.tmpPath + '/html/about.html')
+//     // return gulp.src('http://localhost:3000/html/about.html')
+//         .pipe(webshot({
+//             dest:'.tmp',
+//             root:'Theme',
+//             windowSize: {
+//                 width: 1280,
+//                 height: 800
+//             },
+//             siteType: 'html'
+//         }))
+//         .pipe(gulp.dest('./public/'));
+// });
+
 
 gulp.task('clean',
     del.bind(null, [config.tmpPath, config.destPath], {dot: true})
@@ -59,14 +79,16 @@ gulp.task('styles', function () {
 
 gulp.task('static', function () {
     return gulp.src([
-            '!./' + config.sourcePath + '/' + config.staticPath + '/css',
-            '!./' + config.sourcePath + '/' + config.staticPath + '/css/**',
-            '!./' + config.sourcePath + '/' + config.staticPath + '/js',
-            '!./' + config.sourcePath + '/' + config.staticPath + '/js/**',
-            '!./' + config.sourcePath + '/' + config.staticPath + '/svg',
-            '!./' + config.sourcePath + '/' + config.staticPath + '/svg/**',
-            './' + config.sourcePath + '/' + config.staticPath + '/**'
-        ])
+        '!./' + config.sourcePath + '/' + config.staticPath + '/css',
+        '!./' + config.sourcePath + '/' + config.staticPath + '/css/**',
+        '!./' + config.sourcePath + '/' + config.staticPath + '/js',
+        '!./' + config.sourcePath + '/' + config.staticPath + '/js/**',
+        '!./' + config.sourcePath + '/' + config.staticPath + '/svg',
+        '!./' + config.sourcePath + '/' + config.staticPath + '/svg/**',
+        '!./' + config.sourcePath + '/' + config.staticPath + '/icons',
+        '!./' + config.sourcePath + '/' + config.staticPath + '/icons/**',
+        './' + config.sourcePath + '/' + config.staticPath + '/**'
+    ])
         .pipe(gulp.dest('./' + config.tmpPath + '/' + config.staticPath + '/'))
         .pipe(reload({stream: true, once: true}));
 });
@@ -129,10 +151,10 @@ gulp.task('hbs', function () {
 
 
     return gulp.src([
-            config.sourcePath + '/' + config.hbsPath + '/**/*.hbs',
-            '!' + config.sourcePath + '/' + config.hbsPath + '/layouts/**/*.hbs',
-            '!' + config.sourcePath + '/' + config.hbsPath + '/partials/**/*.hbs'
-        ])
+        config.sourcePath + '/' + config.hbsPath + '/**/*.hbs',
+        '!' + config.sourcePath + '/' + config.hbsPath + '/layouts/**/*.hbs',
+        '!' + config.sourcePath + '/' + config.hbsPath + '/partials/**/*.hbs'
+    ])
         .pipe(plumber())
         .pipe(compileHandlebars(data, options))
         .pipe(rename(function (path) {
@@ -156,7 +178,7 @@ gulp.task('content', function () {
 });
 
 gulp.task('prepare', ['clean'], function () {
-    runSequence('hbs', 'fix_js_src', 'static', 'scripts', 'styles', 'svg', 'prepare_meta');
+    runSequence('hbs', 'fix_js_src', 'static', 'scripts', 'styles', 'svg', 'svgInline', 'prepare_meta');
 });
 
 gulp.task('serve', ['prepare'], function () {
@@ -171,6 +193,7 @@ gulp.task('serve', ['prepare'], function () {
     gulp.watch([config.sourcePath + '/' + config.scriptsPath + '/**/*.js'], ['scripts']);
     gulp.watch([config.sourcePath + '/' + config.hbsPath + '/**/*'], ['build_html']);
     gulp.watch([config.sourcePath + '/' + config.svgPath + '/*.svg'], ['svg']);
+    gulp.watch([config.sourcePath + '/' + config.svgInlinePath + '/*.svg'], ['svgInline']);
     gulp.watch([config.sourcePath + '/' + config.metaPath + '/*.{png,jpg,jpeg}'], ['prepare_meta']);
 });
 
@@ -191,6 +214,44 @@ gulp.task('svg', function () {
                         "scss": {
                             "dest": config.sourcePath + '/' + config.stylesPath + "/svg/_sprite.scss",
                             "template": "./config/sprite-template.scss"
+                        }
+                    }
+                }
+            }
+        }))
+        .pipe(gulp.dest("./"));
+});
+
+gulp.task('svgInline', function () {
+    return gulp.src(config.sourcePath + '/' + config.svgInlinePath + '/**/*.svg')
+        .pipe(svgmin({
+            js2svg: {
+                pretty: true
+            }
+        }))
+        .pipe(cheerio({
+            run: function ($) {
+                $('[fill]').removeAttr('fill');
+                $('[stroke]').removeAttr('stroke');
+                $('[style]').removeAttr('style');
+                $('title').remove();
+                $('style').remove();
+            },
+            parserOptions: {xmlMode: true}
+        }))
+        .pipe(replace('&gt;', '>'))
+        .pipe(svgSprite({
+            mode: {
+                symbol: {
+                    dest: './',
+                    example: false,
+                    bust: false,
+                    sprite: config.tmpPath + '/' + config.staticPath + '/images/svg/spriteInline.svg',
+                    inline: false,
+                    render: {
+                        scss: {
+                            dest: config.sourcePath + '/' + config.stylesPath + '/svg/_spriteInline.scss',
+                            template: "./config/sprite-template-inline.scss"
                         }
                     }
                 }
@@ -249,7 +310,7 @@ gulp.task('prepare_html', function () {
 
 gulp.task('prepare_css', function () {
     return config.cssMin ? gulp.src(config.destPath + '/' + config.stylesPath + '/**/*.css')
-        .pipe(cssmin()).pipe(gulp.dest(config.destPath + '/' + config.stylesPath)) :
+            .pipe(cssmin()).pipe(gulp.dest(config.destPath + '/' + config.stylesPath)) :
         gulp.src(config.destPath + '/' + config.stylesPath + '/**/*.css')
             .pipe(gulp.dest(config.destPath + '/' + config.stylesPath))
 });
@@ -319,9 +380,9 @@ gulp.task('prepare_meta', function () {
 
 gulp.task('copyMetaFiles', function () {
     return gulp.src(config.sourcePath + '/' + config.metaPath + '/*')
-        //.pipe(imagemin({
-        //    progressive: true
-        //}))
+    //.pipe(imagemin({
+    //    progressive: true
+    //}))
         .pipe(gulp.dest(config.destPath + '/' + config.metaPath));
 });
 
@@ -344,9 +405,9 @@ gulp.task('ftp', function () {
 });
 
 gulp.task('build', function () {
-    runSequence('clean', 'hbs', 'fix_js_src', 'static', 'scripts', 'styles', 'svg', 'min_images', 'prepare_meta', 'dist', 'dist_content', 'prepare_html', 'prepare_css', 'prepare_js', 'copyMetaFiles');
+    runSequence('clean', 'hbs', 'fix_js_src', 'static', 'scripts', 'styles', 'svg', 'svgInline', 'min_images', 'prepare_meta', 'dist', 'dist_content', 'prepare_html', 'prepare_css', 'prepare_js', 'copyMetaFiles');
 });
 
 gulp.task('default', function () {
-    runSequence('clean', 'hbs', 'fix_js_src', 'static', 'scripts', 'styles', 'svg', 'min_images', 'prepare_meta', 'dist', 'dist_content', 'prepare_html', 'prepare_css', 'prepare_js', 'copyMetaFiles', 'ftp')
+    runSequence('clean', 'hbs', 'fix_js_src', 'static', 'scripts', 'styles', 'svg', 'svgInline', 'min_images', 'prepare_meta', 'dist', 'dist_content', 'prepare_html', 'prepare_css', 'prepare_js', 'copyMetaFiles', 'ftp')
 });
