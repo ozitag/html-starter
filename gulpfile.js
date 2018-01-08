@@ -39,25 +39,6 @@ const Finder = require('fs-finder');
 const trim = require('gulp-trim');
 const replace = require('gulp-replace');
 const cssLintReporter = require('gulp-csslint-report');
-// const webshot = require('gulp-webshot');
-
-//
-// gulp.task('webshot', function() {
-//     // return gulp.src('./Users/andreykulakovski/Desktop/work/TestTestTest/wp-content/themes/unident/html/.tmp/html/about.html')
-//     return gulp.src(config.tmpPath + '/html/about.html')
-//     // return gulp.src('http://localhost:3000/html/about.html')
-//         .pipe(webshot({
-//             dest:'.tmp',
-//             root:'Theme',
-//             windowSize: {
-//                 width: 1280,
-//                 height: 800
-//             },
-//             siteType: 'html'
-//         }))
-//         .pipe(gulp.dest('./public/'));
-// });
-
 
 gulp.task('clean',
     del.bind(null, [config.tmpPath, config.destPath], {dot: true})
