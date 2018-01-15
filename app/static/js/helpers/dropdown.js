@@ -2,9 +2,9 @@
     "use strict";
 
     function Dropdown($elem, options) {
-        var that = this;
+        const that = this;
 
-        var hasScroll = $elem.attr('data-scroll');
+        const hasScroll = $elem.attr('data-scroll');
 
         this.$elem = $elem;
 
@@ -24,7 +24,7 @@
         this.activeValue = null;
         this.activeLabel = null;
 
-        var dropdownOpened = false;
+        let dropdownOpened = false;
         
         this.$elem.on('change', function () {
             that.setActiveValue($(this).val(), false);
@@ -37,18 +37,18 @@
                 this.$container.remove();
             }
 
-            this.$container = $('<div>').addClass('dropdown-container').height(that.$elem.height());
+            this.$container = $('<div>').addClass('dropdown');
 
-            this.$header = $('<div>').addClass('dropdown-header').text(that.prefix ? that.prefix + ' ' : '');
-            this.$header.append('<a href="#" class="dropdown-arrow"></a>');
-            this.$cityLabel = $('<span>').appendTo(this.$header);
+            this.$header = $('<div>').addClass('dropdown__header').text(that.prefix ? that.prefix + ' ' : '');
+            this.$header.append('<span class="dropdown__arrow"></span>');
+            this.$cityLabel = $('<span class="dropdown__text">').appendTo(this.$header);
 
-            this.$dropDown = $('<div>').addClass('dropdown-box');
-            this.$dropDownInner = $('<div class="dropdown-box__inner"></div>').appendTo(this.$dropDown);
+            this.$dropDown = $('<div>').addClass('dropdown__box');
+            this.$dropDownInner = $('<div class="dropdown__list"></div>').appendTo(this.$dropDown);
 
             if (this.$elem.find('optgroup').length !== 0) {
                 this.$elem.find('optgroup').each(function () {
-                    var label = $(this).attr('label');
+                    const label = $(this).attr('label');
                     that.$dropDownInner.append('<div class="group-label">' + label + '</div>');
 
                     $(this).find('option').each(function () {
@@ -74,7 +74,7 @@
 
         this.setActiveValue = function (value, forceTrigger) {
             forceTrigger = typeof forceTrigger === 'undefined' ? true : !!forceTrigger;
-            this.$header.removeClass('dropdown-header--placeholder');
+            this.$header.removeClass('dropdown__header--placeholder');
 
             this.activeValue = value;
             this.activeLabel = this.options[value];
@@ -88,7 +88,7 @@
 
         this.showDropdown = function () {
             this.$dropDown.show();
-            this.$container.addClass('dropdown-opened');
+            this.$container.addClass('opened');
             dropdownOpened = true;
 
             if (hasScroll) {
@@ -98,15 +98,15 @@
 
         this.hideDropdown = function () {
             this.$dropDown.hide();
-            this.$container.removeClass('dropdown-opened');
+            this.$container.removeClass('opened');
             dropdownOpened = false;
         };
 
         this.bindEvents = function () {
 
-            this.$container.find('.dropdown-header span, .dropdown-arrow').on('click', function () {
+            this.$container.find('.dropdown__header').on('click', function () {
                 if (dropdownOpened === false) {
-                    $('.dropdown-box').hide();
+                    $('.dropdown__box').hide();
                     that.showDropdown();
                 }
                 else {
@@ -120,9 +120,9 @@
                     return;
                 }
 
-                var $target = $(e.target);
+                const $target = $(e.target);
 
-                if ($target.hasClass('dropdown-box') || $target.parents('.dropdown-box').length) {
+                if ($target.hasClass('dropdown__box') || $target.parents('.dropdown__box').length) {
                     return;
                 }
 
@@ -140,13 +140,13 @@
         this.buildHtml();
         this.bindEvents();
 
-        if (this.placeholder) {
+        if (this.placeholder && !$elem.find('option:selected').attr('selected')) {
             this.activeLabel = this.placeholder;
             this.$cityLabel.text(this.activeLabel);
-            this.$header.addClass('dropdown-header--placeholder');
+            this.$header.addClass('dropdown__header--placeholder');
         }
         else {
-            var value = this.$elem.val() ? this.$elem.val() : this.$elem.find('option').first().val();
+            const value = this.$elem.val() ? this.$elem.val() : this.$elem.find('option').first().val();
             this.setActiveValue(value);
         }
 
@@ -162,10 +162,10 @@
             if (that.placeholder) {
                 that.activeLabel = that.placeholder;
                 that.$cityLabel.text(that.activeLabel);
-                that.$header.addClass('dropdown-header--placeholder');
+                that.$header.addClass('dropdown__header--placeholder');
             }
             else {
-                var value = that.$elem.val() ? that.$elem.val() : that$elem.find('option').first().val();
+                const value = that.$elem.val() ? that.$elem.val() : that.$elem.find('option').first().val();
                 that.setActiveValue(value);
             }
         };
@@ -177,16 +177,16 @@
     $.fn.dropdown = function (options) {
 
         if(typeof options === 'string'){
-            var dropdownId = $(this).data('dropdown-guid');
+            const dropdownId = $(this).data('dropdown-guid');
             if(dropdownId in dropdowns){
-                var dropdown = dropdowns[dropdownId];
+                const dropdown = dropdowns[dropdownId];
                 dropdown[options]();
             }
             return;
         }
 
         $(this).each(function () {
-            var dropdownId = Math.floor((1 + Math.random()) * 0x10000).toString(16) + Math.floor((1 + Math.random()) * 0x10000).toString(16) + Math.floor((1 + Math.random()) * 0x10000).toString(16);
+            const dropdownId = Math.floor((1 + Math.random()) * 0x10000).toString(16) + Math.floor((1 + Math.random()) * 0x10000).toString(16) + Math.floor((1 + Math.random()) * 0x10000).toString(16);
             dropdowns[dropdownId] = new Dropdown($(this), options);
             $(this).data('dropdown-guid', dropdownId);
         });

@@ -1,7 +1,9 @@
 node_modules
+package-lock.json
 .tmp
 .sass-cache
 .idea
 npm-debug.log
 dist/*
 logs
+.DS_Store

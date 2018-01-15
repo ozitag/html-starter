@@ -1,56 +1,72 @@
-.dropdown-container {
-  height: auto !important;
+.dropdown {
   position: relative;
-}
 
-.dropdown-header {
-  cursor: pointer;
-  position: relative;
-  white-space: nowrap;
+  &__header {
+    cursor: pointer;
+    position: relative;
+    white-space: nowrap;
+    height: 35px;
+    border: 1px solid $secondary-color;
+    border-radius: $border-radius;
 
-  a {
-
+    &--placeholder {
+      .dropdown__text {
+        color: $secondary-color;
+        opacity: 0.65;
+      }
+    }
   }
 
-  span {
+  &__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    right: 10px;
+    @include sprite('btn-arrow-d');
+    z-index: 1;
+  }
+
+  &__text {
     display: block;
     padding: 0 10px;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-}
-
-.dropdown-box {
-  display: none;
-  position: absolute;
-  top: 40px;
-  left: 0;
-  min-width: 100%;
-  background-color: #ffffff;
-  box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.25), 0 0 1px 0 rgba(0, 0, 0, 0.25);
-  max-height: 300px;
-  overflow: auto;
-  z-index: 1;
-
-  .dropdown-opened & {
-    z-index: 2;
+    line-height: 33px;
   }
 
-  span {
-    display: block;
-    white-space: nowrap;
+  &__box {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 3px;
+    min-width: 100%;
+    background-color: #ffffff;
+    box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.25), 0 0 1px 0 rgba(0, 0, 0, 0.25);
+    max-height: 300px;
+    overflow: auto;
+    z-index: 1;
 
-    a {
+    .opened & {
+      z-index: 2;
+    }
+
+    div {
       display: block;
-      color: #000;
-      text-transform: none;
-      line-height: 30px;
-      font-size: 14px;
-      padding: 0 10px;
+      white-space: nowrap;
 
-      &:hover {
+      a {
+        display: block;
         color: #000;
-        background-color: #f1f2f5;
+        text-transform: none;
+        line-height: 30px;
+        font-size: 14px;
+        padding: 0 10px;
+
+        &:hover {
+          color: #000;
+          background-color: #f1f2f5;
+        }
       }
     }
   }

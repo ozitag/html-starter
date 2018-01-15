@@ -3,8 +3,8 @@
         <label for="" class="form-label {{label-class}}">{{label}}</label>
     {{/if}}
 
-    {{# select}}
-        <select class="js-dropdown-box" {{#if s-placeholder}}data-placeholder="{{s-placeholder}}"{{/if}}>
+    {{#if select}}
+        <select class="js-dropdown-box" {{#if placeholder}}data-placeholder="{{placeholder}}"{{/if}}>
             {{# times 5}}
                 <option value="{{this}}">Example text {{this}}</option>
             {{/times}}
@@ -26,5 +26,5 @@
         {{#if error}}
             <span class="form-message">Error Error</span>
         {{/if}}
-    {{/select}}
+    {{/if}}
 </div>
