@@ -1,6 +1,6 @@
 .popup {
   position: fixed;
-  overflow: hidden;
+  overflow-x: hidden;
   background: rgba(0, 0, 0, 0.8);
   top: 0;
   left: 0;
@@ -20,6 +20,9 @@
     background-color: #fff;
     display: none;
     position: relative;
+    max-height: 95%;
+    overflow-y: auto;
+
 
     &.phide {
       display: none;

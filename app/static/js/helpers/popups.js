@@ -16,6 +16,8 @@
 
         disabled: false,
 
+        bodyScroll: null,
+
         showOverlay: function (callback) {
             this.createOverlay();
             this.$overlay.fadeIn(callback);
@@ -39,6 +41,9 @@
                 if (target.hasClass('popup')) {
                     that.hide();
                     $('body').removeClass('popup-opened');
+                    if (window.innerWidth < 768) {
+                        window.scrollBy(0, that.bodyScroll);
+                    }
                 }
             });
 
@@ -50,10 +55,10 @@
         },
 
         open: function (url, callback) {
-			if (this.disabled) {
+            if (this.disabled) {
                 return;
             }
-			
+
             const that = this;
 
             if (this.$popup && this.$popup.length) {
@@ -92,11 +97,11 @@
         },
 
         openById: function (id, callback) {
-			if (this.disabled) {
+            if (this.disabled) {
                 return;
             }
-			
-			const that = this;
+
+            const that = this;
 
             $('body').addClass('popup-opened');
 
@@ -120,7 +125,7 @@
             if (popupId in this.beforeListeners) {
                 waitCallback = this.beforeListeners[popupId];
             }
-            
+
             waitCallback(function () {
                 that.showOverlay(function () {
                     $('body').addClass('popup-opened');
@@ -147,10 +152,10 @@
         },
 
         openFrame: function (url, width, height) {
-			if (this.disabled) {
+            if (this.disabled) {
                 return;
             }
-			
+
             const that = this;
 
             if (this.$popup && this.$popup.length) {
@@ -188,6 +193,8 @@
         },
 
         hide: function () {
+            const that = this;
+
             if (this.popupMode === 'id') {
                 if (this.$popup) {
                     this.$popup.find('.popup__box').removeClass('pshow').addClass('phide').appendTo($('body'));
@@ -204,15 +211,26 @@
         },
 
         bindEvents: function () {
+            const that = this;
+
             $('body').on('click', '[data-popup-ajax]:not([data-popup-auto=0])', function () {
+                if (window.innerWidth < 768) {
+                    that.bodyScroll = $(window).scrollTop();
+                }
                 $('body').addClass('popup-opened');
                 Popups.open($(this).data('popup-ajax'));
                 return false;
             }).on('click', '[data-popup-frame]:not([data-popup-auto=0])', function () {
+                if (window.innerWidth < 768) {
+                    that.bodyScroll = $(window).scrollTop();
+                }
                 $('body').addClass('popup-opened');
                 Popups.openFrame($(this).data('popup-frame'), $(this).data('frame-width'), $(this).data('frame-height'));
                 return false;
             }).on('click', '[data-popup]:not([data-popup-auto=0])', function () {
+                if (window.innerWidth < 768) {
+                    that.bodyScroll = $(window).scrollTop();
+                }
                 $('body').addClass('popup-opened');
                 Popups.openById($(this).data('popup'));
                 return false;

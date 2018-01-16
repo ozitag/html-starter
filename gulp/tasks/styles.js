@@ -10,9 +10,7 @@ module.exports = () => {
                 .pipe($.gulpPlugin.csso())
                 .pipe($.gulpPlugin.cssmin())
                 .pipe($.gulp.dest($.config.tmpPath + '/' + $.config.staticPath + '/css'))
-                .on('end', () => {
-                    $.bs.reload({stream: true})
-                });
+                .pipe($.bs.reload({stream: true}));
         }
 
         return $.gulp.src('./' + $.config.sourcePath + '/' + $.config.stylesPath + '/main.scss')
@@ -27,6 +25,6 @@ module.exports = () => {
             .pipe($.gulp.dest($.config.tmpPath + '/' + $.config.staticPath + '/css'))
             .pipe($.gulpPlugin.csslint('./config/.csslintrc'))
             .pipe($.gulpPlugin.csslintReport())
-            .pipe($.bs.reload({stream: true}))
+            .pipe($.bs.reload({stream: true}));
     });
 };
