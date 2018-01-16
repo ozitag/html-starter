@@ -2,7 +2,7 @@
 
     'use strict';
 
-    var Popups = {
+    const Popups = {
 
         $overlay: null,
 
@@ -26,25 +26,17 @@
         },
 
         createOverlay: function () {
-            var that = this;
+            const that = this;
 
             if (this.$overlay !== null) {
                 return false;
             }
 
-            this.$overlay = $('<div/>').addClass('popup-overlay').css('display', 'none').appendTo($('body'));
+            this.$overlay = $('<div/>').addClass('popup').css('display', 'none').appendTo($('body'));
 
             this.$overlay.on('click', function (e) {
-                var target = $(e.target);
-                if (target.hasClass('popup-overlay')) {
-                    that.hide();
-                    $('body').removeClass('popup-opened');
-                }
-            });
-
-            this.$overlay.on('click', '.popup', function (e) {
-                var target = $(e.target);
-                if (target.is('.popup')) {
+                const target = $(e.target);
+                if (target.hasClass('popup')) {
                     that.hide();
                     $('body').removeClass('popup-opened');
                 }
@@ -57,32 +49,24 @@
             });
         },
 
-        createInstance: function () {
-            var popup = $('<div/>').addClass('popup-wrapper');
-
-            popup.appendTo(this.$overlay);
-
-            return popup;
-        },
-
         open: function (url, callback) {
 			if (this.disabled) {
                 return;
             }
 			
-            var that = this;
+            const that = this;
 
             if (this.$popup && this.$popup.length) {
                 that.hide();
             }
 
-            var $loader = $('<div class="preloader-overlay" style="display: block"><div class="preloader-block"> <div class="preloader-block__circle_01"></div> <div class="preloader-block__circle_02"></div> <div class="preloader-block__circle_03"></div> <div class="preloader-block__circle_04"></div> <div class="preloader-block__circle_05"></div> <div class="preloader-block__circle_06"></div> <div class="preloader-block__circle_07"></div> <div class="preloader-block__circle_08"></div> <div class="preloader-block__circle_09"></div> <div class="preloader-block__circle_10"></div> <div class="preloader-block__circle_11"></div> <div class="preloader-block__circle_12"></div> </div> </div> ');
+            const $loader = $('<div class="preloader-overlay" style="display: block"><div class="preloader-block"> <div class="preloader-block__circle_01"></div> <div class="preloader-block__circle_02"></div> <div class="preloader-block__circle_03"></div> <div class="preloader-block__circle_04"></div> <div class="preloader-block__circle_05"></div> <div class="preloader-block__circle_06"></div> <div class="preloader-block__circle_07"></div> <div class="preloader-block__circle_08"></div> <div class="preloader-block__circle_09"></div> <div class="preloader-block__circle_10"></div> <div class="preloader-block__circle_11"></div> <div class="preloader-block__circle_12"></div> </div> </div> ');
             that.$overlay.append($loader);
 
             that.popupMode = 'ajax';
 
             this.showOverlay(function () {
-                that.$popup = that.createInstance();
+                that.$popup = that.$overlay;
 
                 if (that.$popup.length === 1) {
                     $loader.remove();
@@ -91,11 +75,11 @@
                 $.get(url, function (response) {
                     that.$popup.html(response);
 
-                    var popupId = that.$popup.find('.popup').data('popup-id');
+                    const popupId = that.$popup.find('.popup').data('popup-id');
 
                     if (popupId in that.listeners) {
-                        var listeners = that.listeners[popupId];
-                        for (var i = 0; i < listeners.length; i++) {
+                        const listeners = that.listeners[popupId];
+                        for (let i = 0; i < listeners.length; i++) {
                             listeners[i](that.$popup);
                         }
                     }
@@ -112,11 +96,11 @@
                 return;
             }
 			
-			var that = this;
+			const that = this;
 
             $('body').addClass('popup-opened');
 
-            var $popup = $('#' + id);
+            const $popup = $('#' + id);
 
             if ($popup.length === 0) {
                 return;
@@ -128,11 +112,11 @@
 
             that.popupMode = 'id';
 
-            var waitCallback = function (callback) {
+            let waitCallback = function (callback) {
                 callback();
             };
 
-            var popupId = $popup.data('popup-id');
+            const popupId = $popup.data('popup-id');
             if (popupId in this.beforeListeners) {
                 waitCallback = this.beforeListeners[popupId];
             }
@@ -140,17 +124,17 @@
             waitCallback(function () {
                 that.showOverlay(function () {
                     $('body').addClass('popup-opened');
-                    $popup.show();
+                    $popup.removeClass('phide').addClass('pshow');
 
-                    that.$popup = that.createInstance();
+                    that.$popup = that.$overlay;
                     that.$popup.append($popup);
 
-                    var popupId = that.$popup.find('.popup').data('popup-id');
+                    const popupId = that.$popup.find('.popup__box').data('popup-id');
 
                     if (popupId in that.listeners) {
-                        var listeners = that.listeners[popupId];
-                        for (var i = 0; i < listeners.length; i++) {
-                            listeners[i](that.$popup.find('.popup'), that.popupsOpened.indexOf(id) === -1);
+                        const listeners = that.listeners[popupId];
+                        for (let i = 0; i < listeners.length; i++) {
+                            listeners[i](that.$popup.find('.popup__box'), that.popupsOpened.indexOf(id) === -1);
                         }
                     }
                     that.popupsOpened.push(id);
@@ -167,54 +151,52 @@
                 return;
             }
 			
-            var that = this;
+            const that = this;
 
             if (this.$popup && this.$popup.length) {
                 that.hide();
             }
 
-            var $frame = $('<iframe/>').hide();
+            const $frame = $('<iframe/>').hide();
             $frame.attr('src', url);
             $frame.attr('width', '100%');
             $frame.attr('height', '100%');
             $frame.attr('border', 0);
             $frame.css('border', 0);
 
-            var popupWidth = width ? width : 300;
-            var popupHeight = height ? height : 300;
+            const popupWidth = width ? width : 300;
+            const popupHeight = height ? height : 300;
 
-            var $popup = $('<div/>').addClass('popup').css({
+            const $popup = $('<div/>').addClass('popup__box').css({
                 width: popupWidth + 'px',
                 height: popupHeight + 'px'
-            }).addClass('popup-frame');
+            }).addClass('popup__frame');
 
-            var $loader = $('<div class="preloader-overlay" style="display: block"><div class="preloader-block"> <div class="preloader-block__circle_01"></div> <div class="preloader-block__circle_02"></div> <div class="preloader-block__circle_03"></div> <div class="preloader-block__circle_04"></div> <div class="preloader-block__circle_05"></div> <div class="preloader-block__circle_06"></div> <div class="preloader-block__circle_07"></div> <div class="preloader-block__circle_08"></div> <div class="preloader-block__circle_09"></div> <div class="preloader-block__circle_10"></div> <div class="preloader-block__circle_11"></div> <div class="preloader-block__circle_12"></div> </div> </div> ');
+            const $loader = $('<div class="preloader-overlay" style="display: block"><div class="preloader-block"> <div class="preloader-block__circle_01"></div> <div class="preloader-block__circle_02"></div> <div class="preloader-block__circle_03"></div> <div class="preloader-block__circle_04"></div> <div class="preloader-block__circle_05"></div> <div class="preloader-block__circle_06"></div> <div class="preloader-block__circle_07"></div> <div class="preloader-block__circle_08"></div> <div class="preloader-block__circle_09"></div> <div class="preloader-block__circle_10"></div> <div class="preloader-block__circle_11"></div> <div class="preloader-block__circle_12"></div> </div> </div> ');
             $popup.append($loader);
             $popup.append('<a href="#" class="popup__close icon-close-popup js-close-wnd"></a>');
             $popup.append($frame);
 
             $frame.on('load', function () {
                 $loader.remove();
-                $frame.show();
+                $frame.removeClass('phide').addClass('pshow');
             });
 
             this.showOverlay(function () {
-                that.$popup = that.createInstance();
                 that.$popup.append($popup);
             });
         },
 
         hide: function () {
-
-            if (this.popupMode == 'id') {
+            if (this.popupMode === 'id') {
                 if (this.$popup) {
-                    this.$popup.find('.popup').hide().appendTo($('body'));
-                    this.$popup.remove();
+                    this.$popup.find('.popup__box').removeClass('pshow').addClass('phide').appendTo($('body'));
+                    this.$popup.find('.popup__box').remove();
                 }
             }
-            else if (this.popupMode == 'ajax') {
+            else if (this.popupMode === 'ajax') {
                 if (this.$popup) {
-                    this.$popup.remove();
+                    this.$popup.find('.popup__box').remove();
                 }
             }
 
@@ -259,4 +241,6 @@
     };
 
     global.Popups = Popups;
+
+    Popups.Init();
 })(window);

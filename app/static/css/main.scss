@@ -3,13 +3,16 @@
 @import "layout/header";
 @import "layout/breadcrumbs";
 @import "layout/footer";
-@import "layout/popups";
+@import "layout/popup";
 @import "layout/wrapper";
 
 @import "ui/buttons";
 @import "ui/form";
 
 @import "components/dropdown";
+@import "components/radio";
+@import "components/checkbox";
+@import "components/loader";
 
 @import "blocks/btn-list";
 

@@ -9,7 +9,9 @@ module.exports = () => {
         return $.gulp.src(['./' + $.config.sourcePath + '/' + $.config.staticPath + '/js/**'])
             .pipe($.gulpPlugin.babel())
             .pipe($.gulp.dest($.config.tmpPath + '/' + $.config.staticPath + '/js/'))
-            .pipe($.bs.reload({stream: true}));
+            .on('end', () => {
+                $.bs.reload({stream: true})
+            });
     });
 
     $.gulp.task('prepareJs', () => {

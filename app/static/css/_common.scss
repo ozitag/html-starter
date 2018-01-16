@@ -25,6 +25,10 @@ input {
   &::-ms-clear {
     display: none !important;
   }
+
+  &::-ms-reveal {
+    display: none !important;
+  }
 }
 
 button {

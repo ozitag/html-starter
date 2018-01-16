@@ -17,7 +17,7 @@ $.tasks.forEach(taskPath => {
 
 $.gulp.task('dev', $.gulp.series(
     $.gulp.parallel('clean'),
-    $.gulp.parallel('hbs', 'styles', 'scripts', 'scripts:libs','hbs', 'svg', 'pngSprite'),
+    $.gulp.parallel('hbs', 'styles', 'scripts', 'scripts:libs','hbs', 'svg', 'svgInline', 'pngSprite'),
     $.gulp.parallel('prepareHtml'),
     $.gulp.parallel('watch', 'serve')
 ));
@@ -25,7 +25,7 @@ $.gulp.task('dev', $.gulp.series(
 $.gulp.task('build', $.gulp.series(
     $.gulp.parallel('clean'),
     $.gulp.parallel('styles', 'scripts', 'scripts:libs'),
-    $.gulp.parallel('hbs', 'svg', 'pngSprite'),
+    $.gulp.parallel('hbs', 'svg', 'svgInline', 'pngSprite'),
     $.gulp.parallel('prepareHtml'),
     $.gulp.parallel('dist', 'content', 'copyMetaFiles'),
     $.gulp.parallel('tinypng:meta', 'tinypng:content', 'prepareJs', 'replaceHtml'),

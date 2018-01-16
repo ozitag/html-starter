@@ -14,12 +14,18 @@
     text-decoration: none;
   }
 
-  i {
+  svg {
     display: inline-block;
     vertical-align: middle;
-    width: 20px;
     position: relative;
     min-height: 1px;
+    margin-right: 5px;
+    margin-top: -2px;
+  }
+
+  span + svg {
+    margin-right: 0;
+    margin-left: 5px;
   }
 
   &-primary {
@@ -335,32 +341,6 @@
       border-color: rgba(255, 255, 255, 0.75) rgba(255, 255, 255, 0.75) rgba(255, 255, 255, 0.25) rgba(255, 255, 255, 0.25);
       border-radius: 100%;
       animation: clockwise .5s linear infinite;
-    }
-  }
-
-  &-arrow {
-    i {
-      &:before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        right: 0;
-        @include sprite('btn-arrow');
-        margin-top: -8px;
-      }
-    }
-  }
-
-  &-user {
-    i {
-      &:before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 0;
-        @include sprite('btn-user');
-        margin-top: -8px;
-      }
     }
   }
 

@@ -36,6 +36,8 @@
           display: block;
           font-size: 20px;
           padding: 10px 30px;
+          width: 100%;
+          text-align: left;
 
           &:hover {
             background-color: darken(#f9f9f9, 5%);

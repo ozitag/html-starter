@@ -11,8 +11,16 @@
         <aside class="ui__aside">
             <nav class="aside__inner">
                 <ul class="aside__nav">
-                    <li><a href="#" class="_link">Colors</a></li>
-                    <li><a href="#" class="_link">Buttons</a></li>
+                    <li><button class="_link" data-id="ui-colors">Colors</button></li>
+                    <li><button class="_link" data-id="ui-buttons">Buttons</button></li>
+                    <li><button class="_link" data-id="ui-buttons-outline">Buttons Outline</button></li>
+                    <li><button class="_link" data-id="ui-buttons-sizes">Buttons Sizes</button></li>
+                    <li><button class="_link" data-id="ui-buttons-disabled">Buttons Disabled</button></li>
+                    <li><button class="_link" data-id="ui-buttons-icons">Buttons Icons</button></li>
+                    <li><button class="_link" data-id="ui-form">Forms</button></li>
+                    <li><button class="_link" data-id="ui-popups">Popups</button></li>
+                    <li><button class="_link" data-id="ui-loader">Loader</button></li>
+                    <li><button class="_link" data-id="ui-loader-empty">Loader Empty</button></li>
                 </ul>
             </nav>
         </aside>
@@ -83,7 +91,7 @@
 
             {{> blocks/ui-section-end}}
 
-            {{> blocks/ui-section-start title='Buttons Outline'}}
+            {{> blocks/ui-section-start title='Buttons Outline' id='ui-buttons-outline'}}
 
             <div class="btn-list">
                 <div class="btn-list__item">
@@ -121,7 +129,7 @@
 
             {{> blocks/ui-section-end}}
 
-            {{> blocks/ui-section-start title='Buttons Sizes'}}
+            {{> blocks/ui-section-start title='Buttons Sizes' id='ui-buttons-sizes'}}
 
             <div class="btn-list">
                 <div class="btn-list__item">
@@ -143,7 +151,7 @@
 
             {{> blocks/ui-section-end}}
 
-            {{> blocks/ui-section-start title='Buttons Disabled'}}
+            {{> blocks/ui-section-start title='Buttons Disabled' id='ui-buttons-disabled'}}
 
             <div class="btn-list">
                 <div class="btn-list__item">
@@ -165,27 +173,27 @@
 
             {{> blocks/ui-section-end}}
 
-            {{> blocks/ui-section-start title='Buttons Icons'}}
+            {{> blocks/ui-section-start title='Buttons Icons' id='ui-buttons-icons'}}
 
             <div class="btn-list">
                 <div class="btn-list__item">
-                    <button class="btn btn-primary btn-user">
-                        <i></i>
-                        Button
+                    <button class="btn btn-primary">
+                        {{> ui/svg name='btn-user'}}
+                        <span>Button</span>
                     </button>
                 </div>
 
                 <div class="btn-list__item">
-                    <button class="btn btn-primary btn-arrow">
-                        Button
-                        <i></i>
+                    <button class="btn btn-primary">
+                        <span>Button</span>
+                        {{> ui/svg name='btn-arrow'}}
                     </button>
                 </div>
             </div>
 
             {{> blocks/ui-section-end}}
 
-            {{> blocks/ui-section-start title='Forms'}}
+            {{> blocks/ui-section-start title='Forms' id='ui-forms'}}
 
             <div class="row">
                 <div class="col-md-6">
@@ -207,9 +215,99 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-md-6">
+                    {{> ui/radio id=1 name='radio1' label='Example label'}}
+                    <br>
+                    {{> ui/radio id=2 name='radio1' label='Example label' checked=1}}
+                </div>
+
+                <div class="col-md-6">
+                    {{> ui/checkbox id=3 label='Example label'}}
+                    <br>
+                    {{> ui/checkbox id=4 label='Example label' checked=1}}
+                </div>
+            </div>
+
+            {{> blocks/ui-section-end}}
+
+            {{> blocks/ui-section-start title='Popups' id='ui-popups'}}
+
+            <div class="btn-list">
+                <div class="btn-list__item">
+                    <button class="btn btn-primary" data-popup="example">Button</button>
+                </div>
+            </div>
+
+            {{> blocks/ui-section-end}}
+
+            {{> blocks/ui-section-start title='Loader' id='ui-loader'}}
+
+            <div class="loader">
+                <div class="loader__circle">Loading...</div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        {{> ui/input label='Example label' placeholder='Input placeholder'}}
+                    </div>
+
+                    <div class="col-md-6">
+                        {{> ui/input label='Example label' input-class='form-error' error=1}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        {{> ui/input label='Example label'  placeholder='Input disabled' disabled=1}}
+                    </div>
+
+                    <div class="col-md-6">
+                        {{> ui/input label='Example label' select=1 placeholder='Choose any one'}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        {{> ui/radio id=1 name='radio1' label='Example label'}}
+                        <br>
+                        {{> ui/radio id=2 name='radio1' label='Example label' checked=1}}
+                    </div>
+
+                    <div class="col-md-6">
+                        {{> ui/checkbox id=3 label='Example label'}}
+                        <br>
+                        {{> ui/checkbox id=4 label='Example label' checked=1}}
+                    </div>
+                </div>
+            </div>
+
+            {{> blocks/ui-section-end}}
+
+            {{> blocks/ui-section-start title='Loader Empty' id='ui-loader-empty'}}
+
+            <div class="loader loader--trans">
+                <div class="loader__circle">Loading...</div>
+            </div>
+
             {{> blocks/ui-section-end}}
         </section>
     </main>
 </section>
+
+{{> popups/example}}
+
+<script>
+    window.onload = () => {
+        const $btn = $('.aside__nav').find('._link');
+
+        $btn.on('click', function () {
+            const id = $(this).data('id');
+
+            $('html, body').animate({
+                scrollTop: $(`#${id}`).offset().top
+            }, 600);
+        });
+    };
+</script>
 
 {{> layout/bottom }}

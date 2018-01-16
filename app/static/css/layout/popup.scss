@@ -1,0 +1,39 @@
+.popup {
+  position: fixed;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.8);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__box {
+    max-width: 500px;
+    padding: 20px;
+    margin: 0 auto;
+    background-color: #fff;
+    display: none;
+    position: relative;
+
+    &.phide {
+      display: none;
+    }
+
+    &.pshow {
+      display: block;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 1;
+  }
+}

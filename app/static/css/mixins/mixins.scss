@@ -154,20 +154,20 @@
 }
 
 @mixin tablet() {
-  @media(min-width: $mobileMedia) and (max-width: $tabletMedia) {
+  @media(min-width: $mobileMedia + 1) and (max-width: $tabletMedia) {
     @content;
   }
 }
 
 @mixin tablet-and-phone() {
-  @media(max-width: $tablet-and-phoneMedia) {
+  @media(max-width: $tabletMedia) {
     @content;
   }
 }
 
 
 @mixin desktop() {
-  @media(min-width: $desktopMedia) {
+  @media(min-width: $tabletMedia + 1) {
     @content;
   }
 }
