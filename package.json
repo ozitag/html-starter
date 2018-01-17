@@ -45,7 +45,8 @@
     "gulp-uglify": "^3.0.0",
     "gulp-util": "^3.0.8",
     "gulp.spritesmith": "^6.9.0",
-    "merge-stream": "^1.0.1"
+    "merge-stream": "^1.0.1",
+    "yargs": "^10.1.1"
   },
   "dependencies": {
     "html5shiv": "^3.7.3",

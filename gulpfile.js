@@ -8,7 +8,8 @@ global.$ = {
     del: require('del'),
     tasks: require('./gulp/tasks.js'),
     config: require('./config/config.json'),
-    merge: require('merge-stream')
+    merge: require('merge-stream'),
+    argv: require('yargs').argv
 };
 
 if ($.config.criticalCss) {

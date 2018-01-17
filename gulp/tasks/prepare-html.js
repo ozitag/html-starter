@@ -44,11 +44,22 @@ module.exports = () => {
 
             const desc = files[j].substring(files[j].indexOf('_') + 1, files[j].lastIndexOf('.'));
             const pageName = pageNames[desc];
+            const pageNameRu = pageName.substring(0, pageName.lastIndexOf('['));
+            const pageNameEn = pageName.substring(pageName.lastIndexOf('['));
 
-            html += '<div class="col-md-3 col-sm-4 col-xs-12"> ' +
-                '<div class="page-default__item_title">' + pageName + '</div>' +
-                '<a class="page-default__item js-hover-item" title="' + pageName + '" href="' + desc + '.html" style="background: url(../' + $.config.metaPath + '/' + files[j] +')no-repeat top center;"></a>' +
-                ' </div>';
+            if ($.argv._[0] === 'build') {
+                html += '<div class="col-md-3 col-sm-4 col-xs-12"> ' +
+                    '<div class="page-default__item_title"><div>' + pageNameRu + '</div><div>' + pageNameEn + '</div></div>' +
+                    '<a class="page-default__item js-hover-item" title="' + pageName + '" href="' + desc + '.html" style="background: url(../' + $.config.metaPath + '/' + files[j] +')no-repeat top center;"></a>' +
+                    ' </div>';
+            } else {
+                html += '<div class="col-md-3 col-sm-4 col-xs-12"> ' +
+                    '<div class="page-default__item_title"><div>' + pageNameRu.replace('[:ru]', '') + '</div></div>' +
+                    '<a class="page-default__item js-hover-item" title="' + pageNameRu.replace('[:ru]', '') + '" href="' + desc + '.html" style="background: url(../' + $.config.metaPath + '/' + files[j] +')no-repeat top center;"></a>' +
+                    ' </div>';
+            }
+
+
         }
 
         const templateFile = $.fs.readFileSync('./config/template.html').toString();
