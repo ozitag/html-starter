@@ -11,6 +11,10 @@ global.$ = {
     merge: require('merge-stream')
 };
 
+if ($.config.criticalCss) {
+    $.critical = require('critical').stream
+}
+
 $.tasks.forEach(taskPath => {
     require(taskPath)()
 });
@@ -28,5 +32,5 @@ $.gulp.task('build', $.gulp.series(
     $.gulp.parallel('hbs', 'svg', 'svgInline', 'pngSprite'),
     $.gulp.parallel('prepareHtml'),
     $.gulp.parallel('dist', 'content', 'copyMetaFiles'),
-    $.gulp.parallel('tinypng:meta', 'tinypng:content', 'prepareJs', 'replaceHtml'),
+    $.gulp.parallel('tinypng:meta', 'tinypng:content', 'prepareJs', 'replaceHtml', 'criticalCss'),
 ));
