@@ -17,7 +17,7 @@
   "metaPath": ".meta",
   "concatScripts": false,
   "cssMin": false,
-  "tinyPng": true,
+  "tinyPng": false,
   "criticalCss": false,
   "supportJsLibs": [
     "./node_modules/html5shiv/dist/html5shiv.min.js",
