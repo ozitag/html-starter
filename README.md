@@ -59,6 +59,7 @@ gulp build
   "concatScripts": false,
   "cssMin": false,
   "tinyPng": true,
+  "criticalCss": false,
   "supportJsLibs": [
     "./node_modules/html5shiv/dist/html5shiv.min.js",
     "./node_modules/jquery/dist/jquery.min.js",

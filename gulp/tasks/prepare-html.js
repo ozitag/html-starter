@@ -29,7 +29,7 @@ module.exports = () => {
         for (let k = 0; k < tmpFiles.length; k++) {
             const tpmTemplateName = tmpFiles[k].substring(tmpFiles[k], tmpFiles[k].lastIndexOf('.'));
 
-            if (tpmTemplateName === 'index') {
+            if (tpmTemplateName === 'index' || tpmTemplateName === '') {
                 continue;
             }
 
@@ -42,12 +42,12 @@ module.exports = () => {
                 continue;
             }
 
-            const desc = item.substring(item.indexOf('_') + 1, item.lastIndexOf('.'));
+            const desc = files[j].substring(files[j].indexOf('_') + 1, files[j].lastIndexOf('.'));
             const pageName = pageNames[desc];
 
             html += '<div class="col-md-3 col-sm-4 col-xs-12"> ' +
                 '<div class="page-default__item_title">' + pageName + '</div>' +
-                '<a class="page-default__item js-hover-item" title="' + pageName + '" href="' + desc + '.html" style="background: url(../' + $.config.metaPath + '/' + item +')no-repeat top center;"></a>' +
+                '<a class="page-default__item js-hover-item" title="' + pageName + '" href="' + desc + '.html" style="background: url(../' + $.config.metaPath + '/' + files[j] +')no-repeat top center;"></a>' +
                 ' </div>';
         }
 
