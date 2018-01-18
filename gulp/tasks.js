@@ -11,7 +11,7 @@ module.exports = [
     './gulp/tasks/dist',
     './gulp/tasks/copy-meta-files',
     './gulp/tasks/replace-html',
-    './gulp/tasks/tinypng',
+    './gulp/tasks/imagemin',
     './gulp/tasks/png-sprite',
     './gulp/tasks/deploy',
     './gulp/tasks/critical-css',

@@ -33,5 +33,5 @@ $.gulp.task('build', $.gulp.series(
     $.gulp.parallel('hbs', 'svg', 'svgInline', 'pngSprite'),
     $.gulp.parallel('prepareHtml'),
     $.gulp.parallel('dist', 'content', 'copyMetaFiles'),
-    $.gulp.parallel('tinypng:meta', 'tinypng:content', 'prepareJs', 'replaceHtml', 'criticalCss'),
+    $.gulp.parallel('imagemin:meta', 'imagemin:content', 'prepareJs', 'replaceHtml', 'criticalCss'),
 ));

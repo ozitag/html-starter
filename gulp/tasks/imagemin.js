@@ -1,23 +1,31 @@
 module.exports = () => {
-    $.gulp.task('tinypng:meta', () => {
+    $.gulp.task('imagemin:meta', () => {
         if (!$.config.tinyPng) {
             return $.gulp.src($.config.destPath + '/' + $.config.metaPath + '/*.{png,jpg,gif}')
                 .pipe($.gulp.dest($.config.destPath + '/' + $.config.metaPath));
         }
 
        return $.gulp.src($.config.destPath + '/' + $.config.metaPath + '/*.{png,jpg,gif}')
-            .pipe($.gulpPlugin.tinypngNokey())
+           .pipe($.gulpPlugin.imagemin({
+               interlaced: true,
+               progressive: true,
+               optimizationLevel: 5
+           }))
             .pipe($.gulp.dest($.config.destPath + '/' + $.config.metaPath));
     });
 
-    $.gulp.task('tinypng:content', () => {
+    $.gulp.task('imagemin:content', () => {
         if (!$.config.tinyPng) {
             return $.gulp.src($.config.destPath + '/' + $.config.contentPath + '/images/**/*.{png,jpg,gif}')
                 .pipe($.gulp.dest($.config.destPath + '/' + $.config.contentPath + '/images'));
         }
 
         return $.gulp.src($.config.destPath + '/' + $.config.contentPath + '/images/**/*.{png,jpg,gif}')
-            .pipe($.gulpPlugin.tinypngNokey())
+            .pipe($.gulpPlugin.imagemin({
+                interlaced: true,
+                progressive: true,
+                optimizationLevel: 5
+            }))
             .pipe($.gulp.dest($.config.destPath + '/' + $.config.contentPath + '/images'));
     });
 };
