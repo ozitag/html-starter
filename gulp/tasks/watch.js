@@ -6,6 +6,6 @@ module.exports = () => {
        $.gulp.watch([$.config.sourcePath + '/' + $.config.svgInlinePath + '/*.svg'], $.gulp.series('svgInline'));
        $.gulp.watch([$.config.sourcePath + '/' + $.config.scriptsPath + '/**/*.js'], $.gulp.series('scripts'));
        $.gulp.watch([$.config.sourcePath + '/' + $.config.metaPath + '/*.{png,jpg,jpeg}'],  $.gulp.series('prepareHtml'));
-       $.gulp.watch([$.config.sourcePath + '/' + $.config.pngPath + '/*.'],  $.gulp.series('pngSprite'));
+       $.gulp.watch([$.config.sourcePath + '/' + $.config.pngPath + '/*.png'],  $.gulp.series('pngSprite'));
    });
 };
