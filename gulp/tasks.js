@@ -15,4 +15,5 @@ module.exports = [
     './gulp/tasks/png-sprite',
     './gulp/tasks/deploy',
     './gulp/tasks/critical-css',
+    './gulp/tasks/static',
 ];

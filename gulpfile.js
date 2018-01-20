@@ -30,8 +30,8 @@ $.gulp.task('dev', $.gulp.series(
 $.gulp.task('build', $.gulp.series(
     $.gulp.parallel('clean'),
     $.gulp.parallel('styles', 'scripts', 'scripts:libs'),
-    $.gulp.parallel('hbs', 'svg', 'svgInline', 'pngSprite'),
+    $.gulp.parallel('hbs', 'svg', 'svgInline', 'pngSprite', 'static:fonts', 'static:images'),
     $.gulp.parallel('prepareHtml'),
     $.gulp.parallel('dist', 'content', 'copyMetaFiles'),
-    $.gulp.parallel('imagemin:meta', 'imagemin:content', 'prepareJs', 'replaceHtml', 'criticalCss'),
+    $.gulp.parallel('imagemin:meta', 'imagemin:content', 'prepareJs', 'replaceHtml', 'criticalCss')
 ));
