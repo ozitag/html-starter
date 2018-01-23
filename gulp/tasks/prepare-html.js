@@ -38,8 +38,10 @@ module.exports = () => {
             if ($.argv._[0] === 'build') {
                 $.fs.writeFileSync($.config.tmpPath + '/html/' + tpmTemplateName + '.html', hbs.replace(/<title>(.*)/, '<title>' + pageNames[tpmTemplateName] + '</title>'));
             } else {
-                const pageTitleRu = pageNames[tpmTemplateName].substring(0, pageNames[tpmTemplateName].lastIndexOf('[')).replace('[:ru]', '');
-                $.fs.writeFileSync($.config.tmpPath + '/html/' + tpmTemplateName + '.html', hbs.replace(/<title>(.*)/, '<title>' + pageTitleRu + '</title>'));
+                if (pageNames[tpmTemplateName]) {
+                    const pageTitleRu = pageNames[tpmTemplateName].substring(0, pageNames[tpmTemplateName].lastIndexOf('[')).replace('[:ru]', '');
+                    $.fs.writeFileSync($.config.tmpPath + '/html/' + tpmTemplateName + '.html', hbs.replace(/<title>(.*)/, '<title>' + pageTitleRu + '</title>'));
+                }
             }
         }
 
