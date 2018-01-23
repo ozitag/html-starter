@@ -33,7 +33,7 @@ module.exports = () => {
                 continue;
             }
 
-            const hbs = $.fs.readFileSync($.config.tmpPath + '/html/' + tpmTemplateName + '.html').toString()
+            const hbs = $.fs.readFileSync($.config.tmpPath + '/html/' + tpmTemplateName + '.html').toString();
 
             if ($.argv._[0] === 'build') {
                 $.fs.writeFileSync($.config.tmpPath + '/html/' + tpmTemplateName + '.html', hbs.replace(/<title>(.*)/, '<title>' + pageNames[tpmTemplateName] + '</title>'));
