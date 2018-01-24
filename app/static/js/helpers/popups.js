@@ -50,6 +50,9 @@
             this.$overlay.on('click', '.js-close-wnd', function () {
                 that.hide();
                 $('body').removeClass('popup-opened');
+                if (window.innerWidth < 768) {
+                    window.scrollBy(0, that.bodyScroll);
+                }
                 return false;
             });
         },
