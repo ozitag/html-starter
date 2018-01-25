@@ -1,7 +1,7 @@
-(function ($) {
-    'use strict';
+'use strict';
 
-    var App = {
+(function () {
+    const App = {
         init: function () {
             $('.js-dropdown-box').each(function () {
                 $(this).dropdown({
@@ -11,15 +11,13 @@
         }
     };
 
-    $(function () {
-        $(window).on("load", function () {
-            App.init();
-        });
-
-        document.documentElement.addEventListener('touchstart', function (event) {
-            if (event.touches.length > 1) {
-                event.preventDefault();
-            }
-        }, false);
+    window.addEventListener('load', () => {
+        App.init();
     });
-})(jQuery);
+
+    document.documentElement.addEventListener('touchstart', event => {
+        if (event.touches.length > 1) {
+            event.preventDefault();
+        }
+    }, false);
+})();
