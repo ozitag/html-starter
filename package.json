@@ -14,6 +14,11 @@
   "author": "BLAKIT",
   "license": "ISC",
   "homepage": "https://bitbucket.org/blakit/html-starter#readme",
+  "babel": {
+    "presets": [
+      "latest"
+    ]
+  },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-preset-latest": "^6.24.1",
