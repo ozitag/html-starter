@@ -10,13 +10,13 @@ npm install critical
 
 ## Разработка проекта
 ```
-gulp dev
+npm run start || gulp dev
 ```
 
 ## Сборка проекта
 
 ```
-gulp build
+npm run build || gulp build
 ```
 
 ## Из чего состоит HTML Starter?
