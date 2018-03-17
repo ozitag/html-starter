@@ -16,8 +16,8 @@ html {
 .container {
   margin-right: auto;
   margin-left: auto;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: $gutter;
+  padding-left: $gutter;
   width: 100%;
 }
 
@@ -27,7 +27,7 @@ html {
   }
 }
 
-@media (min-width: $desktopMedia) {
+@media (min-width: $tabletMedia + 1) {
   .container {
     max-width: $desktopWidth;
   }
@@ -37,8 +37,8 @@ html {
   width: 100%;
   margin-right: auto;
   margin-left: auto;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: $gutter;
+  padding-left: $gutter;
 }
 
 .row {
@@ -46,8 +46,8 @@ html {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
+  margin-right: -$gutter;
+  margin-left: -$gutter;
 }
 
 .no-gutters {
@@ -70,8 +70,8 @@ html {
   position: relative;
   width: 100%;
   min-height: 1px;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: $gutter;
+  padding-left: $gutter;
 }
 
 .col {
@@ -469,7 +469,7 @@ html {
   }
 }
 
-@media (min-width: $desktopMedia) {
+@media (min-width: $tabletMedia + 1) {
   .col-lg {
     -ms-flex-preferred-size: 0;
         flex-basis: 0;
@@ -593,7 +593,7 @@ html {
   }
 }
 
-@media (min-width: $desktopMedia) {
+@media (min-width: $tabletMedia + 1) {
   .col-xl {
     -ms-flex-preferred-size: 0;
         flex-basis: 0;
@@ -1100,7 +1100,7 @@ html {
   }
 }
 
-@media (min-width: $desktopMedia) {
+@media (min-width: $tabletMedia + 1) {
   .flex-lg-row {
     -ms-flex-direction: row !important;
         flex-direction: row !important;
@@ -1219,7 +1219,7 @@ html {
   }
 }
 
-@media (min-width: $desktopMedia) {
+@media (min-width: $tabletMedia + 1) {
   .flex-xl-row {
     -ms-flex-direction: row !important;
         flex-direction: row !important;

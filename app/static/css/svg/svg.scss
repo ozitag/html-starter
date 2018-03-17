@@ -1,4 +1,5 @@
 @import 'sprite';
+@import 'spriteInline';
 
 $ieSprite: '.lt-ie9' !default;
 $sprite: map-get($icons, sprite) !default;

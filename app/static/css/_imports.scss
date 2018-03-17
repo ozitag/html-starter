@@ -3,7 +3,8 @@
 @import "config/fonts";
 @import "config/options";
 @import "svg/svg";
-@import "svg/spriteInline";
+@import "png/mixins";
+@import "png/png-sprite";
 
 @import "libs/nomolize";
 @import "libs/grid";
@@ -11,3 +12,4 @@
 $images_dir: '../images/';
 
 @import "common";
+@import "typography";
