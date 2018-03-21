@@ -19,6 +19,7 @@
   "cssMin": false,
   "imagemin": true,
   "criticalCss": false,
+  "babel": true,
   "concatFilePath": "",
   "supportJsLibs": [
     "./node_modules/html5shiv/dist/html5shiv.min.js",
