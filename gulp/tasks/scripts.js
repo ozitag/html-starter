@@ -6,15 +6,20 @@ module.exports = () => {
   });
 
   $.gulp.task('scripts', () => {
-    return $.gulp.src(['./' + $.config.sourcePath + '/' + $.config.staticPath + '/js/**'])
-      .pipe($.gulpPlugin.babel()).on('error', function (err) {
-        console.log('[Compilation Error]');
-        console.log(err.fileName + ( err.loc ? `( ${err.loc.line}, ${err.loc.column} ): ` : ': '));
-        console.log('error Babel: ' + err.message + '\n');
-        console.log(err.codeFrame);
+    if ($.config.babel && $.argv._[0] === 'build') {
+      return $.gulp.src(['./' + $.config.sourcePath + '/' + $.config.staticPath + '/js/**'])
+        .pipe($.gulpPlugin.babel()).on('error', function (err) {
+          console.log('[Compilation Error]');
+          console.log(err.fileName + ( err.loc ? `( ${err.loc.line}, ${err.loc.column} ): ` : ': '));
+          console.log('error Babel: ' + err.message + '\n');
+          console.log(err.codeFrame);
 
-        this.emit('end');
-      })
+          this.emit('end');
+        })
+        .pipe($.gulp.dest($.config.tmpPath + '/' + $.config.staticPath + '/js/'))
+        .pipe($.bs.reload({ stream: true }));
+    }
+    return $.gulp.src(['./' + $.config.sourcePath + '/' + $.config.staticPath + '/js/**'])
       .pipe($.gulp.dest($.config.tmpPath + '/' + $.config.staticPath + '/js/'))
       .pipe($.bs.reload({ stream: true }));
   });
