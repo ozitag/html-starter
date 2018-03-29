@@ -1,5 +1,7 @@
 $icons: (
-        sprite: (width: 28px, height: 28px, pngPath: '../images/svg/sprite.png', svgPath: '../images/svg/sprite.svg'),
-btn-arrow-d: (width: 12px, height: 12px, backgroundX: 0px, backgroundY: 0px),
-checked: (width: 16px, height: 16px, backgroundX: -12px, backgroundY: -12px),
+        sprite: (width: 52px, height: 52px, pngPath: '../images/svg/sprite.png', svgPath: '../images/svg/sprite.svg'),
+btn-arrow: (width: 12px, height: 12px, backgroundX: 0px, backgroundY: 0px),
+btn-arrow-d: (width: 12px, height: 12px, backgroundX: -12px, backgroundY: -12px),
+btn-user: (width: 12px, height: 12px, backgroundX: -24px, backgroundY: -24px),
+checked: (width: 16px, height: 16px, backgroundX: -36px, backgroundY: -36px),
 );

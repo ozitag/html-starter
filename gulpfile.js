@@ -29,10 +29,10 @@ $.gulp.task('dev', $.gulp.series(
 
 $.gulp.task('build', $.gulp.series(
   $.gulp.parallel('clean'),
-  $.gulp.parallel('styles', 'scripts', 'scripts:libs'),
+  $.gulp.parallel('styles', 'scripts:libs', 'scripts'),
   $.gulp.parallel('hbs', 'svg', 'svgInline', 'pngSprite', 'static:fonts', 'static:images'),
   $.gulp.parallel('prepareHtml'),
   $.gulp.parallel('dist', 'content', 'copyMetaFiles'),
-  $.gulp.parallel('prepareJs'),
-  $.gulp.parallel('imagemin:meta', 'imagemin:content', 'replaceHtml', 'criticalCss')
+  $.gulp.parallel('imagemin:meta', 'imagemin:content', 'prepareJs', 'criticalCss'),
+  $.gulp.parallel('replaceHtml')
 ));
