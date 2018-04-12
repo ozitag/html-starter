@@ -8,7 +8,9 @@ module.exports = () => {
   $.gulp.task('scripts', () => {
     if ($.config.babel && $.argv._[0] === 'build') {
       return $.gulp.src(['./' + $.config.sourcePath + '/' + $.config.staticPath + '/js/**'])
-        .pipe($.gulpPlugin.babel()).on('error', function (err) {
+        .pipe($.gulpPlugin.babel({
+          ignore: './' + $.config.sourcePath + '/' + $.config.staticPath + '/js/libs/**',
+        })).on('error', function (err) {
           console.log('[Compilation Error]');
           console.log(err.fileName + ( err.loc ? `( ${err.loc.line}, ${err.loc.column} ): ` : ': '));
           console.log('error Babel: ' + err.message + '\n');
