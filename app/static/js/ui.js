@@ -1,15 +1,15 @@
 'use strict';
 
 (function () {
-    const App = {
-        init: function () {
-            $('.js-dropdown-box').each(function () {
-                $(this).dropdown({
-                    prefix: $(this).data('prefix')
-                });
-            });
-        }
-    };
+  const App = {
+    init: function () {
+      $('.js-dropdown-box').each(function () {
+        $(this).dropdown({
+          prefix: $(this).data('prefix')
+        });
+      });
+    }
+  };
 
   window.addEventListener('load', () => {
     window.svg4everybody();

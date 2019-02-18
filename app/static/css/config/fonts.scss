@@ -1,39 +1,118 @@
 $fonts_dir: '../fonts/';
+// 100 - Thin
+// 200 - Extra-Light
+// 300 - Light
+// 400 - Regular
+// 500 - Medium
+// 600 - Semi-bold
+// 700 - Bold
+// 800 - Extra-bold
+// 900 - Black
 
-@mixin font($family, $name) {
+@mixin font($family, $name, $weight:normal, $style:normal) {
   $font_file_path: $fonts_dir + $family;
 
   @font-face {
     font-family: $name;
     src: url($font_file_path + '.woff') format('woff'),
     url($font_file_path + '.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+    font-weight: $weight;
+    font-style: $style;
   }
 }
 
-@mixin font-mixin($font_name) {
+@mixin font-mixin($font_name, $weight:normal, $style:normal) {
   font-family: "#{$font_name}", 'Arial', 'Helvetica', 'Tahoma', sans-serif;
-  font-weight: normal;
-  font-style: normal;
+  font-weight: $weight;
+  font-style: $style;
 }
 
-@include font("Roboto/Light", "Roboto-Light");
+@include font("Roboto/Thin", "Roboto", 100);
+@mixin thin() {
+  @include font-mixin("Roboto", 100);
+}
+
+@include font("Roboto/ThinItalic", "Roboto", 100, italic);
+@mixin thin-it() {
+  @include font-mixin("Roboto", 100, italic);
+}
+
+//@include font("Roboto/ExtraLight", "Roboto", 200);
+//@mixin extra-light() {
+//  @include font-mixin("Roboto", 200);
+//}
+
+//@include font("Montserrat/ExtraLightItalic", "Montserrat", 200, italic);
+//@mixin extra-light-it() {
+//  @include font-mixin("Montserrat", 200, italic);
+//}
+
+@include font("Roboto/Light", "Roboto", 300);
 @mixin light() {
-  @include font-mixin("Roboto-Light");
+  @include font-mixin("Roboto", 300);
 }
 
-@include font("Roboto/Regular", "Roboto-Regular");
+@include font("Roboto/LightItalic", "Roboto", 300, italic);
+@mixin light-it() {
+  @include font-mixin("Roboto", 300, italic);
+}
+
+@include font("Roboto/Regular", "Roboto", 400);
 @mixin regular() {
-  @include font-mixin("Roboto-Regular");
+  @include font-mixin("Roboto", 400);
 }
 
-@include font("Roboto/Medium", "Roboto-Medium");
+@include font("Roboto/Italic", "Roboto", 400, italic);
+@mixin italic() {
+  @include font-mixin("Roboto", 400, italic);
+}
+
+@include font("Roboto/Medium", "Roboto", 500);
 @mixin medium() {
-  @include font-mixin("Roboto-Medium");
+  @include font-mixin("Roboto", 500);
 }
 
-@include font("Roboto/Bold", "Roboto-Bold");
+@include font("Roboto/MediumItalic", "Roboto", 500, italic);
+@mixin medium-it() {
+  @include font-mixin("Roboto", 500, italic);
+}
+
+//@include font("Roboto/SemiBold", "Roboto", 600);
+//@mixin semi-bold() {
+//  @include font-mixin("Roboto", 600);
+//}
+
+//@include font("Roboto/SemiBoldItalic", "Roboto", 600, italic);
+//@mixin semi-bold-it() {
+//  @include font-mixin("Roboto", 600, italic);
+//}
+
+@include font("Roboto/Bold", "Roboto", 700);
 @mixin bold() {
-  @include font-mixin("Roboto-Bold");
+  @include font-mixin("Roboto", 700);
+}
+
+@include font("Roboto/BoldItalic", "Roboto", 700, italic);
+@mixin bold-it() {
+  @include font-mixin("Roboto", 700, italic);
+}
+
+//@include font("Roboto/ExtraBold", "Roboto", 800);
+//@mixin extra-bold() {
+//  @include font-mixin("Roboto", 800);
+//}
+
+//@include font("Roboto/ExtraBoldItalic", "Roboto", 800, italic);
+//@mixin extra-bold-it() {
+//  @include font-mixin("Roboto", 800, italic);
+//}
+
+@include font("Roboto/Black", "Roboto", 900);
+@mixin black() {
+  @include font-mixin("Roboto", 900);
+}
+
+@include font("Roboto/BlackItalic", "Roboto", 900, italic);
+@mixin black-it() {
+  @include font-mixin("Roboto", 900, italic);
 }

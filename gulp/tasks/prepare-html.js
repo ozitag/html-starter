@@ -46,7 +46,7 @@ module.exports = () => {
         }
 
         for (let j = 0; j < files.length; j++) {
-            if (files[j] === '.gitkeep') {
+            if (files[j] === '.gitkeep' || files[j] === '.DS_Store') {
                 continue;
             }
 

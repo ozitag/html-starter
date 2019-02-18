@@ -2,34 +2,42 @@
   'use strict';
 
   var methods = {
+    tabsData: {},
     init: function (options) {
       var settings = $.extend({
+        activeTab: false,
         btnSelector: '[data-tabs]',
         onShow: function () {
         }
       }, options);
 
+      var that = this;
       var $tabButtons = this.find(settings.btnSelector);
-      var tabsData = {};
+      that.tabsData = {};
 
       if ($tabButtons.length === 0) return;
 
       $tabButtons.each(function () {
-        tabsData[$(this).data('tabs')] = {
+        that.tabsData[$(this).data('tabs')] = {
           button: $(this),
           content: $('#' + $(this).data('tabs')),
           activated: false
         };
       });
 
-      if (this.find(settings.btnSelector + '.active').data('tabs')) {
-        methods.show(this.find(settings.btnSelector + '.active').data('tabs'), tabsData, settings);
+      if (settings.activeTab) {
+        methods.show(settings.activeTab, that.tabsData, settings);
       } else {
-        methods.show(this.find(settings.btnSelector).first().data('tabs'), tabsData, settings);
+        if (this.find(settings.btnSelector + '.active').data('tabs')) {
+          methods.show(this.find(settings.btnSelector + '.active').data('tabs'), that.tabsData, settings);
+        } else {
+          methods.show(this.find(settings.btnSelector).first().data('tabs'), that.tabsData, settings);
+        }
       }
 
       $tabButtons.on('click', function () {
-        methods.show($(this).data('tabs'), tabsData, settings);
+        settings.activeTab = false;
+        methods.show($(this).data('tabs'), that.tabsData, settings);
         return false;
       })
     },

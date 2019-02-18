@@ -52,6 +52,7 @@
     "gulp-util": "^3.0.8",
     "gulp.spritesmith": "^6.9.0",
     "merge-stream": "^1.0.1",
+    "node-sass": "^4.11.0",
     "yargs": "^10.1.2"
   },
   "dependencies": {
