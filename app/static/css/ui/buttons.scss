@@ -48,26 +48,6 @@
     }
   }
 
-  &-secondary {
-    background-color: $secondary-color;
-    border-color: $secondary-color;
-    color: #ffffff;
-
-    &:hover,
-    &:focus {
-      background-color: darken($secondary-color, 5%);
-      border-color: darken($secondary-color, 5%);
-      color: #ffffff;
-    }
-
-    &:disabled,
-    &.disabled {
-      background-color: $secondary-color;
-      border-color: $secondary-color;
-      color: #ffffff;
-    }
-  }
-
   &-outline-primary {
     background-color: transparent;
     border-color: $primary-color;
@@ -89,30 +69,6 @@
 
     &.btn-loading:before {
       border-color: rgba(0, 123, 255, 0.75) rgba(0, 123, 255, 0.75) rgba(0, 123, 255, 0.25) rgba(0, 123, 255, 0.25);
-    }
-  }
-
-  &-outline-secondary {
-    background-color: transparent;
-    border-color: $secondary-color;
-    color: $secondary-color;
-
-    &:hover,
-    &:focus {
-      background-color: darken($secondary-color, 5%);
-      border-color: darken($secondary-color, 5%);
-      color: #ffffff;
-    }
-
-    &:disabled,
-    &.disabled {
-      background-color: transparent;
-      border-color: $secondary-color;
-      color: $secondary-color;
-    }
-
-    &.btn-loading:before {
-      border-color: rgba(134, 142, 150, 0.75) rgba(134, 142, 150, 0.75) rgba(134, 142, 150, 0.25) rgba(134, 142, 150, 0.25);
     }
   }
 
@@ -165,13 +121,7 @@
   &:disabled,
   &.disabled {
     opacity: .65;
-  }
-
-  &:disabled {
     cursor: default;
-  }
-
-  &.disabled {
     pointer-events: none;
   }
 }

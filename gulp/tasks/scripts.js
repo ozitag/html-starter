@@ -12,18 +12,18 @@ module.exports = () => {
           ignore: './' + $.config.sourcePath + '/' + $.config.staticPath + '/js/libs/**',
         })).on('error', function (err) {
           console.log('[Compilation Error]');
-          console.log(err.fileName + ( err.loc ? `( ${err.loc.line}, ${err.loc.column} ): ` : ': '));
+          console.log(err.fileName + (err.loc ? `( ${err.loc.line}, ${err.loc.column} ): ` : ': '));
           console.log('error Babel: ' + err.message + '\n');
           console.log(err.codeFrame);
 
           this.emit('end');
         })
         .pipe($.gulp.dest($.config.tmpPath + '/' + $.config.staticPath + '/js/'))
-        .pipe($.bs.reload({ stream: true }));
+        .pipe($.bs.reload({stream: true}));
     }
     return $.gulp.src(['./' + $.config.sourcePath + '/' + $.config.staticPath + '/js/**'])
       .pipe($.gulp.dest($.config.tmpPath + '/' + $.config.staticPath + '/js/'))
-      .pipe($.bs.reload({ stream: true }));
+      .pipe($.bs.reload({stream: true}));
   });
 
   $.gulp.task('prepareJs', () => {
@@ -35,10 +35,10 @@ module.exports = () => {
     }
 
     return $.gulpPlugin.domSrc({
-        file: $.config.concatFilePath ? $.config.tmpPath + '/html/' + $.config.concatFilePath : $.config.tmpPath + '/html/home.html',
-        selector: 'script',
-        attribute: 'src'
-      })
+      file: $.config.concatFilePath ? $.config.tmpPath + '/html/' + $.config.concatFilePath : $.config.tmpPath + '/html/home.html',
+      selector: 'script',
+      attribute: 'src'
+    })
       .pipe($.gulpPlugin.concat('all.js'))
       .pipe($.gulp.dest(buildPath))
       .pipe($.gulpPlugin.uglify())

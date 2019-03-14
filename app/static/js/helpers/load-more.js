@@ -1,53 +1,53 @@
 (function ($) {
-    'use strict';
+  'use strict';
 
-    $('.js-load-more').each(function () {
-        var $btn = $(this);
+  $('.js-load-more').each(function () {
+    var $btn = $(this);
 
-        var itemSelector = $(this).data('item');
+    var itemSelector = $(this).data('item');
 
-        var $target = $($(this).data('container'));
-        if ($target.length === 0) {
-            $btn.hide();
-            return;
+    var $target = $($(this).data('container'));
+    if ($target.length === 0) {
+      $btn.hide();
+      return;
+    }
+
+    var url = $(this).data('url');
+
+    $btn.on('click', function () {
+      $btn.addClass('loading');
+
+      var requestUrl = url + (url.indexOf('?') === -1 ? '?' : '&') + 'offset=' + $(itemSelector).length;
+      $.get(requestUrl, function (response) {
+
+        var content = '', count = 0;
+
+        try {
+          response = JSON.parse(response);
+          content = response.content;
+          count = response.remaining;
+        }
+        catch (e) {
+          content = response;
+          count = 9999;
         }
 
-        var url = $(this).data('url');
+        var offset = $target.offset().top + $target.outerHeight();
 
-        $btn.on('click', function () {
-            $btn.addClass('loading');
+        $target.append(content);
 
-            var requestUrl = url + (url.indexOf('?') === -1 ? '?' : '&') + 'offset=' + $(itemSelector).length;
-            $.get(requestUrl, function (response) {
+        if (count === 0) {
+          $btn.hide();
+        }
 
-                var content = '', count = 0;
+        $btn.removeClass('loading');
 
-                try {
-                    response = JSON.parse(response);
-                    content = response.content;
-                    count = response.remaining;
-                }
-                catch (e) {
-                    content = response;
-                    count = 9999;
-                }
+        $('html, body').animate({
+          scrollTop: offset
+        }, 1000);
+      });
 
-                var offset = $target.offset().top + $target.outerHeight();
-
-                $target.append(content);
-
-                if (count === 0) {
-                    $btn.hide();
-                }
-
-                $btn.removeClass('loading');
-
-                $('html, body').animate({
-                    scrollTop: offset
-                }, 1000);
-            });
-
-            return false;
-        });
+      return false;
     });
+  });
 })(jQuery);
