@@ -10,7 +10,6 @@
 
     &:checked + .radio-label {
       &:before {
-
       }
 
       &:after {
@@ -53,7 +52,7 @@
         border-radius: 100%;
         background: $primary-color;
         opacity: 0;
-        transition: all .2s;
+        transition: all 0.2s;
       }
     }
   }

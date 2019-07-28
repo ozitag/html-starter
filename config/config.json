@@ -1,5 +1,5 @@
 {
-  "appName": "blakit:APP_NAME",
+  "appName": "APP_NAME",
   "siteName": "Site name",
   "tmpPath": ".tmp",
   "sourcePath": "app",
@@ -15,29 +15,15 @@
   "svgInlinePath": "static/svg/inline",
   "contentPath": "content",
   "metaPath": ".meta",
-  "concatScripts": true,
-  "cssMin": true,
+  "concatScripts": false,
+  "cssMin": false,
   "imagemin": false,
   "criticalCss": false,
   "babel": true,
   "concatFilePath": "",
   "supportJsLibs": [
-    "./node_modules/html5shiv/dist/html5shiv.min.js",
-    "./node_modules/jquery/dist/jquery.min.js",
-    "./node_modules/svg4everybody/dist/svg4everybody.min.js"
-  ],
-  "ftp": {
-    "enabled": true,
-    "host": "FTP.ozis.by",
-    "login": "ozisby",
-    "password": "Kee6ohmo",
-    "remotePath": "/projects/diold.ozis.by"
-  },
-  "sftp": {
-    "enabled": true,
-    "host": "46.101.113.218",
-    "login": "root",
-    "password": "7196706932f21ff9bb2f89064e4",
-    "remotePath": "/var/www/html/testProject"
-  }
+    "./node_modules/html5shiv/dist/html5shiv.js",
+    "./node_modules/jquery/dist/jquery.js",
+    "./node_modules/svg4everybody/dist/svg4everybody.js"
+  ]
 }

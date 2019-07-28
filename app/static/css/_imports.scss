@@ -1,15 +1,15 @@
-@import "mixins/mixins";
-@import "config/variables";
-@import "config/fonts";
-@import "config/options";
-@import "svg/svg";
-@import "png/mixins";
-@import "png/png-sprite";
+@import 'mixins/mixins';
+@import 'config/variables';
+@import 'config/fonts';
+@import 'config/options';
+@import 'svg/svg';
+@import 'png/mixins';
+@import 'png/png-sprite';
 
-@import "libs/nomolize";
-@import "libs/grid";
+@import 'libs/normalize';
+@import 'libs/grid';
 
 $images_dir: '../images/';
 
-@import "common";
-@import "typography";
+@import 'common';
+@import 'typography';

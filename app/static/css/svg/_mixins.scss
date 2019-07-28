@@ -49,10 +49,10 @@ $sprite: map-get($icons, sprite) !default;
 /// @param {string} $icon - The name of the icon
 @function icon-attr($icon) {
   $attr: (
-          width: sprite-attr($icon, width),
-          height: sprite-attr($icon, height),
-          x: sprite-attr($icon, backgroundX),
-          y: sprite-attr($icon, backgroundY)
+    width: sprite-attr($icon, width),
+    height: sprite-attr($icon, height),
+    x: sprite-attr($icon, backgroundX),
+    y: sprite-attr($icon, backgroundY),
   );
 
   @return $attr;

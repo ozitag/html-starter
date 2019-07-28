@@ -1,4 +1,6 @@
-ul {
+ul,
+ol,
+nav {
   padding: 0;
   margin: 0;
   list-style-type: none;
@@ -20,11 +22,11 @@ img {
   max-width: 100%;
 }
 
-h1, .h1 {
+.h1 {
   margin: 0;
   @include bold;
-  font-size: 36px;
-  line-height: 48px;
+  font-size: 79px;
+  line-height: 1;
 
   @include mobile {
     font-size: 27px;
@@ -32,11 +34,11 @@ h1, .h1 {
   }
 }
 
-h2, .h2 {
+.h2 {
   margin: 0;
   @include bold;
-  font-size: 30px;
-  line-height: 35px;
+  font-size: 50px;
+  line-height: 55px;
 
   @include mobile {
     font-size: 22px;
@@ -44,11 +46,11 @@ h2, .h2 {
   }
 }
 
-h3, .h3 {
+.h3 {
   margin: 0;
   @include bold;
-  font-size: 22px;
-  line-height: 30px;
+  font-size: 40px;
+  line-height: 46px;
 
   @include mobile {
     font-size: 18px;
@@ -56,11 +58,11 @@ h3, .h3 {
   }
 }
 
-h4, .h4 {
+.h4 {
   margin: 0;
   @include bold;
-  font-size: 18px;
-  line-height: 24px;
+  font-size: 24px;
+  line-height: 28px;
 
   @include mobile {
     font-size: 15px;
@@ -78,14 +80,14 @@ p {
 
   @include mobile {
     font-size: 13px;
-    line-height: 18px;
+    line-height: 19px;
   }
 
   a {
-
   }
 }
 
-b, strong {
+b,
+strong {
   @include bold;
 }

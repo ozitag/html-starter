@@ -47,9 +47,10 @@
   width: 30px;
   border-width: 5px;
   border-style: solid;
-  border-color: hsla(221.9, 98.9%, 63.9%, 0.75) hsla(221.9, 98.9%, 63.9%, 0.75) hsla(221.9, 98.9%, 63.9%, 0.25) hsla(221.9, 98.9%, 63.9%, 0.25);
+  border-color: hsla(221.9, 98.9%, 63.9%, 0.75) hsla(221.9, 98.9%, 63.9%, 0.75) hsla(221.9, 98.9%, 63.9%, 0.25)
+    hsla(221.9, 98.9%, 63.9%, 0.25);
   border-radius: 100%;
-  animation: clockwise .5s linear infinite;
+  animation: clockwise 0.5s linear infinite;
 }
 
 @keyframes spin {

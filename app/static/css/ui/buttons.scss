@@ -6,8 +6,9 @@
   border: 1px solid transparent;
   text-align: center;
   padding: 10px 20px;
-  border-radius: 4px;
+  border-radius: 3px;
   line-height: 1.5;
+  text-transform: uppercase;
 
   &:hover,
   &:focus {
@@ -33,10 +34,9 @@
     border-color: $primary-color;
     color: #ffffff;
 
-    &:hover,
-    &:focus {
-      background-color: darken($primary-color, 5%);
-      border-color: darken($primary-color, 5%);
+    &:hover {
+      background-color: $secondary-color;
+      border-color: $secondary-color;
       color: #ffffff;
     }
 
@@ -48,27 +48,22 @@
     }
   }
 
-  &-outline-primary {
+  &-secondary {
     background-color: transparent;
     border-color: $primary-color;
     color: $primary-color;
 
-    &:hover,
-    &:focus {
-      background-color: darken($primary-color, 5%);
-      border-color: darken($primary-color, 5%);
+    &:hover {
+      background-color: $primary-color;
+      border-color: $primary-color;
       color: #ffffff;
     }
 
     &:disabled,
     &.disabled {
-      background-color: transparent;
+      background-color: #ffffff;
       border-color: $primary-color;
       color: $primary-color;
-    }
-
-    &.btn-loading:before {
-      border-color: rgba(0, 123, 255, 0.75) rgba(0, 123, 255, 0.75) rgba(0, 123, 255, 0.25) rgba(0, 123, 255, 0.25);
     }
   }
 
@@ -88,15 +83,16 @@
       width: 20px;
       border-width: 3px;
       border-style: solid;
-      border-color: rgba(255, 255, 255, 0.75) rgba(255, 255, 255, 0.75) rgba(255, 255, 255, 0.25) rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.75) rgba(255, 255, 255, 0.75) rgba(255, 255, 255, 0.25)
+        rgba(255, 255, 255, 0.25);
       border-radius: 100%;
-      animation: clockwise .5s linear infinite;
+      animation: clockwise 0.5s linear infinite;
     }
   }
 
   &-lg {
-    font-size: 18px;
-    padding: 10px 25px;
+    font-size: 12px;
+    padding: 16px 25px;
 
     &.btn-loading:before {
       margin-top: -12px;
@@ -108,7 +104,7 @@
 
   &-small {
     font-size: 12px;
-    padding: 5px 15px;
+    padding: 11px 21px;
 
     &.btn-loading:before {
       margin-top: -7px;
@@ -120,12 +116,17 @@
 
   &:disabled,
   &.disabled {
-    opacity: .65;
+    opacity: 0.65;
+  }
+
+  &:disabled {
     cursor: default;
+  }
+
+  &.disabled {
     pointer-events: none;
   }
 }
-
 
 @keyframes clockwise {
   to {

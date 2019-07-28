@@ -1,4 +1,4 @@
-# HTML Starter (BLAKIT Edition)
+# HTML Starter
 
 ## Важно!!!
 Если в проекте будет задача сделать critical css то для начала нужно установать модуль. Я не стал вносить его в devDependencies.
@@ -35,12 +35,10 @@ npm run build || gulp build
 1. Сжатие js
 1. Сжатие кртанок
 1. Вспомогательные либы js
-1. Заливка через ftp
-1. Заливка через sftp
 
 ```
 {
-  "appName": "blakit:APP_NAME",
+  "appName": "APP_NAME",
   "siteName": "Site name",
   "tmpPath": ".tmp",
   "sourcePath": "app",

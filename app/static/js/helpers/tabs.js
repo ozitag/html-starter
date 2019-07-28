@@ -1,78 +1,70 @@
-(function ($) {
-  'use strict';
+;(function($, global) {
+  'use strict'
 
-  var methods = {
-    tabsData: {},
-    init: function (options) {
-      var settings = $.extend({
-        activeTab: false,
-        btnSelector: '[data-tabs]',
-        onShow: function () {
-        }
-      }, options);
+  function CustomTabs($elem, options) {
+    var that = this
+    this.$elem = $elem
 
-      var that = this;
-      var $tabButtons = this.find(settings.btnSelector);
-      that.tabsData = {};
+    options = $.extend(
+      {
+        tabsSelector: '.js-tabs ._link',
+        onShow: function() {},
+      },
+      options,
+    )
 
-      if ($tabButtons.length === 0) return;
+    var $tabButtons = this.$elem.find(options.tabsSelector)
+    if ($tabButtons.length === 0) {
+      return
+    }
 
-      $tabButtons.each(function () {
-        that.tabsData[$(this).data('tabs')] = {
-          button: $(this),
-          content: $('#' + $(this).data('tabs')),
-          activated: false
-        };
-      });
-
-      if (settings.activeTab) {
-        methods.show(settings.activeTab, that.tabsData, settings);
-      } else {
-        if (this.find(settings.btnSelector + '.active').data('tabs')) {
-          methods.show(this.find(settings.btnSelector + '.active').data('tabs'), that.tabsData, settings);
-        } else {
-          methods.show(this.find(settings.btnSelector).first().data('tabs'), that.tabsData, settings);
-        }
+    var tabsData = {}
+    $tabButtons.each(function() {
+      tabsData[$(this).data('id')] = {
+        button: $(this),
+        content: $('#' + $(this).data('id')),
+        activated: false,
       }
+    })
 
-      $tabButtons.on('click', function () {
-        settings.activeTab = false;
-        methods.show($(this).data('tabs'), that.tabsData, settings);
-        return false;
-      })
-    },
-
-    show: function (tabId, tabsData, settings) {
+    this.showTab = function(tabId) {
       for (var i in tabsData) {
         if (tabsData.hasOwnProperty(i)) {
-          tabsData[i].content.hide();
-          tabsData[i].button.removeClass('active');
+          tabsData[i].content.removeClass('active').hide()
         }
       }
+      $tabButtons.removeClass('active')
 
       if (tabId in tabsData) {
-        tabsData[tabId].content.show();
-        tabsData[tabId].button.addClass('active');
+        tabsData[tabId].content.addClass('active').show()
+        tabsData[tabId].button.addClass('active')
 
         if (tabsData[tabId].activated === false) {
-          for (var j in tabsData) {
-            if (tabsData.hasOwnProperty(j)) {
-              tabsData[j].activated = j === tabId;
-            }
-          }
-          settings.onShow(tabsData[tabId].content);
+          tabsData[tabId].activated = true
+          options.onShow(tabsData[tabId].content)
         }
       }
     }
-  };
 
-  $.fn.customTabs = function (method) {
-    if (methods[method]) {
-      return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-    } else if (typeof method === 'object' || !method) {
-      return methods.init.apply(this, arguments);
+    if (global.location && global.location.hash && tabsData[global.location.hash.substr(1)]) {
+      this.showTab(global.location.hash.substr(1))
     } else {
-      $.error('The method named ' + method + ' does not exist for jQuery.customTabs');
+      this.showTab(this.$elem.find('.js-tabs ._link.active').data('id'))
     }
-  };
-})(jQuery);
+
+    $tabButtons.on('click', function() {
+      that.showTab($(this).data('id'))
+      return false
+    })
+  }
+
+  $.fn.customTabs = function(options) {
+    $(this).each(function() {
+      new CustomTabs($(this), options)
+    })
+  }
+
+  $(function() {
+    $('.js-tabs-container').customTabs()
+  })
+})(jQuery, window)

@@ -1,53 +1,55 @@
-(function ($) {
-  'use strict';
+;(function($) {
+  'use strict'
 
-  $('.js-load-more').each(function () {
-    var $btn = $(this);
+  $('.js-load-more').each(function() {
+    var $btn = $(this)
 
-    var itemSelector = $(this).data('item');
+    var itemSelector = $(this).data('item')
 
-    var $target = $($(this).data('container'));
+    var $target = $($(this).data('container'))
     if ($target.length === 0) {
-      $btn.hide();
-      return;
+      $btn.hide()
+      return
     }
 
-    var url = $(this).data('url');
+    var url = $(this).data('url')
 
-    $btn.on('click', function () {
-      $btn.addClass('loading');
+    $btn.on('click', function() {
+      $btn.addClass('loading')
 
-      var requestUrl = url + (url.indexOf('?') === -1 ? '?' : '&') + 'offset=' + $(itemSelector).length;
-      $.get(requestUrl, function (response) {
-
-        var content = '', count = 0;
+      var requestUrl = url + (url.indexOf('?') === -1 ? '?' : '&') + 'offset=' + $(itemSelector).length
+      $.get(requestUrl, function(response) {
+        var content = '',
+          count = 0
 
         try {
-          response = JSON.parse(response);
-          content = response.content;
-          count = response.remaining;
-        }
-        catch (e) {
-          content = response;
-          count = 9999;
+          response = JSON.parse(response)
+          content = response.content
+          count = response.remaining
+        } catch (e) {
+          content = response
+          count = 9999
         }
 
-        var offset = $target.offset().top + $target.outerHeight();
+        var offset = $target.offset().top + $target.outerHeight()
 
-        $target.append(content);
+        $target.append(content)
 
         if (count === 0) {
-          $btn.hide();
+          $btn.hide()
         }
 
-        $btn.removeClass('loading');
+        $btn.removeClass('loading')
 
-        $('html, body').animate({
-          scrollTop: offset
-        }, 1000);
-      });
+        $('html, body').animate(
+          {
+            scrollTop: offset,
+          },
+          1000,
+        )
+      })
 
-      return false;
-    });
-  });
-})(jQuery);
+      return false
+    })
+  })
+})(jQuery)

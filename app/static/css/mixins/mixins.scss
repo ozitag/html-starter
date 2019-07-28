@@ -1,7 +1,7 @@
 @mixin clearfix() {
   &:before,
   &:after {
-    content: " ";
+    content: ' ';
     display: table;
   }
   &:after {
@@ -53,7 +53,7 @@
 
 @mixin filter() {
   filter: grayscale(1) brightness(1.15);
-  opacity: .65;
+  opacity: 0.65;
 }
 
 @mixin letter-spacing($photoshop) {
@@ -69,25 +69,25 @@
 
 @mixin placeholder {
   &::-webkit-input-placeholder {
-    @content
+    @content;
   }
   &:-moz-placeholder {
-    @content
+    @content;
   }
   &::-moz-placeholder {
-    @content
+    @content;
   }
   &:-ms-input-placeholder {
-    @content
+    @content;
   }
 }
 
-@mixin rotate($deg:180deg) {
+@mixin rotate($deg: 180deg) {
   transform: rotate($deg);
 }
 
 @mixin transition($property: all) {
-  transition: $property .3s linear;
+  transition: $property 0.3s linear;
 }
 
 @mixin triangle($width, $dir, $color) {
@@ -118,8 +118,14 @@
   }
 }
 
-@mixin sticky-footer($footer-height, $wrapper-selector: unquote("#wrapper"), $container-selector: unquote("#container"), $footer-selector: unquote("#footer")) {
-  html, body {
+@mixin sticky-footer(
+  $footer-height,
+  $wrapper-selector: unquote('#wrapper'),
+  $container-selector: unquote('#container'),
+  $footer-selector: unquote('#footer')
+) {
+  html,
+  body {
     height: 100%;
   }
   body {
@@ -139,13 +145,11 @@
   }
 }
 
-
 @mixin mobile() {
   @media (max-width: $mobileMedia) {
     @content;
   }
 }
-
 
 @mixin no-mobile {
   @media (min-width: $mobileMedia + 1) {
@@ -154,30 +158,29 @@
 }
 
 @mixin tablet() {
-  @media(min-width: $mobileMedia + 1) and (max-width: $tabletMedia) {
+  @media (min-width: $mobileMedia + 1) and (max-width: $tabletMedia) {
     @content;
   }
 }
 
 @mixin tablet-and-phone() {
-  @media(max-width: $tabletMedia) {
+  @media (max-width: $tabletMedia) {
     @content;
   }
 }
-
 
 @mixin desktop() {
-  @media(min-width: $tabletMedia + 1) {
+  @media (min-width: $tabletMedia + 1) {
     @content;
   }
 }
 
-@function hsla-calc ($color, $opacity) {
-  @return hsla(hue($color), saturation($color), lightness($color), $opacity)
+@function hsla-calc($color, $opacity) {
+  @return hsla(hue($color), saturation($color), lightness($color), $opacity);
 }
 
 @mixin png-icon($name, $width, $height) {
-  background: url($images_dir + $name + ".png")no-repeat;
+  background: url($images_dir+$name+'.png') no-repeat;
   width: $width + px;
   height: $height + px;
 }

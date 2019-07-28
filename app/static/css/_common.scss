@@ -13,9 +13,12 @@
 body {
   min-width: 320px;
   @include regular;
-  font-size: 14px;
+  font-size: 12px;
+  color: #0e0321;
+  letter-spacing: $letter;
 
-  &.popup-opened {
+  &.popup-opened,
+  &.menu-opened {
     overflow: hidden;
     overflow-scrolling: touch;
 
@@ -27,13 +30,17 @@ body {
       height: 100%;
     }
   }
+
+  &.dark {
+    background-color: $dark-color;
+  }
 }
 
 input {
   -webkit-appearance: none;
   border-radius: 0;
   @include regular;
-  font-size: 14px;
+  font-size: 13px;
 
   &::-ms-clear {
     display: none !important;
@@ -50,7 +57,7 @@ button {
   background-color: transparent;
   cursor: pointer;
   @include regular;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 main {
@@ -76,5 +83,4 @@ main {
 }
 
 .link {
-
 }
