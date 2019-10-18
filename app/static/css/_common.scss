@@ -36,7 +36,7 @@ body {
   }
 }
 
-input {
+input, textarea {
   -webkit-appearance: none;
   border-radius: 0;
   @include regular;
