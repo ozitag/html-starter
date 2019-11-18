@@ -145,6 +145,68 @@
   }
 }
 
+@function hsla-calc($color, $opacity) {
+  @return hsla(hue($color), saturation($color), lightness($color), $opacity);
+}
+
+@mixin png-icon($name, $width, $height) {
+  background: url($images_dir + $name + '.png') no-repeat;
+  width: $width + px;
+  height: $height + px;
+}
+
+@mixin ie10plus() {
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    @content;
+  }
+}
+
+/*====================================================*/
+/*=============== Media breakpoints ==================*/
+/*====================================================*/
+
+@mixin desktop() {
+  @media (min-width: $laptopMedia + 1) {
+    @content;
+  }
+}
+
+@mixin no-desktop() {
+  @media (max-width: $laptopMedia) {
+    @content;
+  }
+}
+
+@mixin laptop() {
+  @media (min-width: $tabletMedia + 1) and (max-width: $laptopMedia) {
+    @content;
+  }
+}
+
+@mixin laptop-and-desktop() {
+  @media (min-width: $tabletMedia + 1) {
+    @content;
+  }
+}
+
+@mixin tablet() {
+  @media (min-width: $mobileMedia + 1) and (max-width: $tabletMedia) {
+    @content;
+  }
+}
+
+@mixin tablet-and-laptop() {
+  @media (min-width: $mobileMedia + 1) and (max-width: $laptopMedia) {
+    @content;
+  }
+}
+
+@mixin tablet-and-phone() {
+  @media (max-width: $tabletMedia) {
+    @content;
+  }
+}
+
 @mixin mobile() {
   @media (max-width: $mobileMedia) {
     @content;
@@ -157,30 +219,20 @@
   }
 }
 
-@mixin tablet() {
-  @media (min-width: $mobileMedia + 1) and (max-width: $tabletMedia) {
+@mixin mobile-m() {
+  @media (max-width: 480px) {
     @content;
   }
 }
 
-@mixin tablet-and-phone() {
-  @media (max-width: $tabletMedia) {
+@mixin mobile-m() {
+  @media (max-width: 480px) {
     @content;
   }
 }
 
-@mixin desktop() {
-  @media (min-width: $tabletMedia + 1) {
+@mixin mobile-s() {
+  @media (max-width: 374px) {
     @content;
   }
-}
-
-@function hsla-calc($color, $opacity) {
-  @return hsla(hue($color), saturation($color), lightness($color), $opacity);
-}
-
-@mixin png-icon($name, $width, $height) {
-  background: url($images_dir+$name+'.png') no-repeat;
-  width: $width + px;
-  height: $height + px;
 }

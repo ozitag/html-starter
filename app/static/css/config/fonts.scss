@@ -1,33 +1,42 @@
 $fonts_dir: '../fonts/';
 
-@mixin font($family, $name) {
-  $font_file_path: $fonts_dir + $family;
+@mixin font($family, $name, $weight, $style: 'normal') {
+  $font_file_path: $fonts_dir + $family + '/' + $name;
 
   @font-face {
-    font-family: $name;
-    src: url($font_file_path+'.woff') format('woff'), url($font_file_path+'.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+    font-family: $family;
+    src: local($family),
+    url($font_file_path + '.woff') format('woff'),
+    url($font_file_path + '.woff2') format('woff2');
+    font-weight: $weight;
+    font-style: $style;
   }
 }
 
 @mixin font-mixin($font_name) {
-  font-family: '#{$font_name}', 'Arial', 'Helvetica', 'Tahoma', sans-serif;
-  font-weight: normal;
-  font-style: normal;
+  font-family: #{$font_name};
 }
 
-@include font('Roboto/Regular', 'Roboto-Regular');
+@mixin light() {
+  font-weight: 300;
+}
+
 @mixin regular() {
-  @include font-mixin('Roboto-Regular');
+  font-weight: 400;
 }
 
-@include font('Roboto/Medium', 'Roboto-Medium');
 @mixin medium() {
-  @include font-mixin('Roboto-Medium');
+  font-weight: 500;
 }
 
-@include font('Roboto/Bold', 'Roboto-Bold');
+@mixin semibold() {
+  font-weight: 600;
+}
+
 @mixin bold() {
-  @include font-mixin('Roboto-Bold');
+  font-weight: 700;
+}
+
+@mixin extrabold() {
+  font-weight: 800;
 }

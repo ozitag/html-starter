@@ -1,3 +1,27 @@
+body {
+  font-family: -apple-system,
+  'BlickMacSystemFont',
+  'Segoe UI',
+  'Roboto',
+  'Oxygen',
+  'Ubuntu',
+  'Cantarell',
+  'Fira Sans',
+  'Droid Sans',
+  'Helvetica Neue',
+  sans-serif;
+  @include regular;
+  font-size: 12px;
+  color: #0e0321;
+  letter-spacing: $letter;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+input, select, textarea, button {
+  font-family: inherit;
+}
+
 ul,
 ol,
 nav {

@@ -10,13 +10,12 @@
   }
 }
 
-body {
+html, body {
+  width: 100%;
   min-width: 320px;
-  @include regular;
-  font-size: 12px;
-  color: #0e0321;
-  letter-spacing: $letter;
+}
 
+body {
   &.popup-opened,
   &.menu-opened {
     overflow: hidden;
