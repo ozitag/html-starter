@@ -1,35 +1,37 @@
 module.exports = () => {
-  $.gulp.task('styles', function() {
+  $.gulp.task('styles', () => {
     if ($.config.cssMin) {
-      return $.gulp
-        .src('./' + $.config.sourcePath + '/' + $.config.stylesPath + '/main.scss')
-        .pipe($.gulpPlugin.sass().on('error', $.gulpPlugin.sass.logError))
-        .pipe(
-          $.gulpPlugin.autoprefixer({
-            browsers: ['last 10 versions'],
-            cascade: 1,
-          }),
-        )
-        .pipe($.gulpPlugin.csso())
-        .pipe($.gulpPlugin.cssmin())
-        .pipe($.gulp.dest($.config.tmpPath + '/' + $.config.staticPath + '/css'))
-        .pipe($.bs.reload({ stream: true }))
-    }
-
-    return $.gulp
-      .src('./' + $.config.sourcePath + '/' + $.config.stylesPath + '/main.scss')
-      .pipe($.gulpPlugin.sourcemaps.init())
-      .pipe($.gulpPlugin.sass().on('error', $.gulpPlugin.sass.logError))
-      .pipe(
+      return $.combiner(
+        $.gulp.src('./' + $.config.sourcePath + '/' + $.config.stylesPath + '/main.scss'),
+        $.gulpPlugin.sass({
+          importer: $.tildeImporter,
+        }),
         $.gulpPlugin.autoprefixer({
           browsers: ['last 10 versions'],
           cascade: 1,
         }),
-      )
-      .pipe($.gulpPlugin.csso())
-      .pipe($.gulpPlugin.sourcemaps.write())
-      .pipe($.gulp.dest($.config.tmpPath + '/' + $.config.staticPath + '/css'))
-      .pipe($.gulpPlugin.csslint('./config/.csslintrc'))
-      .pipe($.bs.reload({ stream: true }))
+        $.gulpPlugin.csso(),
+        $.gulpPlugin.cssmin(),
+        $.gulp.dest($.config.tmpPath + '/' + $.config.staticPath + '/css'),
+        $.bs.reload({ stream: true }),
+      );
+    }
+
+    return $.combiner(
+      $.gulp.src('./' + $.config.sourcePath + '/' + $.config.stylesPath + '/main.scss'),
+      $.gulpPlugin.sourcemaps.init(),
+      $.gulpPlugin.sass({
+        importer: $.tildeImporter,
+      }),
+      $.gulpPlugin.autoprefixer({
+        browsers: ['last 10 versions'],
+        cascade: 1,
+      }),
+      $.gulpPlugin.csso(),
+      $.gulpPlugin.sourcemaps.write(),
+      $.gulp.dest($.config.tmpPath + '/' + $.config.staticPath + '/css'),
+      $.gulpPlugin.csslint('./config/.csslintrc'),
+      $.bs.reload({ stream: true }),
+    );
   })
 }

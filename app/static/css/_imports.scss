@@ -6,8 +6,7 @@
 @import 'png/mixins';
 @import 'png/png-sprite';
 
-@import 'libs/normalize';
-@import 'libs/grid';
+@import "~normalize-scss/sass/normalize/import-now";
 
 $images_dir: '../images/';
 

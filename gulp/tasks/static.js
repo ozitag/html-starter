@@ -1,13 +1,19 @@
 module.exports = () => {
-    $.gulp.task('static:fonts', function () {
-        return $.gulp.src('./' + $.config.sourcePath + '/' + $.config.staticPath + '/fonts/**/*')
-            .pipe($.gulp.dest('./' + $.config.tmpPath + '/' + $.config.staticPath + '/fonts'))
-            .pipe($.bs.reload({stream: true}));
-    });
+  $.gulp.task('static:fonts', async () => $.combiner(
+    $.gulp.src('./' + $.config.sourcePath + '/' + $.config.staticPath + '/fonts/**/*'),
+    $.gulp.dest('./' + $.config.tmpPath + '/' + $.config.staticPath + '/fonts'),
+    $.bs.reload({ stream: true })
+  ));
 
-    $.gulp.task('static:images', function () {
-        return $.gulp.src('./' + $.config.sourcePath + '/' + $.config.staticPath + '/images/**/*')
-            .pipe($.gulp.dest('./' + $.config.tmpPath + '/' + $.config.staticPath + '/images'))
-            .pipe($.bs.reload({stream: true}));
-    });
-};
+  $.gulp.task('static:images', async () => $.combiner(
+    $.gulp.src('./' + $.config.sourcePath + '/' + $.config.staticPath + '/images/**/*'),
+    $.gulp.dest('./' + $.config.tmpPath + '/' + $.config.staticPath + '/images'),
+    $.bs.reload({ stream: true })
+  ));
+
+  $.gulp.task('static:videos', async () => $.combiner(
+    $.gulp.src('./' + $.config.sourcePath + '/' + $.config.staticPath + '/videos/**/*'),
+    $.gulp.dest('./' + $.config.tmpPath + '/' + $.config.staticPath + '/videos'),
+    $.bs.reload({ stream: true })
+  ));
+}

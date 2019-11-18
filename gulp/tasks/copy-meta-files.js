@@ -1,6 +1,6 @@
 module.exports = () => {
-    $.gulp.task('copyMetaFiles', function () {
-        return $.gulp.src($.config.sourcePath + '/' + $.config.metaPath + '/*')
-            .pipe($.gulp.dest($.config.destPath + '/' + $.config.metaPath));
-    });
-};
+  $.gulp.task('copyMetaFiles', async () => $.combiner(
+    $.gulp.src($.config.sourcePath + '/' + $.config.metaPath + '/*'),
+    $.gulp.dest($.config.destPath + '/' + $.config.metaPath),
+  ));
+}

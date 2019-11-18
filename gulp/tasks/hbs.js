@@ -31,7 +31,6 @@ module.exports = () => {
             '!' + $.config.sourcePath + '/' + $.config.hbsPath + '/layouts/**/*.hbs',
             '!' + $.config.sourcePath + '/' + $.config.hbsPath + '/partials/**/*.hbs'
         ])
-            .pipe($.gulpPlugin.plumber())
             .pipe($.gulpPlugin.compileHandlebars(data, options))
             .pipe($.gulpPlugin.rename(path => {
                 path.extname = ".html"
