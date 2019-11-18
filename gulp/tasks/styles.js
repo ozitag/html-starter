@@ -6,10 +6,7 @@ module.exports = () => {
         $.gulpPlugin.sass({
           importer: $.tildeImporter,
         }),
-        $.gulpPlugin.autoprefixer({
-          browsers: ['last 10 versions'],
-          cascade: 1,
-        }),
+        $.gulpPlugin.autoprefixer(),
         $.gulpPlugin.csso(),
         $.gulpPlugin.cssmin(),
         $.gulp.dest($.config.tmpPath + '/' + $.config.staticPath + '/css'),
@@ -23,10 +20,7 @@ module.exports = () => {
       $.gulpPlugin.sass({
         importer: $.tildeImporter,
       }),
-      $.gulpPlugin.autoprefixer({
-        browsers: ['last 10 versions'],
-        cascade: 1,
-      }),
+      $.gulpPlugin.autoprefixer(),
       $.gulpPlugin.csso(),
       $.gulpPlugin.sourcemaps.write(),
       $.gulp.dest($.config.tmpPath + '/' + $.config.staticPath + '/css'),
