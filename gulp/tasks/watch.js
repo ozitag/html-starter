@@ -21,10 +21,6 @@ module.exports = () => {
       [$.config.sourcePath + '/' + $.config.svgInlinePath + '/*.svg'],
       $.gulp.series('svgInline'),
     )
-    $.gulp.watch(
-      [$.config.sourcePath + '/' + $.config.scriptsPath + '/**/*.js'],
-      $.gulp.series('scripts'),
-    )
     $.gulp.watch([
       $.config.sourcePath + '/' + $.config.metaPath + '/*.{png,jpg,jpeg}',
     ])

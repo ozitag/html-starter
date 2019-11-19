@@ -36,19 +36,20 @@ module.exports = () => {
     config.mode = 'production'
   } else {
     config.mode = 'development'
-    config.plugins.push(
-      new $.webpack.SourceMapDevToolPlugin({
-        filename: '[file].map',
-        exclude: ['vendors.js'],
-      }),
-    )
+    config.devtool = 'source-map'
+    config.watch = true;
+    // config.plugins.push(
+    //   new $.webpack.SourceMapDevToolPlugin({
+    //     filename: '[file].map',
+    //     exclude: ['vendors.js'],
+    //   }),
+    // )
   }
 
   $.gulp.task('scripts', () => new Promise(resolve => {
     $.gulp.src(`${sourceJsPath}/**`)
       .pipe($.webpackStream(config, $.webpack))
       .pipe($.gulp.dest(`${destJsPath}/`))
-      .pipe($.bs.reload({ stream: true }))
       .pipe(resolve())
   }))
 }
