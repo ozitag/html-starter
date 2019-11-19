@@ -41,6 +41,16 @@ input, textarea {
   @include regular;
   font-size: 13px;
 
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type=number] {
+    -moz-appearance:textfield;
+  }
+
   &::-ms-clear {
     display: none !important;
   }
