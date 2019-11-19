@@ -1,0 +1,25 @@
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 100;
+  background: #fff;
+  opacity: 1;
+  transition: opacity .85s ease;
+
+  &.hide {
+    opacity: 0;
+  }
+}
+
+@keyframes out {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

@@ -1,5 +1,6 @@
 @import 'imports';
 
+@import 'layout/page';
 @import 'layout/header';
 @import 'layout/footer';
 @import 'layout/popup';
@@ -12,6 +13,7 @@
 @import 'components/checkbox';
 @import 'components/loader';
 
+@import 'blocks/preloader';
 @import 'blocks/btn-list';
 
 @import 'pages/ui-toolkit';

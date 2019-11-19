@@ -4,6 +4,7 @@
   "tmpPath": ".tmp",
   "sourcePath": "app",
   "destPath": "dist",
+  "dbPath": "db",
   "hbsPath": "templates",
   "staticPath": "static",
   "stylesPath": "static/css",

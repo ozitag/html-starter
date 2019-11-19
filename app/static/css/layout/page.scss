@@ -1,0 +1,24 @@
+.page {
+  display: flex;
+  justify-content: center;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  &__header {
+    position: relative;
+  }
+
+  &__content {
+    flex: 1 0 auto;
+    min-height: 1px;
+  }
+
+  &__footer {
+    flex-shrink: 0;
+  }
+}

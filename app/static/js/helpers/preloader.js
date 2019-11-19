@@ -13,7 +13,7 @@
           document.dispatchEvent(pageEvent);
         }, 1000);
       };
-      preloader.addEventListener('animationend', handler);
+      preloader.addEventListener(endEvents.animation, handler);
 
       preloader.classList.add('hide');
       document.body.classList.add('loaded');
