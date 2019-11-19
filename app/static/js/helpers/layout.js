@@ -1,26 +1,34 @@
 ;(function(global) {
-  'use strict'
+  'use strict';
 
-  var MOBILE_WIDTH = 767
-  var TABLET_WIDTH = 1249
+  const MOBILE_WIDTH = 767;
+  const TABLET_WIDTH = 1023;
+  const LAPTOP_WIDTH = 1279;
 
-  var Layout = {
+  const Layout = {
     _listeners: [],
     _documentClickListeners: [],
 
     is_mobile: 0,
     is_tablet: 0,
+    is_laptop: 0,
 
     isMobileLayout: function() {
-      return $(window).width() <= MOBILE_WIDTH
+      return $(window).width() <= MOBILE_WIDTH;
     },
 
     isTabletLayout: function() {
-      return $(window).width() <= TABLET_WIDTH && this.isMobileLayout() === false
+      return $(window).width() <= TABLET_WIDTH;
+    },
+
+    isLaptopLayout: function() {
+      return $(window).width() <= LAPTOP_WIDTH;
     },
 
     isDesktopLayout: function() {
-      return this.isMobileLayout() === false && this.isTabletLayout() === false
+      return this.isMobileLayout() === false
+        && this.isTabletLayout() === false
+        && this.isLaptopLayout() === false
     },
 
     addListener: function(func) {
@@ -28,10 +36,10 @@
     },
 
     _fireChangeMode: function() {
-      var that = this
+      const that = this;
 
       setTimeout(function() {
-        for (var i = 0; i < that._listeners.length; i++) {
+        for (let i = 0; i < that._listeners.length; i++) {
           that._listeners[i](that.is_mobile)
         }
       }, 0)
@@ -52,30 +60,32 @@
     },
 
     init: function() {
-      this.is_mobile = this.isMobileLayout()
+      this.is_mobile = this.isMobileLayout();
 
       $(window).on('resize', function() {
-        var isMobile = Layout.isMobileLayout()
-        var isTablet = Layout.isTabletLayout()
+        const isMobile = Layout.isMobileLayout();
+        const isTablet = Layout.isTabletLayout();
+        const isLaptop = Layout.isLaptopLayout();
 
         if (isMobile !== Layout.is_mobile) {
-          Layout.is_mobile = isMobile
+          Layout.is_mobile = isMobile;
           Layout._fireChangeMode()
         } else if (isTablet !== Layout.is_tablet) {
-          Layout.is_tablet = isTablet
+          Layout.is_tablet = isTablet;
+          Layout._fireChangeMode()
+        } else if (isLaptop !== Layout.is_laptop) {
+          Layout.is_laptop = isLaptop;
           Layout._fireChangeMode()
         }
-      })
+      });
 
-      Layout._fireChangeMode()
-
-      var documentClick = false
+      let documentClick = false;
       $(document).on('touchstart', function() {
         documentClick = true
-      })
+      });
       $(document).on('touchmove', function() {
         documentClick = false
-      })
+      });
       $(document).on('click touchend', function(e) {
         if (e.type === 'click') {
           documentClick = true
@@ -85,21 +95,25 @@
         }
       })
     },
-  }
+  };
 
-  Layout.init()
+  Layout.init();
 
-  global.Layout = Layout
+  global.Layout = Layout;
 
   global.isMobileLayout = function() {
     return Layout.isMobileLayout()
-  }
+  };
 
   global.isTabletLayout = function() {
     return Layout.isTabletLayout()
-  }
+  };
+
+  global.isLaptopLayout = function() {
+    return Layout.isLaptopLayout()
+  };
 
   global.isDesktopLayout = function() {
     return Layout.isDesktopLayout()
-  }
-})(window)
+  };
+})(window);
