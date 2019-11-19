@@ -1,5 +1,4 @@
-;(function(global) {
-  'use strict';
+const global = window;
 
   const MOBILE_WIDTH = 767;
   const TABLET_WIDTH = 1023;
@@ -116,4 +115,3 @@
   global.isDesktopLayout = function() {
     return Layout.isDesktopLayout()
   };
-})(window);

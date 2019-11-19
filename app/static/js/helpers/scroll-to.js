@@ -1,46 +1,44 @@
-;(function (global) {
-  "use strict";
+const global = window
 
-  class ScrollTo {
-    static startAnimation(targetId) {
-      const duration   = 1200,
-            targetElem = document.querySelector(`[data-id="${targetId}"]`),
-            startPos   = window.pageYOffset,
-            targetPos  = targetElem.getBoundingClientRect().top,
-            startTime  = performance.now();
+class ScrollTo {
+  static startAnimation(targetId) {
+    const duration = 1200,
+      targetElem = document.querySelector(`[data-id="${targetId}"]`),
+      startPos = window.pageYOffset,
+      targetPos = targetElem.getBoundingClientRect().top,
+      startTime = performance.now()
 
-      raf(animation);
+    raf(animation)
 
-      function animation(currentTime) {
-        const
-          elapsedTime = currentTime - startTime,
-          nextStep = ScrollTo.timingFunction(
-            elapsedTime, startPos, targetPos, duration
-          );
+    function animation(currentTime) {
+      const
+        elapsedTime = currentTime - startTime,
+        nextStep = ScrollTo.timingFunction(
+          elapsedTime, startPos, targetPos, duration,
+        )
 
-        scrollTo(0, nextStep);
+      scrollTo(0, nextStep)
 
-        if (elapsedTime < duration) raf(animation);
-        else ScrollTo.respond(targetId);
-      }
-    }
-
-    static timingFunction(t, b, c, d) {
-      if ((t /= d / 2) < 1) return c / 2 * t * t * t + b;
-      return c / 2 * ((t -= 2) * t * t + 2) + b;
-    }
-
-    static respond(targetId) {
-      const event = new CustomEvent(
-        'endScroll', {
-          detail: {
-            targetId,
-          }
-        });
-
-      document.dispatchEvent(event);
+      if (elapsedTime < duration) raf(animation)
+      else ScrollTo.respond(targetId)
     }
   }
 
-  global.startScrollTo = ScrollTo.startAnimation;
-})(window);
+  static timingFunction(t, b, c, d) {
+    if ((t /= d / 2) < 1) return c / 2 * t * t * t + b
+    return c / 2 * ((t -= 2) * t * t + 2) + b
+  }
+
+  static respond(targetId) {
+    const event = new CustomEvent(
+      'endScroll', {
+        detail: {
+          targetId,
+        },
+      })
+
+    document.dispatchEvent(event)
+  }
+}
+
+global.startScrollTo = ScrollTo.startAnimation

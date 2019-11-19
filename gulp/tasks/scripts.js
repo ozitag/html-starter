@@ -1,58 +1,54 @@
 module.exports = () => {
-  $.gulp.task('scripts:libs', () => {
-    return $.gulp
-      .src($.config.supportJsLibs)
-      .pipe($.gulpPlugin.concat('support-libs.js'))
-      .pipe($.gulp.dest($.config.tmpPath + '/' + $.config.staticPath + '/js/'))
-  })
+  const sourceJsPath = `${$.config.sourcePath}/${$.config.staticPath}/js`
+  const destJsPath = `${$.config.tmpPath}/${$.config.staticPath}/js`
+  const config = {
+    entry: {
+      vendors: [
+        $.path.resolve('node_modules/html5shiv/dist/html5shiv.js'),
+        $.path.resolve('node_modules/jquery/dist/jquery.js'),
+        $.path.resolve('node_modules/svg4everybody/dist/svg4everybody.js'),
+      ],
+      polyfills: $.path.resolve(`${sourceJsPath}/helpers/polyfills.js`),
+      preloader: $.path.resolve(`${sourceJsPath}/helpers/preloader.js`),
+      scrollControl: $.path.resolve(`${sourceJsPath}/helpers/scroll-control.js`),
+      ui: $.path.resolve(`${sourceJsPath}/ui.js`),
+    },
+    output: {
+      filename: '[name].js',
+      path: $.path.resolve(`${destJsPath}/`),
+    },
+    module: {
+      rules: [{
+        test: /\.js$/,
+        exclude: /(node_modules)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
+        },
+      }],
+    },
+    plugins: [],
+  }
 
-  $.gulp.task('scripts', () => {
-    if ($.config.babel && $.argv._[0] === 'build') {
-      return $.gulp
-        .src(['./' + $.config.sourcePath + '/' + $.config.staticPath + '/js/**'])
-        // .on('error', function(err) {
-        //   console.log('[Compilation Error]')
-        //   console.log(err.fileName + (err.loc ? `( ${err.loc.line}, ${err.loc.column} ): ` : ': '))
-        //   console.log('error Babel: ' + err.message + '\n')
-        //   console.log(err.codeFrame)
-        //   this.emit('end')
-        // })
-        .pipe($.gulp.dest($.config.tmpPath + '/' + $.config.staticPath + '/js/'))
-        .pipe($.bs.reload({ stream: true }))
-    }
-    return $.gulp
-      .src(['./' + $.config.sourcePath + '/' + $.config.staticPath + '/js/**'])
-      .pipe($.gulp.dest($.config.tmpPath + '/' + $.config.staticPath + '/js/'))
+  if ($.argv._[0] === 'build') {
+    config.mode = 'production'
+  } else {
+    config.mode = 'development'
+    config.plugins.push(
+      new $.webpack.SourceMapDevToolPlugin({
+        filename: '[file].map',
+        exclude: ['vendors.js'],
+      }),
+    )
+  }
+
+  $.gulp.task('scripts', () => new Promise(resolve => {
+    $.gulp.src(`${sourceJsPath}/**`)
+      .pipe($.webpackStream(config, $.webpack))
+      .pipe($.gulp.dest(`${destJsPath}/`))
       .pipe($.bs.reload({ stream: true }))
-  })
-
-  $.gulp.task('prepareJs', () => {
-    const buildPath = $.config.destPath + '/' + $.config.scriptsPath + '/'
-
-    if (!$.config.concatScripts) {
-      return $.gulp.src($.config.tmpPath + '/' + $.config.scriptsPath + '/**/*').pipe($.gulp.dest(buildPath))
-    }
-
-    return $.gulpPlugin
-      .domSrc({
-        file: $.config.concatFilePath
-          ? $.config.tmpPath + '/html/' + $.config.concatFilePath
-          : $.config.tmpPath + '/html/home.html',
-        selector: 'script',
-        attribute: 'src',
-      })
-      .pipe(
-        $.gulpPlugin.babel({
-          ignore: [
-            `./${$.config.sourcePath}/${$.config.staticPath}/js/libs/**`,
-            `./${$.config.sourcePath}/${$.config.staticPath}/support-libs.js`,
-          ],
-        }),
-      )
-      .pipe($.gulpPlugin.concat('all.js'))
-      .pipe($.gulp.dest(buildPath))
-      .pipe($.gulpPlugin.uglify())
-      .pipe($.gulpPlugin.rename('all.min.js'))
-      .pipe($.gulp.dest(buildPath))
-  })
+      .pipe(resolve())
+  }))
 }
