@@ -4,22 +4,18 @@
   left: 0;
   bottom: 0;
   right: 0;
-  z-index: 100;
   background: #fff;
   opacity: 1;
-  transition: opacity .85s ease;
+  will-change: opacity;
+  z-index: 1000;
 
   &.hide {
-    opacity: 0;
+    animation: out 1s ease-in-out forwards;
   }
 }
 
 @keyframes out {
-  0% {
-    opacity: 1;
-  }
-
-  100% {
+  to {
     opacity: 0;
   }
 }

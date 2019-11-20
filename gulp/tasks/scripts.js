@@ -87,7 +87,7 @@ module.exports = () => {
   }
 
   $.gulp.task('scripts', async () => {
-    return $.gulp.src(`${sourcePath}/**/*.js`)
+    return $.gulp.src(`${sourcePath}/**`)
       .pipe($.webpackStream(
         config, $.webpack,
       ))
@@ -102,6 +102,6 @@ module.exports = () => {
       )
     }
 
-    return list;
+    return list
   }
 }
