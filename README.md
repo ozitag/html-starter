@@ -10,7 +10,7 @@ npm install critical
 
 ## Разработка проекта
 ```
-npm run start || gulp dev
+npm run dev || gulp dev
 ```
 
 ## Сборка проекта
@@ -147,48 +147,48 @@ images - хранит картинки сайта.
 
 ```
 ├── static
-    ├── css
-        ├── _common.scss
-        ├── _imports.scss
-        ├── _typography.scss
-        ├── blocks
-        │   └── btn-list.scss
-        ├── components
-        │   ├── checkbox.scss
-        │   ├── dropdown.scss
-        │   ├── loader.scss
-        │   └── radio.scss
-        ├── config
-        │   ├── fonts.scss
-        │   ├── options.scss
-        │   └── variables.scss
-        ├── layout
-        │   ├── breadcrumbs.scss
-        │   ├── footer.scss
-        │   ├── header.scss
-        │   ├── popup.scss
-        │   └── wrapper.scss
-        ├── libs
-        │   ├── grid.scss
-        │   ├── nomolize.scss
-        │   └── slick.scss
-        ├── main.scss
-        ├── mixins
-        │   └── mixins.scss
-        ├── pages
-        │   ├── home.scss
-        │   └── ui-toolkit.scss
-        ├── png
-        │   ├── _mixins.scss
-        │   └── png-sprite.scss
-        ├── svg
-        │   ├── _mixins.scss
-        │   ├── _sprite.scss
-        │   ├── _spriteInline.scss
-        │   └── svg.scss
-        └── ui
-            ├── buttons.scss
-            └── form.scss
+    ├── css
+        ├── _common.scss
+        ├── _imports.scss
+        ├── _typography.scss
+        ├── blocks
+        │   └── btn-list.scss
+        ├── components
+        │   ├── checkbox.scss
+        │   ├── dropdown.scss
+        │   ├── loader.scss
+        │   └── radio.scss
+        ├── config
+        │   ├── fonts.scss
+        │   ├── options.scss
+        │   └── variables.scss
+        ├── layout
+        │   ├── breadcrumbs.scss
+        │   ├── footer.scss
+        │   ├── header.scss
+        │   ├── popup.scss
+        │   └── wrapper.scss
+        ├── libs
+        │   ├── grid.scss
+        │   ├── nomolize.scss
+        │   └── slick.scss
+        ├── main.scss
+        ├── mixins
+        │   └── mixins.scss
+        ├── pages
+        │   ├── home.scss
+        │   └── ui-toolkit.scss
+        ├── png
+        │   ├── _mixins.scss
+        │   └── png-sprite.scss
+        ├── svg
+        │   ├── _mixins.scss
+        │   ├── _sprite.scss
+        │   ├── _spriteInline.scss
+        │   └── svg.scss
+        └── ui
+            ├── buttons.scss
+            └── form.scss
 ```
 
 Пойдем по порядку. Постараюсь описать что происходит в каждом файле. Тут есть даже файлы которые никтогда не трогают)
@@ -215,15 +215,15 @@ images - хранит картинки сайта.
 
 ```
 ├── fonts
-    └── Roboto
-        ├── Bold.woff
-        ├── Bold.woff2
-        ├── Light.woff
-        ├── Light.woff2
-        ├── Medium.woff
-        ├── Medium.woff2
-        ├── Regular.woff
-        └── Regular.woff2
+    └── Roboto
+        ├── Bold.woff
+        ├── Bold.woff2
+        ├── Light.woff
+        ├── Light.woff2
+        ├── Medium.woff
+        ├── Medium.woff2
+        ├── Regular.woff
+        └── Regular.woff2
 ```
 
 Тепер нужно их подключить. Для этого есть готовый миксин.
@@ -242,20 +242,20 @@ images - хранит картинки сайта.
 
 ```
 ├── js
-    ├── helpers
-    │   ├── dropdown.js
-    │   ├── layout.js
-    │   ├── load-more.js
-    │   ├── popups.js
-    │   ├── share.js
-    │   └── tabs.js
-    ├── libs
-    │   ├── html5shiv.js
-    │   ├── jquery-ui.min.js
-    │   ├── jquery.min.js
-    │   ├── slick.js
-    │   └── svg4body.js
-    └── ui.js
+    ├── helpers
+    │   ├── dropdown.js
+    │   ├── layout.js
+    │   ├── load-more.js
+    │   ├── popups.js
+    │   ├── share.js
+    │   └── tabs.js
+    ├── libs
+    │   ├── html5shiv.js
+    │   ├── jquery-ui.min.js
+    │   ├── jquery.min.js
+    │   ├── slick.js
+    │   └── svg4body.js
+    └── ui.js
 ```
 
 Из структуры видно что к чему.
@@ -302,21 +302,21 @@ images - хранит картинки сайта.
 
 ```
 ├── partials
-    ├── blocks
-    │   ├── ui-section-end.hbs
-    │   └── ui-section-start.hbs
-    ├── layout
-    │   ├── bottom.hbs
-    │   ├── footer.hbs
-    │   ├── head.hbs
-    │   └── header.hbs
-    ├── popups
-    │   └── example.hbs
-    └── ui
-        ├── checkbox.hbs
-        ├── input.hbs
-        ├── radio.hbs
-        └── svg.hbs
+    ├── blocks
+    │   ├── ui-section-end.hbs
+    │   └── ui-section-start.hbs
+    ├── layout
+    │   ├── bottom.hbs
+    │   ├── footer.hbs
+    │   ├── head.hbs
+    │   └── header.hbs
+    ├── popups
+    │   └── example.hbs
+    └── ui
+        ├── checkbox.hbs
+        ├── input.hbs
+        ├── radio.hbs
+        └── svg.hbs
 ```
 
 1. blocks - складываем блоки сайта, если они много раз переиспользуются.
