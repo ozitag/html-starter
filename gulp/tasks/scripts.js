@@ -1,19 +1,34 @@
 module.exports = () => {
-  const sourceJsPath = `${$.config.sourcePath}/${$.config.staticPath}/js`
-  const destJsPath = `${$.config.outputPath}/${$.config.staticPath}/js`
-  const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-  const uglifyConfig = {
-    test: /\.js$/,
+  const sourcePath = `${$.config.sourcePath}/${$.config.staticPath}/js`
+  const destPath = `${$.config.outputPath}/${$.config.staticPath}/js`
+  const modulesPath = `${sourcePath}/modules`
+
+  const vendorsList = {
+    libs: $.path.resolve(`${sourcePath}/libs.js`),
+    polyfills: $.path.resolve(`${sourcePath}/polyfills.js`),
+  }
+  const modulesList = parseModulesPaths(
+    JSON.parse($.fs.readFileSync(`${modulesPath}/list.json`)),
+  )
+  const entry = Object.assign({}, vendorsList, modulesList)
+  entry.ui = $.path.resolve(`${sourcePath}/ui`)
+
+  const sourceMapConfig = {
+    filename: '[name].js.map',
+    exclude: /(libs\.js|polyfills\.js)/,
+  }
+  const minifyConfig = {
     parallel: true,
-    uglifyOptions: {
+    terserOptions: {
       output: {
         comments: false,
       },
     },
+    extractComments: false,
   }
   const babelConfig = {
     test: /\.js$/,
-    exclude: /(node_modules)/,
+    exclude: /libs\.js/,
     use: {
       loader: 'babel-loader',
       options: {
@@ -21,34 +36,12 @@ module.exports = () => {
       },
     },
   }
-  const vendorsConfig = {
-    mode: 'production',
-    entry: {
-      libs: $.path.resolve(`${sourceJsPath}/libs.js`),
-    },
+
+  const config = {
+    entry,
     output: {
       filename: '[name].js',
-      library: '[name]',
-      libraryTarget: 'window',
-      globalObject: 'this',
-      path: $.path.resolve(`${destJsPath}/`),
-    },
-    optimization: {
-      minimizer: [
-        new UglifyJsPlugin(uglifyConfig),
-      ],
-    },
-  }
-  const appConfig = {
-    entry: {
-      polyfills: $.path.resolve(`${sourceJsPath}/helpers/polyfills.js`),
-      preloader: $.path.resolve(`${sourceJsPath}/helpers/preloader.js`),
-      scrollControl: $.path.resolve(`${sourceJsPath}/helpers/scroll-control.js`),
-      ui: $.path.resolve(`${sourceJsPath}/ui.js`),
-    },
-    output: {
-      filename: '[name].js',
-      path: $.path.resolve(`${destJsPath}/`),
+      path: $.path.resolve(`${destPath}/`),
     },
     module: {
       rules: [],
@@ -60,33 +53,55 @@ module.exports = () => {
   }
 
   if ($.argv._[0] === 'build') {
-    appConfig.mode = 'production'
+    config.mode = 'production'
 
     if ($.config.babel) {
-      appConfig.module.rules.push(
+      config.module.rules.push(
         babelConfig,
       )
     }
 
     if ($.config.jsMin) {
-      appConfig.optimization.minimizer.push(
-        new UglifyJsPlugin(uglifyConfig),
-      )
+      minifyConfig.test = /\.js$/
+    } else {
+      minifyConfig.test = /(libs\.js|polyfills\.js)/
     }
+    config.optimization.minimize = true
+    config.optimization.minimizer.push(
+      new $.terserPlugin(minifyConfig),
+    )
   } else {
-    appConfig.mode = 'development'
-    appConfig.devtool = 'source-map'
-    appConfig.watch = true
-    appConfig.module.rules.push(
+    config.mode = 'development'
+    config.watch = true
+    config.module.rules.push(
       babelConfig,
+    )
+    config.plugins.push(
+      new $.webpack.SourceMapDevToolPlugin(sourceMapConfig),
+    )
+    minifyConfig.test = /(libs\.js|polyfills\.js)/
+    config.optimization.minimize = true
+    config.optimization.minimizer.push(
+      new $.terserPlugin(minifyConfig),
     )
   }
 
   $.gulp.task('scripts', async () => {
-    return $.gulp.src(`${sourceJsPath}/**`)
-      .pipe($.webpackStream({
-        config: [vendorsConfig, appConfig],
-      }, $.webpack))
-      .pipe($.gulp.dest(`${destJsPath}/`))
+    return $.gulp.src(`${sourcePath}/**/*.js`)
+      .pipe($.webpackStream(
+        config, $.webpack,
+      ))
+      .pipe($.gulp.dest(`${destPath}/`))
   })
+
+  function parseModulesPaths(list) {
+    for (let key in list) {
+      const modulePath = list[key]
+      list[key] = $.path.resolve(
+        `${modulesPath}/src/${modulePath}`,
+      )
+    }
+
+    return list;
+  }
 }

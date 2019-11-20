@@ -13,6 +13,7 @@ global.$ = {
   tildeImporter: require('node-sass-tilde-importer'),
   webpack: require('webpack'),
   webpackStream: require('webpack-stream'),
+  terserPlugin: require('terser-webpack-plugin'),
 }
 
 $.config = JSON.parse(
