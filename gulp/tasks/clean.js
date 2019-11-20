@@ -1,6 +1,5 @@
 module.exports = () => {
-  $.gulp.task('clean', async () => {
-    await $.fs.remove($.config.tmpPath)
-    await $.fs.remove($.config.destPath)
-  })
+  $.gulp.task('clean',
+    $.del.bind(null, [$.config.tmpPath, $.config.destPath], { dot: true }),
+  )
 }

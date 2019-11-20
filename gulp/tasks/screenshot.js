@@ -1,9 +1,9 @@
 module.exports = () => {
-  $.gulp.task('screens', function() {
-    return $.gulp.src($.config.tmpPath + '/html/*.html')
+  $.gulp.task('screens', () => {
+    return $.gulp.src(`${$.config.outputPath}/html/*.html`)
       .pipe($.gulpPlugin.webshot({
-        dest: $.config.tmpPath + '/screens/',
-        root: $.config.tmpPath,
+        dest: `${$.config.outputPath}/screens/`,
+        root: `${$.config.outputPath}`,
       }))
   })
 }

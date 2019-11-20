@@ -1,13 +1,46 @@
 module.exports = () => {
   const sourceJsPath = `${$.config.sourcePath}/${$.config.staticPath}/js`
-  const destJsPath = `${$.config.tmpPath}/${$.config.staticPath}/js`
-  const config = {
+  const destJsPath = `${$.config.outputPath}/${$.config.staticPath}/js`
+  const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+  const uglifyConfig = {
+    test: /\.js$/,
+    parallel: true,
+    uglifyOptions: {
+      output: {
+        comments: false,
+      },
+    },
+  }
+  const babelConfig = {
+    test: /\.js$/,
+    exclude: /(node_modules)/,
+    use: {
+      loader: 'babel-loader',
+      options: {
+        presets: ['@babel/preset-env'],
+      },
+    },
+  }
+  const vendorsConfig = {
+    mode: 'production',
     entry: {
-      vendors: [
-        $.path.resolve('node_modules/html5shiv/dist/html5shiv.js'),
-        $.path.resolve('node_modules/jquery/dist/jquery.js'),
-        $.path.resolve('node_modules/svg4everybody/dist/svg4everybody.js'),
+      libs: $.path.resolve(`${sourceJsPath}/libs.js`),
+    },
+    output: {
+      filename: '[name].js',
+      library: '[name]',
+      libraryTarget: 'window',
+      globalObject: 'this',
+      path: $.path.resolve(`${destJsPath}/`),
+    },
+    optimization: {
+      minimizer: [
+        new UglifyJsPlugin(uglifyConfig),
       ],
+    },
+  }
+  const appConfig = {
+    entry: {
       polyfills: $.path.resolve(`${sourceJsPath}/helpers/polyfills.js`),
       preloader: $.path.resolve(`${sourceJsPath}/helpers/preloader.js`),
       scrollControl: $.path.resolve(`${sourceJsPath}/helpers/scroll-control.js`),
@@ -18,38 +51,42 @@ module.exports = () => {
       path: $.path.resolve(`${destJsPath}/`),
     },
     module: {
-      rules: [{
-        test: /\.js$/,
-        exclude: /(node_modules)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-          },
-        },
-      }],
+      rules: [],
     },
     plugins: [],
+    optimization: {
+      minimizer: [],
+    },
   }
 
   if ($.argv._[0] === 'build') {
-    config.mode = 'production'
+    appConfig.mode = 'production'
+
+    if ($.config.babel) {
+      appConfig.module.rules.push(
+        babelConfig,
+      )
+    }
+
+    if ($.config.jsMin) {
+      appConfig.optimization.minimizer.push(
+        new UglifyJsPlugin(uglifyConfig),
+      )
+    }
   } else {
-    config.mode = 'development'
-    config.devtool = 'source-map'
-    config.watch = true;
-    // config.plugins.push(
-    //   new $.webpack.SourceMapDevToolPlugin({
-    //     filename: '[file].map',
-    //     exclude: ['vendors.js'],
-    //   }),
-    // )
+    appConfig.mode = 'development'
+    appConfig.devtool = 'source-map'
+    appConfig.watch = true
+    appConfig.module.rules.push(
+      babelConfig,
+    )
   }
 
-  $.gulp.task('scripts', () => new Promise(resolve => {
-    $.gulp.src(`${sourceJsPath}/**`)
-      .pipe($.webpackStream(config, $.webpack))
+  $.gulp.task('scripts', async () => {
+    return $.gulp.src(`${sourceJsPath}/**`)
+      .pipe($.webpackStream({
+        config: [vendorsConfig, appConfig],
+      }, $.webpack))
       .pipe($.gulp.dest(`${destJsPath}/`))
-      .pipe(resolve())
-  }))
+  })
 }

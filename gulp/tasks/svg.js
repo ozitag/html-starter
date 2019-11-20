@@ -1,6 +1,6 @@
 module.exports = () => {
-  $.gulp.task('svg', function() {
-    return $.gulp.src($.config.sourcePath + '/' + $.config.svgPath + '/**/*.svg')
+  $.gulp.task('svg', () => {
+    return $.gulp.src(`${$.config.sourcePath}/${$.config.svgPath}/**/*.svg`)
       .pipe($.gulpPlugin.svgmin())
       .pipe($.gulpPlugin.svgSprite({
         mode: {
@@ -10,12 +10,12 @@ module.exports = () => {
             },
             layout: 'diagonal',
             dest: './',
-            sprite: $.config.tmpPath + '/' + $.config.staticPath + '/images/svg/sprite.svg',
+            sprite: `${$.config.outputPath}/${$.config.staticPath}/images/svg/sprite.svg`,
             bust: false,
             render: {
               'scss': {
-                'dest': $.config.sourcePath + '/' + $.config.stylesPath + '/svg/_sprite.scss',
-                'template': './config/sprite-template.scss',
+                'dest': `${$.config.sourcePath}/${$.config.stylesPath}/svg/_sprite.scss`,
+                'template': `./config/sprite-template.scss`,
               },
             },
           },
@@ -24,8 +24,8 @@ module.exports = () => {
       .pipe($.gulp.dest('./'))
   })
 
-  $.gulp.task('svgInline', function() {
-    return $.gulp.src($.config.sourcePath + '/' + $.config.svgInlinePath + '/**/*.svg')
+  $.gulp.task('svgInline', () => {
+    return $.gulp.src(`${$.config.sourcePath}/${$.config.svgInlinePath}/**/*.svg`)
       .pipe($.gulpPlugin.svgmin({
         js2svg: {
           pretty: true,
@@ -45,12 +45,12 @@ module.exports = () => {
             dest: './',
             example: false,
             bust: false,
-            sprite: $.config.tmpPath + '/' + $.config.staticPath + '/images/svg/spriteInline.svg',
+            sprite: `${$.config.outputPath}/${$.config.staticPath}/images/svg/spriteInline.svg`,
             inline: false,
             render: {
               scss: {
-                dest: $.config.sourcePath + '/' + $.config.stylesPath + '/svg/_spriteInline.scss',
-                template: './config/sprite-template-inline.scss',
+                dest: `${$.config.sourcePath}/${$.config.stylesPath}/svg/_spriteInline.scss`,
+                template: `./config/sprite-template-inline.scss`,
               },
             },
           },

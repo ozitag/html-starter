@@ -1,15 +1,15 @@
 module.exports = () => {
   $.gulp.task('hbs', () => {
     const data = JSON.parse(
-      $.fs.readFileSync($.config.sourcePath + '/' + $.config.dbPath + '/db.json'),
+      $.fs.readFileSync(`${$.config.sourcePath}/${$.config.dbPath}/db.json`),
     )
-    data.cache = randomIntNum(1, 5000);
+    data.cache = randomIntNum(1, 5000)
 
     const options = {
       ignorePartials: true,
       batch: [
-        $.config.sourcePath + '/' + $.config.hbsPath + '/layouts',
-        $.config.sourcePath + '/' + $.config.hbsPath + '/partials',
+        `${$.config.sourcePath}/${$.config.hbsPath}/layouts`,
+        `${$.config.sourcePath}/${$.config.hbsPath}/partials`,
       ],
       helpers: {
         times: function(n, block) {
@@ -28,9 +28,9 @@ module.exports = () => {
     }
 
     return $.gulp.src([
-      $.config.sourcePath + '/' + $.config.hbsPath + '/**/*.hbs',
-      '!' + $.config.sourcePath + '/' + $.config.hbsPath + '/layouts/**/*.hbs',
-      '!' + $.config.sourcePath + '/' + $.config.hbsPath + '/partials/**/*.hbs',
+      `${$.config.sourcePath}/${$.config.hbsPath}/**/*.hbs`,
+      `!${$.config.sourcePath}/${$.config.hbsPath}/layouts/**/*.hbs`,
+      `!${$.config.sourcePath}/${$.config.hbsPath}/partials/**/*.hbs`,
     ])
       .pipe($.gulpPlugin.plumber())
       .pipe($.gulpPlugin.compileHandlebars(data, options))
@@ -38,8 +38,9 @@ module.exports = () => {
         path.extname = '.html'
       }))
       .pipe($.gulpPlugin.trim())
-      .pipe($.gulp.dest($.config.tmpPath + '/html'))
-      .pipe($.bs.reload({ stream: true }))
+      .pipe($.gulp.dest(`${$.config.outputPath}/html`))
+      .pipe($.bs.reload({ stream: true }),
+      )
   })
 }
 

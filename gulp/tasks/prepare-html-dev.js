@@ -1,5 +1,5 @@
 module.exports = () => {
-  $.gulp.task('prepareHtmlDev', function() {
+  $.gulp.task('prepareHtmlDev', () => {
     const templates = $.fs.readdirSync(
       $.config.sourcePath + '/' + $.config.hbsPath,
     )
@@ -24,12 +24,7 @@ module.exports = () => {
 
       const file = $.fs
         .readFileSync(
-          $.config.sourcePath +
-          '/' +
-          $.config.hbsPath +
-          '/' +
-          templateName +
-          '.hbs',
+          `${$.config.sourcePath}/${$.config.hbsPath}/${templateName}.hbs`,
         )
         .toString()
 
@@ -45,35 +40,32 @@ module.exports = () => {
       .toString()
 
     $.fs.writeFileSync(
-      $.config.tmpPath + '/' + 'html/index.html',
+      `${$.config.outputPath}/html/index.html`,
       templateFile
         .replace('{{items}}', liList)
         .replace(/{{siteName}}/g, $.config.siteName),
     )
 
-    return $.gulp
-      .src($.config.tmpPath + '/html/**/*.html')
-      .pipe(
-        $.gulpPlugin.cheerio({
-          run: jQuery => {
-            jQuery('script').each(function() {
-              var src = jQuery(this).attr('src')
-              if (
-                src !== undefined &&
-                src.substr(0, 5) !== 'http:' &&
-                src.substr(0, 6) !== 'https:'
-              ) {
-                src = '../' + $.config.scriptsPath + '/' + src
-              }
+    return $.gulp.src(`${$.config.outputPath}/html/**/*.html`)
+      .pipe($.gulpPlugin.cheerio({
+        run: jQuery => {
+          jQuery('script').each(function() {
+            var src = jQuery(this).attr('src')
+            if (
+              src !== undefined &&
+              src.substr(0, 5) !== 'http:' &&
+              src.substr(0, 6) !== 'https:'
+            ) {
+              src = '../' + $.config.scriptsPath + '/' + src
+            }
 
-              jQuery(this).attr('src', src)
-            })
-          },
-          parserOptions: {
-            decodeEntities: false,
-          },
-        }),
-      )
-      .pipe($.gulp.dest($.config.tmpPath + '/html/'))
+            jQuery(this).attr('src', src)
+          })
+        },
+        parserOptions: {
+          decodeEntities: false,
+        },
+      }))
+      .pipe($.gulp.dest($.config.outputPath + '/html/'))
   })
 }

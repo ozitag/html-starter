@@ -17,14 +17,9 @@
   "contentPath": "content",
   "metaPath": ".meta",
   "concatScripts": false,
+  "jsMin": true,
   "cssMin": true,
   "imagemin": true,
   "criticalCss": false,
-  "babel": true,
-  "concatFilePath": "",
-  "supportJsLibs": [
-    "./node_modules/html5shiv/dist/html5shiv.js",
-    "./node_modules/jquery/dist/jquery.js",
-    "./node_modules/svg4everybody/dist/svg4everybody.js"
-  ]
+  "babel": true
 }
