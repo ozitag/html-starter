@@ -7,7 +7,7 @@ class App {
 window.addEventListener('DOMContentLoaded', () => {
   window.svg4everybody()
 
-  App.init();
+  App.init()
 
   $('.js-dropdown-box').each(function() {
     $(this).dropdown({

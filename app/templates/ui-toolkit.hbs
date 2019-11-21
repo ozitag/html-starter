@@ -11,16 +11,36 @@
         <aside class="ui__aside">
             <nav class="aside__inner">
                 <ul class="aside__nav">
-                    <li><button class="_link" data-id="ui-colors">Colors</button></li>
-                    <li><button class="_link" data-id="ui-buttons">Buttons</button></li>
-                    <li><button class="_link" data-id="ui-buttons-outline">Buttons Outline</button></li>
-                    <li><button class="_link" data-id="ui-buttons-sizes">Buttons Sizes</button></li>
-                    <li><button class="_link" data-id="ui-buttons-disabled">Buttons Disabled</button></li>
-                    <li><button class="_link" data-id="ui-buttons-icons">Buttons Icons</button></li>
-                    <li><button class="_link" data-id="ui-form">Forms</button></li>
-                    <li><button class="_link" data-id="ui-popups">Popups</button></li>
-                    <li><button class="_link" data-id="ui-loader">Loader</button></li>
-                    <li><button class="_link" data-id="ui-loader-empty">Loader Empty</button></li>
+                    <li>
+                        <button class="_link" data-id="ui-colors">Colors</button>
+                    </li>
+                    <li>
+                        <button class="_link" data-id="ui-buttons">Buttons</button>
+                    </li>
+                    <li>
+                        <button class="_link" data-id="ui-buttons-outline">Buttons Outline</button>
+                    </li>
+                    <li>
+                        <button class="_link" data-id="ui-buttons-sizes">Buttons Sizes</button>
+                    </li>
+                    <li>
+                        <button class="_link" data-id="ui-buttons-disabled">Buttons Disabled</button>
+                    </li>
+                    <li>
+                        <button class="_link" data-id="ui-buttons-icons">Buttons Icons</button>
+                    </li>
+                    <li>
+                        <button class="_link" data-id="ui-form">Forms</button>
+                    </li>
+                    <li>
+                        <button class="_link" data-id="ui-popups">Popups</button>
+                    </li>
+                    <li>
+                        <button class="_link" data-id="ui-loader">Loader</button>
+                    </li>
+                    <li>
+                        <button class="_link" data-id="ui-loader-empty">Loader Empty</button>
+                    </li>
                 </ul>
             </nav>
         </aside>
@@ -278,16 +298,16 @@
 
 <script>
     window.onload = () => {
-        const $btn = $('.aside__nav').find('._link');
+        const $btn = $('.aside__nav').find('._link')
 
-        $btn.on('click', function () {
-            const id = $(this).data('id');
+        $btn.on('click', function() {
+            const id = $(this).data('id')
 
             $('html, body').animate({
-                scrollTop: $(`#${id}`).offset().top
-            }, 600);
-        });
-    };
+                scrollTop: $(`#${id}`).offset().top,
+            }, 600)
+        })
+    }
 </script>
 
 {{> layout/bottom }}
