@@ -1,3 +1,4 @@
 {
-
+  "staticImgPath": "../static/images/",
+  "contentImgPath": "../content/images/"
 }
