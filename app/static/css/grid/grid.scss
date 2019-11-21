@@ -23,6 +23,12 @@ html {
 
 @media (min-width: $tabletMedia + 1) {
   .container {
+    max-width: $laptopWidth;
+  }
+}
+
+@media (min-width: $laptopMedia + 1) {
+  .container {
     max-width: $desktopWidth;
   }
 }
