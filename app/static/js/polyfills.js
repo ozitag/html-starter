@@ -95,6 +95,16 @@ const polyfills = {
         }
       }
     },
+
+    function webpChecker() {
+      const webp = new Image();
+      ['load', 'error'].forEach(eventName => {
+        webp.addEventListener(eventName, () => {
+          webp.height == 2 && document.body.classList.add('webp')
+        })
+      })
+      webp.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA'
+    },
   ],
 
   init() {
