@@ -1,6 +1,6 @@
 class App {
   static init() {
-    console.log(123)
+
   }
 }
 
