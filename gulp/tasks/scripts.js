@@ -25,10 +25,6 @@ module.exports = () => {
       },
     },
   }
-  const watchConfig = {
-    files: [`${sourcePath}/**/*.js`],
-    dirs: [`${sourcePath}`],
-  }
 
   const config = {
     output: {
@@ -71,9 +67,6 @@ module.exports = () => {
     )
     config.plugins.push(
       new $.webpack.SourceMapDevToolPlugin(sourceMapConfig),
-    )
-    config.plugins.push(
-      new $.wpWatchPlugin(watchConfig),
     )
     minifyConfig.test = /(libs\.js|polyfills\.js)/
     config.optimization.minimize = true

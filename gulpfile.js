@@ -15,7 +15,6 @@ global.$ = {
   webpack: require('webpack'),
   webpackStream: require('webpack-stream'),
   wpTerserPlugin: require('terser-webpack-plugin'),
-  wpWatchPlugin: require('extra-watch-webpack-plugin'),
 }
 
 $.config = JSON.parse(
