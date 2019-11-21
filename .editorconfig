@@ -1,6 +1,6 @@
 root = true
 
-[*.{css,scss,less,js,json,ts,sass,php,html,hbs,mustache,phtml,html.twig}]
+[*]
 indent_style = space
 indent_size = 2
 end_of_line = lf
