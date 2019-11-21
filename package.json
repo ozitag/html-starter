@@ -21,6 +21,7 @@
     "browser-sync": "^2.26.7",
     "del": "^5.1.0",
     "export-loader": "^1.0.52",
+    "extra-watch-webpack-plugin": "^1.0.3",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.0",
     "gulp-cheerio": "^0.6.3",

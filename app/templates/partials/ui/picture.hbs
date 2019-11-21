@@ -1,0 +1,8 @@
+<picture>
+    <source srcset="{{path}}.webp 1x,
+                  {{path2x}}.webp 2x"
+            type="image/webp">
+    <img srcset="{{path2x}}{{#if fallback-png}}.png{{else if fallback-jpg}}.jpg{{/if}} 2x"
+         src="{{path}}{{#if fallback-png}}.png{{else if fallback-jpg}}.jpg{{/if}}"
+         alt="">
+</picture>

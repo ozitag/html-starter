@@ -1,20 +1,9 @@
 module.exports = () => {
   const sourcePath = `${$.config.sourcePath}/${$.config.staticPath}/js`
   const destPath = `${$.config.outputPath}/${$.config.staticPath}/js`
-  const modulesPath = `${sourcePath}/modules`
-
-  const vendorsList = {
-    libs: $.path.resolve(`${sourcePath}/libs.js`),
-    polyfills: $.path.resolve(`${sourcePath}/polyfills.js`),
-  }
-  const modulesList = parseModulesPaths(
-    JSON.parse($.fs.readFileSync(`${modulesPath}/list.json`)),
-  )
-  const entry = Object.assign({}, vendorsList, modulesList)
-  entry.ui = $.path.resolve(`${sourcePath}/ui`)
 
   const sourceMapConfig = {
-    filename: '[name].js.map',
+    filename: '[name].map',
     exclude: /(libs\.js|polyfills\.js)/,
   }
   const minifyConfig = {
@@ -36,11 +25,14 @@ module.exports = () => {
       },
     },
   }
+  const watchConfig = {
+    files: [`${sourcePath}/**/*.js`],
+    dirs: [`${sourcePath}`],
+  }
 
   const config = {
-    entry,
     output: {
-      filename: '[name].js',
+      filename: '[name]',
       path: $.path.resolve(`${destPath}/`),
     },
     module: {
@@ -50,6 +42,7 @@ module.exports = () => {
     optimization: {
       minimizer: [],
     },
+    stats: 'errors-warnings',
   }
 
   if ($.argv._[0] === 'build') {
@@ -68,7 +61,7 @@ module.exports = () => {
     }
     config.optimization.minimize = true
     config.optimization.minimizer.push(
-      new $.terserPlugin(minifyConfig),
+      new $.wpTerserPlugin(minifyConfig),
     )
   } else {
     config.mode = 'development'
@@ -79,14 +72,19 @@ module.exports = () => {
     config.plugins.push(
       new $.webpack.SourceMapDevToolPlugin(sourceMapConfig),
     )
+    config.plugins.push(
+      new $.wpWatchPlugin(watchConfig),
+    )
     minifyConfig.test = /(libs\.js|polyfills\.js)/
     config.optimization.minimize = true
     config.optimization.minimizer.push(
-      new $.terserPlugin(minifyConfig),
+      new $.wpTerserPlugin(minifyConfig),
     )
   }
 
   $.gulp.task('scripts', async () => {
+    config.entry = getEntry()
+
     return $.gulp.src(`${sourcePath}/**`)
       .pipe($.webpackStream(
         config, $.webpack,
@@ -94,14 +92,12 @@ module.exports = () => {
       .pipe($.gulp.dest(`${destPath}/`))
   })
 
-  function parseModulesPaths(list) {
-    for (let key in list) {
-      const modulePath = list[key]
-      list[key] = $.path.resolve(
-        `${modulesPath}/src/${modulePath}`,
-      )
-    }
-
-    return list
+  function getEntry() {
+    return $.glob.sync(`${sourcePath}/**/*`, { nodir: true })
+      .reduce((acc, path) => {
+        const entryPath = path.match(/([\w\d-_]+)\.js$/i)[0]
+        acc[entryPath] = $.path.resolve(path)
+        return acc
+      }, {})
   }
 }

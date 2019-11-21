@@ -1,3 +1,5 @@
+console.log(123)
+
 class AoS {
   constructor(blocks) {
     this.aosBlocks = blocks

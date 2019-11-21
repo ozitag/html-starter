@@ -1,5 +1,13 @@
+class App {
+  static init() {
+    console.log(123)
+  }
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   window.svg4everybody()
+
+  App.init();
 
   $('.js-dropdown-box').each(function() {
     $(this).dropdown({
@@ -8,12 +16,8 @@ window.addEventListener('DOMContentLoaded', () => {
   })
 })
 
-document.documentElement.addEventListener(
-  'touchstart',
-  function(event) {
-    if (event.touches.length > 1) {
-      event.preventDefault()
-    }
-  },
-  false,
-)
+document.documentElement.addEventListener('touchstart', (event) => {
+  if (event.touches.length > 1) {
+    event.preventDefault()
+  }
+}, false)

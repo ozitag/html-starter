@@ -5,6 +5,7 @@ global.$ = {
   gulpPlugin: require('gulp-load-plugins')(),
   bs: require('browser-sync'),
   fs: require('fs'),
+  glob: require('glob'),
   del: require('del'),
   path: require('path'),
   tasks: require('./gulp/tasks.js'),
@@ -13,7 +14,8 @@ global.$ = {
   tildeImporter: require('node-sass-tilde-importer'),
   webpack: require('webpack'),
   webpackStream: require('webpack-stream'),
-  terserPlugin: require('terser-webpack-plugin'),
+  wpTerserPlugin: require('terser-webpack-plugin'),
+  wpWatchPlugin: require('extra-watch-webpack-plugin'),
 }
 
 $.config = JSON.parse(
