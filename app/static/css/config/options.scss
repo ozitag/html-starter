@@ -1,15 +1,15 @@
 //Container Width
-
 $desktopWidth: 1240px;
 $laptopWidth: 960px;
 $tabletWidth: 720px;
 
 //Media query
-
 $laptopMedia: 1279px;
 $tabletMedia: 1023px;
 $mobileMedia: 767px;
 
 //Container gutter
-
-$gutter: 10px;
+$gutterDesktop: 10px;
+$gutterLaptop: 10px;
+$gutterTablet: 10px;
+$gutterMobile: 10px;

@@ -10,35 +10,53 @@ html {
 .container {
   margin-right: auto;
   margin-left: auto;
-  padding-right: $gutter;
-  padding-left: $gutter;
+  padding-right: $gutterMobile;
+  padding-left: $gutterMobile;
   width: 100%;
-}
-
-@media (min-width: $mobileMedia + 1) {
-  .container {
-    max-width: $tabletWidth;
-  }
-}
-
-@media (min-width: $tabletMedia + 1) {
-  .container {
-    max-width: $laptopWidth;
-  }
-}
-
-@media (min-width: $laptopMedia + 1) {
-  .container {
-    max-width: $desktopWidth;
-  }
 }
 
 .container-fluid {
   width: 100%;
   margin-right: auto;
   margin-left: auto;
-  padding-right: $gutter;
-  padding-left: $gutter;
+  padding-right: $gutterMobile;
+  padding-left: $gutterMobile;
+}
+
+@media (min-width: $mobileMedia + 1) {
+  .container,
+  .container-fluid {
+    padding-right: $gutterTablet;
+    padding-left: $gutterTablet;
+  }
+
+  .container {
+    max-width: $tabletWidth;
+  }
+}
+
+@media (min-width: $tabletMedia + 1) {
+  .container,
+  .container-fluid {
+    padding-right: $gutterLaptop;
+    padding-left: $gutterLaptop;
+  }
+
+  .container {
+    max-width: $laptopWidth;
+  }
+}
+
+@media (min-width: $laptopMedia + 1) {
+  .container,
+  .container-fluid {
+    padding-right: $gutterDesktop;
+    padding-left: $gutterDesktop;
+  }
+
+  .container {
+    max-width: $desktopWidth;
+  }
 }
 
 .row {
@@ -46,8 +64,23 @@ html {
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  margin-right: -$gutter;
-  margin-left: -$gutter;
+  margin-right: -$gutterMobile;
+  margin-left: -$gutterMobile;
+
+  @media (min-width: $mobileMedia + 1) {
+    margin-right: -$gutterTablet;
+    margin-left: -$gutterTablet;
+  }
+
+  @media (min-width: $tabletMedia + 1) {
+    margin-right: -$gutterLaptop;
+    margin-left: -$gutterLaptop;
+  }
+
+  @media (min-width: $laptopMedia + 1) {
+    margin-right: -$gutterDesktop;
+    margin-left: -$gutterDesktop;
+  }
 }
 
 .no-gutters {
@@ -134,8 +167,23 @@ html {
   position: relative;
   width: 100%;
   min-height: 1px;
-  padding-right: $gutter;
-  padding-left: $gutter;
+  padding-right: $gutterMobile;
+  padding-left: $gutterMobile;
+
+  @media (min-width: $mobileMedia + 1) {
+    padding-right: $gutterTablet;
+    padding-left: $gutterTablet;
+  }
+
+  @media (min-width: $tabletMedia + 1) {
+    padding-right: $gutterLaptop;
+    padding-left: $gutterLaptop;
+  }
+
+  @media (min-width: $laptopMedia + 1) {
+    padding-right: $gutterDesktop;
+    padding-left: $gutterDesktop;
+  }
 }
 
 .col {
@@ -1401,4 +1449,3 @@ html {
     align-self: stretch !important;
   }
 }
-/*# sourceMappingURL=bootstrap-grid.css.map */
