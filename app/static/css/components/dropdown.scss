@@ -22,7 +22,6 @@
     top: 50%;
     transform: translateY(-50%) rotate(90deg);
     right: 10px;
-    @include sprite('btn-arrow-d');
     z-index: 1;
   }
 
