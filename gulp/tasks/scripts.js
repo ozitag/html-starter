@@ -1,9 +1,10 @@
 module.exports = () => {
   const sourcePath = `${$.config.sourcePath}/${$.config.staticPath}/js`
   const destPath = `${$.config.outputPath}/${$.config.staticPath}/js`
+  const outputFileName = $.config.buildMode === 'build' ? '[name]' : '[name].js'
 
   const sourceMapConfig = {
-    filename: '[name].map',
+    filename: `${outputFileName}.map`,
     exclude: /(libs\.js|polyfills\.js)/,
   }
   const minifyConfig = {
@@ -28,7 +29,7 @@ module.exports = () => {
 
   const config = {
     output: {
-      filename: '[name]',
+      filename: `${outputFileName}`,
       path: $.path.resolve(`${destPath}/`),
     },
     module: {
@@ -41,56 +42,69 @@ module.exports = () => {
     stats: 'errors-warnings',
   }
 
-  if ($.argv._[0] === 'build') {
-    config.mode = 'production'
-
-    if ($.config.babel) {
+  switch ($.config.buildMode) {
+    case 'dev':
+      config.mode = 'development'
+      config.entry = getStaticEntry()
       config.module.rules.push(
         babelConfig,
       )
-    }
-
-    if ($.config.jsMin) {
-      minifyConfig.test = /\.js$/
-    } else {
+      config.plugins.push(
+        new $.webpack.SourceMapDevToolPlugin(sourceMapConfig),
+      )
       minifyConfig.test = /(libs\.js|polyfills\.js)/
-    }
-    config.optimization.minimize = true
-    config.optimization.minimizer.push(
-      new $.wpTerserPlugin(minifyConfig),
-    )
-  } else {
-    config.mode = 'development'
-    config.watch = true
-    config.module.rules.push(
-      babelConfig,
-    )
-    config.plugins.push(
-      new $.webpack.SourceMapDevToolPlugin(sourceMapConfig),
-    )
-    minifyConfig.test = /(libs\.js|polyfills\.js)/
-    config.optimization.minimize = true
-    config.optimization.minimizer.push(
-      new $.wpTerserPlugin(minifyConfig),
-    )
+      config.optimization.minimize = true
+      config.optimization.minimizer.push(
+        new $.wpTerserPlugin(minifyConfig),
+      )
+      break
+    case 'build':
+      config.mode = 'production'
+      config.entry = getDynamicEntry()
+
+      if ($.config.babel) {
+        config.module.rules.push(
+          babelConfig,
+        )
+      }
+
+      if ($.config.jsMin) {
+        minifyConfig.test = /\.js$/
+      } else {
+        minifyConfig.test = /(libs\.js|polyfills\.js)/
+      }
+      config.optimization.minimize = true
+      config.optimization.minimizer.push(
+        new $.wpTerserPlugin(minifyConfig),
+      )
   }
 
   $.gulp.task('scripts', async () => {
-    config.entry = getEntry()
-
     return $.gulp.src(`${sourcePath}/**`)
       .pipe($.webpackStream(
         config, $.webpack,
       ))
       .pipe($.gulp.dest(`${destPath}/`))
+      .pipe($.bs.reload({ stream: true }))
   })
 
-  function getEntry() {
-    return $.glob.sync(`${sourcePath}/**/*`, { nodir: true })
-      .reduce((acc, path) => {
-        const entryPath = path.match(/([\w\d-_]+)\.js$/i)[0]
-        acc[entryPath] = $.path.resolve(path)
-        return acc
-      }, {})
+  function getDynamicEntry() {
+    return $.glob.sync(
+      `${sourcePath}/**/*`, {
+        ignore: [`${sourcePath}/main.js`, `${sourcePath}/poly.js`],
+        nodir: true,
+      },
+    ).reduce((acc, path) => {
+      const entryPath = path.match(/([\w\d-_]+)\.js$/i)[0]
+      acc[entryPath] = $.path.resolve(path)
+      return acc
+    }, {})
+  }
+
+  function getStaticEntry() {
+    return {
+      libs: $.path.resolve(`${sourcePath}/libs.js`),
+      main: $.path.resolve(`${sourcePath}/main.js`),
+    }
   }
 }

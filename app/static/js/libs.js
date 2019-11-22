@@ -4,3 +4,5 @@ import $ from 'jQuery'
 
 window.svg4everybody = svgPolyfill;
 window.$ = $;
+
+import poly from './poly'

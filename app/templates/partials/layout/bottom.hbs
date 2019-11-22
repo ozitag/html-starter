@@ -1,10 +1,13 @@
-<script src="libs.js?v={{cache}}"></script>
+{{> helpers/script src="libs" }}
 
-{{> helpers/script src="polyfills" }}
-{{> helpers/script src="scroll-control" }}
-{{> helpers/script src="preloader" }}
-
-<script src="ui.js?v={{cache}}"></script>
+{{#ifCond config.buildMode 'dev'}}
+    {{> helpers/script src="main" }}
+{{else ifCond config.buildMode 'prod'}}
+    {{> helpers/script src="polyfills" }}
+    {{> helpers/script src="scroll-control" }}
+    {{> helpers/script src="preloader" }}
+    {{> helpers/script src="ui" }}
+{{/ifCond}}
 
 </body>
 </html>

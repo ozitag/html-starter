@@ -20,7 +20,8 @@ global.$ = {
 $.config = JSON.parse(
   $.fs.readFileSync('./config/config.json'),
 )
-$.config.outputPath = $.argv._[0] === 'build' ?
+$.config.buildMode = $.argv._[0] === 'build' ? 'build' : 'dev'
+$.config.outputPath = $.config.buildMode === 'build' ?
   $.config.destPath : $.config.tmpPath
 
 if ($.config.criticalCss) {

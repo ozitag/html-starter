@@ -6,6 +6,11 @@ module.exports = () => {
       $.gulp.series('styles'),
     )
     $.gulp.watch([
+        `${$.config.sourcePath}/${$.config.scriptsPath}/**/*.js`,
+      ],
+      $.gulp.series('scripts'),
+    )
+    $.gulp.watch([
         `${$.config.sourcePath}/${$.config.hbsPath}/**/*`,
         `${$.config.sourcePath}/${$.config.dbPath}/db.json`,
       ],

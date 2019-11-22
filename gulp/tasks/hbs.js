@@ -1,5 +1,12 @@
 module.exports = () => {
-  const cache = randomIntNum(1, 5000)
+  const db = {
+    config: {},
+    data: null,
+  }
+  db.config.cache = randomIntNum(1, 5000)
+  db.config.buildMode = $.config.buildMode === 'build' ?
+    'prod' : 'dev'
+
   const options = {
     ignorePartials: true,
     batch: [
@@ -23,10 +30,9 @@ module.exports = () => {
   }
 
   $.gulp.task('hbs', () => {
-    const data = JSON.parse(
+    db.data = JSON.parse(
       $.fs.readFileSync(`${$.config.sourcePath}/${$.config.dbPath}/db.json`),
     )
-    data.cache = cache
 
     return $.gulp.src([
       `${$.config.sourcePath}/${$.config.hbsPath}/**/*.hbs`,
@@ -34,7 +40,7 @@ module.exports = () => {
       `!${$.config.sourcePath}/${$.config.hbsPath}/partials/**/*.hbs`,
     ])
       .pipe($.gulpPlugin.plumber())
-      .pipe($.gulpPlugin.compileHandlebars(data, options))
+      .pipe($.gulpPlugin.compileHandlebars(db, options))
       .pipe($.gulpPlugin.rename(path => {
         path.extname = '.html'
       }))
