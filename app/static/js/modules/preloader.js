@@ -1,7 +1,10 @@
 class Preloader {
   static disablingPreloader() {
     const preloader = document.querySelector('.js-preloader')
-    const handler = () => {
+    const handler = e => {
+      const {target, currentTarget} = e;
+      if (target !== currentTarget) return false;
+
       preloader.style.display = 'none'
       preloader.classList.remove('hide')
 
