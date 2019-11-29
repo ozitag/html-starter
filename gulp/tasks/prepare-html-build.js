@@ -96,7 +96,7 @@ module.exports = () => {
           </div></div>
           <a class="page-default__item js-hover-item" 
             title="${pageName}" href="${desc}.html" 
-            style="background:url(../${$.config.metaPath}/${files[j]}')no-repeat top center;"></a>
+            style="background:url('../${$.config.metaPath}/${files[j]}')no-repeat top center;"></a>
         </div>
     `
     }
