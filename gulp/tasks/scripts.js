@@ -79,13 +79,14 @@ module.exports = () => {
       )
   }
 
-  $.gulp.task('scripts', async () => {
-    $.gulp.src(`${sourcePath}/**`)
+  $.gulp.task('scripts', done => {
+    return $.gulp.src(`${sourcePath}/**`)
       .pipe($.webpackStream(
         config, $.webpack,
       ))
       .pipe($.gulp.dest(`${destPath}/`))
       .pipe($.bs.reload({ stream: true }))
+      .on('end', done)
   })
 
   function getDynamicEntry() {
