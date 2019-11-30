@@ -5,7 +5,7 @@ module.exports = () => {
 
   const sourceMapConfig = {
     filename: `${outputFileName}.map`,
-    exclude: /(libs\.js|polyfills\.js)/,
+    exclude: /(libs\.js)/,
   }
   const minifyConfig = {
     parallel: true,
@@ -52,7 +52,7 @@ module.exports = () => {
       config.plugins.push(
         new $.webpack.SourceMapDevToolPlugin(sourceMapConfig),
       )
-      minifyConfig.test = /(libs\.js|polyfills\.js)/
+      minifyConfig.test = /(libs\.js)/
       config.optimization.minimize = true
       config.optimization.minimizer.push(
         new $.wpTerserPlugin(minifyConfig),
@@ -71,7 +71,7 @@ module.exports = () => {
       if ($.config.jsMin) {
         minifyConfig.test = /\.js$/
       } else {
-        minifyConfig.test = /(libs\.js|polyfills\.js)/
+        minifyConfig.test = /(libs\.js)/
       }
       config.optimization.minimize = true
       config.optimization.minimizer.push(
