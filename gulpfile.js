@@ -20,8 +20,8 @@ global.$ = {
 $.config = JSON.parse(
   $.fs.readFileSync('./config/config.json'),
 )
-$.config.buildMode = $.argv._[0] === 'build' ? 'build' : 'dev'
-$.config.outputPath = $.config.buildMode === 'build' ?
+$.config.buildMode = $.argv._[0] === 'prod' ? 'prod' : 'dev'
+$.config.outputPath = $.config.buildMode === 'prod' ?
   $.config.destPath : $.config.tmpPath
 
 if ($.config.criticalCss) {
@@ -41,7 +41,7 @@ $.gulp.task('dev', done => {
   )(done)
 })
 
-$.gulp.task('build', done => {
+$.gulp.task('prod', done => {
   $.gulp.series('clean',
     $.gulp.parallel('styles', 'scripts'),
     $.gulp.parallel('hbs', 'svg', 'svgInline', 'pngSprite', 'static:fonts', 'static:images'),

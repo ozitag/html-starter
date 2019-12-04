@@ -16,7 +16,7 @@ npm run dev || gulp dev
 ## Сборка проекта
 
 ```
-npm run build || gulp build
+npm run prod || gulp prod
 ```
 
 ## Из чего состоит HTML Starter?

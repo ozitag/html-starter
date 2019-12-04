@@ -1,8 +1,8 @@
 {{> helpers/script src="libs" }}
 
-{{#ifCond config.buildMode 'dev'}}
+{{#ifCond buildMode 'dev'}}
     {{> helpers/script src="main" }}
-{{else ifCond config.buildMode 'prod'}}
+{{else ifCond buildMode 'prod'}}
     {{> helpers/script src="polyfills" }}
     {{> helpers/script src="scroll-control" }}
     {{> helpers/script src="preloader" }}

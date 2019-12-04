@@ -1,11 +1,7 @@
 module.exports = () => {
-  const db = {
-    config: {},
-    data: null,
-  }
-  db.config.cache = randomIntNum(1, 5000)
-  db.config.buildMode = $.config.buildMode === 'build' ?
-    'prod' : 'dev'
+  const initParams = {}
+  initParams.cache = randomIntNum(1, 5000)
+  initParams.buildMode = $.config.buildMode;
 
   const options = {
     ignorePartials: true,
@@ -26,13 +22,17 @@ module.exports = () => {
         }
         return options.inverse(this)
       },
+      concat: function(...args) {
+        return `${args.slice(0, -1).join('')}`
+      },
     },
   }
 
   $.gulp.task('hbs', () => {
-    db.data = JSON.parse(
+    const data = JSON.parse(
       $.fs.readFileSync(`${$.config.sourcePath}/${$.config.dbPath}/db.json`),
     )
+    const db = { ...initParams, ...data }
 
     return $.gulp.src([
       `${$.config.sourcePath}/${$.config.hbsPath}/**/*.hbs`,

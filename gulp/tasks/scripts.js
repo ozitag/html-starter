@@ -1,7 +1,7 @@
 module.exports = () => {
   const sourcePath = `${$.config.sourcePath}/${$.config.staticPath}/js`
   const destPath = `${$.config.outputPath}/${$.config.staticPath}/js`
-  const outputFileName = $.config.buildMode === 'build' ? '[name]' : '[name].js'
+  const outputFileName = $.config.buildMode === 'prod' ? '[name]' : '[name].js'
 
   const sourceMapConfig = {
     filename: `${outputFileName}.map`,
@@ -58,7 +58,7 @@ module.exports = () => {
         new $.wpTerserPlugin(minifyConfig),
       )
       break
-    case 'build':
+    case 'prod':
       config.mode = 'production'
       config.entry = getDynamicEntry()
 

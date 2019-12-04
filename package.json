@@ -1,6 +1,6 @@
 {
   "name": "html-starter",
-  "version": "1.0.0",
+  "version": "1.5.0",
   "description": "html-starter",
   "main": "gulpfile.js",
   "engines": {
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "gulp dev",
-    "build": "gulp build"
+    "prod": "gulp prod"
   },
   "keywords": [],
   "author": "vvvgorbunov & co.",
