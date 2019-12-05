@@ -1,5 +1,3 @@
-const global = window
-
 class ScrollObserver {
   constructor() {
     this.listeners = []
@@ -9,11 +7,7 @@ class ScrollObserver {
   observeScroll() {
     document.addEventListener('scroll', () => {
       if (!this.listeners.length) return false
-      raf(() => {
-        for (let i = 0; i < this.listeners.length; i++) {
-          this.listeners[i]()
-        }
-      })
+      raf(() => this.listeners.forEach(item => item()))
     }, passiveIfSupported)
   }
 
@@ -27,4 +21,4 @@ class ScrollObserver {
 }
 
 const scrollObserver = ScrollObserver.init()
-global.listenScroll = (fn) => scrollObserver.listen(fn)
+window.listenScroll = (fn) => scrollObserver.listen(fn)

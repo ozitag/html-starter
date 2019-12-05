@@ -1,5 +1,3 @@
-const global = window
-
 function CustomTabs($elem, options) {
   var that = this
   this.$elem = $elem
@@ -46,8 +44,8 @@ function CustomTabs($elem, options) {
     }
   }
 
-  if (global.location && global.location.hash && tabsData[global.location.hash.substr(1)]) {
-    this.showTab(global.location.hash.substr(1))
+  if (window.location && window.location.hash && tabsData[window.location.hash.substr(1)]) {
+    this.showTab(window.location.hash.substr(1))
   } else {
     this.showTab(this.$elem.find('.js-tabs ._link.active').data('id'))
   }

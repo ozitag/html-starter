@@ -1,29 +1,40 @@
 class App {
   constructor() {
-    this.addEvents();
+    this.addEvents()
   }
 
   addEvents() {
-    window.addEventListener('DOMContentLoaded', () => {
-      window.svg4everybody()
+    window.addEventListener(
+      'DOMContentLoaded',
+      () => {
+        this.initLibs();
+        this.initUI();
+      })
 
-      $('.js-dropdown-box').each(function() {
-        $(this).dropdown({
-          prefix: $(this).data('prefix'),
-        })
+    document.documentElement.addEventListener(
+      'touchstart',
+      e => {
+        if (event.touches.length > 1) {
+          event.preventDefault()
+        }
+      }, false)
+  }
+
+  initLibs() {
+    window.svg4everybody()
+  }
+
+  initUI() {
+    $('.js-dropdown-box').each(function() {
+      $(this).dropdown({
+        prefix: $(this).data('prefix'),
       })
     })
-
-    document.documentElement.addEventListener('touchstart', (event) => {
-      if (event.touches.length > 1) {
-        event.preventDefault()
-      }
-    }, false)
   }
 
   static init() {
-    return new App();
+    return new App()
   }
 }
 
-const app = App.init();
+const app = App.init()

@@ -1,4 +1,3 @@
-const global = window
 const Popups = {
   $overlay: null,
 
@@ -263,7 +262,7 @@ const Popups = {
     this.listeners[popupId].push(callback)
   },
 
-  Init: function() {
+  init: function() {
     this.bindEvents()
   },
 
@@ -272,6 +271,4 @@ const Popups = {
   },
 }
 
-global.Popups = Popups
-
-Popups.Init()
+Popups.init()

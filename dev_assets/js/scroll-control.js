@@ -1,5 +1,3 @@
-const global = window
-
 class ScrollControl {
   static show() {
     if (!document.body.classList.contains('fixed-scroll')) {
@@ -45,5 +43,5 @@ class ScrollControl {
   }
 }
 
-global.showScrollbar = ScrollControl.show
-global.hideScrollbar = ScrollControl.hide
+window.showScrollbar = ScrollControl.show
+window.hideScrollbar = ScrollControl.hide

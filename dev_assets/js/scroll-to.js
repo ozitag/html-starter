@@ -1,5 +1,3 @@
-const global = window
-
 class ScrollTo {
   static startAnimation(targetId) {
     const duration = 1200,
@@ -32,13 +30,11 @@ class ScrollTo {
   static respond(targetId) {
     const event = new CustomEvent(
       'endScroll', {
-        detail: {
-          targetId,
-        },
+        detail: { targetId },
       })
 
     document.dispatchEvent(event)
   }
 }
 
-global.startScrollTo = ScrollTo.startAnimation
+window.startScrollTo = ScrollTo.startAnimation
