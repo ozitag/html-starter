@@ -7,17 +7,17 @@ class App {
     window.addEventListener(
       'DOMContentLoaded',
       () => {
-        this.initLibs();
-        this.initUI();
+        this.initLibs()
+        this.initUI()
       })
 
     document.documentElement.addEventListener(
       'touchstart',
       e => {
-        if (event.touches.length > 1) {
-          event.preventDefault()
+        if (e.touches.length > 1) {
+          e.preventDefault()
         }
-      }, false)
+      })
   }
 
   initLibs() {
