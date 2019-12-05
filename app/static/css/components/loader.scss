@@ -29,7 +29,7 @@
       border-top: 3px solid $primary-color;
       border-radius: 100%;
 
-      animation: spin 1s infinite linear;
+      animation: spin 1s linear infinite;
     }
   }
 
@@ -50,21 +50,15 @@
   border-color: hsla(221.9, 98.9%, 63.9%, 0.75) hsla(221.9, 98.9%, 63.9%, 0.75) hsla(221.9, 98.9%, 63.9%, 0.25)
     hsla(221.9, 98.9%, 63.9%, 0.25);
   border-radius: 100%;
-  animation: clockwise 0.5s linear infinite;
+  animation: spin 0.5s linear infinite;
 }
 
 @keyframes spin {
   from {
-    transform: rotate(0deg);
+    transform: rotate(0deg) translateZ(0);
   }
   to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes clockwise {
-  to {
-    transform: rotate(360deg) translatez(0);
+    transform: rotate(360deg) translateZ(0);
   }
 }
 
