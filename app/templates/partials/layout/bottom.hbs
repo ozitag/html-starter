@@ -1,12 +1,12 @@
 {{> helpers/script src="libs" }}
 
 {{#ifCond buildMode 'dev'}}
-    {{> helpers/script src="main" }}
+  {{> helpers/script src="main" }}
 {{else ifCond buildMode 'prod'}}
-    {{> helpers/script src="polyfills" }}
-    {{> helpers/script src="scroll-control" }}
-    {{> helpers/script src="preloader" }}
-    {{> helpers/script src="ui" }}
+  {{> helpers/script src="layout" }}
+  {{> helpers/script src="scroll-control" }}
+  {{> helpers/script src="preloader" }}
+  {{> helpers/script src="ui" }}
 {{/ifCond}}
 
 </body>

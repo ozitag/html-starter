@@ -10,11 +10,11 @@
   z-index: 1000;
 
   &.hide {
-    animation: out 1s ease-in-out forwards;
+    animation: preloader-out 1s ease-in-out forwards;
   }
 }
 
-@keyframes out {
+@keyframes preloader-out {
   to {
     opacity: 0;
   }

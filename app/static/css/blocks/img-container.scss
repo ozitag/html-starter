@@ -1,0 +1,29 @@
+.img-container {
+  .ls-blur-up-is-loading,
+  .lazy:not([src]) {
+    visibility: hidden;
+  }
+
+  .ls-blur-up-img {
+    opacity: 1;
+    transition: opacity 1s ease;
+  }
+
+  .ls-blur-up-img.ls-inview.ls-original-loaded {
+    opacity: 0;
+  }
+
+  &.is-contain {
+    img {
+      object-fit: contain;
+      font-family: "object-fit: contain";
+    }
+  }
+
+  &.is-cover {
+    img {
+      object-fit: cover;
+      font-family: "object-fit: cover";
+    }
+  }
+}

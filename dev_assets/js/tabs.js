@@ -1,6 +1,6 @@
 function CustomTabs($elem, options) {
-  var that = this
-  this.$elem = $elem
+  var that = this;
+  this.$elem = $elem;
 
   options = $.extend(
     {
@@ -9,59 +9,59 @@ function CustomTabs($elem, options) {
       },
     },
     options,
-  )
+  );
 
-  var $tabButtons = this.$elem.find(options.tabsSelector)
+  var $tabButtons = this.$elem.find(options.tabsSelector);
   if ($tabButtons.length === 0) {
-    return
+    return;
   }
 
-  var tabsData = {}
+  var tabsData = {};
   $tabButtons.each(function() {
     tabsData[$(this).data('id')] = {
       button: $(this),
       content: $('#' + $(this).data('id')),
       activated: false,
-    }
-  })
+    };
+  });
 
   this.showTab = function(tabId) {
     for (var i in tabsData) {
       if (tabsData.hasOwnProperty(i)) {
-        tabsData[i].content.removeClass('active').hide()
+        tabsData[i].content.removeClass('active').hide();
       }
     }
-    $tabButtons.removeClass('active')
+    $tabButtons.removeClass('active');
 
     if (tabId in tabsData) {
-      tabsData[tabId].content.addClass('active').show()
-      tabsData[tabId].button.addClass('active')
+      tabsData[tabId].content.addClass('active').show();
+      tabsData[tabId].button.addClass('active');
 
       if (tabsData[tabId].activated === false) {
-        tabsData[tabId].activated = true
-        options.onShow(tabsData[tabId].content)
+        tabsData[tabId].activated = true;
+        options.onShow(tabsData[tabId].content);
       }
     }
-  }
+  };
 
   if (window.location && window.location.hash && tabsData[window.location.hash.substr(1)]) {
-    this.showTab(window.location.hash.substr(1))
+    this.showTab(window.location.hash.substr(1));
   } else {
-    this.showTab(this.$elem.find('.js-tabs ._link.active').data('id'))
+    this.showTab(this.$elem.find('.js-tabs ._link.active').data('id'));
   }
 
   $tabButtons.on('click', function() {
-    that.showTab($(this).data('id'))
-    return false
-  })
+    that.showTab($(this).data('id'));
+    return false;
+  });
 }
 
 $.fn.customTabs = function(options) {
   $(this).each(function() {
-    new CustomTabs($(this), options)
-  })
-}
+    new CustomTabs($(this), options);
+  });
+};
 
 $(function() {
-  $('.js-tabs-container').customTabs()
-})
+  $('.js-tabs-container').customTabs();
+});

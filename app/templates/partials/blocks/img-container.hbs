@@ -1,0 +1,42 @@
+<div class="img-container {{#if is-cover}}is-cover{{else if is-contain}}is-contain{{/if}} {{mix}}"
+     data-expand="350">
+  <picture>
+    {{# if static}}
+      <source data-srcset="../static/images/{{img}}.webp 1x,
+                         ../static/images/{{img}}@2x.webp 2x"
+              type="image/webp">
+      {{#if fallback-png}}
+        <source data-srcset="../static/images/{{img}}.png 1x,
+                           ../static/images/{{img}}@2x.png 2x"
+                type="image/png">
+      {{else if fallback-jpg}}
+        <source data-srcset="../static/images/{{img}}.jpg 1x,
+                           ../static/images/{{img}}@2x.jpg 2x"
+                type="image/jpeg">
+      {{/if}}
+      <img class="lazy"
+           data-lowsrc="../static/images/{{img}}@low.{{#if fallback-png}}png{{else}}jpg{{/if}}"
+           data-original="../static/images/{{img}}.{{#if fallback-png}}png{{else}}jpg{{/if}}"
+           src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+           alt="">
+    {{else if content}}
+      <source data-srcset="../content/images/{{img}}.webp 1x,
+                         ../content/images/{{img}}@2x.webp 2x"
+              type="image/webp">
+      {{#if fallback-png}}
+        <source data-srcset="../content/images/{{img}}.png 1x,
+                           ../content/images/{{img}}@2x.png 2x"
+                type="image/png">
+      {{else if fallback-jpg}}
+        <source data-srcset="../content/images/{{img}}.jpg 1x,
+                           ../content/images/{{img}}@2x.jpg 2x"
+                type="image/jpeg">
+      {{/if}}
+      <img class="lazy"
+           data-lowsrc="../content/images/{{img}}@low.{{#if fallback-png}}png{{else}}jpg{{/if}}"
+           data-original="../content/images/{{img}}.{{#if fallback-png}}png{{else}}jpg{{/if}}"
+           src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+           alt="">
+    {{/if}}
+  </picture>
+</div>
