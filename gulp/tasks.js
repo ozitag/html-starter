@@ -10,7 +10,6 @@ module.exports = [
   "./gulp/tasks/prepare-html-dev",
   "./gulp/tasks/prepare-html-build",
   "./gulp/tasks/copy-meta-files",
-  "./gulp/tasks/replace-html",
   "./gulp/tasks/imagemin",
   "./gulp/tasks/png-sprite",
   "./gulp/tasks/deploy",

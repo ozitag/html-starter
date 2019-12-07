@@ -4,6 +4,6 @@ module.exports = () => {
       .pipe($.gulpPlugin.webshot({
         dest: `${$.config.outputPath}/screens/`,
         root: `${$.config.outputPath}`,
-      }))
-  })
-}
+      }));
+  });
+};

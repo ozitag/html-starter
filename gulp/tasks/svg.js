@@ -21,8 +21,8 @@ module.exports = () => {
           },
         },
       }))
-      .pipe($.gulp.dest('./'))
-  })
+      .pipe($.gulp.dest('./'));
+  });
 
   $.gulp.task('svgInline', () => {
     return $.gulp.src(`${$.config.sourcePath}/${$.config.svgInlinePath}/**/*.svg`)
@@ -33,8 +33,8 @@ module.exports = () => {
       }))
       .pipe($.gulpPlugin.cheerio({
         run: function($) {
-          $('title').remove()
-          $('style').remove()
+          $('title').remove();
+          $('style').remove();
         },
         parserOptions: { xmlMode: true },
       }))
@@ -56,6 +56,6 @@ module.exports = () => {
           },
         },
       }))
-      .pipe($.gulp.dest('./'))
-  })
-}
+      .pipe($.gulp.dest('./'));
+  });
+};

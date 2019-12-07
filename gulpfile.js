@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 global.$ = {
   gulp: require('gulp'),
@@ -15,22 +15,22 @@ global.$ = {
   webpack: require('webpack'),
   webpackStream: require('webpack-stream'),
   wpTerserPlugin: require('terser-webpack-plugin'),
-}
+};
 
 $.config = JSON.parse(
   $.fs.readFileSync('./config/config.json'),
-)
-$.config.buildMode = $.argv._[0] === 'prod' ? 'prod' : 'dev'
+);
+$.config.buildMode = $.argv._[0] === 'build' ? 'prod' : 'dev';
 $.config.outputPath = $.config.buildMode === 'prod' ?
-  $.config.destPath : $.config.tmpPath
+  $.config.destPath : $.config.tmpPath;
 
 if ($.config.criticalCss) {
-  $.critical = require('critical').stream
+  $.critical = require('critical').stream;
 }
 
 $.tasks.forEach((taskPath) => {
-  require(taskPath)()
-})
+  require(taskPath)();
+});
 
 $.gulp.task('dev', done => {
   $.gulp.series('clean',
@@ -38,16 +38,15 @@ $.gulp.task('dev', done => {
     $.gulp.parallel('hbs', 'svg', 'svgInline', 'pngSprite', 'static:fonts', 'static:images', 'content'),
     $.gulp.parallel('prepareHtmlDev'),
     $.gulp.parallel('watch', 'serve'),
-  )(done)
-})
+  )(done);
+});
 
-$.gulp.task('prod', done => {
+$.gulp.task('build', done => {
   $.gulp.series('clean',
     $.gulp.parallel('styles', 'scripts'),
     $.gulp.parallel('hbs', 'svg', 'svgInline', 'pngSprite', 'static:fonts', 'static:images'),
     $.gulp.parallel('prepareHtmlBuild'),
     $.gulp.parallel('content', 'copyMetaFiles'),
     $.gulp.parallel('imagemin:meta', 'imagemin:content', 'criticalCss'),
-    $.gulp.parallel('replaceHtml'),
-  )(done)
-})
+  )(done);
+});

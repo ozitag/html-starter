@@ -19,12 +19,12 @@ module.exports = () => {
           ],
         }))
         .on('error', function(err) {
-          $.gulpPlugin.util.log($.gulpPlugin.util.colors.red(err.message))
+          $.gulpPlugin.util.log($.gulpPlugin.util.colors.red(err.message));
         })
-        .pipe($.gulp.dest($.config.outputPath + '/html/critical'))
+        .pipe($.gulp.dest($.config.outputPath + '/html/critical'));
     }
 
     return $.gulp.src(`${$.config.outputPath}/html/**/*.html`)
-      .pipe($.gulp.dest(`${$.config.outputPath}/html/`))
-  })
-}
+      .pipe($.gulp.dest(`${$.config.outputPath}/html/`));
+  });
+};

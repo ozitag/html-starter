@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "gulp dev",
-    "prod": "gulp prod"
+    "build": "gulp build"
   },
   "keywords": [],
   "author": "vvvgorbunov & co.",

@@ -7,6 +7,6 @@ module.exports = () => {
       server: [$.config.outputPath, $.config.sourcePath],
       startPath: '/html/',
       logSnippet: false,
-    })
-  })
-}
+    });
+  });
+};

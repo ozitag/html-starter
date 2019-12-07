@@ -9,15 +9,15 @@ module.exports = () => {
           algorithm: 'binary-tree',
           cssTemplate: './config/png-sprite-temp.scss',
           cssVarMap: function(sprite) {
-            sprite.name = 'icon-' + sprite.name
+            sprite.name = 'icon-' + sprite.name;
           },
-        }))
+        }));
 
     const destImg =
-      spriteData.img.pipe($.gulp.dest(`${$.config.outputPath}/${$.config.pngPath}`))
+      spriteData.img.pipe($.gulp.dest(`${$.config.outputPath}/${$.config.pngPath}`));
     const destCss =
-      spriteData.css.pipe($.gulp.dest(`${$.config.sourcePath}/${$.config.stylesPath}/png`))
+      spriteData.css.pipe($.gulp.dest(`${$.config.sourcePath}/${$.config.stylesPath}/png`));
 
-    return $.merge(destImg, destCss)
-  })
-}
+    return $.merge(destImg, destCss);
+  });
+};
