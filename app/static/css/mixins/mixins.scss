@@ -118,33 +118,6 @@
   }
 }
 
-@mixin sticky-footer(
-  $footer-height,
-  $wrapper-selector: unquote('#wrapper'),
-  $container-selector: unquote('#container'),
-  $footer-selector: unquote('#footer')
-) {
-  html,
-  body {
-    height: 100%;
-  }
-  body {
-    margin: 0;
-    padding: 0;
-  }
-  #{$wrapper-selector} {
-    min-height: 100%;
-    height: auto !important;
-    margin-bottom: -$footer-height;
-    #{$container-selector} {
-      padding: 0 0 $footer-height 0;
-    }
-  }
-  #{$footer-selector} {
-    min-height: $footer-height;
-  }
-}
-
 @function hsla-calc($color, $opacity) {
   @return hsla(hue($color), saturation($color), lightness($color), $opacity);
 }
@@ -162,7 +135,7 @@
 }
 
 /*====================================================*/
-/*=============== Media breakpoints ==================*/
+/*================= Media queries ====================*/
 /*====================================================*/
 
 @mixin desktop() {
