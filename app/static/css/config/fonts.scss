@@ -1,5 +1,3 @@
-$fonts_dir: '../fonts/';
-
 @mixin font($family, $name, $weight, $style: 'normal') {
   $font_file_path: $fonts_dir + $family + '/' + $name;
 
