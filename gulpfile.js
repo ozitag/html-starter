@@ -47,6 +47,6 @@ $.gulp.task('build', done => {
     $.gulp.parallel('hbs', 'svg', 'svgInline', 'pngSprite', 'static:fonts', 'static:images'),
     $.gulp.parallel('prepareHtmlBuild'),
     $.gulp.parallel('content', 'copyMetaFiles'),
-    $.gulp.parallel('imagemin:meta', 'imagemin:content', 'criticalCss'),
+    $.gulp.parallel('imageMin:meta', 'imageMin:content', 'criticalCss'),
   )(done);
 });

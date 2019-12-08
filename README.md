@@ -33,8 +33,7 @@ npm run build || gulp build
 1. Пути до файлов
 1. Сжатие css
 1. Сжатие js
-1. Сжатие кртанок
-1. Вспомогательные либы js
+1. Сжатие картинок
 
 ```
 {
@@ -43,6 +42,7 @@ npm run build || gulp build
   "tmpPath": ".tmp",
   "sourcePath": "app",
   "destPath": "dist",
+  "dbPath": "db",
   "hbsPath": "templates",
   "staticPath": "static",
   "stylesPath": "static/css",
@@ -54,29 +54,11 @@ npm run build || gulp build
   "svgInlinePath": "static/svg/inline",
   "contentPath": "content",
   "metaPath": ".meta",
-  "concatScripts": false,
-  "cssMin": false,
-  "tinyPng": true,
+  "jsMin": false,
+  "cssMin": true,
+  "imageMin": true,
   "criticalCss": false,
-  "supportJsLibs": [
-    "./node_modules/html5shiv/dist/html5shiv.min.js",
-    "./node_modules/jquery/dist/jquery.min.js",
-    "./node_modules/svg4everybody/dist/svg4everybody.min.js"
-  ],
-  "ftp": {
-    "enabled": true,
-    "host": "FTP.ozis.by",
-    "login": "ozisby",
-    "password": "Kee6ohmo",
-    "remotePath": "/projects/diold.ozis.by"
-  },
-  "sftp": {
-    "enabled": true,
-    "host": "46.101.113.218",
-    "login": "root",
-    "password": "7196706932f21ff9bb2f89064e4",
-    "remotePath": "/var/www/html/testProject"
-  }
+  "babel": false
 }
 ```
 
@@ -91,6 +73,7 @@ index.html генерируется сам, исходя из скриншото
 1. templates - папка для работы с html. Мы используем препроцессор handlebars (hbs). Собственно далее тоже распишу что к чему.
 ```
 ├── .meta
+└── db
 ├── content
 ├── static
 └── templates
@@ -201,7 +184,6 @@ images - хранит картинки сайта.
 1. components - сюда складываем компоненты.
 1. config - css настроки (переменные, опции, шрифты).
 1. layout - layout страниц.
-1. libs - стороние css либы.
 1. mixins - понятно из названия. Каждый миксин описывать нет смысла. Можно открыть и поглядеть что там есть.
 1. png & svg - в этим папки мы не лезем, так как они все делают автоматом. Можно только посмотреть что делают их mixins.
 1. pages - сюда складываем стили для определенных странци типа (404, static, и т.п.)
@@ -230,10 +212,7 @@ images - хранит картинки сайта.
 Подключение происходит в css/config/fonts.scss
 
 ```scss
-@include font("Roboto/Light", "Roboto-Light");
-@mixin light() {
-  @include font-mixin("Roboto-Light");
-}
+@include font("Roboto", "Regular", 400);
 ```
 
 Далее для того чтобы использовать этот шрифт достаточно написать в нужном месте @include light;

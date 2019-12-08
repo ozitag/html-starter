@@ -7,8 +7,7 @@ $fonts_dir: '../fonts/';
     font-family: $family;
     font-weight: $weight;
     font-style: $style;
-    src: local($family),
-    url($font_file_path + '.woff') format('woff'),
+    src: url($font_file_path + '.woff') format('woff'),
     url($font_file_path + '.woff2') format('woff2');
     font-display: swap;
   }
