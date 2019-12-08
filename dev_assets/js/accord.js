@@ -71,12 +71,15 @@ class Accord {
   static removeActive(elem) {
     elem.classList.remove('active');
   }
+
+  static init(elem) {
+    new Accord(elem);
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   const accords = document.querySelectorAll('.js-accord');
-
   accords.forEach(item => {
-    new Accord(item);
+    Accord.init(item);
   });
 });
