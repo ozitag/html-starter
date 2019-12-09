@@ -12,15 +12,15 @@ html {
   width: 100%;
   margin-right: auto;
   margin-left: auto;
-  padding-right: $gutterMobile;
-  padding-left: $gutterMobile;
+  padding-right: $mobileGutter;
+  padding-left: $mobileGutter;
 }
 
 @media (min-width: $mobileMedia + 1) {
   .container,
   .container-fluid {
-    padding-right: $gutterTablet;
-    padding-left: $gutterTablet;
+    padding-right: $tabletGutter;
+    padding-left: $tabletGutter;
   }
 
   .container {
@@ -31,8 +31,8 @@ html {
 @media (min-width: $tabletMedia + 1) {
   .container,
   .container-fluid {
-    padding-right: $gutterLaptop;
-    padding-left: $gutterLaptop;
+    padding-right: $laptopGutter;
+    padding-left: $laptopGutter;
   }
 
   .container {
@@ -43,8 +43,8 @@ html {
 @media (min-width: $laptopMedia + 1) {
   .container,
   .container-fluid {
-    padding-right: $gutterDesktop;
-    padding-left: $gutterDesktop;
+    padding-right: $desktopGutter;
+    padding-left: $desktopGutter;
   }
 
   .container {
