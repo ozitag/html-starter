@@ -46,7 +46,6 @@
     "terser-webpack-plugin": "^2.2.1",
     "webpack": "^4.41.2",
     "webpack-stream": "^5.2.1",
-    "whatwg-fetch": "^3.0.0",
     "yargs": "^14.0.0"
   },
   "dependencies": {
