@@ -1,6 +1,6 @@
 module.exports = () => {
-  $.gulp.task('imagemin:meta', () => {
-    if (!$.config.imagemin) {
+  $.gulp.task('imageMin:meta', () => {
+    if (!$.config.imageMin) {
       return $.gulp.src(`${$.config.outputPath}/${$.config.metaPath}/*.{png,jpg,gif}`)
         .pipe($.gulp.dest(`${$.config.outputPath}/${$.config.metaPath}`));
     }
@@ -14,8 +14,8 @@ module.exports = () => {
       .pipe($.gulp.dest(`${$.config.outputPath}/${$.config.metaPath}`));
   });
 
-  $.gulp.task('imagemin:content', () => {
-    if (!$.config.imagemin) {
+  $.gulp.task('imageMin:content', () => {
+    if (!$.config.imageMin) {
       return $.gulp.src(`${$.config.outputPath}/${$.config.contentPath}/images/**/*.{png,jpg,gif}`)
         .pipe($.gulp.dest(`${$.config.outputPath}/${$.config.contentPath}/images`));
     }

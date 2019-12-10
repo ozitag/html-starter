@@ -5,6 +5,9 @@
   }
 
   .ls-blur-up-img {
+    @include fill();
+    width: 100%;
+    height: 100%;
     opacity: 1;
     transition: opacity 1s ease;
   }

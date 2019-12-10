@@ -21,20 +21,19 @@ npm run build || gulp build
 
 ## Из чего состоит HTML Starter?
 
-В основном работа проходит в 2-х местах
+В основном работа проходит в 2-х местах:
 
 1. Файлик config/config.json
 1. Папка app
 
 ### config/config.json
 
-Файлик служит для настройки проекта.
+Файлик служит для настройки проекта:
 
 1. Пути до файлов
 1. Сжатие css
 1. Сжатие js
-1. Сжатие кртанок
-1. Вспомогательные либы js
+1. Сжатие картинок
 
 ```
 {
@@ -43,6 +42,7 @@ npm run build || gulp build
   "tmpPath": ".tmp",
   "sourcePath": "app",
   "destPath": "dist",
+  "dbPath": "db",
   "hbsPath": "templates",
   "staticPath": "static",
   "stylesPath": "static/css",
@@ -54,35 +54,17 @@ npm run build || gulp build
   "svgInlinePath": "static/svg/inline",
   "contentPath": "content",
   "metaPath": ".meta",
-  "concatScripts": false,
-  "cssMin": false,
-  "tinyPng": true,
+  "jsMin": false,
+  "cssMin": true,
+  "imageMin": true,
   "criticalCss": false,
-  "supportJsLibs": [
-    "./node_modules/html5shiv/dist/html5shiv.min.js",
-    "./node_modules/jquery/dist/jquery.min.js",
-    "./node_modules/svg4everybody/dist/svg4everybody.min.js"
-  ],
-  "ftp": {
-    "enabled": true,
-    "host": "FTP.ozis.by",
-    "login": "ozisby",
-    "password": "Kee6ohmo",
-    "remotePath": "/projects/diold.ozis.by"
-  },
-  "sftp": {
-    "enabled": true,
-    "host": "46.101.113.218",
-    "login": "root",
-    "password": "7196706932f21ff9bb2f89064e4",
-    "remotePath": "/var/www/html/testProject"
-  }
+  "babel": false
 }
 ```
 
 ### app
 
-Собственно большая часть разработки проходит тут. Папка состоит из 4 основных разделов.
+Собственно большая часть разработки проходит тут. Папка состоит из 4 основных разделов:
 
 1. meta - папка для загрузки скриншотов, которые вдальнейшем будут отображаться в index.html.
 index.html генерируется сам, исходя из скриншотов в папке.
@@ -91,6 +73,7 @@ index.html генерируется сам, исходя из скриншото
 1. templates - папка для работы с html. Мы используем препроцессор handlebars (hbs). Собственно далее тоже распишу что к чему.
 ```
 ├── .meta
+└── db
 ├── content
 ├── static
 └── templates
@@ -102,7 +85,7 @@ index.html генерируется сам, исходя из скриншото
 Скрин обезятельно должен начинаться с номера, далее после номере идет нижнее подчеркивание _ и только потом название скрина, 
 которое в свою очеред должно соответсвовать названию странцы из папки templates.
 
-Например
+Например:
 ```
 ├── .meta
     ├── 00_ui-toolkit.png
@@ -114,15 +97,12 @@ index.html генерируется сам, исходя из скриншото
 
 ### content
 
-В папке лежит контентные файлы сайта, те которые в дальнейшем будут заливаться из админки. Изначально в content лежит 2 папки
+В папке лежит контентные файлы сайта, те которые в дальнейшем будут заливаться из админки. Изначально в content лежит 2 папки:
 
-1. icons
-1. images
+1. icons - хранит иконки сайта.
+1. images - хранит картинки сайта.
 
-icons - хранит иконки сайта
-images - хранит картинки сайта.
-
-папки разделены потому что, при build и соответсвующих флагов в config.json будет сжатие кратинок.
+Папки разделены потому что, при build и соответсвующих флагов в config.json будет сжатие кратинок.
 
 ### static
 
@@ -201,7 +181,6 @@ images - хранит картинки сайта.
 1. components - сюда складываем компоненты.
 1. config - css настроки (переменные, опции, шрифты).
 1. layout - layout страниц.
-1. libs - стороние css либы.
 1. mixins - понятно из названия. Каждый миксин описывать нет смысла. Можно открыть и поглядеть что там есть.
 1. png & svg - в этим папки мы не лезем, так как они все делают автоматом. Можно только посмотреть что делают их mixins.
 1. pages - сюда складываем стили для определенных странци типа (404, static, и т.п.)
@@ -230,10 +209,7 @@ images - хранит картинки сайта.
 Подключение происходит в css/config/fonts.scss
 
 ```scss
-@include font("Roboto/Light", "Roboto-Light");
-@mixin light() {
-  @include font-mixin("Roboto-Light");
-}
+@include font("Roboto", "Regular", 400);
 ```
 
 Далее для того чтобы использовать этот шрифт достаточно написать в нужном месте @include light;
@@ -258,7 +234,7 @@ images - хранит картинки сайта.
     └── ui.js
 ```
 
-Из структуры видно что к чему.
+Из структуры видно что к чему:
 
 1. ui.js - тут пишем js для всего сайта.
 1. helpers - наши компоненты. Каждый файлик описывать лень) Можно будет спросить непосредсвтвенно перед началом работы.
@@ -274,9 +250,9 @@ images - хранит картинки сайта.
     └── sprite
 ```
 
-1. inline - svg которые будут подключаться непосредственно в html. В templates/partials/ui/svg.hbs уже лежит готовый 
+1. inline - svg, которые будут подключаться непосредственно в html. В templates/partials/ui/svg.hbs уже лежит готовый 
 способ для их подключения.
-1. sprite - svg которые будут подключаться из css. Для этого есть mixin sprite('icon-btn').
+1. sprite - svg, которые будут подключаться из css. Для этого есть mixin sprite('icon-btn').
 
 ### templates
 
@@ -320,6 +296,6 @@ images - хранит картинки сайта.
 ```
 
 1. blocks - складываем блоки сайта, если они много раз переиспользуются.
-1. layout - layout сайта (header, footer и т.п.)
-1. popups - сюда складываем попапы
-1. ui - тут лежат ui элементы сайта
+1. layout - layout сайта (header, footer и т.п.).
+1. popups - сюда складываем попапы.
+1. ui - тут лежат ui элементы сайта.

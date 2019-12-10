@@ -7,27 +7,20 @@ html {
   -ms-overflow-style: scrollbar;
 }
 
-.container {
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: $gutterMobile;
-  padding-left: $gutterMobile;
-  width: 100%;
-}
-
+.container,
 .container-fluid {
   width: 100%;
   margin-right: auto;
   margin-left: auto;
-  padding-right: $gutterMobile;
-  padding-left: $gutterMobile;
+  padding-right: $mobileGutter;
+  padding-left: $mobileGutter;
 }
 
 @media (min-width: $mobileMedia + 1) {
   .container,
   .container-fluid {
-    padding-right: $gutterTablet;
-    padding-left: $gutterTablet;
+    padding-right: $tabletGutter;
+    padding-left: $tabletGutter;
   }
 
   .container {
@@ -38,8 +31,8 @@ html {
 @media (min-width: $tabletMedia + 1) {
   .container,
   .container-fluid {
-    padding-right: $gutterLaptop;
-    padding-left: $gutterLaptop;
+    padding-right: $laptopGutter;
+    padding-left: $laptopGutter;
   }
 
   .container {
@@ -50,8 +43,8 @@ html {
 @media (min-width: $laptopMedia + 1) {
   .container,
   .container-fluid {
-    padding-right: $gutterDesktop;
-    padding-left: $gutterDesktop;
+    padding-right: $desktopGutter;
+    padding-left: $desktopGutter;
   }
 
   .container {
@@ -64,23 +57,8 @@ html {
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  margin-right: -$gutterMobile;
-  margin-left: -$gutterMobile;
-
-  @media (min-width: $mobileMedia + 1) {
-    margin-right: -$gutterTablet;
-    margin-left: -$gutterTablet;
-  }
-
-  @media (min-width: $tabletMedia + 1) {
-    margin-right: -$gutterLaptop;
-    margin-left: -$gutterLaptop;
-  }
-
-  @media (min-width: $laptopMedia + 1) {
-    margin-right: -$gutterDesktop;
-    margin-left: -$gutterDesktop;
-  }
+  margin-right: -$gridGutter;
+  margin-left: -$gridGutter;
 }
 
 .no-gutters {
@@ -167,23 +145,8 @@ html {
   position: relative;
   width: 100%;
   min-height: 1px;
-  padding-right: $gutterMobile;
-  padding-left: $gutterMobile;
-
-  @media (min-width: $mobileMedia + 1) {
-    padding-right: $gutterTablet;
-    padding-left: $gutterTablet;
-  }
-
-  @media (min-width: $tabletMedia + 1) {
-    padding-right: $gutterLaptop;
-    padding-left: $gutterLaptop;
-  }
-
-  @media (min-width: $laptopMedia + 1) {
-    padding-right: $gutterDesktop;
-    padding-left: $gutterDesktop;
-  }
+  padding-right: $gridGutter;
+  padding-left: $gridGutter;
 }
 
 .col {

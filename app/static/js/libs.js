@@ -1,8 +1,6 @@
 import 'html5shiv';
 import svgPolyfill from 'svg4everybody';
 import 'core-js/modules/web.dom-collections.for-each';
-import 'core-js/modules/es.promise';
-import 'whatwg-fetch';
 import lazySizes from 'lazysizes';
 import 'lazysizes/plugins/respimg/ls.respimg';
 import 'lazysizes/plugins/native-loading/ls.native-loading';

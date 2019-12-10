@@ -9,7 +9,10 @@ $tabletMedia: 1023px;
 $mobileMedia: 767px;
 
 //Container gutter
-$gutterDesktop: 10px;
-$gutterLaptop: 10px;
-$gutterTablet: 10px;
-$gutterMobile: 10px;
+$desktopGutter: 10px;
+$laptopGutter: 10px;
+$tabletGutter: 10px;
+$mobileGutter: 10px;
+
+//Grid gutter
+$gridGutter: 10px;

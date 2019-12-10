@@ -27,12 +27,24 @@ module.exports = () => {
       $.gulp.series('svgInline'),
     );
     $.gulp.watch([
-      `${$.config.sourcePath}/${$.config.metaPath}/*.{png,jpg,jpeg}`,
-    ]);
-    $.gulp.watch([
         `${$.config.sourcePath}/${$.config.pngPath}/*.png`,
       ],
       $.gulp.series('pngSprite'),
+    );
+    $.gulp.watch([
+        `${$.config.sourcePath}/${$.config.staticPath}/fonts/**/*`,
+      ],
+      $.gulp.series('static:fonts'),
+    );
+    $.gulp.watch([
+        `${$.config.sourcePath}/${$.config.staticPath}/images/**/*`,
+      ],
+      $.gulp.series('static:images'),
+    );
+    $.gulp.watch([
+        `${$.config.sourcePath}/${$.config.contentPath}/**/*`,
+      ],
+      $.gulp.series('content'),
     );
   });
 };

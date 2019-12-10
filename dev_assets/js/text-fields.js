@@ -27,8 +27,6 @@ class TextFields {
             case 'blur':
               TextFields.onBlur(field, parent);
               break;
-            default:
-              break;
           }
         }
       }, true);
@@ -41,7 +39,6 @@ class TextFields {
 
       fields.forEach(field => {
         const { parentNode: parent } = field;
-
         if (field.value !== '') {
           parent.classList.add('filled');
         }
