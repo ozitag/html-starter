@@ -1,0 +1,19 @@
+.accord {
+  &-header {
+    &.active + .accord-content {
+      display: block;
+      height: auto;
+    }
+  }
+
+  &-content {
+    display: none;
+    height: 0;
+
+    &.animate {
+      display: block;
+      overflow: hidden;
+      transition: height .32s ease;
+    }
+  }
+}
