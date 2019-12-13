@@ -51,8 +51,8 @@ class Accord {
     const handler = e => {
       if (e.target !== e.currentTarget) return false;
       elem.removeEventListener(endEvents.transition, handler);
-      elem.style.height = '';
       elem.classList.remove('animate');
+      elem.style.height = '';
       busy = false;
     };
     elem.addEventListener(endEvents.transition, handler);
