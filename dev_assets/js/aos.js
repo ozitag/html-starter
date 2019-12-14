@@ -26,7 +26,7 @@ class AoS {
 
     this.aosBlocks.forEach(block => {
       if (!this.checkPos(block)) return false;
-      block.style.transitionDelay = `${block.dataset.aosDelay}s`;
+      block.style.animationDelay = `${block.dataset.aosDelay}s`;
       this.observer.observe(block);
     });
   }
