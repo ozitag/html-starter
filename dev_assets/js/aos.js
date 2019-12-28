@@ -59,12 +59,10 @@ class AoS {
   }
 
   static init() {
-    document.addEventListener('DOMContentLoaded', () => {
-      const aosBlocks = document.querySelectorAll('[data-aos]');
-      if (!aosBlocks.length) return false;
-      return new AoS(aosBlocks);
-    });
+    const aosBlocks = document.querySelectorAll('[data-aos]');
+    if (!aosBlocks.length) return false;
+    return new AoS(aosBlocks);
   }
 }
 
-AoS.init();
+window.AoS = AoS;
