@@ -6,12 +6,10 @@
               type="image/webp">
       {{#if fallback-png}}
         <source data-srcset="../static/images/{{img}}.png 1x,
-                           ../static/images/{{img}}@2x.png 2x"
-                type="image/png">
+                           ../static/images/{{img}}@2x.png 2x">
       {{else if fallback-jpg}}
         <source data-srcset="../static/images/{{img}}.jpg 1x,
-                           ../static/images/{{img}}@2x.jpg 2x"
-                type="image/jpeg">
+                           ../static/images/{{img}}@2x.jpg 2x">
       {{/if}}
       <img class="lazy"
            data-lowsrc="../static/images/{{img}}@low.{{#if fallback-png}}png{{else}}jpg{{/if}}"
@@ -24,12 +22,10 @@
               type="image/webp">
       {{#if fallback-png}}
         <source data-srcset="../content/images/{{img}}.png 1x,
-                           ../content/images/{{img}}@2x.png 2x"
-                type="image/png">
+                           ../content/images/{{img}}@2x.png 2x">
       {{else if fallback-jpg}}
         <source data-srcset="../content/images/{{img}}.jpg 1x,
-                           ../content/images/{{img}}@2x.jpg 2x"
-                type="image/jpeg">
+                           ../content/images/{{img}}@2x.jpg 2x">
       {{/if}}
       <img class="lazy"
            data-lowsrc="../content/images/{{img}}@low.{{#if fallback-png}}png{{else}}jpg{{/if}}"
