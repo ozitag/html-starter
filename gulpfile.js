@@ -3,6 +3,7 @@
 global.$ = {
   gulp: require('gulp'),
   gulpPlugin: require('gulp-load-plugins')(),
+  sass: require('gulp-sass'),
   bs: require('browser-sync'),
   fs: require('fs'),
   glob: require('glob'),
@@ -16,6 +17,7 @@ global.$ = {
   webpackStream: require('webpack-stream'),
   wpTerserPlugin: require('terser-webpack-plugin'),
 };
+$.sass.compiler = require('dart-sass');
 
 $.config = JSON.parse(
   $.fs.readFileSync('./config/config.json'),

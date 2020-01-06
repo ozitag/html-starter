@@ -100,7 +100,6 @@ function Dropdown ($elem, options) {
         break;
       case 'hide':
       default:
-        console.log(123);
         this.$dropDown.find('a.hide').removeClass('hide');
         $(target).addClass('hide');
         break;
