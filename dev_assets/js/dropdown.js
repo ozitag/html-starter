@@ -1,4 +1,4 @@
-function Dropdown($elem, options) {
+function Dropdown ($elem, options) {
   const that = this;
 
   const hasScroll = $elem.attr('data-scroll');
@@ -8,11 +8,12 @@ function Dropdown($elem, options) {
   this.prefix = 'prefix' in options ? options.prefix : '';
   this.placeholder = 'placeholder' in options ? options.placeholder : $elem.data('placeholder');
   this.scroll = 'scroll' in options ? options.scroll : $elem.data('scroll');
-  this.className = 'scroll' in options ? options.className : $elem.data('class');
+  this.className = 'class' in options ? options.className : $elem.data('class');
+  this.selectionMod = 'selection' in options ? options.selection : $elem.data('selection');
 
   this.$container = null;
   this.$header = null;
-  this.$cityLabel = null;
+  this.$headerLabel = null;
   this.$dropDown = null;
   this.$dropDownInner = null;
 
@@ -33,12 +34,15 @@ function Dropdown($elem, options) {
     }
 
     this.$container = $('<div>').addClass('dropdown');
-
-    this.$header = $('<div>')
-      .addClass('dropdown__header')
-      .text(that.prefix ? that.prefix + ' ' : '');
-    this.$header.append('<span class="dropdown__arrow"></span>');
-    this.$cityLabel = $('<span class="dropdown__text">').appendTo(this.$header);
+    this.$header = $('<div>').addClass('dropdown__header').text(that.prefix ? that.prefix + ' ' : '');
+    this.$headerLabel = $(`<span class="dropdown__text">`).appendTo(this.$header);
+    this.$arrow = $(`
+      <span class="dropdown__arrow">
+        <svg class="icon icon-select-arrow">
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="../static/images/svg/spriteInline.svg#select-arrow"></use>
+        </svg>
+      </span>
+    `).appendTo(this.$header);
 
     this.$dropDown = $('<div>').addClass('dropdown__box');
     this.$dropDownInner = $('<div class="dropdown__list"></div>').appendTo(this.$dropDown);
@@ -48,20 +52,24 @@ function Dropdown($elem, options) {
         const label = $(this).attr('label');
         that.$dropDownInner.append('<div class="group-label">' + label + '</div>');
 
-        $(this)
-          .find('option')
-          .each(function() {
-            that.options[$(this).val()] = $(this).text();
-            that.$dropDownInner.append(
-              '<span><a href="#" data-value="' + $(this).val() + '">' + $(this).text() + '</a></span>',
-            );
-          });
+        $(this).find('option').each(function() {
+          const option = this;
+          that.options[$(option).val()] = $(option).text();
+          that.$dropDownInner.append(
+            `<a class="dropdown__item" data-value="${$(option).val()}">
+               <span class="dropdown__item-text">${$(option).text()}</span>
+             </a>`,
+          );
+        });
       });
     } else {
       this.$elem.find('option').each(function() {
-        that.options[$(this).val()] = $(this).text();
+        const option = this;
+        that.options[$(option).val()] = $(option).text();
         that.$dropDownInner.append(
-          '<span><a href="#" data-value="' + $(this).val() + '">' + $(this).text() + '</a></span>',
+          `<a class="dropdown__item" data-value="${$(option).val()}">
+             <span class="dropdown__item-text">${$(option).text()}</span>
+           </a>`,
         );
       });
     }
@@ -74,17 +82,28 @@ function Dropdown($elem, options) {
     this.$container.insertAfter(this.$elem);
   };
 
-  this.setActiveValue = function(value, forceTrigger) {
-    forceTrigger = typeof forceTrigger === 'undefined' ? true : !!forceTrigger;
+  this.setActiveValue = function(value) {
     this.$header.removeClass('dropdown__header--placeholder');
 
-    this.activeValue = value;
-    this.activeLabel = this.options[value];
+    this.activeLabel = this.activeValue = this.options[value];
+    this.$headerLabel.text(this.activeLabel);
 
-    this.$cityLabel.text(this.activeLabel);
+    this.$elem.find('option[selected]').removeAttr('selected');
+    this.$elem.find('option[value=' + value + ']').attr('selected', 'selected');
+  };
 
-    if (forceTrigger) {
-      this.$elem.val(this.activeValue).trigger('change');
+  this.setActiveItem = function(target) {
+    switch (this.selectionMod) {
+      case 'highlight':
+        this.$dropDown.find('a.highlight').removeClass('highlight');
+        $(target).addClass('highlight');
+        break;
+      case 'hide':
+      default:
+        console.log(123);
+        this.$dropDown.find('a.hide').removeClass('hide');
+        $(target).addClass('hide');
+        break;
     }
   };
 
@@ -105,32 +124,23 @@ function Dropdown($elem, options) {
   };
 
   this.bindEvents = function() {
-    this.$container.find('.dropdown__header').on('click', function() {
-      if (dropdownOpened === false) {
-        $('.dropdown__box').hide();
-        that.showDropdown();
-      } else {
-        that.hideDropdown();
-      }
-      return false;
-    });
-
     $(document).on('click', function(e) {
-      if (!dropdownOpened) {
-        return;
-      }
-
       const $target = $(e.target);
 
-      if ($target.hasClass('dropdown__box') || $target.parents('.dropdown__box').length) {
-        return;
-      }
+      if ($target.closest('.dropdown__box').length) return;
 
-      that.hideDropdown();
+      const $trigger = $target.closest('.dropdown')[0];
+
+      if (dropdownOpened) {
+        that.hideDropdown();
+      } else if (that.$container[0] === $trigger) {
+        that.showDropdown();
+      }
     });
 
     this.$dropDown.find('a').on('click', function() {
       that.setActiveValue($(this).data('value'));
+      that.setActiveItem($(this)[0]);
       that.hideDropdown();
 
       return false;
@@ -142,20 +152,18 @@ function Dropdown($elem, options) {
 
   if (this.placeholder && !$elem.find('option:selected').attr('selected')) {
     this.activeLabel = this.placeholder;
-    this.$cityLabel.text(this.activeLabel);
+    this.$headerLabel.text(this.activeLabel);
     this.$header.addClass('dropdown__header--placeholder');
   } else {
     const value = this.$elem.val()
       ? this.$elem.val()
-      : this.$elem
-        .find('option')
-        .first()
-        .val();
+      : this.$elem.find('option').first().val();
     this.setActiveValue(value);
+    this.setActiveItem(this.$dropDown.find('a')[0]);
   }
 
   if ($elem.attr('data-class')) {
-    this.$header.addClass(this.className);
+    this.$container.addClass(this.className);
   }
 
   this.update = function() {
@@ -164,15 +172,12 @@ function Dropdown($elem, options) {
 
     if (that.placeholder) {
       that.activeLabel = that.placeholder;
-      that.$cityLabel.text(that.activeLabel);
+      that.$headerLabel.text(that.activeLabel);
       that.$header.addClass('dropdown__header--placeholder');
     } else {
       const value = that.$elem.val()
         ? that.$elem.val()
-        : that.$elem
-          .find('option')
-          .first()
-          .val();
+        : that.$elem.find('option').first().val();
       that.setActiveValue(value);
     }
   };

@@ -2,12 +2,14 @@
   position: relative;
 
   &__header {
-    cursor: pointer;
     position: relative;
-    white-space: nowrap;
-    height: 35px;
+    padding: 10px;
     border: 1px solid $secondary-color;
     border-radius: $border-radius;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     &--placeholder {
       .dropdown__text {
@@ -23,14 +25,6 @@
     transform: translateY(-50%) rotate(90deg);
     right: 10px;
     z-index: 1;
-  }
-
-  &__text {
-    display: block;
-    padding: 0 10px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 33px;
   }
 
   &__box {
@@ -56,15 +50,22 @@
 
       a {
         display: block;
-        color: #000;
-        text-transform: none;
-        line-height: 30px;
+        padding: 10px;
         font-size: 14px;
-        padding: 0 10px;
+        line-height: 1;
+        color: #000;
 
         &:hover {
           color: #000;
           background-color: #f1f2f5;
+        }
+
+        &.hide {
+          display: none;
+        }
+
+        &.highlight {
+          background: #cccccc;
         }
       }
     }
