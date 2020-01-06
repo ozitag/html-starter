@@ -1,9 +1,11 @@
 <div class="img-container {{#if is-cover}}is-cover{{else if is-contain}}is-contain{{/if}} {{mix}}">
   <picture>
     {{# if static}}
-      <source data-srcset="../static/images/{{img}}.webp 1x,
+      {{#if no-webp}}{{else}}
+        <source data-srcset="../static/images/{{img}}.webp 1x,
                          ../static/images/{{img}}@2x.webp 2x"
-              type="image/webp">
+                type="image/webp">
+      {{/if}}
       {{#if fallback-png}}
         <source data-srcset="../static/images/{{img}}.png 1x,
                            ../static/images/{{img}}@2x.png 2x">
@@ -12,14 +14,18 @@
                            ../static/images/{{img}}@2x.jpg 2x">
       {{/if}}
       <img class="lazy"
+        {{#if no-lowres}}{{else}}
            data-lowsrc="../static/images/{{img}}@low.{{#if fallback-png}}png{{else}}jpg{{/if}}"
+        {{/if}}
            data-original="../static/images/{{img}}.{{#if fallback-png}}png{{else}}jpg{{/if}}"
            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
            alt="">
     {{else if content}}
-      <source data-srcset="../content/images/{{img}}.webp 1x,
+      {{#if no-webp}}{{else}}
+        <source data-srcset="../content/images/{{img}}.webp 1x,
                          ../content/images/{{img}}@2x.webp 2x"
-              type="image/webp">
+                type="image/webp">
+      {{/if}}
       {{#if fallback-png}}
         <source data-srcset="../content/images/{{img}}.png 1x,
                            ../content/images/{{img}}@2x.png 2x">
@@ -28,7 +34,9 @@
                            ../content/images/{{img}}@2x.jpg 2x">
       {{/if}}
       <img class="lazy"
+        {{#if no-lowres}}{{else}}
            data-lowsrc="../content/images/{{img}}@low.{{#if fallback-png}}png{{else}}jpg{{/if}}"
+        {{/if}}
            data-original="../content/images/{{img}}.{{#if fallback-png}}png{{else}}jpg{{/if}}"
            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
            alt="">
