@@ -3,28 +3,21 @@
 
   &__header {
     position: relative;
-    padding: 10px;
-    border: 1px solid $secondary-color;
-    border-radius: $border-radius;
-    cursor: pointer;
+    height: 44px;
+    padding: 13px 52px 13px 17px;
+    border: 2px solid #e9ecef;
+    border-radius: 3px;
+    font-size: 14px;
+    line-height: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: #333;
+    cursor: pointer;
 
     &--placeholder {
-      .dropdown__text {
-        color: $secondary-color;
-        opacity: 0.65;
-      }
+      color: #707070
     }
-  }
-
-  &__arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%) rotate(90deg);
-    right: 10px;
-    z-index: 1;
   }
 
   &__box {
@@ -32,42 +25,51 @@
     position: absolute;
     top: 100%;
     left: 0;
-    margin-top: 3px;
+    margin-top: 10px;
     min-width: 100%;
+    max-width: 250px;
     background-color: #ffffff;
-    box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.25), 0 0 1px 0 rgba(0, 0, 0, 0.25);
-    max-height: 300px;
-    overflow: auto;
-    z-index: 1;
+    box-shadow: 0px 10px 35px rgba(0, 0, 0, 0.15);
+    z-index: 2;
+  }
 
-    .opened & {
-      z-index: 2;
+  &__arrow {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+  }
+
+  &__scroll {
+    min-height: 50px;
+    max-height: 230px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  &__list {
+    padding: 10px 0;
+  }
+
+  &__item {
+    display: block;
+    padding: 10px 20px;
+    font-size: 14px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    white-space: nowrap;
+    overflow: hidden;
+    color: #7a7a7a;
+    cursor: pointer;
+
+    &:hover,
+    &.highlight {
+      color: #000000;
+      background-color: #f1f2f5;
     }
 
-    div {
-      display: block;
-      white-space: nowrap;
-
-      a {
-        display: block;
-        padding: 10px;
-        font-size: 14px;
-        line-height: 1;
-        color: #000;
-
-        &:hover {
-          color: #000;
-          background-color: #f1f2f5;
-        }
-
-        &.hide {
-          display: none;
-        }
-
-        &.highlight {
-          background: #cccccc;
-        }
-      }
+    &.hide {
+      display: none;
     }
   }
 }
