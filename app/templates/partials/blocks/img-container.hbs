@@ -6,17 +6,11 @@
                          ../static/images/{{img}}@2x.webp 2x"
                 type="image/webp">
       {{/if}}
-      {{#if fallback-png}}
-        <source data-srcset="../static/images/{{img}}.png 1x,
-                           ../static/images/{{img}}@2x.png 2x">
-      {{else if fallback-jpg}}
-        <source data-srcset="../static/images/{{img}}.jpg 1x,
-                           ../static/images/{{img}}@2x.jpg 2x">
-      {{/if}}
       <img class="lazy"
         {{#if no-lowres}}{{else}}
            data-lowsrc="../static/images/{{img}}@low.{{#if fallback-png}}png{{else}}jpg{{/if}}"
         {{/if}}
+           data-srcset="../static/images/{{img}}@2x.{{#if fallback-png}}png{{else}}jpg{{/if}} 2x"
            data-original="../static/images/{{img}}.{{#if fallback-png}}png{{else}}jpg{{/if}}"
            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
            alt="">
@@ -26,17 +20,11 @@
                          ../content/images/{{img}}@2x.webp 2x"
                 type="image/webp">
       {{/if}}
-      {{#if fallback-png}}
-        <source data-srcset="../content/images/{{img}}.png 1x,
-                           ../content/images/{{img}}@2x.png 2x">
-      {{else if fallback-jpg}}
-        <source data-srcset="../content/images/{{img}}.jpg 1x,
-                           ../content/images/{{img}}@2x.jpg 2x">
-      {{/if}}
       <img class="lazy"
         {{#if no-lowres}}{{else}}
            data-lowsrc="../content/images/{{img}}@low.{{#if fallback-png}}png{{else}}jpg{{/if}}"
         {{/if}}
+           data-srcset="../content/images/{{img}}@2x.{{#if fallback-png}}png{{else}}jpg{{/if}} 2x"
            data-original="../content/images/{{img}}.{{#if fallback-png}}png{{else}}jpg{{/if}}"
            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
            alt="">
