@@ -36,16 +36,11 @@ function Dropdown ($elem, options) {
     this.$container = $('<div>').addClass('dropdown');
     this.$header = $('<div>').addClass('dropdown__header').text(that.prefix ? that.prefix + ' ' : '');
     this.$headerLabel = $(`<span class="dropdown__text">`).appendTo(this.$header);
-    this.$arrow = $(`
-      <span class="dropdown__arrow">
-        <svg class="icon icon-select-arrow">
-          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="../static/images/svg/spriteInline.svg#select-arrow"></use>
-        </svg>
-      </span>
-    `).appendTo(this.$header);
+    this.$arrow = $(`<span class="dropdown__arrow">`).appendTo(this.$header);
 
     this.$dropDown = $('<div>').addClass('dropdown__box');
-    this.$dropDownInner = $('<div class="dropdown__list"></div>').appendTo(this.$dropDown);
+    this.$dropDownScroll = $('<div class="dropdown__scroll"></div>').appendTo(this.$dropDown);
+    this.$dropDownInner = $('<div class="dropdown__list"></div>').appendTo(this.$dropDownScroll);
 
     if (this.$elem.find('optgroup').length !== 0) {
       this.$elem.find('optgroup').each(function() {
@@ -112,7 +107,7 @@ function Dropdown ($elem, options) {
     dropdownOpened = true;
 
     if (hasScroll) {
-      this.$dropDown.addClass(this.scroll).jScrollPane();
+      this.$dropDown.addClass(this.scroll);
     }
   };
 
