@@ -7,12 +7,13 @@
                 type="image/webp">
       {{/if}}
       <source data-srcset="../static/images/{{img}}.{{fallback-ext}} 1x,
-                           ../static/images/{{img}}@2x.{{fallback-ext}} 2x">
+                           ../static/images/{{img}}@2x.{{fallback-ext}} 2x"
+              {{#ifCond fallback-ext 'png'}}type="image/png"{{else ifCond fallback-ext 'jpg'}}type="image/jpeg"{{/ifCond}}>
+      <source data-srcset="../static/images/{{img}}.{{fallback-ext}}">
       <img class="lazy"
         {{#if no-lowres}}{{else}}
            data-lowsrc="../static/images/{{img}}@low.{{fallback-ext}}"
         {{/if}}
-           data-original="../static/images/{{img}}.{{fallback-ext}}"
            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
            alt="">
     {{else if content}}
@@ -22,12 +23,13 @@
                 type="image/webp">
       {{/if}}
       <source data-srcset="../content/images/{{img}}.{{fallback-ext}} 1x,
-                           ../content/images/{{img}}@2x.{{fallback-ext}} 2x">
+                           ../content/images/{{img}}@2x.{{fallback-ext}} 2x"
+              {{#ifCond fallback-ext 'png'}}type="image/png"{{else ifCond fallback-ext 'jpg'}}type="image/jpeg"{{/ifCond}}>
+      <source data-srcset="../content/images/{{img}}.{{fallback-ext}}">
       <img class="lazy"
         {{#if no-lowres}}{{else}}
            data-lowsrc="../content/images/{{img}}@low.{{fallback-ext}}"
         {{/if}}
-           data-original="../content/images/{{img}}.{{fallback-ext}}"
            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
            alt="">
     {{/if}}
