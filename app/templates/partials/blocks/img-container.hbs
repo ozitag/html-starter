@@ -6,13 +6,13 @@
                          ../static/images/{{img}}@2x.webp 2x"
                 type="image/webp">
       {{/if}}
-      <source data-srcset="../static/images/{{img}}.{{#if fallback-png}}png{{else}}jpg{{/if}} 1x,
-                           ../static/images/{{img}}@2x.{{#if fallback-png}}png{{else}}jpg{{/if}} 2x">
+      <source data-srcset="../static/images/{{img}}.{{fallback-ext}} 1x,
+                           ../static/images/{{img}}@2x.{{fallback-ext}} 2x">
       <img class="lazy"
         {{#if no-lowres}}{{else}}
-           data-lowsrc="../static/images/{{img}}@low.{{#if fallback-png}}png{{else}}jpg{{/if}}"
+           data-lowsrc="../static/images/{{img}}@low.{{fallback-ext}}"
         {{/if}}
-           data-original="../static/images/{{img}}.{{#if fallback-png}}png{{else}}jpg{{/if}}"
+           data-original="../static/images/{{img}}.{{fallback-ext}}"
            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
            alt="">
     {{else if content}}
@@ -21,13 +21,13 @@
                          ../content/images/{{img}}@2x.webp 2x"
                 type="image/webp">
       {{/if}}
-      <source data-srcset="../content/images/{{img}}.{{#if fallback-png}}png{{else}}jpg{{/if}} 1x,
-                           ../content/images/{{img}}@2x.{{#if fallback-png}}png{{else}}jpg{{/if}} 2x">
+      <source data-srcset="../content/images/{{img}}.{{fallback-ext}} 1x,
+                           ../content/images/{{img}}@2x.{{fallback-ext}} 2x">
       <img class="lazy"
         {{#if no-lowres}}{{else}}
-           data-lowsrc="../content/images/{{img}}@low.{{#if fallback-png}}png{{else}}jpg{{/if}}"
+           data-lowsrc="../content/images/{{img}}@low.{{fallback-ext}}"
         {{/if}}
-           data-original="../content/images/{{img}}.{{#if fallback-png}}png{{else}}jpg{{/if}}"
+           data-original="../content/images/{{img}}.{{fallback-ext}}"
            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
            alt="">
     {{/if}}
