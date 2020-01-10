@@ -11,9 +11,6 @@
               {{#ifCond fallback-ext 'png'}}type="image/png"{{else ifCond fallback-ext 'jpg'}}type="image/jpeg"{{/ifCond}}>
       <source data-srcset="../static/images/{{img}}.{{fallback-ext}}">
       <img class="lazy"
-        {{#if no-lowres}}{{else}}
-           data-lowsrc="../static/images/{{img}}@low.{{fallback-ext}}"
-        {{/if}}
            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
            alt="">
     {{else if content}}
@@ -27,9 +24,6 @@
               {{#ifCond fallback-ext 'png'}}type="image/png"{{else ifCond fallback-ext 'jpg'}}type="image/jpeg"{{/ifCond}}>
       <source data-srcset="../content/images/{{img}}.{{fallback-ext}}">
       <img class="lazy"
-        {{#if no-lowres}}{{else}}
-           data-lowsrc="../content/images/{{img}}@low.{{fallback-ext}}"
-        {{/if}}
            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
            alt="">
     {{/if}}
