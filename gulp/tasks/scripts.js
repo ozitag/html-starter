@@ -1,11 +1,12 @@
 module.exports = () => {
   const sourcePath = `${$.config.sourcePath}/${$.config.staticPath}/js`;
   const destPath = `${$.config.outputPath}/${$.config.staticPath}/js`;
-  const outputFileName = $.config.buildMode === 'prod' ? '[name]' : '[name].js';
+  const outputFileName = $.config.dynamicEntry && $.config.buildMode === 'prod' ?
+    '[name]' : '[name].js';
 
   const sourceMapConfig = {
     filename: `${outputFileName}.map`,
-    exclude: /(libs\.js)/,
+    exclude: /libs\.js/,
   };
   const minifyConfig = {
     parallel: true,
@@ -18,11 +19,21 @@ module.exports = () => {
   };
   const babelConfig = {
     test: /\.js$/,
-    exclude: /(libs\.js)/,
+    exclude: [/node_modules/, /libs\.js/],
     use: {
       loader: 'babel-loader',
       options: {
-        presets: ['@babel/preset-env'],
+        presets: [
+          [
+            '@babel/preset-env',
+            {
+              useBuiltIns: 'entry',
+              corejs: 3,
+              modules: false,
+              exclude: ['transform-typeof-symbol'],
+            },
+          ],
+        ],
       },
     },
   };
@@ -52,7 +63,7 @@ module.exports = () => {
       config.plugins.push(
         new $.webpack.SourceMapDevToolPlugin(sourceMapConfig),
       );
-      minifyConfig.test = /(libs\.js)/;
+      minifyConfig.test = /libs\.js/;
       config.optimization.minimize = true;
       config.optimization.minimizer.push(
         new $.wpTerserPlugin(minifyConfig),
@@ -60,7 +71,12 @@ module.exports = () => {
       break;
     case 'prod':
       config.mode = 'production';
-      config.entry = getDynamicEntry();
+
+      if ($.config.dynamicEntry) {
+        config.entry = getDynamicEntry();
+      } else {
+        config.entry = getStaticEntry();
+      }
 
       if ($.config.babel) {
         config.module.rules.push(
@@ -71,7 +87,7 @@ module.exports = () => {
       if ($.config.jsMin) {
         minifyConfig.test = /\.js$/;
       } else {
-        minifyConfig.test = /(libs\.js)/;
+        minifyConfig.test = /libs\.js/;
       }
       config.optimization.minimize = true;
       config.optimization.minimizer.push(
@@ -80,16 +96,12 @@ module.exports = () => {
   }
 
   $.gulp.task('scripts', done => {
-    return $.gulp.src(`${sourcePath}/**`)
-      .pipe($.webpackStream(
-        config, $.webpack,
-      ))
-      .pipe($.gulp.dest(`${destPath}/`))
-      .pipe($.bs.reload({ stream: true }))
-      .on('end', done);
+    return $.gulp.src(`${sourcePath}/**`).pipe($.webpackStream(
+      config, $.webpack,
+    )).pipe($.gulp.dest(`${destPath}/`)).pipe($.bs.reload({ stream: true })).on('end', done);
   });
 
-  function getDynamicEntry() {
+  function getDynamicEntry () {
     return $.glob.sync(
       `${sourcePath}/**/*`, {
         ignore: [`${sourcePath}/main.js`, `${sourcePath}/poly.js`],
@@ -102,7 +114,7 @@ module.exports = () => {
     }, {});
   }
 
-  function getStaticEntry() {
+  function getStaticEntry () {
     return {
       libs: $.path.resolve(`${sourcePath}/libs.js`),
       main: $.path.resolve(`${sourcePath}/main.js`),

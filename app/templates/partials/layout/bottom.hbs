@@ -1,13 +1,13 @@
 {{> helpers/script src="libs" }}
 
-{{#ifCond buildMode 'dev'}}
-  {{> helpers/script src="main" }}
-{{else ifCond buildMode 'prod'}}
+{{#if dynamicEntry}}
   {{> helpers/script src="layout" }}
   {{> helpers/script src="scroll-control" }}
   {{> helpers/script src="preloader" }}
   {{> helpers/script src="ui" }}
-{{/ifCond}}
+{{else}}
+  {{> helpers/script src="main" }}
+{{/if}}
 
 </body>
 </html>

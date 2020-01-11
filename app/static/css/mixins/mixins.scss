@@ -134,6 +134,12 @@
   }
 }
 
+@mixin retina() {
+  @media (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+    @content;
+  }
+}
+
 /******************************************************/
 /******************** Animations **********************/
 /******************************************************/
@@ -142,7 +148,7 @@
   $accum: $tick;
 
   @for $i from $from through $to {
-    &:nth-last-child(#{$i}) {
+    &:nth-child(#{$i}) {
       @content($accum);
       $accum: $accum + $ticking;
     }

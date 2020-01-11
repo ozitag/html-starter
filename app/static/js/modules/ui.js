@@ -4,20 +4,14 @@ class App {
   }
 
   addEvents() {
-    window.addEventListener(
-      'DOMContentLoaded',
-      () => {
-        this.initLibs();
-        this.initUI();
-      });
+    window.addEventListener('DOMContentLoaded', () => {
+      this.initLibs();
+      this.initUI();
+    });
 
-    document.documentElement.addEventListener(
-      'touchstart',
-      e => {
-        if (e.touches.length > 1) {
-          e.preventDefault();
-        }
-      });
+    document.documentElement.addEventListener('touchstart', e => {
+      if (e.touches.length > 1) e.preventDefault();
+    });
   }
 
   initLibs() {

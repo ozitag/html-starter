@@ -1,15 +1,15 @@
+import 'react-app-polyfill/ie11';
+import 'react-app-polyfill/stable';
 import 'html5shiv';
 import svgPolyfill from 'svg4everybody';
-import 'core-js/modules/web.dom-collections.for-each';
 import lazySizes from 'lazysizes';
 import 'lazysizes/plugins/respimg/ls.respimg';
 import 'lazysizes/plugins/native-loading/ls.native-loading';
 import 'lazysizes/plugins/object-fit/ls.object-fit';
-import 'lazysizes/plugins/blur-up/ls.blur-up';
 import './poly';
-import $ from 'jquery';
+import jquery from 'jquery';
 
-window.$ = $;
+window.$ = window.jQuery = jquery;
 window.svg4everybody = svgPolyfill;
 
 lazySizes.cfg.lazyClass = 'lazy';

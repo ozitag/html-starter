@@ -1,7 +1,7 @@
 module.exports = () => {
   const initParams = {};
   initParams.cache = randomIntNum(1, 5000);
-  initParams.buildMode = $.config.buildMode;
+  initParams.dynamicEntry = $.config.dynamicEntry && $.config.buildMode === 'prod';
 
   const options = {
     ignorePartials: true,
