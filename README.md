@@ -5,18 +5,18 @@
 Ибо он качает Chromium который весит 80mb и если его ставить как зависимость в каждый проект то это будет беда. 
 
 ```
-npm install critical
+yarn add critical
 ```
 
 ## Разработка проекта
 ```
-npm run dev || gulp dev
+yarn dev || gulp dev
 ```
 
 ## Сборка проекта
 
 ```
-npm run build || gulp build
+yarn build || gulp build
 ```
 
 ## Из чего состоит HTML Starter?
@@ -54,6 +54,7 @@ npm run build || gulp build
   "svgInlinePath": "static/svg/inline",
   "contentPath": "content",
   "metaPath": ".meta",
+  "dynamicEntry": true,
   "jsMin": false,
   "cssMin": true,
   "imageMin": true,
@@ -218,20 +219,16 @@ index.html генерируется сам, исходя из скриншото
 
 ```
 ├── js
-    ├── helpers
-    │   ├── dropdown.js
+    ├── modules
+    │   ├── helpers
+    │   ├── widgets
     │   ├── layout.js
-    │   ├── load-more.js
-    │   ├── popups.js
-    │   ├── share.js
-    │   └── tabs.js
-    ├── libs
-    │   ├── html5shiv.js
-    │   ├── jquery-ui.min.js
-    │   ├── jquery.min.js
-    │   ├── slick.js
-    │   └── svg4body.js
-    └── ui.js
+    │   ├── preloader.js
+    │   ├── scroll-control.js
+    │   └── ui.js
+    ├── libs.js
+    ├── main.js
+    └── poly.js
 ```
 
 Из структуры видно что к чему:
@@ -288,6 +285,7 @@ index.html генерируется сам, исходя из скриншото
     │   └── header.hbs
     ├── popups
     │   └── example.hbs
+    ├── svg
     └── ui
         ├── checkbox.hbs
         ├── input.hbs
