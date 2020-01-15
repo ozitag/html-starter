@@ -8,10 +8,6 @@
     height: 0;
   }
 
-  .lazy:not([src]) {
-    visibility: hidden;
-  }
-
   &.is-contain {
     img {
       object-fit: contain;
