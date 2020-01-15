@@ -1,5 +1,7 @@
 @import 'imports';
 
+@import 'blocks/preloader';
+
 @import 'layout/page';
 @import 'layout/header';
 @import 'layout/footer';
@@ -11,9 +13,7 @@
 @import 'components/radio';
 @import 'components/checkbox';
 @import 'components/loader';
-@import '../../../dev_assets/css/dropdown';
 
-@import 'blocks/preloader';
 @import 'blocks/image';
 @import 'blocks/image-fit';
 @import 'blocks/btn-list';
