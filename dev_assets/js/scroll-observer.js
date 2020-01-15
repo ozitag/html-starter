@@ -7,11 +7,7 @@ class ScrollObserver {
   observeScroll () {
     document.addEventListener('scroll', () => {
       if (!this.listeners.length) return false;
-      raf(() => {
-        for (let i = 0; i < this.listeners.length; i++) {
-          this.listeners[i]();
-        }
-      });
+      raf(() => this.listeners.forEach(fn => fn()));
     }, passiveIfSupported);
   }
 
