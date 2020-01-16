@@ -19,7 +19,7 @@ module.exports = () => {
   };
   const babelConfig = {
     test: /\.js$/,
-    exclude: [/node_modules/, /libs\.js/],
+    exclude: [/node_modules[\/\\](?!(swiper|dom7)[\/\\])/, /libs\.js/],
     use: {
       loader: 'babel-loader',
       options: {

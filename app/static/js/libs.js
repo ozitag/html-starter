@@ -8,9 +8,11 @@ import 'lazysizes/plugins/native-loading/ls.native-loading';
 import 'lazysizes/plugins/object-fit/ls.object-fit';
 import './poly';
 import jquery from 'jquery';
+import Swiper from 'swiper';
 
 window.$ = window.jQuery = jquery;
 window.svg4everybody = svgPolyfill;
+window.Swiper = Swiper;
 
 lazySizes.cfg.lazyClass = 'lazy';
 lazySizes.cfg.srcAttr = 'data-original';
