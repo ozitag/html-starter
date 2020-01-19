@@ -1,13 +1,4 @@
 .image-fit {
-  background: #dedede;
-
-  &:before {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 0;
-  }
-
   &.is-contain {
     img {
       object-fit: contain;
