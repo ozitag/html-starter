@@ -8,10 +8,15 @@
   }
 
   &__item {
-    margin-right: 10px;
+    flex-basis: 20%;
+    text-align: left;
 
     &:last-child {
       margin-right: 0;
+    }
+
+    .ui & i {
+      text-align: left !important;
     }
   }
 }

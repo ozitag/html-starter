@@ -1,21 +1,20 @@
 @import 'imports';
 
-@import 'blocks/preloader';
+@import 'core/preloader';
+@import 'core/image';
+@import 'core/image-fit';
+
+@import 'common';
+@import 'typography';
 
 @import 'layout/page';
 @import 'layout/header';
 @import 'layout/footer';
-@import 'layout/popup';
 
-@import 'ui/buttons';
-@import 'ui/form';
+@import "popups/base";
 
+@import 'components/buttons';
+@import 'components/form';
 @import 'components/radio';
 @import 'components/checkbox';
 @import 'components/loader';
-
-@import 'blocks/image';
-@import 'blocks/image-fit';
-@import 'blocks/btn-list';
-
-@import 'pages/ui-toolkit';

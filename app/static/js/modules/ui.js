@@ -19,11 +19,6 @@ class App {
   }
 
   initUI() {
-    $('.js-dropdown-box').each(function() {
-      $(this).dropdown({
-        prefix: $(this).data('prefix'),
-      });
-    });
   }
 
   static init() {

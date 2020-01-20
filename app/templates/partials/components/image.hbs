@@ -1,0 +1,31 @@
+<picture>
+  {{# if static}}
+    {{#if no-webp}}{{else}}
+      <source data-srcset="../static/images/{{img}}.webp 1x,
+                         ../static/images/{{img}}@2x.webp 2x"
+              type="image/webp">
+    {{/if}}
+    <source data-srcset="../static/images/{{img}}.{{fallback-ext}} 1x,
+                           ../static/images/{{img}}@2x.{{fallback-ext}} 2x"
+            {{#ifCond fallback-ext 'png'}}type="image/png"{{else ifCond fallback-ext 'jpg'}}type="image/jpeg"{{/ifCond}}>
+    <img class="lazy"
+         data-sizes="auto"
+         data-original="../static/images/{{img}}.{{fallback-ext}}"
+         src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+         alt="">
+  {{else if content}}
+    {{#if no-webp}}{{else}}
+      <source data-srcset="../content/images/{{img}}.webp 1x,
+                         ../content/images/{{img}}@2x.webp 2x"
+              type="image/webp">
+    {{/if}}
+    <source data-srcset="../content/images/{{img}}.{{fallback-ext}} 1x,
+                           ../content/images/{{img}}@2x.{{fallback-ext}} 2x"
+            {{#ifCond fallback-ext 'png'}}type="image/png"{{else ifCond fallback-ext 'jpg'}}type="image/jpeg"{{/ifCond}}>
+    <img class="lazy"
+         data-sizes="auto"
+         data-original="../content/images/{{img}}.{{fallback-ext}}"
+         src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+         alt="">
+  {{/if}}
+</picture>

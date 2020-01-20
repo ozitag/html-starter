@@ -35,27 +35,9 @@
     background-color: #f8f8f9;
 
     &:focus {
-      border-color: $primary-color;
+      border-color: $color-primary;
       background-color: transparent;
       @include bold;
-    }
-
-    @include placeholder {
-      color: $dark-color;
-      opacity: 0.65;
-    }
-
-    &:disabled {
-      opacity: 0.65;
-      background-color: #e9ecef;
-
-      &:focus {
-        border-color: $secondary-color;
-      }
-
-      @include placeholder {
-        opacity: 1;
-      }
     }
   }
 
@@ -70,35 +52,17 @@
     resize: none;
 
     &:focus {
-      border-color: $primary-color;
+      border-color: $color-primary;
       background-color: transparent;
       @include bold;
-    }
-
-    @include placeholder {
-      color: $dark-color;
-      opacity: 0.65;
-    }
-
-    &:disabled {
-      opacity: 0.65;
-      background-color: #e9ecef;
-
-      &:focus {
-        border-color: $secondary-color;
-      }
-
-      @include placeholder {
-        opacity: 1;
-      }
     }
   }
 
   &-error {
-    border-color: $danger-color;
+    border-color: $color-error;
 
     &:focus {
-      border-color: $danger-color;
+      border-color: $color-error;
     }
   }
 
@@ -107,7 +71,7 @@
     top: 100%;
     margin-top: 2px;
     font-size: 12px;
-    color: $danger-color;
+    color: $color-error;
     left: 0;
   }
 }

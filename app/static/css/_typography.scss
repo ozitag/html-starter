@@ -12,8 +12,7 @@ body {
   sans-serif;
   @include regular;
   font-size: 14px;
-  color: #0e0321;
-  letter-spacing: $letter;
+  color: #000;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

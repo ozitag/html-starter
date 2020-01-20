@@ -1,11 +1,21 @@
 .ui {
-  max-width: 1220px;
+  max-width: 1250px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   min-height: 100vh;
   padding: 0 10px;
+  width: 100%;
+
+  i {
+    display: block;
+    font-style: italic;
+    font-size: 12px;
+    line-height: 100%;
+    margin-bottom: 4px;
+    text-align: center;
+  }
 
   &__title {
     text-align: center;
@@ -15,10 +25,14 @@
 
   &__container {
     flex-shrink: 0;
-    flex-grow: 1;
+    flex: 1;
     background-color: #fcfcfc;
     margin: 0 -10px;
     display: flex;
+
+    @include tablet-and-phone {
+      flex-direction: column;
+    }
   }
 
   &__aside {
@@ -32,6 +46,11 @@
       }
 
       &__nav {
+        @include tablet-and-phone {
+          display: flex;
+          flex-direction: row;
+        }
+
         ._link {
           display: block;
           font-size: 20px;
@@ -69,19 +88,41 @@
 
   &__colors {
     display: flex;
+    flex-wrap: wrap;
 
     ._item {
-      width: 100px;
-      height: 100px;
       margin-right: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ffffff;
-      box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.25), 0 0 1px 0 rgba(0, 0, 0, 0.25);
+      margin-bottom: 20px;
 
       &:last-child {
         margin-right: 0;
+      }
+
+      > span:first-child {
+        display: block;
+        text-align: center;
+        font-size: 11px;
+        line-height: 100%;
+        font-style: italic;
+        margin-bottom: 5px;
+      }
+    }
+
+    ._demo {
+      width: 140px;
+      height: 140px;
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 500;
+      text-align: center;
+
+      ._dark {
+        color: #000;
       }
     }
   }

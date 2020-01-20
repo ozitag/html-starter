@@ -1,0 +1,120 @@
+.btn {
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+  transition: 0.15s ease-in-out;
+  text-align: center;
+  padding: 12px 25px;
+  font-size: 16px;
+  line-height: 20px;
+  border-radius: 3px;
+
+  border: 1px solid #000;
+
+  &-primary {
+    background-color: $color-primary;
+    border-color: $color-primary;
+    color: #ffffff;
+
+    &:hover {
+      background-color: darken($color-primary, 5%);
+      border-color: darken($color-primary, 5%);
+      color: #ffffff;
+    }
+
+    &:disabled,
+    &.disabled {
+      background-color: $color-primary;
+      border-color: $color-primary;
+      color: #ffffff;
+    }
+  }
+
+  &-primary-outline {
+    background-color: transparent;
+    border-color: $color-primary;
+    color: $color-primary;
+
+    &:hover {
+      background-color: $color-primary;
+      border-color: $color-primary;
+      color: #ffffff;
+    }
+
+    &:disabled,
+    &.disabled {
+      background-color: $color-primary;
+      border-color: $color-primary;
+      color: #ffffff;
+    }
+  }
+
+  &-secondary {
+    background-color: $color-secondary;
+    border-color: $color-secondary;
+    color: #ffffff;
+
+    &:hover {
+      background-color: darken($color-secondary, 5%);
+      border-color: darken($color-secondary, 5%);
+      color: #ffffff;
+    }
+
+    &:disabled,
+    &.disabled {
+      background-color: $color-secondary;
+      border-color: $color-secondary;
+      color: #ffffff;
+    }
+  }
+
+  &-secondary-outline {
+    background-color: transparent;
+    border-color: $color-secondary;
+    color: $color-secondary;
+
+    &:hover {
+      background-color: $color-secondary;
+      border-color: $color-secondary;
+      color: #ffffff;
+    }
+
+    &:disabled,
+    &.disabled {
+      background-color: $color-secondary;
+      border-color: $color-secondary;
+      color: #ffffff;
+    }
+  }
+
+  &-small {
+    font-size: 14px;
+    line-height: 18px;
+    padding: 8px 15px;
+  }
+
+  &-large {
+    font-size: 18px;
+    line-height: 24px;
+    padding: 19px 40px;
+  }
+
+  &-w100 {
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 100%;
+  }
+
+  &:disabled,
+  &.disabled {
+    cursor: default;
+    opacity: 0.65;
+    pointer-events: none;
+  }
+}
+
+@keyframes clockwise {
+  to {
+    transform: rotate(360deg) translatez(0);
+  }
+}

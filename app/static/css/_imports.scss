@@ -1,13 +1,17 @@
-@import 'mixins/mixins';
+@import 'mixins';
+
 @import 'config/variables';
 @import 'config/fonts';
-@import 'config/options';
-@import 'svg/svg';
-@import 'png/mixins';
-@import 'png/png-sprite';
+@import 'config/grid';
+@import 'config/colors';
+
+@import 'core/svg/svg';
+@import 'core/png/mixins';
+@import 'core/png/png-sprite';
 
 @import "~normalize-scss/sass/normalize/import-now";
 @import "grid/grid";
 
-@import 'common';
-@import 'typography';
+@import 'ui-kit/btn-list';
+@import 'ui-kit/ui-toolkit';
+

@@ -1,0 +1,11 @@
+{{#if button}}
+    <button {{#if popup}}data-popup="{{popup}}"{{/if}}  {{#if submit}}type="submit"{{/if}}
+            class="btn{{#if size}} btn-{{size}}{{/if}}{{#if color}} btn-{{color}}{{#if outline}}-outline{{/if}}{{/if}}{{#if w100}} btn-w100{{/if}} {{#if popup}} js-popup-open{{/if}} {{mix}}" {{{attr}}}>
+        {{label}}
+    </button>
+{{else}}
+    <a href="#" {{#if popup}}data-popup="{{popup}}"{{/if}}
+       class="btn{{#if size}} btn-{{size}}{{/if}}{{#if color}} btn-{{color}}{{#if outline}}-outline{{/if}}{{/if}}{{#if w100}} btn-w100{{/if}} {{#if popup}} js-popup-open{{/if}} {{mix}}" {{{attr}}}>
+        {{label}}
+    </a>
+{{/if}}

@@ -14,7 +14,7 @@ module.exports = () => {
             bust: false,
             render: {
               'scss': {
-                'dest': `${$.config.sourcePath}/${$.config.stylesPath}/svg/_sprite.scss`,
+                'dest': `${$.config.sourcePath}/${$.config.stylesPath}/core/svg/_sprite.scss`,
                 'template': `./config/sprite-template.scss`,
               },
             },
@@ -49,7 +49,7 @@ module.exports = () => {
             inline: false,
             render: {
               scss: {
-                dest: `${$.config.sourcePath}/${$.config.stylesPath}/svg/_spriteInline.scss`,
+                dest: `${$.config.sourcePath}/${$.config.stylesPath}/core/svg/_spriteInline.scss`,
                 template: `./config/sprite-template-inline.scss`,
               },
             },
