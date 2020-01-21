@@ -39,8 +39,10 @@ function Dropdown ($elem, options) {
     this.$arrow = $(`<span class="dropdown__arrow">`).appendTo(this.$header);
 
     this.$dropDown = $(`<div>`).addClass('dropdown__box');
-    this.$dropDownScroll = $(`<div class="dropdown__scroll"></div>`).appendTo(this.$dropDown);
-    this.$dropDownInner = $(`<div class="dropdown__list"></div>`).appendTo(this.$dropDownScroll);
+    this.$dropDownScroll = $(`<div class="dropdown__scroll"></div>`).
+      appendTo(this.$dropDown);
+    this.$dropDownInner = $(`<div class="dropdown__list"></div>`).
+      appendTo(this.$dropDownScroll);
 
     if (this.$elem.find('optgroup').length !== 0) {
       this.$elem.find('optgroup').each(function() {
@@ -87,7 +89,9 @@ function Dropdown ($elem, options) {
     this.$elem.find(`option[value="${value}"]`).attr('selected', 'selected');
   };
 
-  this.setActiveItem = function(target) {
+  this.setActiveItem = function(value) {
+    const target = this.$dropDown.find(`a[data-value="${value}"]`);
+
     switch (this.selectionMod) {
       case 'highlight':
         this.$dropDown.find(`a.highlight`).removeClass('highlight');
@@ -133,8 +137,9 @@ function Dropdown ($elem, options) {
     });
 
     this.$dropDown.find('a').on('click', function() {
-      that.setActiveValue($(this).data('value'));
-      that.setActiveItem($(this)[0]);
+      const value = $(this).data('value');
+      that.setActiveValue(value);
+      that.setActiveItem(value);
       that.hideDropdown();
 
       return false;
@@ -149,10 +154,9 @@ function Dropdown ($elem, options) {
     this.$headerLabel.text(this.activeLabel);
     this.$header.addClass('dropdown__header--placeholder');
   } else {
-    const value = this.$elem.val() ?
-      this.$elem.val() : this.$elem.find('option').first().val();
+    const value = this.$elem.val() ? this.$elem.val() : this.$elem.find('option').first().val();
     this.setActiveValue(value);
-    this.setActiveItem(this.$dropDown.find(`a[data-value="${value}"]`));
+    this.setActiveItem(value);
   }
 
   if ($elem.attr('data-class')) {
@@ -168,10 +172,9 @@ function Dropdown ($elem, options) {
       that.$headerLabel.text(that.activeLabel);
       that.$header.addClass(`dropdown__header--placeholder`);
     } else {
-      const value = that.$elem.val() ?
-        that.$elem.val() : that.$elem.find('option').first().val();
+      const value = that.$elem.val() ? that.$elem.val() : that.$elem.find('option').first().val();
       that.setActiveValue(value);
-      that.setActiveItem(this.$dropDown.find(`a[data-value="${value}"]`));
+      that.setActiveItem(value);
     }
   };
 
