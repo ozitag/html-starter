@@ -5,8 +5,8 @@ class AoS {
     this.observer = null;
     this.options = {
       root: null,
-      rootMargin: '0px',
-      threshold: 0.3,
+      rootMargin: '-100px',
+      threshold: 0,
       delay: 100,
     };
 
