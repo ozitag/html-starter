@@ -1,0 +1,10 @@
+{{#if no-webp}}{{else}}
+    <source type="image/webp" {{#if media}}media="({{media}})"{{/if}}
+            srcset="../{{#if static}}static{{else}}content{{/if}}/images/{{img}}.webp,
+          ../{{#if static}}static{{else}}content{{/if}}/images/{{img}}@2x.webp 2x">
+{{/if}}
+
+<source {{#ifCond fallback-ext 'jpg'}}type="image/jpeg" {{else}}type="image/png"{{/ifCond}} {{#if
+        media}}media="({{media}})"{{/if}}
+        srcset="../{{#if static}}static{{else}}content{{/if}}/images/{{img}}.{{fallback-ext}},
+          ../{{#if static}}static{{else}}content{{/if}}/images/{{img}}@2x.{{fallback-ext}} 2x">
