@@ -1,0 +1,17 @@
+@mixin desktop1440_and_less {
+  @media(max-width: 1499px) and (min-width: $tabletMedia + 1) {
+    @content;
+  }
+}
+
+@mixin desktop1366_and_less {
+  @media(max-width: 1439px) and (min-width: $tabletMedia + 1) {
+    @content;
+  }
+}
+
+@mixin desktop1280_and_less {
+  @media(max-width: 1365px) and (min-width: $tabletMedia + 1) {
+    @content;
+  }
+}

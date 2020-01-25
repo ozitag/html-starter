@@ -7,8 +7,7 @@ html {
   -ms-overflow-style: scrollbar;
 }
 
-.container,
-.container-fluid {
+.container, .container-fluid {
   width: 100%;
   margin-right: auto;
   margin-left: auto;
@@ -17,30 +16,17 @@ html {
 }
 
 @media (min-width: $mobileMedia + 1) {
-  .container,
-  .container-fluid {
+  .container, .container-fluid {
     padding-right: $tabletGutter;
     padding-left: $tabletGutter;
   }
 
   .container {
-    max-width: $tabletWidth;
+    max-width: 100%;
   }
 }
 
 @media (min-width: $tabletMedia + 1) {
-  .container,
-  .container-fluid {
-    padding-right: $laptopGutter;
-    padding-left: $laptopGutter;
-  }
-
-  .container {
-    max-width: $laptopWidth;
-  }
-}
-
-@media (min-width: $laptopMedia + 1) {
   .container,
   .container-fluid {
     padding-right: $desktopGutter;
@@ -51,6 +37,7 @@ html {
     max-width: $desktopWidth;
   }
 }
+
 
 .row {
   display: -ms-flexbox;

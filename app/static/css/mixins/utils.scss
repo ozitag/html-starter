@@ -87,7 +87,7 @@
 }
 
 @mixin transition($property: all) {
-  transition: $property 0.3s linear;
+  transition: $property .25s ease-in-out;
 }
 
 @mixin triangle($width, $dir, $color) {
@@ -128,18 +128,6 @@
   height: $height + px;
 }
 
-@mixin ie10plus() {
-  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-    @content;
-  }
-}
-
-@mixin retina() {
-  @media (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
-    @content;
-  }
-}
-
 /******************************************************/
 /******************** Animations **********************/
 /******************************************************/
@@ -152,81 +140,5 @@
       @content($accum);
       $accum: $accum + $ticking;
     }
-  }
-}
-
-/*====================================================*/
-/*================= Media queries ====================*/
-/*====================================================*/
-
-@mixin desktop() {
-  @media (min-width: $laptopMedia + 1) {
-    @content;
-  }
-}
-
-@mixin no-desktop() {
-  @media (max-width: $laptopMedia) {
-    @content;
-  }
-}
-
-@mixin laptop() {
-  @media (min-width: $tabletMedia + 1) and (max-width: $laptopMedia) {
-    @content;
-  }
-}
-
-@mixin laptop-and-desktop() {
-  @media (min-width: $tabletMedia + 1) {
-    @content;
-  }
-}
-
-@mixin tablet() {
-  @media (min-width: $mobileMedia + 1) and (max-width: $tabletMedia) {
-    @content;
-  }
-}
-
-@mixin tablet-and-laptop() {
-  @media (min-width: $mobileMedia + 1) and (max-width: $laptopMedia) {
-    @content;
-  }
-}
-
-@mixin tablet-and-phone() {
-  @media (max-width: $tabletMedia) {
-    @content;
-  }
-}
-
-@mixin mobile() {
-  @media (max-width: $mobileMedia) {
-    @content;
-  }
-}
-
-@mixin no-mobile {
-  @media (min-width: $mobileMedia + 1) {
-    @content;
-  }
-}
-
-@mixin mobile-m() {
-  @media (max-width: 480px) {
-    @content;
-  }
-}
-
-@mixin mobile-m() {
-  @media (max-width: 480px) {
-    @content;
-  }
-}
-
-@mixin mobile-s() {
-  @media (max-width: 374px) {
-    @content;
   }
 }

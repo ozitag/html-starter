@@ -30,7 +30,7 @@
     margin: 0 -10px;
     display: flex;
 
-    @include tablet-and-phone {
+    @includetablet-and-mobile {
       flex-direction: column;
     }
   }
@@ -46,7 +46,7 @@
       }
 
       &__nav {
-        @include tablet-and-phone {
+        @includetablet-and-mobile {
           display: flex;
           flex-direction: row;
         }

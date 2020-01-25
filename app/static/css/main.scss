@@ -1,13 +1,8 @@
-@import 'imports';
+@import 'config/index';
+@import 'mixins/index';
+@import 'core/index';
 
 @import '~swiper/css/swiper';
-
-@import 'core/preloader';
-@import 'core/image';
-@import 'core/image-fit';
-
-@import 'common';
-@import 'typography';
 
 @import 'layout/page';
 @import 'layout/header';

@@ -1,0 +1,73 @@
+@mixin ie10plus() {
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    @content;
+  }
+}
+
+@mixin retina() {
+  @media (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+    @content;
+  }
+}
+
+
+@mixin desktop() {
+  @media (min-width: $tabletMedia + 1) {
+    @content;
+  }
+}
+
+@mixin no-desktop() {
+  @media (max-width: $tabletMedia) {
+    @content;
+  }
+}
+
+@mixin tablet() {
+  @media (min-width: $mobileMedia + 1) and (max-width: $tabletMedia) {
+    @content;
+  }
+}
+
+@mixin tablet-and-mobile() {
+  @media (max-width: $tabletMedia) {
+    @content;
+  }
+}
+
+@mixin no-mobile {
+  @media (min-width: $mobileMedia + 1) {
+    @content;
+  }
+}
+
+@mixin mobile() {
+  @media (max-width: $mobileMedia) {
+    @content;
+  }
+}
+
+@mixin mobile414 {
+  @media(min-width: 414px) and (max-width: $mobileMedia) {
+    @content;
+  }
+}
+
+@mixin mobile375 {
+  @media(min-width: 375px) and (max-width: 413px) {
+    @content;
+  }
+}
+
+@mixin mobile320 {
+  @media(min-width: 320px) and (max-width: 374px) {
+    @content;
+  }
+}
+
+@mixin desktop-small-height {
+  @media(max-height: 750px) and (min-width: $tabletMedia + 1) {
+    @content;
+  }
+}
+
