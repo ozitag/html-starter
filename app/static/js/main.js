@@ -1,8 +1,8 @@
-import layout from './modules/utils/layout';
-import scrollObserver from './modules/utils/scroll-observer';
-import resizeObserver from './modules/utils/resize-observer';
-import scrollControl from './modules/utils/scroll-control';
-import preloader from './modules/utils/preloader';
-import popups from './modules/utils/popups';
+import layout from './src/utils/layout';
+import scrollObserver from './src/utils/scroll-observer';
+import resizeObserver from './src/utils/resize-observer';
+import scrollControl from './src/utils/scroll-control';
+import preloader from './src/utils/preloader';
+import popups from './src/widgets/popups';
 
-import ui from './modules/ui';
+import ui from './src/ui';
