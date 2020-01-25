@@ -2,7 +2,7 @@ class ScrollTo {
   static startAnimation (targetId) {
     const duration = 1200,
       targetElem = document.querySelector(`[data-id="${targetId}"]`),
-      startPos = window.pageYOffset,
+      startPos = getScrollPos(),
       targetPos = targetElem.getBoundingClientRect().top,
       startTime = performance.now();
 

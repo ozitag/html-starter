@@ -73,5 +73,5 @@ const scrollControl = new ScrollControl();
 
 window.showScrollbar = scrollControl.showScrollbar.bind(scrollControl);
 window.hideScrollbar = scrollControl.hideScrollbar.bind(scrollControl);
-window.getLastScrollPos = scrollControl.getLastScrollPos.bind(scrollControl);
+window.getScrollPos = scrollControl.getLastScrollPos.bind(scrollControl);
 window.isFixedSCroll = scrollControl.getScrollbarState.bind(scrollControl);
