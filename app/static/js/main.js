@@ -9,14 +9,13 @@ import(/* webpackChunkName: "preloader" */ './src/utils/preloader');
 import(/* webpackChunkName: "popups" */ './src/widgets/popups');
 
 class App {
-  constructor () {
+  constructor() {
     this.addEvents();
   }
 
-  addEvents () {
+  addEvents() {
     window.addEventListener('DOMContentLoaded', () => {
       this.initLibs();
-      new Promise(resolve => setTimeout(() => resolve(), 3000)).then(() => console.log(213));
     });
 
     document.documentElement.addEventListener('touchstart', e => {
@@ -24,11 +23,11 @@ class App {
     });
   }
 
-  initLibs () {
+  initLibs() {
     window.svg4everybody();
   }
 
-  static init () {
+  static init() {
     return new App();
   }
 }
