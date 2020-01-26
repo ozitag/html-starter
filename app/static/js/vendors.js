@@ -1,3 +1,5 @@
+import 'react-app-polyfill/stable';
+import 'react-app-polyfill/ie11';
 import 'html5shiv';
 import svgPolyfill from 'svg4everybody';
 import lazySizes from 'lazysizes';

@@ -1,4 +1,5 @@
 import './vendors';
+import './polyfills';
 
 import(/* webpackChunkName: "layout" */ './src/utils/layout');
 import(/* webpackChunkName: "scroll-observer" */ './src/utils/scroll-observer');
@@ -15,6 +16,7 @@ class App {
   addEvents () {
     window.addEventListener('DOMContentLoaded', () => {
       this.initLibs();
+      new Promise(resolve => setTimeout(() => resolve(), 3000)).then(() => console.log(213));
     });
 
     document.documentElement.addEventListener('touchstart', e => {
