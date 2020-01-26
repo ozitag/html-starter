@@ -16,6 +16,7 @@
   "homepage": "https://gitlab.com/ozitag/internal-projects/html-starter/blob/master/README.md",
   "devDependencies": {
     "@babel/core": "^7.7.2",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/preset-env": "^7.7.1",
     "babel-loader": "^8.0.6",
     "browser-sync": "^2.26.7",

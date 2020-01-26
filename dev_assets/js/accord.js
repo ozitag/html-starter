@@ -1,12 +1,12 @@
 let busy = false;
 
 class Accord {
-  constructor(item) {
+  constructor (item) {
     this.accord = item;
     this.addEvents();
   }
 
-  addEvents() {
+  addEvents () {
     this.accord.addEventListener('click', () => {
       if (busy) return false;
       busy = true;
@@ -29,7 +29,7 @@ class Accord {
     });
   }
 
-  static collapse(elem) {
+  static collapse (elem) {
     const height = {
       from: elem.scrollHeight,
       to: 0,
@@ -38,7 +38,7 @@ class Accord {
     Accord.animate(elem, height);
   }
 
-  static expand(elem) {
+  static expand (elem) {
     const height = {
       from: 0,
       to: elem.scrollHeight,
@@ -47,7 +47,7 @@ class Accord {
     Accord.animate(elem, height);
   }
 
-  static animate(elem, height) {
+  static animate (elem, height) {
     const handler = e => {
       if (e.target !== e.currentTarget) return false;
       elem.removeEventListener(endEvents.transition, handler);
@@ -64,15 +64,15 @@ class Accord {
     });
   }
 
-  static setActive(elem) {
+  static setActive (elem) {
     elem.classList.add('active');
   }
 
-  static removeActive(elem) {
+  static removeActive (elem) {
     elem.classList.remove('active');
   }
 
-  static init(elem) {
+  static init (elem) {
     new Accord(elem);
   }
 }

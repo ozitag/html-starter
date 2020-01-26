@@ -1,4 +1,4 @@
-const poly = {
+const polyfills = {
   collection: [
     function endEvents() {
       window.endEvents = {
@@ -144,4 +144,4 @@ const poly = {
   },
 };
 
-poly.init();
+polyfills.init();

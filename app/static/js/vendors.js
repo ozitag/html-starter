@@ -1,12 +1,10 @@
-import 'react-app-polyfill/ie11';
-import 'react-app-polyfill/stable';
 import 'html5shiv';
 import svgPolyfill from 'svg4everybody';
 import lazySizes from 'lazysizes';
 import 'lazysizes/plugins/respimg/ls.respimg';
 import 'lazysizes/plugins/native-loading/ls.native-loading';
 import 'lazysizes/plugins/object-fit/ls.object-fit';
-import './poly';
+import './polyfills';
 import jquery from 'jquery';
 import Swiper from 'swiper';
 
