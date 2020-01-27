@@ -25,10 +25,9 @@ module.exports = () => {
           [
             '@babel/preset-env',
             {
-              useBuiltIns: 'entry',
+              useBuiltIns: 'usage',
               corejs: 3,
               modules: false,
-              exclude: ['transform-typeof-symbol'],
             },
           ],
         ],
@@ -41,7 +40,10 @@ module.exports = () => {
 
   const config = {
     entry: {
-      main: $.path.resolve(`${sourcePath}/main.js`),
+      main: [
+        'core-js/modules/es.array.iterator',
+        $.path.resolve(`${sourcePath}/main.js`),
+      ],
     },
     output: {
       filename: '[name].js',
@@ -58,11 +60,11 @@ module.exports = () => {
         cacheGroups: {
           vendors: {
             test: /[\\/]node_modules[\\/]/,
-            chunks: 'initial',
+            chunks: 'all',
             name: 'vendors',
-            enforce: true
+            enforce: true,
           },
-        }
+        },
       },
       minimizer: [],
     },
@@ -105,10 +107,10 @@ module.exports = () => {
   }
 
   $.gulp.task('scripts', done => {
-    return $.gulp.src(`${sourcePath}/**`).
-      pipe($.webpackStream(config, $.webpack)).
-      pipe($.gulp.dest(`${destPath}/`)).
-      pipe($.bs.reload({ stream: true })).
-      on('end', done);
+    return $.gulp.src(`${sourcePath}/**`)
+      .pipe($.webpackStream(config, $.webpack))
+      .pipe($.gulp.dest(`${destPath}/`))
+      .pipe($.bs.reload({ stream: true }))
+      .on('end', done);
   });
 };
