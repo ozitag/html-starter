@@ -129,9 +129,5 @@ class PopupManager {
 }
 
 const manager = new PopupManager();
-
-document.addEventListener('DOMContentLoaded', () => {
-    manager.init();
-});
-
+manager.init();
 window.PopupManager = manager;

@@ -18,10 +18,6 @@ class Preloader {
     preloader.classList.add('hide');
     document.body.classList.add('loaded');
   }
-
-  static init() {
-    document.addEventListener('DOMContentLoaded', Preloader.disablingPreloader);
-  }
 }
 
-Preloader.init();
+window.disablingPreloader = Preloader.disablingPreloader;
