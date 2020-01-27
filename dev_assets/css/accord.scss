@@ -2,16 +2,16 @@
   &-header {
     &.active + .accord-content {
       display: block;
-      height: auto;
     }
   }
 
   &-content {
     display: none;
-    height: 0;
 
     &.animate {
+      position: relative;
       display: block;
+      height: 0;
       overflow: hidden;
       transition: height .32s ease;
     }
