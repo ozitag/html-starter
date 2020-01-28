@@ -8,7 +8,7 @@ class AoS {
       root: null,
       rootMargin: '-100px',
       threshold: 0,
-      delay: 50,
+      delay: 100,
     };
   }
 
