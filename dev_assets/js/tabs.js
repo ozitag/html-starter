@@ -1,67 +1,95 @@
-function CustomTabs($elem, options) {
-  var that = this;
-  this.$elem = $elem;
+class Tabs {
+    constructor(nodeElement) {
+        this.nodeElement = nodeElement;
 
-  options = $.extend(
-    {
-      tabsSelector: '.js-tabs ._link',
-      onShow: function() {
-      },
-    },
-    options,
-  );
+        this.activeTab = null;
 
-  var $tabButtons = this.$elem.find(options.tabsSelector);
-  if ($tabButtons.length === 0) {
-    return;
-  }
+        this.tabs = [];
+        nodeElement.querySelectorAll('.js-tab').forEach(tabItem => {
+            const targetSelector = tabItem.dataset.target;
+            if (!targetSelector) {
+                console.error(`Tab "${tabItem.innerText}" does not have data-target attribute`);
+                return;
+            }
 
-  var tabsData = {};
-  $tabButtons.each(function() {
-    tabsData[$(this).data('id')] = {
-      button: $(this),
-      content: $('#' + $(this).data('id')),
-      activated: false,
-    };
-  });
+            const tabContent = this.nodeElement.querySelector(targetSelector);
+            if (!tabContent) {
+                console.error(`Tab content with selector "${targetSelector}" not found`);
+                return;
+            }
 
-  this.showTab = function(tabId) {
-    for (var i in tabsData) {
-      if (tabsData.hasOwnProperty(i)) {
-        tabsData[i].content.removeClass('active').hide();
-      }
+            const isActive = this.activeTab === null && tabItem.classList.contains('active');
+
+            const tabModel = {
+                isActive: isActive,
+                tabElement: tabItem,
+                tabContentElement: tabContent
+            };
+
+            if (isActive) {
+                this.activeTab = tabModel;
+            }
+
+            this.tabs.push(tabModel);
+        });
+
+        if (this.tabs.length === 0) {
+            return;
+        }
+
+        this.init();
     }
-    $tabButtons.removeClass('active');
 
-    if (tabId in tabsData) {
-      tabsData[tabId].content.addClass('active').show();
-      tabsData[tabId].button.addClass('active');
-
-      if (tabsData[tabId].activated === false) {
-        tabsData[tabId].activated = true;
-        options.onShow(tabsData[tabId].content);
-      }
+    hideTab(model) {
+        model.tabElement.classList.remove('active');
+        model.tabContentElement.classList.remove('active');
+        model.isActive = false;
     }
-  };
 
-  if (window.location && window.location.hash && tabsData[window.location.hash.substr(1)]) {
-    this.showTab(window.location.hash.substr(1));
-  } else {
-    this.showTab(this.$elem.find('.js-tabs ._link.active').data('id'));
-  }
+    showTab(model) {
+        model.tabElement.classList.add('active');
+        model.tabContentElement.classList.add('active');
+        model.isActive = true;
+    }
 
-  $tabButtons.on('click', function() {
-    that.showTab($(this).data('id'));
-    return false;
-  });
+    setActiveTab(model) {
+        if (!model.isActive) {
+            this.tabs.forEach(this.hideTab);
+        }
+
+        this.showTab(model);
+    }
+
+    onTabClick(e, model) {
+        e.preventDefault();
+
+        this.setActiveTab(model);
+    }
+
+    setDefaults() {
+        if (!this.activeTab) {
+            this.setActiveTab(this.tabs[0]);
+        } else {
+            this.setActiveTab(this.activeTab);
+        }
+    }
+
+    init() {
+        this.setDefaults();
+
+        this.tabs.forEach(tabModel => {
+            tabModel.tabElement.addEventListener('click', e => this.onTabClick(e, tabModel));
+        });
+    }
 }
 
-$.fn.customTabs = function(options) {
-  $(this).each(function() {
-    new CustomTabs($(this), options);
-  });
-};
+class TabsUI {
+    static init() {
+        document.querySelectorAll('.js-tabs').forEach(element => new Tabs(element));
+    }
+}
 
-$(function() {
-  $('.js-tabs-container').customTabs();
+document.addEventListener('DOMContentLoaded', () => {
+    TabsUI.init();
 });
+window.TabsUI = TabsUI;
