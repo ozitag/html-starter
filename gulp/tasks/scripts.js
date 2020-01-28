@@ -1,9 +1,11 @@
 module.exports = () => {
   const sourcePath = `${$.config.sourcePath}/${$.config.staticPath}/js`;
   const destPath = `${$.config.outputPath}/${$.config.staticPath}/js`;
+  const outputFileName = $.config.dynamicEntry && $.config.buildMode === 'prod' ?
+    '[name]' : '[name].js';
 
   const sourceMapConfig = {
-    filename: '[name].map',
+    filename: `${outputFileName}.map`,
     exclude: /vendors\.js/,
   };
   const minifyConfig = {
@@ -17,38 +19,18 @@ module.exports = () => {
   };
   const babelConfig = {
     test: /\.js$/,
-    exclude: [/node_modules[\/\\](?!(swiper|dom7)[\/\\])/],
+    exclude: [/node_modules[\/\\](?!(swiper|dom7)[\/\\])/, /vendors\.js/],
     use: {
       loader: 'babel-loader',
       options: {
-        presets: [
-          [
-            '@babel/preset-env',
-            {
-              useBuiltIns: 'usage',
-              corejs: 3,
-              modules: false,
-            },
-          ],
-        ],
-        plugins: [
-          '@babel/plugin-syntax-dynamic-import',
-        ],
+        presets: ['@babel/preset-env'],
       },
     },
   };
 
   const config = {
-    entry: {
-      main: [
-        'core-js/modules/es.array.iterator',
-        $.path.resolve(`${sourcePath}/main.js`),
-      ],
-    },
     output: {
-      filename: '[name].js',
-      chunkFilename: '[name].js',
-      publicPath: '/static/js/',
+      filename: `${outputFileName}`,
       path: $.path.resolve(`${destPath}/`),
     },
     module: {
@@ -56,16 +38,6 @@ module.exports = () => {
     },
     plugins: [],
     optimization: {
-      splitChunks: {
-        cacheGroups: {
-          vendors: {
-            test: /[\\/]node_modules[\\/]/,
-            chunks: 'all',
-            name: 'vendors',
-            enforce: true,
-          },
-        },
-      },
       minimizer: [],
     },
     stats: 'errors-warnings',
@@ -74,6 +46,7 @@ module.exports = () => {
   switch ($.config.buildMode) {
     case 'dev':
       config.mode = 'development';
+      config.entry = getStaticEntry();
       config.module.rules.push(
         babelConfig,
       );
@@ -88,6 +61,12 @@ module.exports = () => {
       break;
     case 'prod':
       config.mode = 'production';
+
+      if ($.config.dynamicEntry) {
+        config.entry = getDynamicEntry();
+      } else {
+        config.entry = getStaticEntry();
+      }
 
       if ($.config.babel) {
         config.module.rules.push(
@@ -107,10 +86,28 @@ module.exports = () => {
   }
 
   $.gulp.task('scripts', done => {
-    return $.gulp.src(`${sourcePath}/**`)
-      .pipe($.webpackStream(config, $.webpack))
-      .pipe($.gulp.dest(`${destPath}/`))
-      .pipe($.bs.reload({ stream: true }))
-      .on('end', done);
+    return $.gulp.src(`${sourcePath}/**`).pipe($.webpackStream(
+      config, $.webpack,
+    )).pipe($.gulp.dest(`${destPath}/`)).pipe($.bs.reload({ stream: true })).on('end', done);
   });
+
+  function getDynamicEntry () {
+    return $.glob.sync(
+      `${sourcePath}/**/*`, {
+        ignore: [`${sourcePath}/main.js`, `${sourcePath}/polyfills.js`],
+        nodir: true,
+      },
+    ).reduce((acc, path) => {
+      const entryPath = path.match(/([\w\d-_]+)\.js$/i)[0];
+      acc[entryPath] = $.path.resolve(path);
+      return acc;
+    }, {});
+  }
+
+  function getStaticEntry () {
+    return {
+      vendors: $.path.resolve(`${sourcePath}/vendors.js`),
+      main: $.path.resolve(`${sourcePath}/main.js`),
+    };
+  }
 };

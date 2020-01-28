@@ -16,7 +16,7 @@
   "svgInlinePath": "static/svg/inline",
   "contentPath": "content",
   "metaPath": ".meta",
-  "dynamicEntry": true,
+  "dynamicEntry": false,
   "jsMin": true,
   "cssMin": true,
   "imageMin": true,

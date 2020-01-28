@@ -1,7 +1,7 @@
 module.exports = () => {
   const initParams = {};
   initParams.cache = randomIntNum(1, 5000);
-  initParams.dynamicEntry = $.config.dynamicEntry;
+  initParams.dynamicEntry = $.config.dynamicEntry && $.config.buildMode === 'prod';
 
   const options = {
     ignorePartials: true,
@@ -39,18 +39,18 @@ module.exports = () => {
       `!${$.config.sourcePath}/${$.config.hbsPath}/layouts/**/*.hbs`,
       `!${$.config.sourcePath}/${$.config.hbsPath}/partials/**/*.hbs`,
     ])
-      .pipe($.gulpPlugin.plumber())
-      .pipe($.gulpPlugin.compileHandlebars(db, options))
-      .pipe($.gulpPlugin.rename(path => {
-        path.extname = '.html';
-      }))
-      .pipe($.gulpPlugin.trim())
-      .pipe($.gulp.dest(`${$.config.outputPath}/html`))
-      .pipe($.bs.reload({ stream: true }),
-      );
+    .pipe($.gulpPlugin.plumber())
+    .pipe($.gulpPlugin.compileHandlebars(db, options))
+    .pipe($.gulpPlugin.rename(path => {
+      path.extname = '.html';
+    }))
+    .pipe($.gulpPlugin.trim())
+    .pipe($.gulp.dest(`${$.config.outputPath}/html`))
+    .pipe($.bs.reload({ stream: true }),
+    );
   });
 
-  function randomIntNum(min, max) {
+  function randomIntNum (min, max) {
     let rand = min - 0.5 + Math.random() * (max - min + 1);
     return Math.round(rand);
   }
