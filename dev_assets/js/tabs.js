@@ -1,11 +1,18 @@
 class Tabs {
     constructor(nodeElement) {
         this.nodeElement = nodeElement;
-
         this.activeTab = null;
-
         this.tabs = [];
-        nodeElement.querySelectorAll('.js-tab').forEach(tabItem => {
+
+        this.initTabs();
+
+        if (this.tabs.length > 0) {
+            this.init();
+        }
+    }
+
+    initTabs() {
+        this.findTabs().forEach(tabItem => {
             const targetSelector = tabItem.dataset.target;
             if (!targetSelector) {
                 console.error(`Tab "${tabItem.innerText}" does not have data-target attribute`);
@@ -15,7 +22,6 @@ class Tabs {
             const tabContent = this.nodeElement.querySelector(targetSelector);
             if (!tabContent) {
                 console.error(`Tab content with selector "${targetSelector}" not found`);
-                return;
             }
 
             const isActive = this.activeTab === null && tabItem.classList.contains('active');
@@ -32,23 +38,37 @@ class Tabs {
 
             this.tabs.push(tabModel);
         });
+    }
 
-        if (this.tabs.length === 0) {
-            return;
-        }
+    findTabs() {
+        const result = [];
 
-        this.init();
+        this.nodeElement.querySelectorAll('.js-tab').forEach(item => {
+            if (item.closest('.js-tabs') === this.nodeElement) {
+                result.push(item);
+            }
+        });
+
+        return result;
     }
 
     hideTab(model) {
         model.tabElement.classList.remove('active');
-        model.tabContentElement.classList.remove('active');
+
+        if (model.tabContentElement) {
+            model.tabContentElement.classList.remove('active');
+        }
+
         model.isActive = false;
     }
 
     showTab(model) {
         model.tabElement.classList.add('active');
-        model.tabContentElement.classList.add('active');
+
+        if (model.tabContentElement) {
+            model.tabContentElement.classList.add('active');
+        }
+
         model.isActive = true;
     }
 
