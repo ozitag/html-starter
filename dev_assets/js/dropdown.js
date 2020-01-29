@@ -1,4 +1,4 @@
-function Dropdown ($elem, options) {
+function dropdown ($elem, options) {
   const that = this;
 
   const hasScroll = $elem.attr('data-scroll');
@@ -9,24 +9,20 @@ function Dropdown ($elem, options) {
   this.placeholder = 'placeholder' in options ? options.placeholder : $elem.data('placeholder');
   this.scroll = 'scroll' in options ? options.scroll : $elem.data('scroll');
   this.className = 'class' in options ? options.className : $elem.data('class');
-  this.selectionMod = 'selection' in options ? options.selection : $elem.data('selection');
+  this.selectionMode = 'selection' in options ? options.selection : $elem.data('selection');
 
   this.$container = null;
   this.$header = null;
   this.$headerLabel = null;
-  this.$dropDown = null;
-  this.$dropDownInner = null;
+  this.$dropdown = null;
+  this.$dropdownInner = null;
 
   this.options = {};
 
   this.activeValue = null;
   this.activeLabel = null;
 
-  let dropdownOpened = false;
-
-  this.$elem.on('change', function() {
-    that.setActiveValue($(this).val(), false);
-  });
+  let isDropdownOpened = false;
 
   this.buildHtml = function() {
     if (this.$container) {
@@ -35,24 +31,23 @@ function Dropdown ($elem, options) {
 
     this.$container = $(`<div>`).addClass('dropdown');
     this.$header = $(`<div>`).addClass('dropdown__header').text(that.prefix ? that.prefix + ' ' : '');
-    this.$headerLabel = $(`<span class="dropdown__text">`).appendTo(this.$header);
-    this.$arrow = $(`<span class="dropdown__arrow">`).appendTo(this.$header);
+    this.$dropdown = $(`<div>`).addClass('dropdown__box');
+    this.$dropdownInner = $(`<div>`).addClass('dropdown__content').appendTo(this.$dropdown);
 
-    this.$dropDown = $(`<div>`).addClass('dropdown__box');
-    this.$dropDownScroll = $(`<div class="dropdown__scroll"></div>`).
-      appendTo(this.$dropDown);
-    this.$dropDownInner = $(`<div class="dropdown__list"></div>`).
-      appendTo(this.$dropDownScroll);
+    this.$headerLabel = $('<span class="dropdown__label">').appendTo(this.$header);
+    this.$headerArrow = $(`<span class="dropdown__arrow">`).appendTo(this.$header);
+    this.$dropdownScroll = $(`<div class="dropdown__scroll"></div>`).appendTo(this.$dropdownInner);
+    this.$dropdownInner = $(`<div class="dropdown__list"></div>`).appendTo(this.$dropdownScroll);
 
     if (this.$elem.find('optgroup').length !== 0) {
       this.$elem.find('optgroup').each(function() {
         const label = $(this).attr('label');
-        that.$dropDownInner.append(`<div class="group-label">${label}</div>`);
+        that.$dropdownInner.append(`<div class="group-label">${label}</div>`);
 
         $(this).find('option').each(function() {
           const option = this;
           that.options[$(option).val()] = $(option).text();
-          that.$dropDownInner.append(
+          that.$dropdownInner.append(
             `<a class="dropdown__item" data-value="${$(option).val()}">
                <span class="dropdown__item-text">${$(option).text()}</span>
              </a>`,
@@ -63,7 +58,7 @@ function Dropdown ($elem, options) {
       this.$elem.find('option').each(function() {
         const option = this;
         that.options[$(option).val()] = $(option).text();
-        that.$dropDownInner.append(
+        that.$dropdownInner.append(
           `<a class="dropdown__item" data-value="${$(option).val()}">
              <span class="dropdown__item-text">${$(option).text()}</span>
            </a>`,
@@ -72,10 +67,8 @@ function Dropdown ($elem, options) {
     }
 
     this.$container.append(this.$header);
-    this.$container.append(this.$dropDown);
-
-    this.$elem.hide();
-
+    this.$container.append(this.$dropdown);
+    this.$elem.addClass('visually-hidden');
     this.$container.insertAfter(this.$elem);
   };
 
@@ -90,59 +83,76 @@ function Dropdown ($elem, options) {
   };
 
   this.setActiveItem = function(value) {
-    const target = this.$dropDown.find(`a[data-value="${value}"]`);
+    const target = this.$dropdown.find(`a[data-value="${value}"]`);
 
-    switch (this.selectionMod) {
+    switch (this.selectionMode) {
       case 'highlight':
-        this.$dropDown.find(`a.highlight`).removeClass('highlight');
+        this.$dropdown.find(`a.highlight`).removeClass('highlight');
         $(target).addClass('highlight');
         break;
       case 'hide':
       default:
-        this.$dropDown.find(`a.hide`).removeClass('hide');
+        this.$dropdown.find(`a.hide`).removeClass('hide');
         $(target).addClass('hide');
         break;
     }
   };
 
   this.showDropdown = function() {
-    this.$dropDown.show();
     this.$container.addClass('opened');
-    dropdownOpened = true;
+    isDropdownOpened = true;
 
-    if (hasScroll) {
-      this.$dropDown.addClass(this.scroll);
-    }
+    if (hasScroll) this.$dropdown.addClass(this.scroll);
+    that.pageScrollControl('hide');
   };
 
   this.hideDropdown = function() {
-    this.$dropDown.hide();
     this.$container.removeClass('opened');
-    dropdownOpened = false;
+    isDropdownOpened = false;
+
+    that.pageScrollControl('show');
+  };
+
+  this.pageScrollControl = function(action) {
+    if (isTabletLayout())
+      switch (action) {
+        case 'show':
+          showScrollbar();
+          break;
+        case 'hide':
+          hideScrollbar();
+          break;
+      }
   };
 
   this.bindEvents = function() {
     $(document).on('click', function(e) {
       const $target = $(e.target);
-
-      if ($target.closest('.dropdown__box').length) return;
+      if ($target.closest('.dropdown__list').length) return;
 
       const $trigger = $target.closest('.dropdown')[0];
-
-      if (dropdownOpened) {
+      if (isDropdownOpened) {
         that.hideDropdown();
       } else if (that.$container[0] === $trigger) {
         that.showDropdown();
       }
     });
 
-    this.$dropDown.find('a').on('click', function() {
+    this.$dropdown.find('a').on('click', function() {
       const value = $(this).data('value');
+
       that.setActiveValue(value);
       that.setActiveItem(value);
       that.hideDropdown();
 
       return false;
+    });
+
+    this.$elem.on('change', function() {
+      const value = $(this).val();
+
+      that.setActiveValue(value);
+      that.setActiveItem(value);
     });
   };
 
@@ -154,7 +164,8 @@ function Dropdown ($elem, options) {
     this.$headerLabel.text(this.activeLabel);
     this.$header.addClass('dropdown__header--placeholder');
   } else {
-    const value = this.$elem.val() ? this.$elem.val() : this.$elem.find('option').first().val();
+    const value = this.$elem.val() ?
+      this.$elem.val() : this.$elem.find('option').first().val();
     this.setActiveValue(value);
     this.setActiveItem(value);
   }
@@ -169,10 +180,11 @@ function Dropdown ($elem, options) {
 
     if (that.placeholder) {
       that.activeLabel = that.placeholder;
-      that.$headerLabel.text(that.activeLabel);
+      that.$headerLabel.text(that.activeLabel)
       that.$header.addClass(`dropdown__header--placeholder`);
     } else {
-      const value = that.$elem.val() ? that.$elem.val() : that.$elem.find('option').first().val();
+      const value = that.$elem.val() ?
+        that.$elem.val() : that.$elem.find('option').first().val();
       that.setActiveValue(value);
       that.setActiveItem(value);
     }
@@ -197,7 +209,13 @@ $.fn.dropdown = function(options) {
       Math.floor((1 + Math.random()) * 0x10000).toString(16) +
       Math.floor((1 + Math.random()) * 0x10000).toString(16) +
       Math.floor((1 + Math.random()) * 0x10000).toString(16);
-    dropdowns[dropdownId] = new Dropdown($(this), options);
+    dropdowns[dropdownId] = new dropdown($(this), options);
     $(this).data('dropdown-guid', dropdownId);
   });
 };
+
+$('.js-dropdown-box').each(function() {
+  $(this).dropdown({
+    prefix: $(this).data('prefix'),
+  });
+});

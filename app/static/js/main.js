@@ -6,5 +6,7 @@ import './src/utils/preloader';
 
 import './src/widgets/popups';
 
+import '../../../dev_assets/js/dropdown';
+
 import './src/app';
 
