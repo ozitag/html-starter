@@ -78,8 +78,8 @@ function dropdown ($elem, options) {
     this.activeLabel = this.activeValue = this.options[value];
     this.$headerLabel.text(this.activeLabel);
 
-    this.$elem.find(`option[selected]`).removeAttr('selected');
-    this.$elem.find(`option[value="${value}"]`).attr('selected', 'selected');
+    this.$elem[0].value = value;
+    this.$elem[0].dispatchEvent(new Event('change'));
   };
 
   this.setActiveItem = function(value) {
@@ -140,17 +140,17 @@ function dropdown ($elem, options) {
 
     this.$dropdown.find('a').on('click', function() {
       const value = $(this).data('value');
-
+      if (!that.options[value]) return;
       that.setActiveValue(value);
       that.setActiveItem(value);
       that.hideDropdown();
-
-      return false;
     });
 
-    this.$elem.on('change', function() {
-      const value = $(this).val();
+    this.$elem.on('change', function({originalEvent: e}) {
+      if (e.target === e.currentTarget && !e.isTrusted) return;
 
+      const value = $(this).val();
+      if (!that.options[value]) return;
       that.setActiveValue(value);
       that.setActiveItem(value);
     });
@@ -180,7 +180,7 @@ function dropdown ($elem, options) {
 
     if (that.placeholder) {
       that.activeLabel = that.placeholder;
-      that.$headerLabel.text(that.activeLabel)
+      that.$headerLabel.text(that.activeLabel);
       that.$header.addClass(`dropdown__header--placeholder`);
     } else {
       const value = that.$elem.val() ?
@@ -213,9 +213,3 @@ $.fn.dropdown = function(options) {
     $(this).data('dropdown-guid', dropdownId);
   });
 };
-
-$('.js-dropdown-box').each(function() {
-  $(this).dropdown({
-    prefix: $(this).data('prefix'),
-  });
-});
