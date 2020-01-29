@@ -213,3 +213,9 @@ $.fn.dropdown = function(options) {
     $(this).data('dropdown-guid', dropdownId);
   });
 };
+
+$('.js-dropdown-box').each(function() {
+  $(this).dropdown({
+    prefix: $(this).data('prefix'),
+  });
+});
