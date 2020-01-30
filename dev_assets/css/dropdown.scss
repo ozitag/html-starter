@@ -81,7 +81,7 @@
   &__scroll {
     min-height: 50px;
     max-height: 230px;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
 
     @include tablet-and-mobile {
