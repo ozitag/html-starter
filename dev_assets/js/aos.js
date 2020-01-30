@@ -8,13 +8,14 @@ class AoS {
       root: null,
       rootMargin: '-100px',
       threshold: 0,
+      delay: 150,
     };
   }
 
   initObserver () {
     this.observer = new IntersectionObserver(entries => {
       entries.forEach(({ intersectionRatio, target }) => {
-        if (intersectionRatio > 0) raf(() => this.animate(target));
+        if (intersectionRatio > 0) this.animate(target);
       });
     }, this.options);
 
