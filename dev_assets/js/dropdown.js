@@ -144,6 +144,8 @@ function dropdown ($elem, options) {
       that.setActiveValue(value);
       that.setActiveItem(value);
       that.hideDropdown();
+
+      return false;
     });
 
     this.$elem.on('change', function({originalEvent: e}) {
