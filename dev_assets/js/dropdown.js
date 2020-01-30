@@ -79,7 +79,7 @@ function dropdown ($elem, options) {
     this.$headerLabel.text(this.activeLabel);
 
     this.$elem[0].value = value;
-    this.$elem[0].dispatchEvent(new Event('change'));
+    this.$elem[0].dispatchEvent(createEvent('change'));
   };
 
   this.setActiveItem = function(value) {

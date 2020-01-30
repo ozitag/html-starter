@@ -1,5 +1,12 @@
 const polyfills = {
   collection: [
+    function perfNow() {
+      if (!window.performance) {
+        window.performance = {};
+        window.performance.now = () => Date.now();
+      }
+    },
+
     function endEvents() {
       window.endEvents = {
         transition: {
@@ -31,6 +38,21 @@ const polyfills = {
           }
         }
       }
+    },
+
+    function createEvent() {
+      window.createEvent = eventType => {
+        let event = null;
+
+        if (typeof Event === 'function') {
+          event = new Event(eventType);
+        } else {
+          event = document.createEvent('Event');
+          event.initEvent(eventType, true, true);
+        }
+
+        return event;
+      };
     },
 
     function passiveEvent() {
