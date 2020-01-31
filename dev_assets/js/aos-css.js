@@ -4,9 +4,9 @@ class AoSCss {
     this.observer = null;
     this.options = {
       root: null,
-      rootMargin: '-100px',
+      rootMargin: '-50px',
       threshold: 0,
-      delay: 100,
+      delay: 150,
     };
 
     raf(() => this.initObserver());
