@@ -149,7 +149,7 @@ function dropdown ($elem, options) {
     });
 
     this.$elem.on('change', function({originalEvent: e}) {
-      if (!e || e.target === e.currentTarget && !e.isTrusted) return;
+      if (e.target === e.currentTarget && !e.isTrusted) return;
 
       const value = $(this).val();
       if (!that.options[value]) return;
