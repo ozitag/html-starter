@@ -37,17 +37,17 @@ function dropdown ($elem, options) {
     this.$headerLabel = $('<span class="dropdown__label">').appendTo(this.$header);
     this.$headerArrow = $(`<span class="dropdown__arrow">`).appendTo(this.$header);
     this.$dropdownScroll = $(`<div class="dropdown__scroll"></div>`).appendTo(this.$dropdownInner);
-    this.$dropdownInner = $(`<div class="dropdown__list"></div>`).appendTo(this.$dropdownScroll);
+    this.$dropdownList = $(`<div class="dropdown__list"></div>`).appendTo(this.$dropdownScroll);
 
     if (this.$elem.find('optgroup').length !== 0) {
       this.$elem.find('optgroup').each(function() {
         const label = $(this).attr('label');
-        that.$dropdownInner.append(`<div class="group-label">${label}</div>`);
+        that.$dropdownList.append(`<div class="group-label">${label}</div>`);
 
         $(this).find('option').each(function() {
           const option = this;
           that.options[$(option).val()] = $(option).text();
-          that.$dropdownInner.append(
+          that.$dropdownList.append(
             `<a class="dropdown__item" data-value="${$(option).val()}">
                <span class="dropdown__item-text">${$(option).text()}</span>
              </a>`,
@@ -58,7 +58,7 @@ function dropdown ($elem, options) {
       this.$elem.find('option').each(function() {
         const option = this;
         that.options[$(option).val()] = $(option).text();
-        that.$dropdownInner.append(
+        that.$dropdownList.append(
           `<a class="dropdown__item" data-value="${$(option).val()}">
              <span class="dropdown__item-text">${$(option).text()}</span>
            </a>`,
@@ -149,7 +149,7 @@ function dropdown ($elem, options) {
     });
 
     this.$elem.on('change', function({originalEvent: e}) {
-      if (e.target === e.currentTarget && !e.isTrusted) return;
+      if (!e || e.target === e.currentTarget && !e.isTrusted) return;
 
       const value = $(this).val();
       if (!that.options[value]) return;
