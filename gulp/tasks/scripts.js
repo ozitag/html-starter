@@ -1,6 +1,6 @@
 module.exports = () => {
-  const sourcePath = `${$.config.sourcePath}/${$.config.staticPath}/js`;
-  const destPath = `${$.config.outputPath}/${$.config.staticPath}/js`;
+  const sourcePath = `${$.config.sourcePath}/${$.config.scriptsPath}`;
+  const destPath = `${$.config.outputPath}/${$.config.scriptsPath}`;
   const outputFileName = $.config.dynamicEntry && $.config.buildMode === 'prod' ?
     '[name]' : '[name].js';
 

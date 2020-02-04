@@ -8,7 +8,7 @@ module.exports = () => {
         .pipe($.gulpPlugin.autoprefixer())
         .pipe($.gulpPlugin.csso())
         .pipe($.gulpPlugin.cssmin())
-        .pipe($.gulp.dest(`${$.config.outputPath}/${$.config.staticPath}/css`))
+        .pipe($.gulp.dest(`${$.config.outputPath}/css`))
         .pipe($.bs.reload({ stream: true }));
     }
 
@@ -20,7 +20,7 @@ module.exports = () => {
       .pipe($.gulpPlugin.autoprefixer())
       .pipe($.gulpPlugin.csso())
       .pipe($.gulpPlugin.sourcemaps.write())
-      .pipe($.gulp.dest(`${$.config.outputPath}/${$.config.staticPath}/css`))
+      .pipe($.gulp.dest(`${$.config.outputPath}/css`))
       .pipe($.gulpPlugin.csslint('./config/.csslintrc'))
       .pipe($.bs.reload({ stream: true }));
   });

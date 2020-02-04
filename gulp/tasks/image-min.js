@@ -14,18 +14,14 @@ module.exports = () => {
       .pipe($.gulp.dest(`${$.config.outputPath}/${$.config.metaPath}`));
   });
 
-  $.gulp.task('imageMin:content', () => {
-    if (!$.config.imageMin) {
-      return $.gulp.src(`${$.config.outputPath}/${$.config.contentPath}/images/**/*.{png,jpg,gif}`)
-        .pipe($.gulp.dest(`${$.config.outputPath}/${$.config.contentPath}/images`));
-    }
-
-    return $.gulp.src(`${$.config.outputPath}/${$.config.contentPath}/images/**/*.{png,jpg,gif}`)
+  $.gulp.task('imageMin:media', () => {
+    if (!$.config.imageMin) return false;
+    return $.gulp.src(`${$.config.outputPath}/${$.config.mediaPath}/${$.config.imagesPath}/**/*.{png,jpg,gif}`)
       .pipe($.gulpPlugin.imagemin({
         interlaced: true,
         progressive: true,
         optimizationLevel: 5,
       }))
-      .pipe($.gulp.dest(`${$.config.outputPath}/${$.config.contentPath}/images`));
+      .pipe($.gulp.dest(`${$.config.outputPath}/${$.config.mediaPath}/${$.config.imagesPath}`));
   });
 };

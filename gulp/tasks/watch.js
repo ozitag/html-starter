@@ -32,19 +32,14 @@ module.exports = () => {
       $.gulp.series('pngSprite'),
     );
     $.gulp.watch([
-        `${$.config.sourcePath}/${$.config.staticPath}/fonts/**/*`,
+        `${$.config.sourcePath}/${$.config.fontsPath}/**/*`,
       ],
-      $.gulp.series('static:fonts'),
+      $.gulp.series('fonts'),
     );
     $.gulp.watch([
-        `${$.config.sourcePath}/${$.config.staticPath}/images/**/*`,
+        `${$.config.sourcePath}/${$.config.mediaPath}/**/*`,
       ],
-      $.gulp.series('static:images'),
-    );
-    $.gulp.watch([
-        `${$.config.sourcePath}/${$.config.contentPath}/**/*`,
-      ],
-      $.gulp.series('content'),
+      $.gulp.series('media'),
     );
   });
 };

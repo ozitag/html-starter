@@ -10,7 +10,7 @@ module.exports = () => {
             },
             layout: 'diagonal',
             dest: './',
-            sprite: `${$.config.outputPath}/${$.config.staticPath}/images/svg/sprite.svg`,
+            sprite: `${$.config.outputPath}/${$.config.mediaPath}/${$.config.imagesPath}/svg/sprite.svg`,
             bust: false,
             render: {
               'scss': {
@@ -45,7 +45,7 @@ module.exports = () => {
             dest: './',
             example: false,
             bust: false,
-            sprite: `${$.config.outputPath}/${$.config.staticPath}/images/svg/spriteInline.svg`,
+            sprite: `${$.config.outputPath}/${$.config.mediaPath}/${$.config.imagesPath}/svg/spriteInline.svg`,
             inline: false,
             render: {
               scss: {
