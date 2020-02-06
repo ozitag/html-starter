@@ -80,6 +80,9 @@
   &:-ms-input-placeholder {
     @content;
   }
+  &::-ms-input-placeholder {
+    @content;
+  }
 }
 
 @mixin rotate($deg: 180deg) {
