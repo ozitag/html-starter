@@ -6,7 +6,7 @@ module.exports = () => {
           inline: false,
           base: 'dist/html/',
           minify: true,
-          css: ['dist/static/css/main.css'],
+          css: ['dist/css/main.css'],
           dimensions: [
             {
               height: 480,
@@ -19,7 +19,7 @@ module.exports = () => {
           ],
         }))
         .on('error', function(err) {
-          $.gulpPlugin.util.log($.gulpPlugin.util.colors.red(err.message));
+          console.error(err);
         })
         .pipe($.gulp.dest($.config.outputPath + '/html/critical'));
     }
