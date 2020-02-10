@@ -1,13 +1,13 @@
 const polyfills = {
   collection: [
-    function perfNow() {
+    function perfNow () {
       if (!window.performance) {
         window.performance = {};
         window.performance.now = () => Date.now();
       }
     },
 
-    function endEvents() {
+    function endEvents () {
       window.endEvents = {
         transition: {
           'transition': 'transitionend',
@@ -40,7 +40,7 @@ const polyfills = {
       }
     },
 
-    function createEvent() {
+    function createEvent () {
       window.createEvent = eventType => {
         let event = null;
 
@@ -55,7 +55,7 @@ const polyfills = {
       };
     },
 
-    function passiveEvent() {
+    function passiveEvent () {
       window.passiveIfSupported = null;
 
       try {
@@ -69,7 +69,7 @@ const polyfills = {
       }
     },
 
-    function customEvent() {
+    function customEvent () {
       if (typeof window.CustomEvent !== 'function') {
         const CustomEvent = (event, params) => {
           const evt = document.createEvent('CustomEvent');
@@ -85,7 +85,7 @@ const polyfills = {
       }
     },
 
-    function raf() {
+    function raf () {
       window.raf =
         window.requestAnimationFrame ||
         window.webkitRequestAnimationFrame ||
@@ -93,20 +93,20 @@ const polyfills = {
         window.msRequestAnimationFrame;
     },
 
-    function raf2x() {
+    function raf2x () {
       window.raf2x = callback => {
         raf(() => raf(callback));
       };
     },
 
-    function matches() {
+    function matches () {
       if (!Element.prototype.matches) {
         Element.prototype.matches = Element.prototype.webkitMatchesSelector ||
           Element.prototype.msMatchesSelector;
       }
     },
 
-    function closest() {
+    function closest () {
       if (!Element.prototype.closest) {
         Element.prototype.closest = function(selector) {
           for (let i = this; i !== document.documentElement; i = i.parentNode) {
@@ -118,7 +118,7 @@ const polyfills = {
       }
     },
 
-    function webpChecker() {
+    function webpChecker () {
       const webp = new Image();
       ['load', 'error'].forEach(eventName => {
         webp.addEventListener(eventName, () => {
@@ -128,10 +128,22 @@ const polyfills = {
       webp.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
     },
 
-    function dataset() {
+    function ieChecker () {
+      const ua = window.navigator.userAgent;
+      const isIE = /MSIE|Trident|Edge\//.test(ua);
+
+      if (isIE) {
+        window.isIE = true;
+        document.body.classList.add('ie');
+      } else {
+        window.isIE = false;
+      }
+    },
+
+    function dataset () {
       if (!document.body.dataset) {
         Object.defineProperty(HTMLElement.prototype, 'dataset', {
-          get() {
+          get () {
             const elem = this;
             const attrs = elem.attributes;
             const dataAttrs = {};
@@ -144,10 +156,10 @@ const polyfills = {
                 });
 
                 Object.defineProperty(dataAttrs, propName, {
-                  get() {
+                  get () {
                     return elem.getAttribute(`data-${attrName}`);
                   },
-                  set(newValue) {
+                  set (newValue) {
                     elem.setAttribute(`data-${attrName}`, newValue);
                   },
                 });
@@ -161,7 +173,7 @@ const polyfills = {
     },
   ],
 
-  init() {
+  init () {
     this.collection.forEach(item => item());
   },
 };
