@@ -2,6 +2,7 @@ import 'react-app-polyfill/stable';
 import 'react-app-polyfill/ie11';
 import './polyfills';
 import 'html5shiv';
+import 'intersection-observer';
 import svgPolyfill from 'svg4everybody';
 import lazySizes from 'lazysizes';
 import 'lazysizes/plugins/respimg/ls.respimg';

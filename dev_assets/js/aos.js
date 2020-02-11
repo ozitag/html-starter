@@ -1,4 +1,4 @@
-import webAnimations from './web-animations';
+import aosAnimations from './aos-animations';
 
 class AoS {
   constructor () {
@@ -6,9 +6,9 @@ class AoS {
     this.observer = null;
     this.options = {
       root: null,
-      rootMargin: '-50px',
+      rootMargin: '0px',
       threshold: 0,
-      delay: 150,
+      delay: 100,
     };
   }
 
@@ -51,7 +51,7 @@ class AoS {
   }
 
   initAnimation (elem, animationName, delays, delayFactor = 1) {
-    const animationConfig = webAnimations[animationName];
+    const animationConfig = aosAnimations[animationName];
     const animationDelay = this.getDelay(elem) ||
       delays.base + (delayFactor > 0 ? delays.group : 0) ||
       animationConfig.delay || 0;
