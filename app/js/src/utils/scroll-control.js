@@ -28,6 +28,7 @@ class ScrollControl {
     }
 
     this.isFixedScroll = false;
+    return true;
   }
 
   hideScrollbar () {
@@ -43,6 +44,7 @@ class ScrollControl {
     document.body.style.paddingRight = ScrollControl._calcScrollbarWidth();
 
     this.isFixedScroll = true;
+    return true;
   }
 
   getScrollbarState () {
