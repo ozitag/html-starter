@@ -7,7 +7,7 @@ class ResizeObserver {
   observeResize () {
     window.addEventListener('resize', () => {
       if (!this.listeners.length) return false;
-      raf(() => this.listeners.forEach(fn => fn()));
+      this.listeners.forEach(fn => fn());
     });
   }
 
