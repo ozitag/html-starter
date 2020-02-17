@@ -37,7 +37,7 @@ $.tasks.forEach((taskPath) => {
 $.gulp.task('dev', done => {
   $.gulp.series('clean',
     $.gulp.parallel('styles', 'scripts'),
-    $.gulp.parallel('hbs', 'svg', 'svgInline', 'pngSprite', 'fonts', 'media'),
+    $.gulp.parallel('hbs', 'pngSprite', 'svgSprite', 'svgInline', 'assets'),
     $.gulp.parallel('prepareHtmlDev'),
     $.gulp.parallel('watch', 'serve'),
   )(done);
@@ -46,9 +46,9 @@ $.gulp.task('dev', done => {
 $.gulp.task('build', done => {
   $.gulp.series('clean',
     $.gulp.parallel('styles', 'scripts'),
-    $.gulp.parallel('hbs', 'svg', 'svgInline', 'pngSprite', 'fonts', 'media'),
+    $.gulp.parallel('hbs', 'pngSprite', 'svgSprite', 'svgInline', 'assets'),
+    $.gulp.parallel('imageMin', 'criticalCss'),
     $.gulp.parallel('prepareHtmlBuild'),
-    $.gulp.parallel('copyMetaFiles'),
-    $.gulp.parallel('imageMin:meta', 'imageMin:media', 'criticalCss'),
+    $.gulp.parallel('meta'),
   )(done);
 });

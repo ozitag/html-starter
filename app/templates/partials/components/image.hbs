@@ -1,5 +1,5 @@
 {{#ifCond fallback-ext 'svg'}}
-  <img src="../{{#if static}}static{{else}}content{{/if}}/images/{{img}}.{{fallback-ext}}"/>
+  <img src="../assets/images/{{img}}.{{fallback-ext}}"/>
 {{else}}
   <picture>
     {{#if mobile-img}}
@@ -14,7 +14,7 @@
 
     <img class="lazy"
          data-sizes="auto"
-         data-original="../{{#if static}}static{{else}}content{{/if}}/images/{{img}}.{{fallback-ext}}"
+         data-original="../assets/images/{{img}}.{{fallback-ext}}"
          src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
          alt="">
   </picture>

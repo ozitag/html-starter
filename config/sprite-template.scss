@@ -1,5 +1,5 @@
 $icons: (
-        sprite: (width: {{spriteWidth}}px, height: {{spriteHeight}}px, pngPath: '../images/svg/sprite.png', svgPath: '../images/svg/sprite.svg'),
+        sprite: (width: {{spriteWidth}}px, height: {{spriteHeight}}px, pngPath: '../assets/images/sprite.png', svgPath: '../assets/images/sprite.svg'),
 {{#shapes}}
 {{base}}: (width: {{width.inner}}px, height: {{height.inner}}px, backgroundX: {{position.absolute.x}}px, backgroundY: {{position.absolute.y}}px),
 {{/shapes}});

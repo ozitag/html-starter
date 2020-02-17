@@ -19,7 +19,7 @@ module.exports = () => {
     $.gulp.watch([
         `${$.config.sourcePath}/${$.config.svgPath}/*.svg`,
       ],
-      $.gulp.series('svg'),
+      $.gulp.series('svgSprite'),
     );
     $.gulp.watch([
         `${$.config.sourcePath}/${$.config.svgInlinePath}/*.svg`,
@@ -32,14 +32,11 @@ module.exports = () => {
       $.gulp.series('pngSprite'),
     );
     $.gulp.watch([
-        `${$.config.sourcePath}/${$.config.fontsPath}/**/*`,
+        `${$.config.sourcePath}/${$.config.assetsPath}/**/*`,
+        `!${$.config.sourcePath}/${$.config.assetsPath}/svg`,
+        `!${$.config.sourcePath}/${$.config.assetsPath}/svg/**/*`,
       ],
-      $.gulp.series('fonts'),
-    );
-    $.gulp.watch([
-        `${$.config.sourcePath}/${$.config.mediaPath}/**/*`,
-      ],
-      $.gulp.series('media'),
+      $.gulp.series('assets'),
     );
   });
 };

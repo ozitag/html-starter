@@ -1,5 +1,5 @@
 module.exports = () => {
-  $.gulp.task('svg', () => {
+  $.gulp.task('svgSprite', () => {
     return $.gulp.src(`${$.config.sourcePath}/${$.config.svgPath}/**/*.svg`)
       .pipe($.gulpPlugin.svgmin())
       .pipe($.gulpPlugin.svgSprite({
@@ -10,7 +10,7 @@ module.exports = () => {
             },
             layout: 'diagonal',
             dest: './',
-            sprite: `${$.config.outputPath}/${$.config.mediaPath}/${$.config.imagesPath}/svg/sprite.svg`,
+            sprite: `${$.config.outputPath}/${$.config.imagesPath}/sprite.svg`,
             bust: false,
             render: {
               'scss': {
@@ -45,7 +45,7 @@ module.exports = () => {
             dest: './',
             example: false,
             bust: false,
-            sprite: `${$.config.outputPath}/${$.config.mediaPath}/${$.config.imagesPath}/svg/spriteInline.svg`,
+            sprite: `${$.config.outputPath}/${$.config.imagesPath}/spriteInline.svg`,
             inline: false,
             render: {
               scss: {
