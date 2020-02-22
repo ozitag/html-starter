@@ -3,7 +3,7 @@ class ScrollControl {
     this.isFixedScroll = false;
     this.lastScrollPos = this._getScrollPos();
 
-    listenScroll(() => {
+    onScroll(() => {
       if (this.isFixedScroll) return false;
       this.lastScrollPos = this._getScrollPos();
     });

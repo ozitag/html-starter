@@ -16,8 +16,8 @@
     }
 
     addEvents () {
-      listenScroll(() => this.checkPos());
-      listenResize(() => {
+      onScroll(() => this.checkPos());
+      onRseize(() => {
         this.elemHeight = StickyProduct.getHeight(this.elem);
         this.parentHeight = StickyProduct.getHeight(this.parent);
       });

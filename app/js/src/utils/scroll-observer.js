@@ -1,24 +1,25 @@
 class ScrollObserver {
-  constructor () {
+  constructor() {
     this.listeners = [];
+    this.ticking = false;
     this.observeScroll();
   }
 
-  observeScroll () {
+  observeScroll() {
     document.addEventListener('scroll', () => {
-      if (!this.listeners.length) return false;
-      this.listeners.forEach(fn => fn());
+      if (this.ticking) return null;
+      this.ticking = true;
+      raf(() => {
+        this.listeners.forEach(fn => fn());
+        this.ticking = false;
+      });
     }, passiveIfSupported);
   }
 
-  listen (callback) {
+  subscribe(callback) {
     this.listeners.push(callback);
-  }
-
-  static init () {
-    return new ScrollObserver();
   }
 }
 
-const scrollObserver = ScrollObserver.init();
-window.listenScroll = (fn) => scrollObserver.listen(fn);
+const scrollObserver = new ScrollObserver();
+window.onScroll = (fn) => scrollObserver.subscribe(fn);

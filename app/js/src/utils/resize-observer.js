@@ -11,14 +11,10 @@ class ResizeObserver {
     });
   }
 
-  listen (callback) {
+  subscribe (callback) {
     this.listeners.push(callback);
-  }
-
-  static init () {
-    return new ResizeObserver();
   }
 }
 
-const resizeObserver = ResizeObserver.init();
-window.listenResize = (fn) => resizeObserver.listen(fn);
+const resizeObserver = new ResizeObserver();
+window.onResize = (fn) => resizeObserver.subscribe(fn);

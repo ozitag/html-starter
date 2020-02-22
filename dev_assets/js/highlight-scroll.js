@@ -9,7 +9,7 @@ class HighlightScroll {
   }
 
   addEvents () {
-    listenScroll(() => {
+    onScroll(() => {
       if (this.busy) return false;
       this.checkInView();
     });
