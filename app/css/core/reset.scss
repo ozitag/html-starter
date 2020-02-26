@@ -36,6 +36,10 @@ input, textarea {
   &::-ms-reveal {
     display: none !important;
   }
+  
+  &::-webkit-input-placeholder {
+    line-height:normal!important;
+  }
 }
 
 figure {
