@@ -57,6 +57,7 @@
     "jquery": "^3.3.1",
     "lazysizes": "^5.2.0-beta1",
     "normalize-scss": "^7.0.1",
+    "picturefill": "^3.0.3",
     "react-app-polyfill": "^1.0.5",
     "svg4everybody": "^2.1.9",
     "swiper": "^5.3.0"
