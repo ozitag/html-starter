@@ -1,81 +1,95 @@
-;(function(global) {
-  'use strict';
+class StickyScroll {
+  constructor () {
+    this.container = null;
+    this.elem = null;
+    this.cache = {
+      containerWidth: null,
+      containerHeight: null,
+      elemHeight: null,
+    };
+    this.options = {
+      fixedOffset: 50,
+    };
+  }
 
-  class StickyProduct {
-    constructor (elem) {
-      this.elem = elem;
-      this.elemHeight = StickyProduct.getHeight(elem);
-      this.parent = elem.parentNode;
-      this.parentHeight = StickyProduct.getHeight(this.parent);
-      this.options = {
-        fixedOffset: 30,
-      };
+  addEvents () {
+    onScroll(this.updatePos.bind(this));
+    onResize(this.updateComponent.bind(this));
+  }
 
-      raf(() => this.checkPos());
-      this.addEvents();
-    }
+  updateComponent() {
+    this.updateCache();
+    this.updatePos();
+  }
 
-    addEvents () {
-      onScroll(() => this.checkPos());
-      onRseize(() => {
-        this.elemHeight = StickyProduct.getHeight(this.elem);
-        this.parentHeight = StickyProduct.getHeight(this.parent);
-      });
-      Layout.addListener(() => this.checkPos());
-    }
+  updatePos () {
+    if (!isMobileLayout()) {
+      const containerCordTop = this.container.getBoundingClientRect().top;
+      const breakpointTop = containerCordTop - this.options.fixedOffset;
 
-    checkPos () {
-      if (!isTabletLayout()) {
-        const parentCordTop = this.parent.getBoundingClientRect().top;
-        const breakpointTop = parentCordTop - this.options.fixedOffset;
+      if (breakpointTop < 0) {
+        const elemOffset = this.cache.containerHeight - this.cache.elemHeight;
+        const breakpointBottom = breakpointTop + elemOffset;
 
-        if (breakpointTop < 0) {
-          const itemOffset = this.parentHeight - this.elemHeight;
-          const breakpointBottom = breakpointTop + itemOffset;
-
-          if (breakpointBottom < 0) {
-            this.changePos('bottom', itemOffset);
-          } else {
-            this.changePos('fix');
-          }
+        if (breakpointBottom < 0) {
+          this.changePos('bottom', elemOffset);
         } else {
-          this.changePos('top');
+          this.changePos('fix');
         }
       } else {
         this.changePos('top');
       }
-    }
-
-    changePos (pos, itemOffset) {
-      switch (pos) {
-        case 'fix':
-          this.elem.classList.add('fixed');
-          this.elem.style.transform = `translate3d(0, ${this.options.fixedOffset}px, 0)`;
-          break;
-        case 'top':
-          this.elem.classList.remove('fixed');
-          this.elem.style.transform = ``;
-          break;
-        case 'bottom':
-          this.elem.classList.remove('fixed');
-          this.elem.style.transform = `translate3d(0, ${itemOffset}px, 0)`;
-      }
-    }
-
-    static getHeight (elem) {
-      return elem.offsetHeight;
-    }
-
-    static init () {
-      const elems = document.querySelectorAll('[data-pos="sticky"]');
-      if (!elems.length) return false;
-      elems.forEach(elem => {
-        if ('init' in elem.dataset) return false;
-        elem.setAttribute('data-init', true);
-        return new StickyProduct(elem);
-      });
+    } else {
+      this.changePos('top');
     }
   }
 
-  global.StickyProduct = StickyProduct;
-})(window);
+  changePos (pos, itemOffset) {
+    switch (pos) {
+      case 'fix':
+        this.elem.style.cssText = `
+          transform: translate3d(0, ${this.options.fixedOffset}px, 0);
+          width: ${this.cache.containerWidth}px;
+          position: fixed;
+          top: 0;
+        `;
+        break;
+      case 'bottom':
+        this.elem.style.cssText = `
+          transform: translate3d(0, ${itemOffset}px, 0);
+        `;
+        break;
+      case 'top':
+        this.elem.style.cssText = ``;
+    }
+  }
+
+  updateCache () {
+    this.cache.containerWidth = this.container.offsetWidth;
+    this.cache.containerHeight = this.container.offsetHeight;
+    this.cache.elemHeight = this.elem.offsetHeight;
+  }
+
+  init (container, elem) {
+    this.container = container;
+    this.elem = elem;
+
+    raf(this.updateComponent.bind(this));
+    this.addEvents();
+  }
+
+  static createInstance (container) {
+    if ('stickyScroll' in container.dataset) return null;
+
+    const elem = container.querySelector('[data-sticky]');
+    if (!elem) return null;
+
+    container.setAttribute('data-sticky-scroll', true);
+    const stickyScroll = new StickyScroll();
+    stickyScroll.init(container, elem);
+
+    return stickyScroll;
+  }
+}
+
+window.initStickyScroll = StickyScroll.createInstance;

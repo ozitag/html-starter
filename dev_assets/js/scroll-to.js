@@ -1,24 +1,31 @@
 class ScrollTo {
-  static startAnimation (targetId) {
-    const duration = 1200,
-      targetElem = document.querySelector(`[data-id="${targetId}"]`),
-      startPos = getScrollPos(),
-      targetPos = targetElem.getBoundingClientRect().top,
-      startTime = performance.now();
+  static startAnimation (targetElem) {
+    let targetPos = targetElem.getBoundingClientRect().top;
+
+    if ('scrollBehavior' in document.body.style) {
+      ScrollTo.respond(targetElem);
+      return scrollBy({
+        top: targetPos,
+        behavior: 'smooth',
+      });
+    }
+
+    const duration = 1200;
+    const startPos = getScrollPos();
+    const startTime = performance.now();
 
     raf(animation);
 
     function animation (currentTime) {
-      const
-        elapsedTime = currentTime - startTime,
-        nextStep = ScrollTo.timingFunction(
-          elapsedTime, startPos, targetPos, duration,
-        );
+      const elapsedTime = currentTime - startTime;
+      const nextStep = ScrollTo.timingFunction(
+        elapsedTime, startPos, targetPos, duration,
+      );
 
       scrollTo(0, nextStep);
 
       if (elapsedTime < duration) raf(animation);
-      else ScrollTo.respond(targetId);
+      else ScrollTo.respond(targetElem);
     }
   }
 
@@ -27,10 +34,11 @@ class ScrollTo {
     return c / 2 * ((t -= 2) * t * t + 2) + b;
   }
 
-  static respond (targetId) {
-    const event = new CustomEvent('endScroll', {
-      detail: { targetId },
-    });
+  static respond (targetElem) {
+    const event = new CustomEvent(
+      'endScroll', {
+        detail: { targetElem },
+      });
 
     document.dispatchEvent(event);
   }

@@ -14,7 +14,7 @@ class AutoplayVideo {
     });
   }
 
-  static playAutoplay(container, action) {
+  static playAutoplay (container, action) {
     const videos = container.querySelectorAll('video[autoplay]');
     switch (action) {
       case 'play':
@@ -35,8 +35,12 @@ class AutoplayVideo {
       this.observer.observe(video);
     });
   }
+
+  static createInstance () {
+    new AutoplayVideo();
+  }
 }
 
-const autoplayVideo = new AutoplayVideo();
+const autoplayVideo = AutoplayVideo.createInstance();
 window.initAutoplayVideo = autoplayVideo.init.bind(autoplayVideo);
 window.playAutoplay = AutoplayVideo.playAutoplay;
