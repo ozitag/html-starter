@@ -1,3 +1,4 @@
+import './src/utils/helpers';
 import './src/utils/layout';
 import './src/utils/scroll-observer';
 import './src/utils/resize-observer';
