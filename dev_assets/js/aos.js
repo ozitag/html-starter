@@ -29,7 +29,7 @@ class AoS {
   checkPos(block) {
     const cords = block.getBoundingClientRect();
     if (cords.bottom < 0) {
-      Aos.exclude(block);
+      AoS.exclude(block);
       return false;
     }
     return true;
@@ -40,7 +40,7 @@ class AoS {
       const { target, currentTarget } = e;
       if (target !== currentTarget) return false;
       target.removeEventListener(endEvents.animation, handler);
-      Aos.exclude(target);
+      AoS.exclude(target);
     };
     block.addEventListener(endEvents.animation, handler);
     block.classList.add('aos-animate');

@@ -1,10 +1,9 @@
 {{#if no-webp}}{{else}}
   <source {{#if media}}media="({{media}})" {{/if}}
-      srcset="../assets/images/{{img}}.webp,
-          ../assets/images/{{img}}@2x.webp 2x"
-      type="image/webp">
+      data-srcset="../assets/images/{{img}}.webp,
+          ../assets/images/{{img}}@2x.webp 2x" type="image/webp">
 {{/if}}
 <source {{#if media}}media="({{media}})" {{/if}}
-    srcset="../assets/images/{{img}}.{{fallback-ext}},
+    data-srcset="../assets/images/{{img}}.{{fallback-ext}},
           ../assets/images/{{img}}@2x.{{fallback-ext}} 2x"
   {{#ifCond fallback-ext 'jpg'}} type="image/jpeg" {{else}} type="image/png" {{/ifCond}}>
