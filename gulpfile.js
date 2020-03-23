@@ -52,3 +52,13 @@ $.gulp.task('build', done => {
     $.gulp.parallel('meta'),
   )(done);
 });
+
+$.gulp.task('build-prod', done => {
+  $.gulp.series('clean',
+    $.gulp.parallel('styles', 'scripts'),
+    $.gulp.parallel('hbs-prod', 'svg', 'svgInline', 'pngSprite', 'static:fonts', 'static:images'),
+    $.gulp.parallel('prepareHtmlProd'),
+    $.gulp.parallel('content'),
+    $.gulp.parallel('imageMin:content', 'criticalCss'),
+  )(done);
+});
