@@ -16,14 +16,28 @@ module.exports = () => {
 
             jQuery(this).attr('src', src);
           });
+          jQuery('meta').each(function() {
+            let content = jQuery(this).attr('content');
+
+            if (content !== undefined && content.substr(0, 2) === './') {
+              content = content.substr(1);
+            }
+
+            if (content !== undefined && content.substr(0, 3) === '../') {
+              content = content.substr(2);
+            }
+
+            jQuery(this).attr('content', content);
+          });
           jQuery('link').each(function() {
             let href = jQuery(this).attr('href');
 
-            if (href.substr(0, 2) === './') {
-              let linkDir = href.substr(2, href.lastIndexOf('.'));
-              href = `/${linkDir}/index.html`;
-            } else if (href.substr(0, 3) === '../') {
-              href = `/${href.substr(3)}`;
+            if (href !== undefined && href.substr(0, 2) === './') {
+              href = href.substr(1);
+            }
+
+            if (href !== undefined && href.substr(0, 3) === '../') {
+              href = href.substr(2);
             }
 
             jQuery(this).attr('href', href);
