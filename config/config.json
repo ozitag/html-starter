@@ -1,6 +1,7 @@
 {
   "appName": "APP_NAME",
   "siteName": "Site name",
+  "siteUrl": "#",
   "tmpPath": ".tmp",
   "sourcePath": "app",
   "destPath": "dist",

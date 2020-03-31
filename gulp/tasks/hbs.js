@@ -32,7 +32,10 @@ module.exports = () => {
     const data = JSON.parse(
       $.fs.readFileSync(`${$.config.sourcePath}/${$.config.dbPath}/db.json`),
     );
-    const db = { ...initParams, ...data };
+    const links = JSON.parse(
+      $.fs.readFileSync(`${$.config.sourcePath}/${$.config.dbPath}/links.json`),
+    );
+    const db = { ...initParams, ...data, ...links };
 
     return $.gulp.src([
       `${$.config.sourcePath}/${$.config.hbsPath}/**/*.hbs`,

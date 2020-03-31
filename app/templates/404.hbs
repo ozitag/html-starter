@@ -3,5 +3,12 @@
 {{> layout/header }}
 
 <h1>404</h1>
+<ul>
+  {{> ui/link-example href=links.home.url label=links.home.label}}
+  {{> ui/link-example href=links.about.url label=links.about.label}}
+  {{> ui/link-example href=links.about-inner.url label=links.about-inner.label}}
+  {{> ui/link-example href=links.404.url label=links.404.label current=true}}
+  {{> ui/link-example href=links.ui-toolkit.url label=links.ui-toolkit.label}}
+</ul>
 
 {{> layout/footer }}

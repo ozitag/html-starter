@@ -56,9 +56,9 @@ $.gulp.task('build', done => {
 $.gulp.task('build-prod', done => {
   $.gulp.series('clean',
     $.gulp.parallel('styles', 'scripts'),
-    $.gulp.parallel('hbs-prod', 'svg', 'svgInline', 'pngSprite', 'static:fonts', 'static:images'),
+    $.gulp.parallel('hbs-prod', 'svgSprite', 'svgInline', 'pngSprite', 'assets'),
     $.gulp.parallel('prepareHtmlProd'),
-    $.gulp.parallel('sitemap', 'content'),
-    $.gulp.parallel('imageMin:content', 'criticalCss'),
+    $.gulp.parallel('sitemap'),
+    $.gulp.parallel('imageMin', 'criticalCss'),
   )(done);
 });
