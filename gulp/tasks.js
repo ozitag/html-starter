@@ -16,4 +16,5 @@ module.exports = [
   './gulp/tasks/deploy',
   './gulp/tasks/critical-css',
   './gulp/tasks/watch',
+  './gulp/tasks/sitemap',
 ];
