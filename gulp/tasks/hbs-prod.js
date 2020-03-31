@@ -39,6 +39,7 @@ module.exports = () => {
 
     return $.gulp.src([
       `${$.config.sourcePath}/${$.config.hbsPath}/**/*.hbs`,
+      `!${$.config.sourcePath}/${$.config.hbsPath}/ui-toolkit.hbs`,
       `!${$.config.sourcePath}/${$.config.hbsPath}/layouts/**/*.hbs`,
       `!${$.config.sourcePath}/${$.config.hbsPath}/partials/**/*.hbs`,
     ])
