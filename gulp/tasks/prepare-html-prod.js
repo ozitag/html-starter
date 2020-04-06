@@ -49,10 +49,8 @@ module.exports = () => {
               let linkPath = href.substring(checkPosition, href.lastIndexOf('.'));
 
               if (linkPath.match('--')) {
-                let folder = linkPath.substr(linkPath, linkPath.lastIndexOf('--'));
-                let subfolder = linkPath.substr(linkPath.lastIndexOf('--') + 2, linkPath.length);
-                let tmpLinkPath = `${folder}/${subfolder}`;
-                return href = `/${tmpLinkPath}/`;
+                let filePath = linkPath.split('--').join('/');
+                return href = `/${filePath}/`;
               } else if (!linkPath.match('home')) {
                 return href = `/${linkPath}/`;
               } else {

@@ -12,9 +12,13 @@
       "label": "About",
       "url":"./about.html"
     },
-    "about-inner": {
-      "label": "About Inner",
-      "url":"./about--inner.html"
+    "about-level-2": {
+      "label": "About Level 2",
+      "url":"./about--level2.html"
+    },
+    "about-level-3": {
+      "label": "About Level 3",
+      "url":"./about--level2--level3.html"
     },
     "ui-toolkit": {
       "label": "UI Toolkit",
