@@ -22,7 +22,7 @@ $.sass.compiler = require('dart-sass');
 $.config = JSON.parse(
   $.fs.readFileSync('./config/config.json'),
 );
-$.config.buildMode = $.argv._[0] === 'build' ? 'prod' : 'dev';
+$.config.buildMode = $.argv._[0].match(/build|build-prod/) ? 'prod' : 'dev';
 $.config.outputPath = $.config.buildMode === 'prod' ?
   $.config.destPath : $.config.tmpPath;
 
