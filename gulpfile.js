@@ -22,7 +22,7 @@ $.sass.compiler = require('dart-sass');
 $.config = JSON.parse(
   $.fs.readFileSync('./config/config.json'),
 );
-$.config.buildMode = $.argv._[0] === 'build' ? 'prod' : 'dev';
+$.config.buildMode = $.argv._[0].match(/build|build-prod/) ? 'prod' : 'dev';
 $.config.outputPath = $.config.buildMode === 'prod' ?
   $.config.destPath : $.config.tmpPath;
 
@@ -50,5 +50,15 @@ $.gulp.task('build', done => {
     $.gulp.parallel('imageMin', 'criticalCss'),
     $.gulp.parallel('prepareHtmlBuild'),
     $.gulp.parallel('meta'),
+  )(done);
+});
+
+$.gulp.task('build-prod', done => {
+  $.gulp.series('clean',
+    $.gulp.parallel('styles', 'scripts'),
+    $.gulp.parallel('hbs-prod', 'svgSprite', 'svgInline', 'pngSprite', 'assets'),
+    $.gulp.parallel('prepareHtmlProd'),
+    $.gulp.parallel('sitemap'),
+    $.gulp.parallel('imageMin', 'criticalCss'),
   )(done);
 });

@@ -8,7 +8,8 @@
   },
   "scripts": {
     "dev": "gulp dev",
-    "build": "gulp build"
+    "build": "gulp build",
+    "prod": "gulp build-prod"
   },
   "keywords": [],
   "author": "vvvgorbunov & co.",
@@ -52,6 +53,8 @@
     "critical": "^1.3.4",
     "gulp-cli": "^2.2.0",
     "gulp-debug": "^4.0.0",
+    "gulp-save": "^1.3.0",
+    "gulp-sitemap": "^7.6.0",
     "html5shiv": "^3.7.3",
     "intersection-observer": "^0.7.0",
     "jquery": "^3.3.1",

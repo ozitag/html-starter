@@ -28,7 +28,7 @@ module.exports = () => {
     },
   };
 
-  $.gulp.task('hbs', () => {
+  $.gulp.task('hbs-prod', () => {
     const data = JSON.parse(
       $.fs.readFileSync(`${$.config.sourcePath}/${$.config.dbPath}/db.json`),
     );
@@ -39,21 +39,32 @@ module.exports = () => {
 
     return $.gulp.src([
       `${$.config.sourcePath}/${$.config.hbsPath}/**/*.hbs`,
+      `!${$.config.sourcePath}/${$.config.hbsPath}/ui-toolkit.hbs`,
       `!${$.config.sourcePath}/${$.config.hbsPath}/layouts/**/*.hbs`,
       `!${$.config.sourcePath}/${$.config.hbsPath}/partials/**/*.hbs`,
     ])
-    .pipe($.gulpPlugin.plumber())
-    .pipe($.gulpPlugin.compileHandlebars(db, options))
-    .pipe($.gulpPlugin.rename(path => {
-      path.extname = '.html';
-    }))
-    .pipe($.gulpPlugin.trim())
-    .pipe($.gulp.dest(`${$.config.outputPath}/html`))
-    .pipe($.bs.reload({ stream: true }),
-    );
+      .pipe($.gulpPlugin.plumber())
+      .pipe($.gulpPlugin.compileHandlebars(db, options))
+      .pipe($.gulpPlugin.rename(path => {
+        let string = path.basename;
+
+        if (string.match('--')) {
+          let newPath = string.split('--').join('/');
+          path.dirname = `${newPath}`;
+        } else if (!string.match('home')) {
+          path.dirname = string;
+        }
+
+        path.basename = "index";
+        path.extname = '.html';
+      }))
+      .pipe($.gulpPlugin.trim())
+      .pipe($.gulp.dest(`${$.config.outputPath}`))
+      .pipe($.bs.reload({ stream: true }),
+      );
   });
 
-  function randomIntNum (min, max) {
+  function randomIntNum(min, max) {
     let rand = min - 0.5 + Math.random() * (max - min + 1);
     return Math.round(rand);
   }

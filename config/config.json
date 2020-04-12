@@ -1,10 +1,11 @@
 {
   "appName": "APP_NAME",
   "siteName": "Site name",
-  "tmpPath": ".tmp",
+  "siteUrl": "#",
+  "metaPath": ".meta",
   "sourcePath": "app",
   "destPath": "dist",
-  "metaPath": ".meta",
+  "tmpPath": ".tmp",
   "dbPath": "db",
   "assetsPath": "assets",
   "fontsPath": "assets/fonts",
