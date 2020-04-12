@@ -1,11 +1,10 @@
 module.exports = () => {
   $.gulp.task('prepareHtmlDev', () => {
     const templates = $.fs.readdirSync(
-      $.config.sourcePath + '/' + $.config.hbsPath,
-    );
+      $.config.sourcePath + '/' + $.config.hbsPath + '/pages',
+    ).concat(['ui-toolkit.hbs']);
 
     let liList = '';
-
     for (let i = 0; i < templates.length; i++) {
       const templateName = templates[i].substring(
         templates[i],
@@ -24,7 +23,7 @@ module.exports = () => {
 
       const file = $.fs
         .readFileSync(
-          `${$.config.sourcePath}/${$.config.hbsPath}/${templateName}.hbs`,
+          `${$.config.sourcePath}/${$.config.hbsPath}/${templateName === 'ui-toolkit' ? templateName : 'pages/' + templateName}.hbs`,
         )
         .toString();
 
@@ -35,37 +34,42 @@ module.exports = () => {
       }
     }
 
-    const templateFile = $.fs
-      .readFileSync('./config/template-dev.html')
-      .toString();
 
-    $.fs.writeFileSync(
-      `${$.config.outputPath}/html/index.html`,
-      templateFile
-        .replace('{{items}}', liList)
-        .replace(/{{siteName}}/g, $.config.siteName),
-    );
+      const templateFile = $.fs
+        .readFileSync('./config/template-dev.html')
+        .toString();
 
-    return $.gulp.src(`${$.config.outputPath}/html/**/*.html`)
-      .pipe($.gulpPlugin.cheerio({
-        run: jQuery => {
-          jQuery('script').each(function() {
-            var src = jQuery(this).attr('src');
-            if (
-              src !== undefined &&
-              src.substr(0, 5) !== 'http:' &&
-              src.substr(0, 6) !== 'https:'
-            ) {
-              src = '../' + $.config.scriptsPath + '/' + src;
-            }
+      $.fs.writeFileSync(
 
-            jQuery(this).attr('src', src);
-          });
-        },
-        parserOptions: {
-          decodeEntities: false,
-        },
-      }))
-      .pipe($.gulp.dest($.config.outputPath + '/html/'));
-  });
-};
+    `${$.config.outputPath}/html/index.html`
+  ,
+        templateFile
+          .replace('{{items}}', liList)
+          .replace(/{{siteName}}/g, $.config.siteName),
+      );
+
+      return $.gulp.src(
+    `${$.config.outputPath}/html/**/*.html`,
+  )
+        .pipe($.gulpPlugin.cheerio({
+          run: jQuery => {
+            jQuery('script').each(function() {
+              var src = jQuery(this).attr('src');
+              if (
+                src !== undefined &&
+                src.substr(0, 5) !== 'http:' &&
+                src.substr(0, 6) !== 'https:'
+              ) {
+                src = '../' + $.config.scriptsPath + '/' + src;
+              }
+
+              jQuery(this).attr('src', src);
+            });
+          },
+          parserOptions: {
+            decodeEntities: false,
+          },
+        }))
+        .pipe($.gulp.dest($.config.outputPath + '/html/'));
+    });
+  };

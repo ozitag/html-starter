@@ -38,10 +38,7 @@ module.exports = () => {
     const db = { ...initParams, ...data, ...links };
 
     return $.gulp.src([
-      `${$.config.sourcePath}/${$.config.hbsPath}/**/*.hbs`,
-      `!${$.config.sourcePath}/${$.config.hbsPath}/ui-toolkit.hbs`,
-      `!${$.config.sourcePath}/${$.config.hbsPath}/layouts/**/*.hbs`,
-      `!${$.config.sourcePath}/${$.config.hbsPath}/partials/**/*.hbs`,
+      `${$.config.sourcePath}/${$.config.hbsPath}/pages/*.hbs`
     ])
       .pipe($.gulpPlugin.plumber())
       .pipe($.gulpPlugin.compileHandlebars(db, options))

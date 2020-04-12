@@ -4,8 +4,8 @@ module.exports = () => {
       `${$.config.sourcePath}/${$.config.metaPath}`,
     );
     const templates = $.fs.readdirSync(
-      `${$.config.sourcePath}/${$.config.hbsPath}`,
-    );
+      `${$.config.sourcePath}/${$.config.hbsPath}/pages`,
+    ).concat([`ui-toolkit.hbs`]);
     const tmpFiles = $.fs.readdirSync(
       `${$.config.outputPath}/html`,
     );
@@ -32,7 +32,7 @@ module.exports = () => {
 
       const file = $.fs
         .readFileSync(
-          `${$.config.sourcePath}/${$.config.hbsPath}/${templateName}.hbs`,
+          `${$.config.sourcePath}/${$.config.hbsPath}/${templateName === 'ui-toolkit' ? '' : 'pages'}/${templateName}.hbs`,
         )
         .toString();
 
@@ -94,8 +94,8 @@ module.exports = () => {
           <div class="page-default__item_title"><div>
             ${pageName}
           </div></div>
-          <a class="page-default__item js-hover-item" 
-            title="${pageName}" href="${desc}.html" 
+          <a class="page-default__item js-hover-item"
+            title="${pageName}" href="${desc}.html"
             style="background:url('../${$.config.metaPath}/${files[j]}')no-repeat top center;"></a>
         </div>
     `;
