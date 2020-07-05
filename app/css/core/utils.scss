@@ -29,3 +29,53 @@
   clip: rect(0 0 0 0);
   overflow: hidden;
 }
+
+._mobile {
+  &-visible {
+    @include no-mobile {
+      display: none !important;
+    }
+  }
+
+  &-hidden {
+    @include mobile {
+      display: none !important;
+    }
+  }
+}
+
+._smallTablet {
+  &-visible {
+    display: none;
+
+    @include smallTablet-and-mobile {
+      display: block !important;
+    }
+  }
+
+  &-hidden {
+    display: block;
+
+    @include smallTablet-and-mobile {
+      display: none;
+    }
+  }
+}
+
+._tablet {
+  &-visible {
+    display: none;
+
+    @include tablet-and-mobile {
+      display: block !important;
+    }
+  }
+
+  &-hidden {
+    display: block;
+
+    @include tablet-and-mobile {
+      display: none;
+    }
+  }
+}

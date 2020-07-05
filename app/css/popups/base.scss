@@ -33,7 +33,7 @@
   overflow: hidden;
   z-index: 2;
 
-  @includetablet-and-mobile {
+  @include tablet-and-mobile {
     max-width: 95%;
     min-width: 0;
   }
