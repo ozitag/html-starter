@@ -17,7 +17,7 @@
   "hbsPath": "templates",
   "stylesPath": "css",
   "scriptsPath": "js",
-  "dynamicEntry": true,
+  "dynamicEntry": false,
   "jsMin": true,
   "cssMin": true,
   "imageMin": true,
