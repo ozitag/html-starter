@@ -1,15 +1,15 @@
 module.exports = () => {
   $.gulp.task('prepareHtmlBuild', () => {
     // Получаем исходные данные
-    const files = $.fs.readdirSync(`${$.config.sourcePath}/${$.config.metaPath}`);
+    const files = $.fs.readdirSync(`${$.config.sourcePath}/${$.config.metaPath}`); // имена файлов в meta
     const templates = $.fs.readdirSync(`${$.config.sourcePath}/${$.config.hbsPath}/pages`)
-      .concat([`ui-toolkit.hbs`]);
-    const tmpFiles = $.fs.readdirSync(`${$.config.outputPath}/html`);
+      .concat([`ui-toolkit.hbs`]); // имена шаблонов страниц
+    const tmpFiles = $.fs.readdirSync(`${$.config.outputPath}/html`); // имена созданных html страниц
 
     let html = '';
     const pageNames = {};
 
-    // Получаем имена созданных страниц
+    // Получаем имена из шаблонов
     for (let i = 0; i < templates.length; i++) {
       const templateName = templates[i].substring(
         templates[i],

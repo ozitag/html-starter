@@ -1,6 +1,5 @@
 module.exports = () => {
   $.gulp.task('prepareHtmlProd', () => {
-
     return $.gulp.src(`${$.config.outputPath}/**/*.html`)
       .pipe($.gulpPlugin.cheerio({
         run: jQuery => {
