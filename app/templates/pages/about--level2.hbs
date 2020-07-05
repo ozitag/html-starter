@@ -12,16 +12,17 @@
 }}
 
 {{> layout/header }}
+<div class="container">
+  <h1>About Level 2</h1>
 
-<h1>About Level 2</h1>
-
-<ul>
-  {{> ui/link-example href=links.home.url label=links.home.label }}
-  {{> ui/link-example href=links.about.url label=links.about.label}}
-  {{> ui/link-example href=links.about-level-2.url label=links.about-level-2.label current=true}}
-  {{> ui/link-example href=links.about-level-3.url label=links.about-level-3.label}}
-  {{> ui/link-example href=links.404.url label=links.404.label}}
-  {{> ui/link-example href=links.ui-toolkit.url label=links.ui-toolkit.label}}
-</ul>
+  <ul>
+    {{> ui/link-example href=links.home.url label=links.home.label }}
+    {{> ui/link-example href=links.about.url label=links.about.label}}
+    {{> ui/link-example href=links.about-level-2.url label=links.about-level-2.label current=true}}
+    {{> ui/link-example href=links.about-level-3.url label=links.about-level-3.label}}
+    {{> ui/link-example href=links.404.url label=links.404.label}}
+    {{> ui/link-example href=links.ui-toolkit.url label=links.ui-toolkit.label}}
+  </ul>
+</div>
 
 {{> layout/footer }}

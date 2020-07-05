@@ -4,14 +4,8 @@
 
 @import '~swiper/css/swiper';
 
-@import 'layout/page';
-@import 'layout/header';
-@import 'layout/footer';
-
+@import 'layout/index';
 @import "popups/base";
+@import 'components/index';
 
-@import 'components/buttons';
-@import 'components/form';
-@import 'components/radio';
-@import 'components/checkbox';
-@import 'components/loader';
+@import "blocks/index";
