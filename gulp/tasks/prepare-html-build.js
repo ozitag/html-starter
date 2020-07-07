@@ -1,97 +1,80 @@
 module.exports = () => {
   $.gulp.task('prepareHtmlBuild', () => {
-    // Получаем исходные данные
-    const files = $.fs.readdirSync(`${$.config.sourcePath}/${$.config.metaPath}`); // имена файлов в meta
+    // Формируем исходные данные
+    const metaImages = $.fs.readdirSync(`${$.config.sourcePath}/${$.config.metaPath}`); // имена файлов в папке meta
     const templates = $.fs.readdirSync(`${$.config.sourcePath}/${$.config.hbsPath}/pages`)
       .concat([`ui-toolkit.hbs`]); // имена шаблонов страниц
-    const tmpFiles = $.fs.readdirSync(`${$.config.outputPath}/html`); // имена созданных html страниц
+    const outputHtmlFiles = $.fs.readdirSync(`${$.config.outputPath}/html`); // имена созданных html страниц
 
-    let html = '';
-    const pageNames = {};
+    const html = []; // массив для генерируемых элементов
+    const pageNames = {}; // имена страниц
 
     // Получаем имена из шаблонов
-    for (let i = 0; i < templates.length; i++) {
-      const templateName = templates[i].substring(
-        templates[i],
-        templates[i].lastIndexOf('.'),
-      );
+    for (const template of templates) {
+      if (template === 'index' || template === '.DS_Store') continue;
 
-      if (templates[i] === 'ajax' ||
-          templates[i] === 'layouts' ||
-          templates[i] === 'partials' ||
-          templates[i] === 'index' ||
-          templates[i] === '.DS_Store') continue;
+      const templateName = template.substring(0, template.lastIndexOf('.')); // получаем имя шаблона
+      console.log('templateName: ',templateName);
 
       const file = $.fs
         .readFileSync(
           `${$.config.sourcePath}/${$.config.hbsPath}/${templateName === 'ui-toolkit' ? '' : 'pages'}/${templateName}.hbs`,
         )
-        .toString();
+        .toString(); // получаем шаблон
 
-      if (file.indexOf('{{!') !== -1) pageNames[templateName] = file.substring(3, file.indexOf('}}'));
-    }
-
-    // Вставляем заголовки созданных страниц
-    for (let k = 0; k < tmpFiles.length; k++) {
-      const tpmTemplateName = tmpFiles[k].substring(
-        tmpFiles[k],
-        tmpFiles[k].lastIndexOf('.'),
-      );
-
-      if (tpmTemplateName === 'index' || tpmTemplateName === '') continue;
+      if (file.indexOf('{{!') !== -1) pageNames[templateName] = file.substring(3, file.indexOf('}}')); // генерируем значение поля
 
       const hbs = $.fs
-        .readFileSync(`${$.config.outputPath}/html/${tpmTemplateName}.html`)
+        .readFileSync(`${$.config.outputPath}/html/${templateName}.html`)
         .toString();
 
-      $.fs.writeFileSync(`${$.config.outputPath}/html/${tpmTemplateName}.html`,
+      $.fs.writeFileSync(`${$.config.outputPath}/html/${templateName}.html`,
         hbs.replace(
           /<title>(.*)/,
-          '<title>' + pageNames[tpmTemplateName] + '</title>'),
+          '<title>' + pageNames[templateName] + '</title>'),
       );
+      console.log('pageNames[templateName]: ',pageNames[templateName]);
     }
 
     // Получаем meta-изображения и подготавливаем превью для страниц
-    for (let j = 0; j < files.length; j++) {
-      if (files[j] === '.gitkeep' || files[j] === '.DS_Store') continue;
+    for (const meta of metaImages) {
+      if (meta === '.gitkeep' || meta === '.DS_Store') continue;
 
-      const desc = files[j].substring(
-        files[j].indexOf('_') + 1,
-        files[j].lastIndexOf('.'),
+      const desc = meta.substring(
+        meta.indexOf('_') + 1,
+        meta.lastIndexOf('.'),
       );
       const pageName = pageNames[desc];
 
-      html += `
+      html.push(`
         <li class="main__item">
           <article class="main__article">
             <h2 class="main__title">${pageName}</h2>
             <a class="main__link js-hover-item" href="${desc}.html" title="${pageName}" aria-label="Link to internal page.">
-                <img class="main__image" src="../${$.config.metaPath}/${files[j]}" alt="Preview image." loading="lazy">
-             </a>
+              <img class="main__image" src="../${$.config.metaPath}/${meta}" alt="Preview image." loading="lazy">
+            </a>
           </article>
-        </li>
-        `;
+        </li>`); // генерируем строку в цикле
     }
 
-    // Подставляем полученные данные и генерируем билд
-    const templateFile = $.fs
-      .readFileSync('./config/template-build.html')
-      .toString();
-    const date = new Date();
+    // получаем время сборки
+    const sourceTemplate = $.fs.readFileSync('./config/template-build.html').toString(); // берем шаблон и приводим его к строке
     const options = {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
-      timezone: 'UTC',
+      timezone: 'Europe/Moscow',
       hour: 'numeric',
       minute: 'numeric',
     };
+
+    // Подставляем полученные данные и генерируем билд
     $.fs.writeFileSync(
       `${$.config.outputPath}/html/index.html`,
-      templateFile
-        .replace('{{items}}', html)
+      sourceTemplate
+        .replace('{{items}}', `${html.join('')}`)
         .replace(/{{siteName}}/g, $.config.siteName)
-        .replace('{{buildDate}}', date.toLocaleString('ru', options)),
+        .replace('{{buildDate}}', new Date().toLocaleString('ru', options)),
     );
 
     return $.gulp.src(`${$.config.outputPath}/html/**/*.html`)
@@ -99,20 +82,15 @@ module.exports = () => {
         run: jQuery => {
           jQuery('script').each(function() {
             let src = jQuery(this).attr('src');
-            if (
-              src !== undefined &&
+
+            if (src !== undefined &&
               src.substr(0, 5) !== 'http:' &&
-              src.substr(0, 6) !== 'https:'
-            ) {
-              src = `../${$.config.scriptsPath}/${src}`;
-            }
+              src.substr(0, 6) !== 'https:') src = `../${$.config.scriptsPath}/${src}`;
 
             jQuery(this).attr('src', src);
           });
         },
-        parserOptions: {
-          decodeEntities: false,
-        },
+        parserOptions: { decodeEntities: false, },
       }))
       .pipe($.gulp.dest(`${$.config.outputPath}/html/`))
       .pipe($.bs.reload({ stream: true }));
