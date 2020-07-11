@@ -1,69 +1,55 @@
 <!DOCTYPE html>
-<html lang="ru">
-  <head>
-    <meta charset="utf-8" />
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="format-detection" content="telephone=no"/>
 
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
-    <meta name="format-detection" content="telephone=no" />
+  <link rel="shortcut icon" sizes="32x32" href="../assets/images/meta/favicon.ico" type="image/x-icon"/>
+  <link rel="apple-touch-icon" href="../assets/images/meta/apple-touch-icon.png"/>
 
-    <link
-      rel="shortcut icon"
-      sizes="32x32"
-      href="/static/images/meta/favicon.ico"
-      type="image/x-icon"
-    />
-    <link
-      rel="apple-touch-icon"
-      href="/static/images/meta/apple-touch-icon.png"
-    />
+  <title>{{siteName}}</title>
 
-    <title>{{siteName}}</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-    <style>
-      * {
-        box-sizing: border-box;
-      }
+    body {
+      margin: 0;
+      background-color: #f5f5f5;
+      font-family: 'Arial', sans-serif;
+    }
 
-      body {
-        margin: 0;
-        background-color: #f5f5f5;
-        font-family: 'Arial', sans-serif;
-      }
+    .container {
+      padding: 20px;
+    }
 
-      .container {
-        padding: 20px;
-      }
+    .list li {
+      margin-bottom: 10px;
+    }
 
-      .list li {
-        margin-bottom: 10px;
-      }
+    .list li:last-child {
+      margin-bottom: 0;
+    }
 
-      .list li:last-child {
-        margin-bottom: 0;
-      }
+    .list a {
+      color: #000000;
+    }
 
-      .list a {
-        color: #000000;
-      }
+    .list a:hover {
+      text-decoration: none;
+    }
+  </style>
+</head>
 
-      .list a:hover {
-        text-decoration: none;
-      }
-    </style>
-  </head>
+<body class="page">
+<div class="container">
+  <h1 class="title">{{siteName}}</h1>
 
-  <body>
-    <div class="page">
-      <div class="container">
-        <h1 class="title">{{siteName}}</h1>
-
-        <ul class="list">
-          {{items}}
-        </ul>
-      </div>
-    </div>
-  </body>
+  <ul class="list">
+    {{items}}
+  </ul>
+</div>
+</body>
 </html>

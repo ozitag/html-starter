@@ -12,14 +12,13 @@ module.exports = () => {
     helpers: {
       times: function(n, block) {
         let accum = '';
-        for (let i = 0; i < n; ++i)
-          accum += block.fn(i + 1);
+        for (let i = 0; i < n; ++i) accum += block.fn(i + 1);
+
         return accum;
       },
       ifCond: function(v1, v2, options) {
-        if (v1 === v2) {
-          return options.fn(this);
-        }
+        if (v1 === v2) return options.fn(this);
+
         return options.inverse(this);
       },
       concat: function(...args) {
