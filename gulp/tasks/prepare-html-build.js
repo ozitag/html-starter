@@ -7,31 +7,31 @@ module.exports = () => {
     const html = []; // Массив генерируемых элементов
     const pages = {}; // Объект, содержащий информацию о всех страницах
 
-    // Обрабатываем meta-изображения
+    // Наполняем объект Pages информацией из meta-изображений
     for (const meta of metaImages) {
       if (meta === '.gitkeep' || meta === '.DS_Store') continue;
 
-      // получаем имя шаблона/страницы
+      // Получаем имя шаблона/страницы
       const pageName = meta.substring(
         meta.indexOf('_') + 1,
         meta.lastIndexOf('.'),
       );
 
-      // создаем объект с названием страницы и присваиваем ему изображение
+      // Создаем объект с названием страницы и присваиваем ему изображение
       pages[pageName] = {};
       pages[pageName].image = meta;
     }
 
-    // Дополняем объект Pages информацией из шаблонов
+    // Наполняем объект Pages информацией из шаблонов
     for (const template of templates) {
       if (template === 'index' || template === '.DS_Store') continue;
 
-      // получаем имя шаблона/страницы
+      // Получаем имя шаблона/страницы
       const pageName = template.substring(0, template.lastIndexOf('.'));
       // Проверяем, существует ли данная страница
       if (pages[pageName] === undefined) pages[pageName] = {};
 
-      // получаем доступ к локальному файлу текущей страницы
+      // Получаем доступ к локальному файлу текущей страницы
       const file = $.fs
         .readFileSync(
           `${$.config.sourcePath}/${$.config.hbsPath}/${pageName === 'ui-toolkit' ? '' : 'pages'}/${pageName}.hbs`)
@@ -67,7 +67,7 @@ module.exports = () => {
     }
 
     const sourceTemplate = $.fs.readFileSync('./config/template-build.html').toString();
-    // получаем время сборки
+    // Получаем время сборки
     const options = {
       year: 'numeric',
       month: 'long',
