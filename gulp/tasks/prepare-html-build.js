@@ -1,64 +1,73 @@
 module.exports = () => {
   $.gulp.task('prepareHtmlBuild', () => {
-    // Формируем исходные данные
-    const metaImages = $.fs.readdirSync(`${$.config.sourcePath}/${$.config.metaPath}`); // имена файлов в папке meta
-    const templates = $.fs.readdirSync(`${$.config.sourcePath}/${$.config.hbsPath}/pages`)
-      .concat([`ui-toolkit.hbs`]); // имена шаблонов страниц
-    const outputHtmlFiles = $.fs.readdirSync(`${$.config.outputPath}/html`); // имена созданных html страниц
+    // Исходные данные
+    const metaImages = $.fs.readdirSync(`${$.config.sourcePath}/${$.config.metaPath}`); // изображения
+    const templates = $.fs.readdirSync(`${$.config.sourcePath}/${$.config.hbsPath}/pages`).concat([`ui-toolkit.hbs`]); // шаблоны страниц
 
-    const html = []; // массив для генерируемых элементов
-    const pageNames = {}; // имена страниц
+    const html = []; // Массив генерируемых элементов
+    const pages = {}; // Объект, содержащий информацию о всех страницах
 
-    // Получаем имена из шаблонов
-    for (const template of templates) {
-      if (template === 'index' || template === '.DS_Store') continue;
-
-      const templateName = template.substring(0, template.lastIndexOf('.')); // получаем имя шаблона
-      console.log('templateName: ',templateName);
-
-      const file = $.fs
-        .readFileSync(
-          `${$.config.sourcePath}/${$.config.hbsPath}/${templateName === 'ui-toolkit' ? '' : 'pages'}/${templateName}.hbs`,
-        )
-        .toString(); // получаем шаблон
-
-      if (file.indexOf('{{!') !== -1) pageNames[templateName] = file.substring(3, file.indexOf('}}')); // генерируем значение поля
-
-      const hbs = $.fs
-        .readFileSync(`${$.config.outputPath}/html/${templateName}.html`)
-        .toString();
-
-      $.fs.writeFileSync(`${$.config.outputPath}/html/${templateName}.html`,
-        hbs.replace(
-          /<title>(.*)/,
-          '<title>' + pageNames[templateName] + '</title>'),
-      );
-      console.log('pageNames[templateName]: ',pageNames[templateName]);
-    }
-
-    // Получаем meta-изображения и подготавливаем превью для страниц
+    // Обрабатываем meta-изображения
     for (const meta of metaImages) {
       if (meta === '.gitkeep' || meta === '.DS_Store') continue;
 
-      const desc = meta.substring(
+      // получаем имя шаблона/страницы
+      const pageName = meta.substring(
         meta.indexOf('_') + 1,
         meta.lastIndexOf('.'),
       );
-      const pageName = pageNames[desc];
 
+      // создаем объект с названием страницы и присваиваем ему изображение
+      pages[pageName] = {};
+      pages[pageName].image = meta;
+    }
+
+    // Дополняем объект Pages информацией из шаблонов
+    for (const template of templates) {
+      if (template === 'index' || template === '.DS_Store') continue;
+
+      // получаем имя шаблона/страницы
+      const pageName = template.substring(0, template.lastIndexOf('.'));
+      // Проверяем, существует ли данная страница
+      if (pages[pageName] === undefined) pages[pageName] = {};
+
+      // получаем доступ к локальному файлу текущей страницы
+      const file = $.fs
+        .readFileSync(
+          `${$.config.sourcePath}/${$.config.hbsPath}/${pageName === 'ui-toolkit' ? '' : 'pages'}/${pageName}.hbs`)
+        .toString();
+
+      // Получаем заголовок страницы
+      if (file.indexOf('{{!') !== -1) pages[pageName].title = file.substring(3, file.indexOf('}}'));
+
+      // Получаем данные готовой страницы
+      const hbs = $.fs
+        .readFileSync(`${$.config.outputPath}/html/${pageName}.html`)
+        .toString();
+
+      // Если заголовка в странице нет, то заменяем его на полученный из шаблона
+      if (hbs.indexOf(`<title></title>`) !== -1) {
+        $.fs.writeFileSync(`${$.config.outputPath}/html/${pageName}.html`,
+          hbs.replace(
+            /<title>(.*)/,
+            '<title>' + pages[pageName] + '</title>'),
+        );
+      }
+
+      // Генерируем данные в наш массив со страницами
       html.push(`
         <li class="main__item">
           <article class="main__article">
-            <h2 class="main__title">${pageName}</h2>
-            <a class="main__link js-hover-item" href="${desc}.html" title="${pageName}" aria-label="Link to internal page.">
-              <img class="main__image" src="../${$.config.metaPath}/${meta}" alt="Preview image." loading="lazy">
+            <h2 class="main__title">${pages[pageName].title}</h2>
+            <a class="main__link js-hover-item" href="${pageName}.html" title="${pages[pageName].title}" aria-label="Link to ${pages[pageName].title} page.">
+              <img class="${pages[pageName].image === undefined ? 'main__image main__image--default' : 'main__image'}" src="../${$.config.metaPath}/${pages[pageName].image === undefined ? 'default.svg' : pages[pageName].image}" alt="Preview image." loading="lazy">
             </a>
           </article>
-        </li>`); // генерируем строку в цикле
+        </li>`);
     }
 
+    const sourceTemplate = $.fs.readFileSync('./config/template-build.html').toString();
     // получаем время сборки
-    const sourceTemplate = $.fs.readFileSync('./config/template-build.html').toString(); // берем шаблон и приводим его к строке
     const options = {
       year: 'numeric',
       month: 'long',
@@ -90,7 +99,7 @@ module.exports = () => {
             jQuery(this).attr('src', src);
           });
         },
-        parserOptions: { decodeEntities: false, },
+        parserOptions: { decodeEntities: false },
       }))
       .pipe($.gulp.dest(`${$.config.outputPath}/html/`))
       .pipe($.bs.reload({ stream: true }));
