@@ -59,7 +59,7 @@ module.exports = () => {
         <li class="main__item">
           <article class="main__article">
             <h2 class="main__title">${pages[pageName].title}</h2>
-            <a class="main__link js-hover-item" href="${pageName}.html" title="${pages[pageName].title}" aria-label="Link to ${pages[pageName].title} page.">
+            <a class="main__link" href="${pageName}.html" title="${pages[pageName].title}" aria-label="Link to ${pages[pageName].title} page.">
               <img class="${pages[pageName].image === undefined ? 'main__image main__image--default' : 'main__image'}" src="../${$.config.metaPath}/${pages[pageName].image === undefined ? 'default.svg' : pages[pageName].image}" alt="Preview image." loading="lazy">
             </a>
           </article>
