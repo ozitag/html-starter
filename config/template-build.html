@@ -167,6 +167,13 @@
       max-width: calc((100% / 4) - 30px);
     }
 
+    .main__article {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+
     .main__title {
       display: block;
       margin-bottom: 10px;
@@ -206,11 +213,19 @@
       height: 100%;
       -o-object-fit: cover;
       object-fit: cover;
-      -o-object-position: center;
-      object-position: center;
+      -o-object-position: top;
+      object-position: top;
       transition: all 350ms ease;
       -webkit-transition: all var(--transition-fn);
       transition: all var(--transition-fn);
+    }
+
+    .main__image--default {
+      -o-object-fit: contain;
+      -o-object-position: center;
+      object-position: center;
+      object-fit: contain;
+      background-color: #fff;
     }
 
     .main__link:hover,
@@ -243,6 +258,7 @@
         -webkit-box-flex: 1;
         -ms-flex: 1 1 calc((100% / 3) - 30px);
         flex: 1 1 calc((100% / 3) - 30px);
+        max-width: calc((100% / 3) - 30px);
       }
 
       .header__hover-block {
@@ -255,6 +271,7 @@
         -webkit-box-flex: 1;
         -ms-flex: 1 1 100%;
         flex: 1 1 100%;
+        max-width: 100%;
       }
     }
   </style>
@@ -265,7 +282,7 @@
 <div class="page__inner">
   <header class="header js-header">
     <div class="container">
-      <h1 class="header__title">Build template</h1>
+      <h1 class="header__title">{{siteName}}</h1>
       <span class="header__hover-block js-hover-block"></span>
     </div>
   </header>
@@ -292,6 +309,7 @@
 
     hoverItems.forEach(item => {
       item.addEventListener('mouseenter', () => hoverBlock.textContent = item.title, true);
+      item.addEventListener('mouseout', () => hoverBlock.textContent = ``);
     });
   });
 </script>

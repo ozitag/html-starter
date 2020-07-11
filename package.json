@@ -1,6 +1,6 @@
 {
   "name": "html-starter",
-  "version": "1.1.3",
+  "version": "1.2.0",
   "description": "html-starter",
   "main": "gulpfile.js",
   "engines": {
@@ -12,7 +12,7 @@
     "prod": "gulp build-prod"
   },
   "keywords": [],
-  "author": "vvvgorbunov & co.",
+  "author": "OZiTag Ltd.",
   "license": "ISC",
   "homepage": "https://gitlab.com/ozitag/internal-projects/html-starter/blob/master/README.md",
   "devDependencies": {

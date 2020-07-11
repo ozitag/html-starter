@@ -91,7 +91,7 @@ module.exports = () => {
     )).pipe($.gulp.dest(`${destPath}/`)).pipe($.bs.reload({ stream: true })).on('end', done);
   });
 
-  function getDynamicEntry () {
+  function getDynamicEntry() {
     return $.glob.sync(
       `${sourcePath}/**/*`, {
         ignore: [`${sourcePath}/main.js`, `${sourcePath}/polyfills.js`],
@@ -104,7 +104,7 @@ module.exports = () => {
     }, {});
   }
 
-  function getStaticEntry () {
+  function getStaticEntry() {
     return {
       vendors: $.path.resolve(`${sourcePath}/vendors.js`),
       main: $.path.resolve(`${sourcePath}/main.js`),
