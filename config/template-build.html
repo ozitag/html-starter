@@ -190,7 +190,7 @@
 
     .main__link {
       position: relative;
-      display: block;
+      display: flex;
       padding-top: 115%;
       line-height: normal;
       text-decoration: none;
@@ -203,12 +203,13 @@
       transition: all 350ms linear;
     }
 
-    .main__image {
+    .main__link img {
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
+      flex: auto;
       width: 100%;
       height: 100%;
       -o-object-fit: cover;
@@ -220,12 +221,18 @@
       transition: all var(--transition-fn);
     }
 
-    .main__image--default {
+    .main__link--default {
+      background-color: #fff;
+    }
+
+    .main__link--default img {
+      display: block;
+      max-width: 75%;
+      margin: 0 auto;
       -o-object-fit: contain;
       -o-object-position: center;
       object-position: center;
       object-fit: contain;
-      background-color: #fff;
     }
 
     .main__link:hover,
@@ -283,13 +290,13 @@
   <header class="header js-header">
     <div class="container">
       <h1 class="header__title">{{siteName}}</h1>
-      <span class="header__hover-block js-hover-block"></span>
+      <span class="header__hover-block js-content-paste"></span>
     </div>
   </header>
 
   <main class="main">
     <div class="container">
-      <ul class="main__list">
+      <ul class="main__list js-content-hover">
         {{items}}
       </ul>
     </div>
@@ -304,12 +311,31 @@
 
 <script defer>
   document.addEventListener('DOMContentLoaded', () => {
-    const hoverItems = document.querySelectorAll('.js-hover-item');
-    const hoverBlock = document.querySelector('.js-hover-block');
+    const getContent = document.querySelector('.js-content-hover');
+    const setContent = document.querySelector('.js-content-paste');
+    let currentElem = null;
 
-    hoverItems.forEach(item => {
-      item.addEventListener('mouseenter', () => hoverBlock.textContent = item.title, true);
-      item.addEventListener('mouseout', () => hoverBlock.textContent = ``);
+    getContent.addEventListener('mouseover', e => {
+      if (currentElem) return;
+      let target = e.target.closest('a');
+
+      if (!target) return;
+      if (!getContent.contains(target)) return;
+
+      currentElem = target;
+      setContent.textContent = target.title;
+    });
+    getContent.addEventListener('mouseout', e => {
+      if (!currentElem) return;
+      let relatedTarget = e.relatedTarget;
+
+      while (relatedTarget) {
+        if (relatedTarget === currentElem) return;
+        relatedTarget = relatedTarget.parentNode;
+      }
+
+      setContent.textContent = '';
+      currentElem = null;
     });
   });
 </script>

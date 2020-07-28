@@ -59,12 +59,23 @@ module.exports = () => {
         <li class="main__item">
           <article class="main__article">
             <h2 class="main__title">${pages[pageName].title}</h2>
-            <a class="main__link js-hover-item" href="${pageName}.html" title="${pages[pageName].title}" aria-label="Link to ${pages[pageName].title} page.">
-              <img class="${pages[pageName].image === undefined ? 'main__image main__image--default' : 'main__image'}" src="../${$.config.metaPath}/${pages[pageName].image === undefined ? 'default.svg' : pages[pageName].image}" alt="Preview image." loading="lazy">
+            <a class="${pages[pageName].image === undefined ? 'main__link main__link--default' : 'main__link'}" href="${pageName}.html" title="${pages[pageName].title}" aria-label="Link to ${pages[pageName].title} page.">
+              <img src="../${$.config.metaPath}/${pages[pageName].image === undefined ? '1000_default.svg' : pages[pageName].image}" alt="Preview image." loading="lazy">
             </a>
           </article>
         </li>`);
     }
+
+    // Сортируем полученный массив элементов в соотсветствии с порядком, заданным в мета-изображениях
+    html.sort((a,b) => {
+      let tempA = a.substring(a.lastIndexOf('.meta/') + 6, a.lastIndexOf('_'));
+      let tempB = b.substring(b.lastIndexOf('.meta/') + 6, b.lastIndexOf('_'));
+
+      tempA.charAt(0) === '0'? tempA = tempA.slice(1) : tempA;
+      tempB.charAt(0) === '0'? tempB = tempB.slice(1) : tempB;
+
+      return Number(tempA) - Number(tempB);
+    })
 
     const sourceTemplate = $.fs.readFileSync('./config/template-build.html').toString();
     // Получаем время сборки
