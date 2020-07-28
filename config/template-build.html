@@ -190,7 +190,7 @@
 
     .main__link {
       position: relative;
-      display: block;
+      display: flex;
       padding-top: 115%;
       line-height: normal;
       text-decoration: none;
@@ -203,12 +203,13 @@
       transition: all 350ms linear;
     }
 
-    .main__image {
+    .main__link img {
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
+      flex: auto;
       width: 100%;
       height: 100%;
       -o-object-fit: cover;
@@ -220,12 +221,18 @@
       transition: all var(--transition-fn);
     }
 
-    .main__image--default {
+    .main__link--default {
+      background-color: #fff;
+    }
+
+    .main__link--default img {
+      display: block;
+      max-width: 75%;
+      margin: 0 auto;
       -o-object-fit: contain;
       -o-object-position: center;
       object-position: center;
       object-fit: contain;
-      background-color: #fff;
     }
 
     .main__link:hover,
