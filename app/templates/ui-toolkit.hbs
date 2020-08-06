@@ -11,54 +11,20 @@
     <aside class="ui__aside">
       <nav class="aside__inner">
         <ul class="aside__nav">
-          <li>
-            <button class="_link" data-id="ui-colors">Colors</button>
-          </li>
-          <li>
-            <button class="_link" data-id="ui-buttons">Buttons</button>
-          </li>
-          <li>
-            <button class="_link" data-id="ui-form">Forms</button>
-          </li>
-          <li>
-            <button class="_link" data-id="ui-checkbox-radio">Checkbox / Radio</button>
-          </li>
-          <li>
-            <button class="_link" data-id="ui-popups">Popups</button>
-          </li>
-          <li>
-            <button class="_link" data-id="ui-loader">Loader</button>
-          </li>
-          <li>
-            <button class="_link" data-id="ui-loader-empty">Loader Empty</button>
-          </li>
+          {{#each ui.navigation}}
+            <li>
+              <button class="_link" data-id="{{this.id}}">{{this.label}}</button>
+            </li>
+          {{/each}}
         </ul>
       </nav>
     </aside>
     <section class="ui__main">
-      {{> ui-kit/core/section-start title='Colors' id='ui-colors' }}
-      {{> ui-kit/colors }}
-      {{> ui-kit/core/section-end}}
-
-      {{> ui-kit/core/section-start title='Buttons' id='ui-buttons'}}
-      {{> ui-kit/buttons }}
-      {{> ui-kit/core/section-end}}
-
-      {{> ui-kit/core/section-start title='Inputs' id='ui-forms'}}
-      {{> ui-kit/inputs }}
-      {{> ui-kit/core/section-end}}
-
-      {{> ui-kit/core/section-start title='Checkbox / Radio' id='ui-checkbox-radio'}}
-      {{> ui-kit/checkbox-radio }}
-      {{> ui-kit/core/section-end}}
-
-      {{> ui-kit/core/section-start title='Popups' id='ui-popups'}}
-      {{> ui-kit/popups }}
-      {{> ui-kit/core/section-end}}
-
-      {{> ui-kit/core/section-start title='Loader' id='ui-popups'}}
-      {{> ui-kit/loaders }}
-      {{> ui-kit/core/section-end}}
+      {{#each ui.navigation}}
+        {{#> ui-kit/core/section title=this.title id=this.id}}
+          {{> ui-kit/core/content content=content}}
+        {{/ui-kit/core/section}}
+      {{/each}}
     </section>
   </main>
 </section>

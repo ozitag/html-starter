@@ -1,3 +1,10 @@
+@mixin ui-font-title($size: 20px, $weight: bold, $lh: 1.3) {
+  color: $color-gray-100;
+  font-size: $size;
+  font-weight: $weight;
+  line-height: $lh;
+}
+
 .ui {
   max-width: 1250px;
   margin: 0 auto;
@@ -26,7 +33,7 @@
   &__container {
     flex-shrink: 0;
     flex: 1;
-    background-color: #fcfcfc;
+    //background-color: #fcfcfc;
     margin: 0 -10px;
     display: flex;
 
@@ -87,43 +94,75 @@
   }
 
   &__colors {
-    display: flex;
-    flex-wrap: wrap;
+    table {
+      width: 100%;
+      border-collapse: collapse;
 
-    ._item {
-      margin-right: 10px;
-      margin-bottom: 20px;
+      td {
+        padding: 14px 0;
 
-      &:last-child {
-        margin-right: 0;
+        &:nth-child(1) {
+          width: 40%;
+        }
+
+        &:nth-child(2) {
+          width: 30%;
+        }
+
+        &:nth-child(3) {
+          width: 15%;
+        }
       }
 
-      > span:first-child {
-        display: block;
-        text-align: center;
-        font-size: 11px;
-        line-height: 100%;
-        font-style: italic;
-        margin-bottom: 5px;
+      thead {
+        td {
+          color: transparentize($color-gray-100, 0.2);
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 1;
+        }
+      }
+
+      tbody {
+        td {
+          font-size: 15px;
+          line-height: 1;
+          border-top: 1px solid $color-gray-40;
+          border-bottom: 1px solid $color-gray-40;
+        }
+      }
+
+      span {
+        $ui-t-value: 28px;
+        display: inline-block;
+        width: $ui-t-value;
+        height: $ui-t-value;
+        border-radius: 50%;
+        //box-shadow: 0 0 1px transparentize($color-black, 0.75);
+
+        &.dark {
+          border: 1px solid $color-gray-100;
+        }
+      }
+
+      caption {
+        padding: 10px 0;
+        color: $color-gray-100;
+        @include ui-font-title();
+        text-align: left;
+      }
+
+      + table {
+        margin-top: 35px;
       }
     }
+  }
+}
 
-    ._demo {
-      width: 140px;
-      height: 140px;
-      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
-      border-radius: 12px;
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      font-weight: 500;
-      text-align: center;
-
-      ._dark {
-        color: #000;
-      }
+.ui {
+  &-section {
+    &__title {
+      @include ui-font-title(30px);
     }
   }
 }

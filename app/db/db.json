@@ -1,3 +1,103 @@
 {
-
+  "ui": {
+    "navigation": [
+      {
+        "title": "Colors",
+        "label": "Colors",
+        "id": "ui-colors",
+        "content": "colors",
+        "colors": {
+          "main": [
+            {
+              "rgb-color": "rgb(0, 66, 255)",
+              "color": "#1B74FD",
+              "name": "$color-primary"
+            },
+            {
+              "rgb-color": "rgb(253, 88, 0)",
+              "color": "#FD5800",
+              "name": "$color-secondary"
+            }
+          ],
+          "gray": [
+            {
+              "name": "$color-gray-100",
+              "color": "#363C4E",
+              "rgb-color": "rgb(54, 60, 78)"
+            },
+            {
+              "name": "$color-gray-80",
+              "color": "#7C8292",
+              "rgb-color": "rgb(113, 119, 132)"
+            },
+            {
+              "name": "$color-gray-60",
+              "color": "#C7CBD6",
+              "rgb-color": "rgb(173, 179, 197)"
+            },
+            {
+              "name": "$color-gray-40",
+              "color": "#DFE3EC",
+              "rgb-color": "rgb(223, 227, 236)"
+            },
+            {
+              "name": "$color-gray-20",
+              "color": "#F2F4F8",
+              "rgb-color": "rgb(242, 244, 248)",
+              "dark": true
+            },
+            {
+              "name": "$color-gray-10",
+              "color": "#F6F9FF",
+              "rgb-color": "rgb(246, 249, 255)",
+              "dark": true
+            }
+          ],
+          "apex": [
+            {
+              "rgb-color": "rgb(0, 0, 0)",
+              "color": "#000000",
+              "name": "$color-black"
+            },
+            {
+              "name": "$color-white",
+              "color": "#FFFFFF",
+              "rgb-color": "rgb(255, 255, 255)",
+              "dark": true
+            }
+          ]
+        }
+      },
+      {
+        "title": "Buttons",
+        "label": "Buttons",
+        "id": "ui-buttons",
+        "content": "buttons"
+      },
+      {
+        "title": "Inputs",
+        "label": "Inputs",
+        "id": "ui-inputs",
+        "content": "inputs"
+      },
+      {
+        "title": "Checkbox / Radio",
+        "label": "Checkbox / Radio",
+        "id": "ui-checkbox-radio",
+        "content": "checkbox-radio"
+      },
+      {
+        "title": "Popups",
+        "label": "Popups",
+        "id": "ui-popups",
+        "content": "popups"
+      },
+      {
+        "title": "Loaders",
+        "label": "Loaders",
+        "id": "ui-loaders",
+        "content": "loaders"
+      }
+    ]
+  }
 }

@@ -1,0 +1,21 @@
+<table>
+  <caption>{{table-title}}</caption>
+  <thead>
+  <tr>
+    <td>Name</td>
+    <td>Color</td>
+    <td>HEX</td>
+    <td>RGB</td>
+  </tr>
+  </thead>
+  <tbody>
+  {{#each table-content}}
+    <tr>
+      <td>{{this.name}}</td>
+      <td><span class="{{#if dark}}dark{{/if}}" style="background-color: {{this.color}};"></span></td>
+      <td>{{this.color}}</td>
+      <td>{{this.rgb-color}}</td>
+    </tr>
+  {{/each}}
+  </tbody>
+</table>
