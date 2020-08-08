@@ -14,9 +14,19 @@
               "name": "$color-primary"
             },
             {
+              "rgb-color": "rgb(0, 183, 99)",
+              "color": "#00B763",
+              "name": "$color-primary-variant"
+            },
+            {
               "rgb-color": "rgb(253, 88, 0)",
               "color": "#FD5800",
               "name": "$color-secondary"
+            },
+            {
+              "rgb-color": "rgb(255, 0, 0)",
+              "color": "#FF0000",
+              "name": "$color-error"
             }
           ],
           "gray": [

@@ -1,0 +1,13 @@
+@function get-array-key($arr, $key) {
+  @return nth(nth($arr, $key), 2); // Получаю значение ключа
+}
+
+@function get-array-value($arr, $key) {
+  @return nth(nth($arr, $key), 1); // Получаю имя ключа
+}
+
+@function index-to-key($mapArray, $index-key) {
+  $keys: map-keys($mapArray); // Список всех ключей в итерируемом массиве
+
+  @return nth($keys, $index-key);
+}

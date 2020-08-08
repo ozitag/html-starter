@@ -1,131 +1,131 @@
 class Popup {
-    constructor(nodeElement) {
-        this.eventHandlers = {};
+  constructor(nodeElement) {
+    this.eventHandlers = {};
 
-        this.nodeElement = nodeElement;
-        this.id = nodeElement.dataset.popupId;
+    this.nodeElement = nodeElement;
+    this.id = nodeElement.dataset.popupId;
 
-        this.init();
+    this.init();
+  }
+
+  on(event, callback) {
+    if (!(event in this.eventHandlers)) {
+      this.eventHandlers[event] = [];
     }
 
-    on(event, callback) {
-        if (!(event in this.eventHandlers)) {
-            this.eventHandlers[event] = [];
-        }
-
-        for (let i = 0; i < this.eventHandlers[event]; i++) {
-            if (this.eventHandlers[event][i] === callback) {
-                return;
-            }
-        }
-
-        this.eventHandlers[event].push(callback);
+    for (let i = 0; i < this.eventHandlers[event]; i++) {
+      if (this.eventHandlers[event][i] === callback) {
+        return;
+      }
     }
 
-    trigger(event, eventParams = {}) {
-        if (!(event in this.eventHandlers)) {
-            return;
-        }
+    this.eventHandlers[event].push(callback);
+  }
 
-        this.eventHandlers[event].forEach(handler => handler(eventParams));
+  trigger(event, eventParams = {}) {
+    if (!(event in this.eventHandlers)) {
+      return;
     }
 
-    getId() {
-        return this.id;
-    }
+    this.eventHandlers[event].forEach(handler => handler(eventParams));
+  }
 
-    onCloseClick(e) {
-        e.preventDefault();
-        this.close();
-    }
+  getId() {
+    return this.id;
+  }
 
-    init() {
-        this.nodeElement.querySelectorAll('.js-popup-close')
-            .forEach(element => element.addEventListener('click', this.onCloseClick.bind(this)));
-    }
+  onCloseClick(e) {
+    e.preventDefault();
+    this.close();
+  }
 
-    close() {
-        this.nodeElement.classList.remove('opened');
+  init() {
+    this.nodeElement.querySelectorAll('.js-popup-close')
+      .forEach(element => element.addEventListener('click', this.onCloseClick.bind(this)));
+  }
 
-        setTimeout(() => {
-            this.trigger('closed');
-        }, 0);
-    }
+  close() {
+    this.nodeElement.classList.remove('opened');
 
-    open() {
-        this.nodeElement.classList.add('opened');
-    }
+    setTimeout(() => {
+      this.trigger('closed');
+    }, 0);
+  }
+
+  open() {
+    this.nodeElement.classList.add('opened');
+  }
 }
 
 
 class PopupManager {
-    constructor() {
-        this.popups = {};
+  constructor() {
+    this.popups = {};
 
-        this.visiblePopup = null;
+    this.visiblePopup = null;
+  }
+
+  add(nodeElement) {
+    const popup = new Popup(nodeElement);
+
+    this.popups[popup.getId()] = popup;
+
+    document.querySelectorAll('.js-popup-open[data-popup]').forEach(button => {
+      button.addEventListener('click', e => {
+        e.preventDefault();
+        this.open(e.target.dataset.popup);
+      });
+    });
+  }
+
+  open(popupId) {
+    if (!(popupId in this.popups)) {
+      throw new Error('popup not found');
     }
 
-    add(nodeElement) {
-        const popup = new Popup(nodeElement);
+    this.createOverlay();
 
-        this.popups[popup.getId()] = popup;
+    const popup = this.popups[popupId];
+    popup.open();
 
-        document.querySelectorAll('.js-popup-open[data-popup]').forEach(button => {
-            button.addEventListener('click', e => {
-                e.preventDefault();
-                this.open(e.target.dataset.popup);
-            });
-        });
+    this.visiblePopup = popup;
+
+    popup.on('closed', () => this.hideOverlay());
+  }
+
+  createOverlay() {
+    if (this.overlay) {
+      this.overlay.classList.remove('not-visible');
+      return;
     }
 
-    open(popupId) {
-        if (!(popupId in this.popups)) {
-            throw new Error('popup not found');
-        }
+    this.overlay = document.createElement('div');
+    this.overlay.classList.add('popup-overlay');
+    document.body.appendChild(this.overlay);
 
-        this.createOverlay();
+    this.overlay.addEventListener('click', () => {
+      if (this.visiblePopup) {
+        this.visiblePopup.close();
+      }
+    });
+  }
 
-        const popup = this.popups[popupId];
-        popup.open();
+  hideOverlay() {
+    if (this.overlay) {
+      const overlay = this.overlay;
+      this.overlay.classList.add('not-visible');
 
-        this.visiblePopup = popup;
+      this.overlay.addEventListener('transitionend', () => {
+        overlay.remove();
+      });
 
-        popup.on('closed', () => this.hideOverlay());
+      this.overlay = null;
     }
+  }
 
-    createOverlay() {
-        if (this.overlay) {
-            this.overlay.classList.remove('not-visible');
-            return;
-        }
-
-        this.overlay = document.createElement('div');
-        this.overlay.classList.add('popup-overlay');
-        document.body.appendChild(this.overlay);
-
-        this.overlay.addEventListener('click', () => {
-            if (this.visiblePopup) {
-                this.visiblePopup.close();
-            }
-        });
-    }
-
-    hideOverlay() {
-        if (this.overlay) {
-            const overlay = this.overlay;
-            this.overlay.classList.add('not-visible');
-
-            this.overlay.addEventListener('transitionend', () => {
-                overlay.remove();
-            });
-
-            this.overlay = null;
-        }
-    }
-
-    init() {
-        document.querySelectorAll('.js-popup').forEach(popup => manager.add(popup));
-    }
+  init() {
+    document.querySelectorAll('.js-popup').forEach(popup => manager.add(popup));
+  }
 }
 
 const manager = new PopupManager();
