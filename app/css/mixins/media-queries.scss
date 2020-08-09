@@ -23,9 +23,10 @@
         Например, `(tablet, up)` => `@media (min-width: 1024px)`.
 
       - only: устанавливает ограничение в +1 один шаг от текущего значения ключа. Например:
-        (tablet, only) => `@media (min-width: 1024px) and (max-width: 1260px)`.
+        (tabletSmall, only) => `@media (min-width: 768px) and (max-width: 1023px)`.
 
-         *! Также, для значения `mobile` установлено поведение: => `@media (max-width: 767px)`. !*
+         *! При `mobile, only` установлено поведение: => `@media (max-width: 767px)`. !*
+         *! При `tablet, only` установлено поведение: => `@media (min-width: 768px) and (max-width: 1259px)`. !*
          *! для последнего значения в массиве (`desktop`) миксин примет вид `@media (min-width: ЗНАЧЕНИЕ)`. !*
 
      3. $isHeight - передаваемый булевый параметр, который меняет медиа-запросы с ширин на высоты.
@@ -47,17 +48,17 @@
             }
           } => @media (max-width: 767px)
 
-        @include media(mobile, up) {
+        @include media(tabletSmall, up) {
           .card-test-block {
             color: white;
           }
-        } => @media (min-width: 480px)
+        } => @media (min-width: 768px)
 
-        @include media(tablet, only) {
+        @include media(laptop, only) {
           .card-test-block {
             color: black;
           }
-        } => @media (min-width:1024px) and (max-width:1259px)
+        } => @media (min-width: 1260px) and (max-width: 1499px)
 
 ***/
 
@@ -115,6 +116,12 @@
           // Проверяем, выбран ли mobile брекпоинт
           @if $min == map-get($widthBreakpoints, mobile) {
             @media (max-width: #{$max - 1}px) {
+              @content;
+            }
+          } @else if $min == map-get($widthBreakpoints, tablet) {
+            $min: get-array-key($widthBreakpoints, $index - 1);
+
+            @media (min-width: #{$min}px) and (max-width: #{$max - 1}px) {
               @content;
             }
           } @else {
