@@ -22,3 +22,12 @@
   @warn "Unknown `#{$key}` in $z-layers.";
   @return null;
 }
+
+// For fonts
+@function rem-to-px($arg) {
+  @return $arg / 16 + 'rem';
+}
+
+@function em-to-px($arg) {
+  @return $arg / 16 + 'em';
+}

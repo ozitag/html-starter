@@ -1,0 +1,9 @@
+<nav class="ui-aside__inner">
+  <ul class="ui-aside__nav">
+    {{#each ui.navigation}}
+      <li>
+        <button class="ui-aside__link" data-id="{{this.id}}">{{this.label}}</button>
+      </li>
+    {{/each}}
+  </ul>
+</nav>

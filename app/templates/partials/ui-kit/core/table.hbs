@@ -1,21 +1,54 @@
 <table>
   <caption>{{table-title}}</caption>
-  <thead>
-  <tr>
-    <td>Name</td>
-    <td>Color</td>
-    <td>HEX</td>
-    <td>RGB</td>
-  </tr>
-  </thead>
-  <tbody>
-  {{#each table-content}}
+  {{#if colors}}
+    <thead>
     <tr>
-      <td>{{this.name}}</td>
-      <td><span class="{{#if dark}}dark{{/if}}" style="background-color: {{this.color}};"></span></td>
-      <td>{{this.color}}</td>
-      <td>{{this.rgb-color}}</td>
+      <td>Name</td>
+      <td>Color</td>
+      <td>HEX</td>
+      <td>RGB</td>
     </tr>
-  {{/each}}
-  </tbody>
+    </thead>
+    <tbody>
+    {{#each table-content}}
+      <tr>
+        <td>{{this.name}}</td>
+        <td><span class="{{#if dark}}dark{{/if}}" style="background-color: {{this.color}};"></span></td>
+        <td>{{this.color}}</td>
+        <td>{{this.rgb-color}}</td>
+      </tr>
+    {{/each}}
+    </tbody>
+  {{/if}}
+  {{#if buttons}}
+    <tbody>
+    {{#each table-content}}
+      <tr>
+        <td>
+          <div class="ui-buttons__container">
+            {{#each this.states}}
+              {{#ifCond this.state 'normal'}}
+                {{> ui/btn
+                    button=true
+                    label=this.state
+                    color=this.color
+                    outline=this.outline
+                }}
+              {{else}}
+                {{> ui/btn
+                    button=true
+                    label=this.state
+                    color=this.color
+                    outline=this.outline
+                    btn-mode=this.state
+                    disabled=this.disabled
+                }}
+              {{/ifCond}}
+            {{/each}}
+          </div>
+        </td>
+      </tr>
+    {{/each}}
+    </tbody>
+  {{/if}}
 </table>
