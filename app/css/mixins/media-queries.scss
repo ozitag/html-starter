@@ -83,7 +83,7 @@
         } @else {
           $value: get-array-key($widthBreakpoints, $index + 1);
 
-          @debug $value - 1;
+          //@debug $value - 1;
           @media (max-width: #{$value - 1}px) {
             @content;
           }

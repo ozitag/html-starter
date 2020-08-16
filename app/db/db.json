@@ -253,10 +253,42 @@
         }
       },
       {
-        "title": "Inputs",
-        "label": "Inputs",
-        "id": "ui-inputs",
-        "content": "inputs"
+        "title": "Form Elements",
+        "label": "Form Elements",
+        "id": "ui-forms",
+        "content": "forms",
+        "form-items": {
+          "inputs": [
+            {
+              "state": ""
+            }
+          ],
+          "textarea": [
+            {
+              "state": ""
+            }
+          ],
+          "checkbox": [
+            {
+              "state": ""
+            }
+          ],
+          "radio": [
+            {
+              "state": ""
+            }
+          ],
+          "select": [
+            {
+              "state": ""
+            }
+          ],
+          "switcher": [
+            {
+              "state": ""
+            }
+          ]
+        }
       },
       {
         "title": "Checkbox / Radio",

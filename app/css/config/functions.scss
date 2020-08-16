@@ -24,10 +24,10 @@
 }
 
 // For fonts
-@function rem-to-px($arg) {
+@function px-to-rem($arg) {
   @return $arg / 16 + 'rem';
 }
 
-@function em-to-px($arg) {
+@function px-to-em($arg) {
   @return $arg / 16 + 'em';
 }

@@ -51,4 +51,86 @@
     {{/each}}
     </tbody>
   {{/if}}
+  {{#if form-items}}
+    <tbody>
+    {{#each table-content}}
+      <tr>
+        <td>
+            {{#if ../inputs}}
+              <div class="ui-inputs__container ui-inputs__container--row">
+                {{> ui/form-item
+                    input=true
+                    field-label="Ваше имя"
+                    placeholder="Иван Иван Иванович"
+                }}
+                {{> ui/form-item
+                    input=true
+                    field-label="Ваш пароль"
+                    type="password"
+                    placeholder="Не менее 6 символов"
+                    error="Неверный пароль"
+                }}
+              </div>
+            {{/if}}
+            {{#if ../textarea}}
+              <div class="ui-inputs__container">
+                {{> ui/form-item
+                    textarea=true
+                    field-label="Ваше сообщение"
+                    placeholder="Иван Иван Иванович"
+                }}
+              </div>
+            {{/if}}
+            {{#if ../radio}}
+              <div class="ui-inputs__container ui-inputs__container--column">
+                {{> ui/form-item
+                    radio=true
+                    id=1
+                    name='radio1'
+                    label='Example label'
+                }}
+                {{> ui/form-item
+                    radio=true
+                    id=2
+                    name='radio1'
+                    label='Example label'
+                    checked=1
+                }}
+              </div>
+            {{/if}}
+            {{#if ../checkbox}}
+              <div class="ui-inputs__container ui-inputs__container--column">
+                {{> ui/form-item
+                    checkbox=true
+                    id=3
+                    label='Example label'
+                }}
+                {{> ui/form-item
+                    checkbox=true
+                    id=4
+                    label='Example label'
+                    checked=1
+                }}
+              </div>
+            {{/if}}
+            {{#if ../switcher}}
+              <div class="ui-inputs__container ui-inputs__container--column">
+                {{> ui/form-item
+                    switcher=true
+                    id=5
+                    aria-label='Example label'
+                }}
+                {{> ui/form-item
+                    switcher=true
+                    id=6
+                    aria-label='Example label'
+                    checked=1
+                }}
+              </div>
+            {{/if}}
+        </td>
+      </tr>
+    {{/each}}
+    </tbody>
+  {{/if}}
 </table>

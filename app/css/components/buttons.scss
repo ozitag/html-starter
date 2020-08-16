@@ -4,7 +4,7 @@
   $color-primary-active: $color-blue-100;
 
   display: inline-block;
-  padding: #{em-to-px(12)} #{em-to-px(25)};
+  padding: #{px-to-em(12)} #{px-to-em(25)};
   color: $color-primary;
   font-size: 1rem;
   line-height: 1.25;
@@ -56,16 +56,16 @@
   @include btn-color(secondary, $color-secondary);
 
   &--small {
-    font-size: #{rem-to-px(12)};
+    font-size: #{px-to-rem(12)};
   }
 
   &--large {
-    font-size: #{rem-to-px(20)};
+    font-size: #{px-to-rem(20)};
   }
 
   &--w100 {
-    padding-left: #{rem-to-px(5)};
-    padding-right: #{rem-to-px(5)};
+    padding-left: #{px-to-rem(5)};
+    padding-right: #{px-to-rem(5)};
     width: 100%;
   }
 }
