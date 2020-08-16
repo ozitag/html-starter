@@ -1,0 +1,25 @@
+$breakpoints: (
+  width: (
+    mobileSmall: 320, /** iPhone 5/SE */
+    mobileMedium: 375, /** iPhone 6/7/8/X */
+    mobile: 480, /** iPhone 6/7/8 Plus */
+    tabletSmall: 768, /** iPad Portrait */
+    tablet: 1024, /** iPad Landscape */
+    laptop: 1260, /** iPad Pro / MacBook 12 */
+    desktop: 1500
+  ),
+  height: (
+    sm: 650,
+    md: 750,
+    lg: 900
+  )
+);
+
+$z-layers: (
+  hidden: -9999,
+  default: 1,
+  dropdown: 50,
+  header: 100,
+  overlay: 1000,
+  modal: 1001
+);

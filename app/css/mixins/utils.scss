@@ -145,3 +145,90 @@
     }
   }
 }
+
+/* For buttons */
+
+// Make button with specific color and outline statement
+@mixin btn-color(
+  $name,
+  $arg,
+  $theme: $color-white,
+  $hover-color: darken($arg, 10%),
+  $active-color: darken($arg, 20%),
+  $outline-hover-color: $arg,
+  $outline-active-color: darken($arg, 20%)
+) {
+  &--#{$name} {
+    background-color: $arg;
+    border-color: $arg;
+    color: $theme;
+
+    &:hover,
+    &.btn--hover {
+      background-color: $hover-color;
+      border-color: $hover-color;
+      color: $theme;
+    }
+
+    &:focus,
+    &:active,
+    &.btn--focus,
+    &.btn--active {
+      background-color: $active-color;
+      border-color: $active-color;
+      color: $theme;
+    }
+
+    &.btn--active {
+      &:hover {
+        background-color: $hover-color;
+        border-color: $hover-color;
+        color: $theme;
+      }
+    }
+
+    &:disabled,
+    &.btn--disabled {
+      background-color: $arg;
+      border-color: $arg;
+      color: $theme;
+    }
+
+    &-outline {
+      background-color: transparent;
+      border-color: $arg;
+      color: $arg;
+
+      &:hover,
+      &.btn--hover {
+        background-color: $outline-hover-color;
+        border-color: $outline-hover-color;
+        color: $theme;
+      }
+
+      &:focus,
+      &:active,
+      &.btn--focus,
+      &.btn--active {
+        background-color: $outline-active-color;
+        border-color: $outline-active-color;
+        color: $theme;
+      }
+
+      &.btn--active {
+        &:hover {
+          background-color: $outline-hover-color;
+          border-color: $outline-hover-color;
+          color: $theme;
+        }
+      }
+
+      &:disabled,
+      &.btn--disabled {
+        background-color: transparent;
+        border-color: $arg;
+        color: $arg;
+      }
+    }
+  }
+}

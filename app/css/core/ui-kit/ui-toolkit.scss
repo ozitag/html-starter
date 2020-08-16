@@ -1,129 +1,245 @@
 .ui {
-  max-width: 1250px;
-  margin: 0 auto;
+  $ui-container-mah: 700px;
+  $ui-header-mah: 60px;
+  $ui-container-gutters: 30px;
+  $ui-container-gutters-mobile: #{$ui-container-gutters / 2};
+
   display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  min-height: 100vh;
-  padding: 0 10px;
   width: 100%;
-
-  i {
-    display: block;
-    font-style: italic;
-    font-size: 12px;
-    line-height: 100%;
-    margin-bottom: 4px;
-    text-align: center;
-  }
-
-  &__title {
-    text-align: center;
-    padding: 30px 0;
-    flex-shrink: 0;
-  }
+  min-height: 100vh;
+  background: rgb(90, 61, 125);
+  background: linear-gradient(45deg,
+    //rgba(90,61,125,1) -50%,
+    rgba(201, 42, 126, 1) 0%,
+    rgba(249, 49, 75, 1) 31%,
+    rgba(249, 91, 69, 1) 54%,
+    rgba(251, 178, 66, 1) 66%,
+    rgba(251, 178, 66, 1) 74%,
+    rgba(196, 219, 243, 1) 75%,
+    //rgba(27,122,180,1) 85%,
+    rgba(43, 141, 202, 1) 90%,
+    rgba(16, 113, 178, 1) 100%);
 
   &__container {
-    flex-shrink: 0;
-    flex: 1;
-    background-color: #fcfcfc;
-    margin: 0 -10px;
+    flex: 1 1 100%;
     display: flex;
+    margin: auto;
+    max-width: 1250px;
+    max-height: $ui-container-mah;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.5),
+    0 20px 30px rgba(0, 0, 0, 0.1),
+    0 10px 50px rgba(0, 0, 0, 0.2);
 
-    @include tablet-and-mobile {
-      flex-direction: column;
+    @include media(tabletSmall) {
+      display: block;
+      max-height: initial;
+      border-radius: unset;
     }
   }
 
   &__aside {
-    flex-basis: 25%;
-    padding: 0 10px;
-    background-color: #f9f9f9;
+    flex: 0 1 250px;
+    background: rgba(249, 249, 249, 0.7);
+    box-shadow: inset 0 1px 2px transparentize($color-white, 0.7);
+    backdrop-filter: blur(80px);
 
-    .aside {
-      &__inner {
-        padding: 40px 0;
-      }
-
-      &__nav {
-        @include tablet-and-mobile {
-          display: flex;
-          flex-direction: row;
-        }
-
-        ._link {
-          display: block;
-          font-size: 20px;
-          padding: 10px 30px;
-          width: 100%;
-          text-align: left;
-
-          &:hover {
-            background-color: darken(#f9f9f9, 5%);
-          }
-        }
-      }
+    @include media(tabletSmall) {
+      display: none;
     }
   }
 
   &__main {
-    flex-basis: 75%;
-    padding: 0 10px;
+    flex: 1 1 75%;
+  }
 
-    .main {
-      &__section {
-        padding: 30px 20px;
-        border-bottom: 1px solid darken(#f5f5f5, 5%);
+  &-aside {
+    &__inner {
+      padding: $ui-header-mah 10px;
+    }
 
-        ._body {
-          margin-top: 20px;
+    &__link {
+      display: block;
+      padding: 5px 10px;
+      width: 100%;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.3;
+      text-align: left;
+      border-radius: 4px;
 
-          .row + .row {
-            margin-top: 20px;
+      &:hover {
+        background-color: transparentize($color-black, 0.95);
+      }
+    }
+  }
+
+  &-main {
+    background-color: $color-white;
+
+    &__header {
+      padding: 15px $ui-container-gutters;
+      border-bottom: 1px solid $color-gray-20;
+
+      @include media(mobile) {
+        padding: $ui-container-gutters-mobile;
+      }
+    }
+
+    &__title {
+      margin: 0;
+      padding: 0;
+      font-size: 1.5em;
+      line-height: 1.4;
+    }
+
+    &__content {
+      padding: 0 $ui-container-gutters;
+      max-height: $ui-container-mah - $ui-header-mah;
+      overflow-y: auto;
+
+      @include media(tabletSmall) {
+        max-height: initial;
+      }
+
+      @include media(mobile) {
+        padding: 0 $ui-container-gutters-mobile;
+      }
+    }
+  }
+
+  &-section {
+    margin: 30px 0;
+
+    &__title {
+      @include ui-font-title(30px);
+    }
+
+    &__content {
+      margin-top: 20px;
+
+      > * + * {
+        margin-top: 35px;
+      }
+    }
+  }
+
+  &-colors {
+    @include media(mobile) {
+      overflow-x: auto;
+    }
+
+    table {
+      @include media(mobile) {
+        min-width: 600px;
+      }
+
+      td {
+        &:nth-child(1) {
+          width: 40%;
+
+          @include media(mobile) {
+            width: calc(100vw - 100px);
           }
+        }
+
+        &:nth-child(2) {
+          width: 30%;
+
+          @include media(mobile) {
+            width: 100px;
+            text-align: center;
+          }
+        }
+
+        &:nth-child(3) {
+          width: 15%;
+        }
+      }
+
+      span {
+        $ui-t-value: 28px;
+        display: inline-block;
+        width: $ui-t-value;
+        height: $ui-t-value;
+        border-radius: 50%;
+
+        &.dark {
+          border: 1px solid $color-gray-100;
         }
       }
     }
   }
 
-  &__colors {
-    display: flex;
-    flex-wrap: wrap;
+  &-buttons {
+    &__container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1em;
+    }
+  }
 
-    ._item {
-      margin-right: 10px;
-      margin-bottom: 20px;
+  .ui-inputs {
+    &__container {
+      display: flex;
+      gap: 1em;
 
-      &:last-child {
-        margin-right: 0;
+
+      > * {
+        flex: 1 1 100%;
       }
 
-      > span:first-child {
-        display: block;
-        text-align: center;
-        font-size: 11px;
-        line-height: 100%;
-        font-style: italic;
-        margin-bottom: 5px;
+      &--row {
+        flex-wrap: wrap;
+
+        > * {
+          flex: 1 1 45%;
+        }
+      }
+
+
+      &--column {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    td {
+      padding: 14px 0;
+    }
+
+    thead {
+      td {
+        color: transparentize($color-gray-100, 0.2);
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 1;
       }
     }
 
-    ._demo {
-      width: 140px;
-      height: 140px;
-      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
-      border-radius: 12px;
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      font-weight: 500;
-      text-align: center;
-
-      ._dark {
-        color: #000;
+    tbody {
+      td {
+        font-size: 15px;
+        line-height: 1;
+        border-top: 1px solid $color-gray-40;
+        border-bottom: 1px solid $color-gray-40;
       }
+    }
+
+    caption {
+      padding: 10px 0;
+      color: $color-gray-100;
+      @include ui-font-title;
+      text-align: left;
     }
   }
 }

@@ -1,0 +1,33 @@
+// For media-queries
+@function get-array-key($arr, $key) {
+  @return nth(nth($arr, $key), 2); // Получаю значение ключа
+}
+
+@function get-array-value($arr, $key) {
+  @return nth(nth($arr, $key), 1); // Получаю имя ключа
+}
+
+@function index-to-key($mapArray, $index-key) {
+  $keys: map-keys($mapArray); // Список всех ключей в итерируемом массиве
+
+  @return nth($keys, $index-key);
+}
+
+// For z-index
+@function z($key) {
+  @if map-has-key($z-layers, $key) {
+    @return map-get($z-layers, $key);
+  }
+
+  @warn "Unknown `#{$key}` in $z-layers.";
+  @return null;
+}
+
+// For fonts
+@function px-to-rem($arg) {
+  @return $arg / 16 + 'rem';
+}
+
+@function px-to-em($arg) {
+  @return $arg / 16 + 'em';
+}

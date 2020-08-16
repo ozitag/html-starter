@@ -1,0 +1,8 @@
+<section class="ui-section" {{#if id}}id="{{id}}"{{/if}}>
+    <header class="ui-section__header">
+        <h2 class="ui-section__title">{{title}}</h2>
+    </header>
+    <div class="ui-section__content{{#if section-mode}} {{section-mode}}{{/if}}">
+      {{> @partial-block}}
+    </div>
+</section>

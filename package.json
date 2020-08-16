@@ -2,7 +2,7 @@
   "name": "html-starter",
   "version": "1.2.0",
   "description": "html-starter",
-  "main": "gulpfile.js",
+  "private": true,
   "engines": {
     "node": ">=8"
   },
@@ -12,7 +12,7 @@
     "prod": "gulp build-prod"
   },
   "keywords": [],
-  "author": "OZiTag Ltd.",
+  "author": "OZiTAG Ltd.",
   "license": "ISC",
   "homepage": "https://gitlab.com/ozitag/internal-projects/html-starter/blob/master/README.md",
   "devDependencies": {
@@ -66,7 +66,7 @@
     "swiper": "^5.3.0"
   },
   "browserslist": [
-    ">0.2%",
+    ">0.25%",
     "not dead",
     "not op_mini all"
   ]

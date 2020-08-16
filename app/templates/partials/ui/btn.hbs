@@ -1,11 +1,23 @@
 {{#if button}}
-    <button {{#if popup}}data-popup="{{popup}}"{{/if}}  {{#if submit}}type="submit"{{/if}}
-            class="btn{{#if size}} btn-{{size}}{{/if}}{{#if color}} btn-{{color}}{{#if outline}}-outline{{/if}}{{/if}}{{#if w100}} btn-w100{{/if}} {{#if popup}} js-popup-open{{/if}} {{mix}}" {{{attr}}}>
-        {{label}}
-    </button>
+  <button type="{{#if type}}{{type}}{{else}}button{{/if}}"
+          class="btn{{#if size}} btn--{{size}}{{/if}}{{#if color}} btn--{{color}}{{/if}}{{#if
+              outline}} btn--{{outline}}-outline{{/if}}{{#if btn-mode}} btn--{{btn-mode}}{{/if}}{{#if
+              popup}} js-popup-open{{/if}}"
+    {{#if popup}} data-popup="{{popup}}"{{/if}}
+    {{#if aria-label}} aria-label="{{aria-label}}"{{/if}}
+    {{#if disabled}} disabled aria-disabled="true"{{/if}}
+    {{{attr}}}>
+    {{label}}
+  </button>
 {{else}}
-    <a href="#" {{#if popup}}data-popup="{{popup}}"{{/if}}
-       class="btn{{#if size}} btn-{{size}}{{/if}}{{#if color}} btn-{{color}}{{#if outline}}-outline{{/if}}{{/if}}{{#if w100}} btn-w100{{/if}} {{#if popup}} js-popup-open{{/if}} {{mix}}" {{{attr}}}>
-        {{label}}
-    </a>
+  <a href="{{#if href}}{{href}}{{else}}#{{/if}}"
+     class="btn{{#if size}} btn--{{size}}{{/if}}{{#if color}} btn--{{color}}{{/if}}{{#if
+         outline}} btn--{{outline}}-outline{{/if}}{{#if btn-mode}} btn--{{btn-mode}}{{/if}}{{#if
+         popup}} js-popup-open{{/if}}"
+    {{#if popup}} data-popup="{{popup}}"{{/if}}
+    {{#if aria-label}} aria-label="{{aria-label}}"{{/if}}
+    {{#if disabled}} disabled aria-disabled="true"{{/if}}
+    {{{attr}}}>
+    {{label}}
+  </a>
 {{/if}}

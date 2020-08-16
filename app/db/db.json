@@ -1,3 +1,307 @@
 {
-
+  "ui": {
+    "navigation": [
+      {
+        "title": "Colors",
+        "label": "Colors",
+        "id": "ui-colors",
+        "content": "colors",
+        "colors": {
+          "main": [
+            {
+              "rgb-color": "rgb(0, 66, 255)",
+              "color": "#1B74FD",
+              "name": "$color-primary"
+            },
+            {
+              "rgb-color": "rgb(0, 183, 99)",
+              "color": "#00B763",
+              "name": "$color-primary-variant"
+            },
+            {
+              "rgb-color": "rgb(253, 88, 0)",
+              "color": "#FD5800",
+              "name": "$color-secondary"
+            },
+            {
+              "rgb-color": "rgb(255, 0, 0)",
+              "color": "#FF0000",
+              "name": "$color-error"
+            }
+          ],
+          "gray": [
+            {
+              "name": "$color-gray-100",
+              "color": "#363C4E",
+              "rgb-color": "rgb(54, 60, 78)"
+            },
+            {
+              "name": "$color-gray-80",
+              "color": "#7C8292",
+              "rgb-color": "rgb(113, 119, 132)"
+            },
+            {
+              "name": "$color-gray-60",
+              "color": "#C7CBD6",
+              "rgb-color": "rgb(173, 179, 197)"
+            },
+            {
+              "name": "$color-gray-40",
+              "color": "#DFE3EC",
+              "rgb-color": "rgb(223, 227, 236)"
+            },
+            {
+              "name": "$color-gray-20",
+              "color": "#F2F4F8",
+              "rgb-color": "rgb(242, 244, 248)",
+              "dark": true
+            },
+            {
+              "name": "$color-gray-10",
+              "color": "#F6F9FF",
+              "rgb-color": "rgb(246, 249, 255)",
+              "dark": true
+            }
+          ],
+          "blue": [
+            {
+              "rgb-color": "rgb(0, 56, 215)",
+              "color": "#0038D7",
+              "name": "$color-blue-100"
+            },
+            {
+              "rgb-color": "rgb(0, 66, 255)",
+              "color": "#0042FF",
+              "name": "$color-blue-80"
+            },
+            {
+              "rgb-color": "rgb(27, 116, 253)",
+              "color": "#1B74FD",
+              "name": "$color-blue-70"
+            }
+          ],
+          "apex": [
+            {
+              "rgb-color": "rgb(0, 0, 0)",
+              "color": "#000000",
+              "name": "$color-black"
+            },
+            {
+              "name": "$color-white",
+              "color": "#FFFFFF",
+              "rgb-color": "rgb(255, 255, 255)",
+              "dark": true
+            }
+          ]
+        }
+      },
+      {
+        "title": "Buttons",
+        "label": "Buttons",
+        "id": "ui-buttons",
+        "content": "buttons",
+        "buttons": {
+          "default": [
+            {
+              "states": [
+                {
+                  "state": "normal"
+                },
+                {
+                  "state": "hover"
+                },
+                {
+                  "state": "active"
+                },
+                {
+                  "state": "focus"
+                },
+                {
+                  "state": "disabled",
+                  "disabled": true
+                }
+              ]
+            }
+          ],
+          "primary": [
+            {
+              "states": [
+                {
+                  "state": "normal",
+                  "color": "primary"
+                },
+                {
+                  "state": "hover",
+                  "color": "primary"
+                },
+                {
+                  "state": "active",
+                  "color": "primary"
+                },
+                {
+                  "state": "focus",
+                  "color": "primary"
+                },
+                {
+                  "state": "disabled",
+                  "color": "primary",
+                  "disabled": true
+                }
+              ]
+            },
+            {
+              "states": [
+                {
+                  "state": "normal",
+                  "outline": "primary"
+                },
+                {
+                  "state": "hover",
+                  "outline": "primary"
+                },
+                {
+                  "state": "active",
+                  "outline": "primary"
+                },
+                {
+                  "state": "focus",
+                  "outline": "primary"
+                },
+                {
+                  "state": "disabled",
+                  "outline": "primary",
+                  "disabled": true
+                }
+              ]
+            }
+          ],
+          "secondary": [
+            {
+              "states": [
+                {
+                  "state": "normal",
+                  "color": "secondary"
+                },
+                {
+                  "state": "hover",
+                  "color": "secondary"
+                },
+                {
+                  "state": "active",
+                  "color": "secondary"
+                },
+                {
+                  "state": "focus",
+                  "color": "secondary"
+                },
+                {
+                  "state": "disabled",
+                  "color": "secondary",
+                  "disabled": true
+                }
+              ]
+            },
+            {
+              "states": [
+                {
+                  "state": "normal",
+                  "outline": "secondary"
+                },
+                {
+                  "state": "hover",
+                  "outline": "secondary"
+                },
+                {
+                  "state": "active",
+                  "outline": "secondary"
+                },
+                {
+                  "state": "focus",
+                  "outline": "secondary"
+                },
+                {
+                  "state": "disabled",
+                  "outline": "secondary",
+                  "disabled": true
+                }
+              ]
+            }
+          ],
+          "sizes": [
+            {
+              "states": [
+                {
+                  "color": "primary",
+                  "state": "large"
+                },
+                {
+                  "color": "primary",
+                  "state": "normal"
+                },
+                {
+                  "color": "primary",
+                  "state": "small"
+                },
+                {
+                  "color": "primary",
+                  "state": "w100",
+                  "size": "w100"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "title": "Form Elements",
+        "label": "Form Elements",
+        "id": "ui-forms",
+        "content": "forms",
+        "form-items": {
+          "inputs": [
+            {
+              "state": ""
+            }
+          ],
+          "textarea": [
+            {
+              "state": ""
+            }
+          ],
+          "checkbox": [
+            {
+              "state": ""
+            }
+          ],
+          "radio": [
+            {
+              "state": ""
+            }
+          ],
+          "select": [
+            {
+              "state": ""
+            }
+          ],
+          "switcher": [
+            {
+              "state": ""
+            }
+          ]
+        }
+      },
+      {
+        "title": "Popups",
+        "label": "Popups",
+        "id": "ui-popups",
+        "content": "popups"
+      },
+      {
+        "title": "Loaders",
+        "label": "Loaders",
+        "id": "ui-loaders",
+        "content": "loaders"
+      }
+    ]
+  }
 }

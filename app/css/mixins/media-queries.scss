@@ -1,3 +1,158 @@
+/*********************************************************/
+/******************** Media Queries **********************/
+/*********************************************************/
+
+/***
+  Миксин оперирует данными из массива $breakpoints. Для ширины и высоты указываются собственные параметры.
+  Массив `height` может безболезненно расширяться, без затрагивания кода самого миксина, просто добавляйте
+  свои значения. Массив `width` безболезненно расширяется только для значений, бОльших, чем `desktop`,
+  в остальных случаях, можно менять значения, а при добавлении новых ключей - необходимо заглянуть в исходник.
+
+  Миксин принимает 3 основных аргумента:
+    1. $breakpoint - передаваемый параметр, должен равняться одному из значений, указанных в массиве $breakpoints.
+
+    2. $statement - передаваемый параметр, который может быть трех видов для медиа-запросов `width`:
+      - default: применяется по умолчанию, и устанавливает правило `@media (max-width: ЗНАЧЕНИЕ)`. Следует понимать,
+        что берется не текущее значение брекпоинта, а последующее минус 1.
+        Например, брекпоинт `mobile` имеет значение 480px, но при этом правило будет создано со значением
+         следующего ключа - `tabletSmall: 768 - 1`. То есть получим => `@media (max-width: 767px)`.
+
+        *! для последнего значения в массиве (`desktop`) миксин примет вид `@media (min-width: ЗНАЧЕНИЕ)`. !*
+
+      - up: в случае, если необходимо задать правило от какого-то значения. То есть, всё, что выше значения.
+        Например, `(tablet, up)` => `@media (min-width: 1024px)`.
+
+      - only: устанавливает ограничение в +1 один шаг от текущего значения ключа. Например:
+        (tabletSmall, only) => `@media (min-width: 768px) and (max-width: 1023px)`.
+
+         *! При `mobile, only` установлено поведение: => `@media (max-width: 767px)`. !*
+         *! При `tablet, only` установлено поведение: => `@media (min-width: 768px) and (max-width: 1259px)`. !*
+         *! для последнего значения в массиве (`desktop`) миксин примет вид `@media (min-width: ЗНАЧЕНИЕ)`. !*
+
+     3. $isHeight - передаваемый булевый параметр, который меняет медиа-запросы с ширин на высоты.
+        По умолчанию отключен. При данном вызове необходимо передавать вторым аргументом параметр `default`.
+        Поведение по умолчанию => `@media (max-height: ЗНАЧЕНИЕ)`
+
+     Примеры вызова:
+      - высота:
+        @include media(sm, default, true) {
+          .card-test-block {
+            color: red;
+          }
+        } => @media (max-height:650px)
+
+      - ширина:
+        @include media(mobile) {
+            .card-test-block {
+              color: white;
+            }
+          } => @media (max-width: 767px)
+
+        @include media(tabletSmall, up) {
+          .card-test-block {
+            color: white;
+          }
+        } => @media (min-width: 768px)
+
+        @include media(laptop, only) {
+          .card-test-block {
+            color: black;
+          }
+        } => @media (min-width: 1260px) and (max-width: 1499px)
+
+***/
+
+// Экспериментальный миксин
+@mixin media($breakpoint, $statement: default, $isHeight: false) {
+  @if $isHeight == false {
+    $widthBreakpoints: map-get($breakpoints, index-to-key($breakpoints, 1)); // Получаем массив значений для width
+
+    @if map-has-key($widthBreakpoints, $breakpoint) {
+      // По умолчанию берется значение следующего брекпоинта
+      @if $statement == default {
+        $bp-length: length($widthBreakpoints); // Получаю длину массива
+        $index: index(map-keys($widthBreakpoints), $breakpoint); // Получаю индекс элемента
+
+        // Проверяем, не вышли ли мы за пределы массива
+        @if ($bp-length == $index) {
+          $value: get-array-key($widthBreakpoints, $index); // Получаю значение брекпоинта
+
+          @media (min-width: #{$value}px) {
+            @content;
+          }
+        } @else {
+          $value: get-array-key($widthBreakpoints, $index + 1);
+
+          //@debug $value - 1;
+          @media (max-width: #{$value - 1}px) {
+            @content;
+          }
+        }
+      }
+
+      // Если хотим выбрать все разрешения начиная с текущего
+      @if $statement == up {
+        @media (min-width: #{map-get($widthBreakpoints, $breakpoint)}px) {
+          @content;
+        }
+      }
+
+      // Если хотим выбрать только текущее разрешения
+      @if $statement == only {
+        $bp-length: length($widthBreakpoints);
+        $index: index(map-keys($widthBreakpoints), $breakpoint);
+
+        // Если передано значение desktop
+        @if ($bp-length == $index) {
+          $value: get-array-key($widthBreakpoints, $index);
+
+          @media (min-width: #{$value}px) {
+            @content;
+          }
+        } @else {
+          $min: get-array-key($widthBreakpoints, $index);
+          $max: get-array-key($widthBreakpoints, $index + 1);
+
+          // Проверяем, выбран ли mobile брекпоинт
+          @if $min == map-get($widthBreakpoints, mobile) {
+            @media (max-width: #{$max - 1}px) {
+              @content;
+            }
+          } @else if $min == map-get($widthBreakpoints, tablet) {
+            $min: get-array-key($widthBreakpoints, $index - 1);
+
+            @media (min-width: #{$min}px) and (max-width: #{$max - 1}px) {
+              @content;
+            }
+          } @else {
+            @media (min-width: #{$min}px) and (max-width: #{$max - 1}px) {
+              @content;
+            }
+          }
+        }
+      }
+    } @else {
+      @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + "Please make sure it is defined in `$breakpoints: ( width: () )` map.";
+    }
+  } @else {
+    $heightBreakpoints: map-get($breakpoints, index-to-key($breakpoints, 2));
+
+    @if map-has-key($heightBreakpoints, $breakpoint) {
+      @if $statement == default {
+        @media (max-height: #{map-get($heightBreakpoints, $breakpoint)}px) {
+          @content;
+        }
+      }
+    } @else {
+      @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + "Please make sure it is defined in `$breakpoints: ( height: () )` map.";
+    }
+  }
+}
+
+// Предыдущие основные media миксины
+
 @mixin ie10plus() {
   @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
     @content;
@@ -87,4 +242,3 @@
     @content;
   }
 }
-

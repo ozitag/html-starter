@@ -1,0 +1,21 @@
+<div class="ui-main__content">
+  {{#each ui.navigation}}
+    {{#> ui-kit/core/section title=this.title id=this.id section-mode=(concat 'ui-' this.content)}}
+      {{#ifCond content 'colors'}}
+        {{> ui-kit/blocks/colors}}
+      {{/ifCond}}
+      {{#ifCond content 'buttons'}}
+        {{> ui-kit/blocks/buttons}}
+      {{/ifCond}}
+      {{#ifCond content 'forms'}}
+        {{> ui-kit/blocks/forms}}
+      {{/ifCond}}
+      {{#ifCond content 'popups'}}
+        {{> ui-kit/blocks/popups}}
+      {{/ifCond}}
+      {{#ifCond content 'loaders'}}
+        {{> ui-kit/blocks/loaders}}
+      {{/ifCond}}
+    {{/ui-kit/core/section}}
+  {{/each}}
+</div>
