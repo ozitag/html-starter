@@ -291,12 +291,6 @@
         }
       },
       {
-        "title": "Checkbox / Radio",
-        "label": "Checkbox / Radio",
-        "id": "ui-checkbox-radio",
-        "content": "checkbox-radio"
-      },
-      {
         "title": "Popups",
         "label": "Popups",
         "id": "ui-popups",

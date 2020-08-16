@@ -39,10 +39,8 @@
              name="{{name}}"
         {{#if field-id}} id="{{field-id}}"{{/if}}
         {{#if aria-label}} aria-label="{{aria-label}}"{{/if}}
-        {{#if checked}} checked{{/if}}>
-      <span class="form-radio__icon"></span>
-      {{label}}
-    </label>
+        {{#if checked}} checked="checked"{{/if}}>
+      <span class="form-radio__icon"></span> {{label}}</label>
   </div>
 {{/if}}
 {{#if textarea}}
