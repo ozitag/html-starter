@@ -4,6 +4,7 @@ global.$ = {
   gulp: require('gulp'),
   gulpPlugin: require('gulp-load-plugins')(),
   sass: require('gulp-sass'),
+  webp: require('gulp-webp'),
   bs: require('browser-sync'),
   fs: require('fs'),
   glob: require('glob'),
@@ -48,7 +49,7 @@ $.gulp.task('build', done => {
     $.gulp.parallel('styles', 'scripts'),
     $.gulp.parallel('hbs', 'pngSprite', 'svgSprite', 'svgInline', 'assets'),
     $.gulp.parallel('imageMin', 'criticalCss'),
-    $.gulp.parallel('prepareHtmlBuild'),
+    $.gulp.parallel('prepareHtmlBuild', 'webp'),
     $.gulp.parallel('meta'),
   )(done);
 });
@@ -57,7 +58,7 @@ $.gulp.task('build-prod', done => {
   $.gulp.series('clean',
     $.gulp.parallel('styles', 'scripts'),
     $.gulp.parallel('hbs-prod', 'svgSprite', 'svgInline', 'pngSprite', 'assets'),
-    $.gulp.parallel('prepareHtmlProd'),
+    $.gulp.parallel('prepareHtmlProd', 'webp'),
     $.gulp.parallel('sitemap'),
     $.gulp.parallel('imageMin', 'criticalCss'),
   )(done);

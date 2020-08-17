@@ -22,5 +22,6 @@
   "cssMin": true,
   "imageMin": true,
   "criticalCss": false,
-  "babel": true
+  "babel": true,
+  "buildWebp": false
 }
