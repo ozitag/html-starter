@@ -133,4 +133,17 @@
     {{/each}}
     </tbody>
   {{/if}}
+  {{#if popups}}
+  <tbody>
+  {{#each table-content}}
+    <tr>
+      <td>
+        <div class="ui-buttons__container">
+          {{> ui/btn button=true size="small" color="primary" label=this.label popup="example"}}
+        </div>
+      </td>
+    </tr>
+  {{/each}}
+  </tbody>
+{{/if}}
 </table>
