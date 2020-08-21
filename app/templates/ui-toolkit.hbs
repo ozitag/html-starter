@@ -27,4 +27,18 @@
 
 {{> popups/example}}
 
+<script defer>
+  window.onload = () => {
+    const $btn = $('.ui-aside__link');
+
+    $btn.on('click', function() {
+      const id = $(this).data('id');
+
+      $('html, body').animate({
+        scrollTop: $(`#${id}`).offset().top - 70,
+      }, 600);
+    });
+  };
+</script>
+
 {{> layout/bottom }}

@@ -1,61 +1,62 @@
-<table>
-  <caption>{{table-title}}</caption>
-  {{#if colors}}
-    <thead>
-    <tr>
-      <td>Name</td>
-      <td>Color</td>
-      <td>HEX</td>
-      <td>RGB</td>
-    </tr>
-    </thead>
-    <tbody>
-    {{#each table-content}}
+<li>
+  <table>
+    <caption>{{table-title}}</caption>
+    {{#if colors}}
+      <thead>
       <tr>
-        <td>{{this.name}}</td>
-        <td><span class="{{#if dark}}dark{{/if}}" style="background-color: {{this.color}};"></span></td>
-        <td>{{this.color}}</td>
-        <td>{{this.rgb-color}}</td>
+        <td>Name</td>
+        <td>Color</td>
+        <td>HEX</td>
+        <td>RGB</td>
       </tr>
-    {{/each}}
-    </tbody>
-  {{/if}}
-  {{#if buttons}}
-    <tbody>
-    {{#each table-content}}
-      <tr>
-        <td>
-          <div class="ui-buttons__container">
-            {{#each this.states}}
-              {{#ifCond this.state 'normal'}}
-                {{> ui/btn
-                    button=true
-                    label=this.state
-                    color=this.color
-                    outline=this.outline
-                }}
-              {{else}}
-                {{> ui/btn
-                    button=true
-                    label=this.state
-                    color=this.color
-                    outline=this.outline
-                    btn-mode=this.state
-                    disabled=this.disabled
-                }}
-              {{/ifCond}}
-            {{/each}}
-          </div>
-        </td>
-      </tr>
-    {{/each}}
-    </tbody>
-  {{/if}}
-  {{#if form-items}}
-    <tbody>
-    {{#each table-content}}
-      <tr>
-        <td>
+      </thead>
+      <tbody>
+      {{#each table-content}}
+        <tr>
+          <td>{{this.name}}</td>
+          <td><span class="{{#if dark}}dark{{/if}}" style="background-color: {{this.color}};"></span></td>
+          <td>{{this.color}}</td>
+          <td>{{this.rgb-color}}</td>
+        </tr>
+      {{/each}}
+      </tbody>
+    {{/if}}
+    {{#if buttons}}
+      <tbody>
+      {{#each table-content}}
+        <tr>
+          <td>
+            <div class="ui-buttons__container">
+              {{#each this.states}}
+                {{#ifCond this.state 'normal'}}
+                  {{> ui/btn
+                      button=true
+                      label=this.state
+                      color=this.color
+                      outline=this.outline
+                  }}
+                {{else}}
+                  {{> ui/btn
+                      button=true
+                      label=this.state
+                      color=this.color
+                      outline=this.outline
+                      btn-mode=this.state
+                      disabled=this.disabled
+                  }}
+                {{/ifCond}}
+              {{/each}}
+            </div>
+          </td>
+        </tr>
+      {{/each}}
+      </tbody>
+    {{/if}}
+    {{#if form-items}}
+      <tbody>
+      {{#each table-content}}
+        <tr>
+          <td>
             {{#if ../inputs}}
               <div class="ui-inputs__container ui-inputs__container--row">
                 {{> ui/form-item
@@ -128,9 +129,23 @@
                 }}
               </div>
             {{/if}}
-        </td>
-      </tr>
-    {{/each}}
-    </tbody>
-  {{/if}}
-</table>
+          </td>
+        </tr>
+      {{/each}}
+      </tbody>
+    {{/if}}
+    {{#if popups}}
+      <tbody>
+      {{#each table-content}}
+        <tr>
+          <td>
+            <div class="ui-buttons__container">
+              {{> ui/btn button=true size="small" color="primary" label=this.label popup="example"}}
+            </div>
+          </td>
+        </tr>
+      {{/each}}
+      </tbody>
+    {{/if}}
+  </table>
+</li>

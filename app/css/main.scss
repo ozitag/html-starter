@@ -1,11 +1,16 @@
+// Libraries
+@import "~normalize-scss/sass/normalize/import-now";
+@import '~swiper/swiper';
+
+// Base
 @import 'config/index';
 @import 'mixins/index';
 @import 'core/index';
 
-@import '~swiper/css/swiper';
-
+// Layout & Components
 @import 'layout/index';
 @import "popups/base";
 @import 'components/index';
 
+// Content
 @import "blocks/index";

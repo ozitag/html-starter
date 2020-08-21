@@ -7,3 +7,10 @@
     opacity: 1;
   }
 }
+
+// For Buttons
+@keyframes clockwise {
+  to {
+    transform: rotate(360deg) translatez(0);
+  }
+}
