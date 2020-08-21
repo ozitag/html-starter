@@ -32,50 +32,42 @@
 
 ._mobile {
   &-visible {
-    @include no-mobile {
+    @include media(mobile, up) {
       display: none !important;
     }
   }
 
   &-hidden {
-    @include mobile {
+    @include media(mobile) {
       display: none !important;
     }
   }
 }
 
-._smallTablet {
+._tabletSmall {
   &-visible {
-    display: none;
-
-    @include smallTablet-and-mobile {
-      display: block !important;
+    @include media(tabletSmall, up) {
+      display: none !important;
     }
   }
 
   &-hidden {
-    display: block;
-
-    @include smallTablet-and-mobile {
-      display: none;
+    @include media(tabletSmall) {
+      display: none!important;
     }
   }
 }
 
 ._tablet {
   &-visible {
-    display: none;
-
-    @include tablet-and-mobile {
-      display: block !important;
+    @include media(tablet, up) {
+      display: none!important;
     }
   }
 
   &-hidden {
-    display: block;
-
-    @include tablet-and-mobile {
-      display: none;
+    @include media(tablet) {
+      display: none!important;
     }
   }
 }
