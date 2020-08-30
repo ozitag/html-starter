@@ -12,7 +12,7 @@
     1. $breakpoint - передаваемый параметр, должен равняться одному из значений, указанных в массиве $breakpoints.
 
     2. $statement - передаваемый параметр, который может быть трех видов для медиа-запросов `width`:
-      - default: применяется по умолчанию, и устанавливает правило `@media (max-width: ЗНАЧЕНИЕ)`. Следует понимать,
+      - down: применяется по умолчанию, и устанавливает правило `@media (max-width: ЗНАЧЕНИЕ)`. Следует понимать,
         что берется не текущее значение брекпоинта, а последующее минус 1.
         Например, брекпоинт `mobile` имеет значение 480px, но при этом правило будет создано со значением
          следующего ключа - `tabletSmall: 768 - 1`. То есть получим => `@media (max-width: 767px)`.
@@ -20,7 +20,7 @@
         *! для последнего значения в массиве (`desktop`) миксин примет вид `@media (min-width: ЗНАЧЕНИЕ)`. !*
 
       - up: в случае, если необходимо задать правило от какого-то значения. То есть, всё, что выше значения.
-        Например, `(tablet, up)` => `@media (min-width: 1024px)`.
+        Например, `(tablet, up)` => `@media (min-width: 1260px)`.
 
       - only: устанавливает ограничение в +1 один шаг от текущего значения ключа. Например:
         (tabletSmall, only) => `@media (min-width: 768px) and (max-width: 1023px)`.
@@ -30,12 +30,12 @@
          *! для последнего значения в массиве (`desktop`) миксин примет вид `@media (min-width: ЗНАЧЕНИЕ)`. !*
 
      3. $isHeight - передаваемый булевый параметр, который меняет медиа-запросы с ширин на высоты.
-        По умолчанию отключен. При данном вызове необходимо передавать вторым аргументом параметр `default`.
+        По умолчанию отключен. При данном вызове необходимо передавать вторым аргументом параметр `down`.
         Поведение по умолчанию => `@media (max-height: ЗНАЧЕНИЕ)`
 
      Примеры вызова:
       - высота:
-        @include media(sm, default, true) {
+        @include media(sm, down, true) {
           .card-test-block {
             color: red;
           }
@@ -52,24 +52,23 @@
           .card-test-block {
             color: white;
           }
-        } => @media (min-width: 768px)
+        } => @media (min-width: 1024px)
 
         @include media(laptop, only) {
           .card-test-block {
             color: black;
           }
         } => @media (min-width: 1260px) and (max-width: 1499px)
-
 ***/
 
 // Экспериментальный миксин
-@mixin media($breakpoint, $statement: default, $isHeight: false) {
+@mixin media($breakpoint, $statement: down, $isHeight: false) {
   @if $isHeight == false {
     $widthBreakpoints: map-get($breakpoints, index-to-key($breakpoints, 1)); // Получаем массив значений для width
 
     @if map-has-key($widthBreakpoints, $breakpoint) {
       // По умолчанию берется значение следующего брекпоинта
-      @if $statement == default {
+      @if $statement == down {
         $bp-length: length($widthBreakpoints); // Получаю длину массива
         $index: index(map-keys($widthBreakpoints), $breakpoint); // Получаю индекс элемента
 
@@ -83,7 +82,6 @@
         } @else {
           $value: get-array-key($widthBreakpoints, $index + 1);
 
-          //@debug $value - 1;
           @media (max-width: #{$value - 1}px) {
             @content;
           }
@@ -92,8 +90,23 @@
 
       // Если хотим выбрать все разрешения начиная с текущего
       @if $statement == up {
-        @media (min-width: #{map-get($widthBreakpoints, $breakpoint)}px) {
-          @content;
+        $bp-length: length($widthBreakpoints); // Получаю длину массива
+        $index: index(map-keys($widthBreakpoints), $breakpoint); // Получаю индекс элемента
+
+        // Проверяем, не вышли ли мы за пределы массива
+        @if ($bp-length == $index) {
+          $value: get-array-key($widthBreakpoints, $index); // Получаю значение брекпоинта
+
+          @media (min-width: #{$value}px) {
+            @content;
+          }
+        } @else {
+          $value: get-array-key($widthBreakpoints, $index + 1);
+
+          //@debug $value;
+          @media (min-width: #{$value}px) {
+            @content;
+          }
         }
       }
 
@@ -139,7 +152,7 @@
     $heightBreakpoints: map-get($breakpoints, index-to-key($breakpoints, 2));
 
     @if map-has-key($heightBreakpoints, $breakpoint) {
-      @if $statement == default {
+      @if $statement == down {
         @media (max-height: #{map-get($heightBreakpoints, $breakpoint)}px) {
           @content;
         }

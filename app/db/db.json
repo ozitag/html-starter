@@ -294,7 +294,14 @@
         "title": "Popups",
         "label": "Popups",
         "id": "ui-popups",
-        "content": "popups"
+        "content": "popups",
+        "popups": {
+          "default": [
+            {
+              "label": "Попап"
+            }
+          ]
+        }
       },
       {
         "title": "Loaders",

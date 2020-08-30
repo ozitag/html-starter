@@ -67,6 +67,14 @@
   }
 }
 
+@mixin hide-scrollbar {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @mixin placeholder {
   &::-webkit-input-placeholder {
     @content;
@@ -89,8 +97,8 @@
   transform: rotate($deg);
 }
 
-@mixin transition($property: all) {
-  transition: $property .25s ease-in-out;
+@mixin transition($property: all, $duration: 150ms, $fn: ease-in-out) {
+  transition: $property $duration $fn;
 }
 
 @mixin triangle($width, $dir, $color) {
