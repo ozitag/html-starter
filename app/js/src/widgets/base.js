@@ -1,9 +1,62 @@
 class Widget {
-  constructor(node, selector) {
+  constructor(node, selector, breakpoint = null) {
     this.$node = node;
 
-    this.selector = selector;
+    this.selector = selector.substr(0, 1) === '.' ? selector.substr(1) : selector;
+
+    this.breakpoint = breakpoint;
+    this.breakpointStatus = null;
   }
+
+  init() {
+    if (this.breakpoint) {
+      onResize(this.updateBreakpointCache.bind(this));
+      this.updateBreakpointCache();
+    }
+  }
+
+  checkBreakpoint() {
+    switch (this.breakpoint) {
+      case null:
+        return true;
+      case 'mobile':
+        return isMobileLayout();
+      case 'tablet':
+        return isTabletLayout();
+      case 'laptop':
+        return isLaptopLayout();
+      case 'desktop':
+        return isDesktopLayout();
+      default:
+        return true;
+    }
+  }
+
+  updateBreakpointCache() {
+    const check = this.checkBreakpoint();
+
+    if ((this.breakpointStatus === false || this.breakpointStatus === null) && check) {
+      this.breakpointStatus = true;
+      if (typeof this.build === 'function') {
+        this.build();
+      }
+    } else if (this.breakpointStatus && !check) {
+      this.breakpointStatus = false;
+      if (typeof this.destroy === 'function') {
+        this.destroy();
+      }
+    }
+  }
+
+
+  build() {
+
+  }
+
+  destroy() {
+
+  }
+
 
   /**
    * @param selector
