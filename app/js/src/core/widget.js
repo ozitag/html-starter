@@ -12,6 +12,8 @@ class Widget {
     if (this.breakpoint) {
       onResize(this.updateBreakpointCache.bind(this));
       this.updateBreakpointCache();
+    } else{
+      this.build();
     }
   }
 
@@ -29,6 +31,8 @@ class Widget {
         return isLaptopLayout();
       case 'desktop':
         return isDesktopLayout();
+      case 'bigTablet-desktop':
+        return isDesktopLayout() || isBigTabletLayout();
       default:
         return true;
     }

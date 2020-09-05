@@ -18,6 +18,10 @@ const Layout = {
     return $(window).width() <= TABLET_WIDTH;
   },
 
+  isBigTabletLayout: function() {
+    return $(window).width() > TABLET_WIDTH && $(window).width() <= LAPTOP_WIDTH;
+  },
+
   isLaptopLayout: function() {
     return $(window).width() <= LAPTOP_WIDTH;
   },
@@ -104,6 +108,10 @@ window.isMobileLayout = function() {
 
 window.isTabletLayout = function() {
   return Layout.isTabletLayout();
+};
+
+window.isBigTabletLayout = function() {
+  return Layout.isBigTabletLayout();
 };
 
 window.isLaptopLayout = function() {
