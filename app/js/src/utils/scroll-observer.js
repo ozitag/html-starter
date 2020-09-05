@@ -1,6 +1,7 @@
-class ScrollObserver {
+class ScrollObserver extends Observer {
   constructor() {
-    this.listeners = [];
+    super();
+
     this.ticking = false;
     this.observeScroll();
   }
@@ -16,10 +17,8 @@ class ScrollObserver {
     }, passiveIfSupported);
   }
 
-  subscribe(callback) {
-    this.listeners.push(callback);
-  }
 }
 
 const scrollObserver = new ScrollObserver();
 window.onScroll = (fn) => scrollObserver.subscribe(fn);
+window.offScroll = (fn) => scrollObserver.unsubscribe(fn);

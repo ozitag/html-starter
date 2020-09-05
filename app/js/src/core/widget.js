@@ -2,7 +2,7 @@ class Widget {
   constructor(node, selector, breakpoint = null) {
     this.$node = node;
 
-    this.selector = selector.substr(0, 1) === '.' ? selector.substr(1) : selector;
+    this.selector = selector ? (selector.substr(0, 1) === '.' ? selector.substr(1) : selector) : null;
 
     this.breakpoint = breakpoint;
     this.breakpointStatus = null;
@@ -23,6 +23,8 @@ class Widget {
         return isMobileLayout();
       case 'tablet':
         return isTabletLayout();
+      case 'tablet-mobile':
+        return isMobileLayout() || isTabletLayout();
       case 'laptop':
         return isLaptopLayout();
       case 'desktop':
@@ -103,6 +105,7 @@ class Widget {
 
     return $nodes;
   }
+
 }
 
 window.Widget = Widget;
