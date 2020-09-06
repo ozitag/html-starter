@@ -240,3 +240,10 @@
     }
   }
 }
+
+@mixin circle($size) {
+  border-radius: 50%;
+  width: $size;
+  height: $size;
+  display: inline-block;
+}
