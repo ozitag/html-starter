@@ -25,6 +25,12 @@ module.exports = () => {
       concat: function(...args) {
         return `${args.slice(0, -1).join('')}`;
       },
+      ifUseWebp: function(block){
+        if($.config.buildWebp)
+          return block.fn(this);
+        else
+          return block.inverse(this);
+      }
     },
   };
 
