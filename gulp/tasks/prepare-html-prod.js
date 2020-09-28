@@ -31,12 +31,16 @@ module.exports = () => {
           jQuery('link').each(function() {
             let href = jQuery(this).attr('href');
 
-            if (href !== undefined && href.substr(0, 2) === './') {
+            if (href && href.substr(0, 2) === './') {
               href = href.substr(1);
             }
 
-            if (href !== undefined && href.substr(0, 3) === '../') {
+            if (href && href.substr(0, 3) === '../') {
               href = href.substr(2);
+            }
+
+            if (href && href.substr(0, 2) === '//') {
+              href = href.substr(1);
             }
 
             jQuery(this).attr('href', href);

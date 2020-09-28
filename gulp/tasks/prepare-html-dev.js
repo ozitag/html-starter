@@ -47,6 +47,28 @@ module.exports = () => {
 
             jQuery(this).attr('src', src);
           });
+          jQuery('a').each(function () {
+            const href = jQuery(this).attr('href');
+
+            if (!href || href.substr(0, 1) === '#' ||
+              href.substr(0, 4) === 'tel:' ||
+              href.substr(0, 4) === 'ftp:' ||
+              href.substr(0, 5) === 'file:' ||
+              href.substr(0, 5) === 'http:' ||
+              href.substr(0, 6) === 'https:' ||
+              href.substr(0, 7) === 'mailto:') {
+              return;
+            }
+
+            if (href.substr(0, 6) === '/html/') return;
+
+            let newHref = '/html/' + (href[0] === '/' ? href.substr(1) : href);
+            if (newHref.substr(-5) !== '.html') {
+              newHref = newHref + '.html';
+            }
+
+            jQuery(this).attr('href', newHref);
+          });
         },
         parserOptions: { decodeEntities: false },
       }))
