@@ -3,7 +3,7 @@ module.exports = () => {
     return $.gulp.src(`${$.config.outputPath}/**/*.html`)
       .pipe($.gulpPlugin.cheerio({
         run: jQuery => {
-          jQuery('script').each(function() {
+          jQuery('script').each(function () {
             let src = jQuery(this).attr('src');
             if (
               src !== undefined &&
@@ -15,7 +15,7 @@ module.exports = () => {
 
             jQuery(this).attr('src', src);
           });
-          jQuery('meta').each(function() {
+          jQuery('meta').each(function () {
             let content = jQuery(this).attr('content');
 
             if (content !== undefined && content.substr(0, 2) === './') {
@@ -28,24 +28,20 @@ module.exports = () => {
 
             jQuery(this).attr('content', content);
           });
-          jQuery('link').each(function() {
+          jQuery('link').each(function () {
             let href = jQuery(this).attr('href');
 
-            if (href && href.substr(0, 2) === './') {
+            if (href !== undefined && href.substr(0, 2) === './') {
               href = href.substr(1);
             }
 
-            if (href && href.substr(0, 3) === '../') {
+            if (href !== undefined && href.substr(0, 3) === '../') {
               href = href.substr(2);
-            }
-
-            if (href && href.substr(0, 2) === '//') {
-              href = href.substr(1);
             }
 
             jQuery(this).attr('href', href);
           });
-          jQuery('a').each(function() {
+          jQuery('a').each(function () {
             let href = jQuery(this).attr('href');
 
             function checkLinkPath(checkPosition) {
@@ -78,9 +74,12 @@ module.exports = () => {
               checkLinkPath(0);
             }
 
+            if (href && href.substr(0, 2) === '//') {
+              href = href.substr(1);
+            }
             jQuery(this).attr('href', href);
           });
-          jQuery('img').each(function() {
+          jQuery('img').each(function () {
             let src = jQuery(this).attr('src');
             let srcset = jQuery(this).attr('srcset');
             let dataOriginal = jQuery(this).attr('data-original');
@@ -102,7 +101,7 @@ module.exports = () => {
             jQuery(this).attr('srcset', srcset);
             jQuery(this).attr('data-original', dataOriginal);
           });
-          jQuery('source').each(function() {
+          jQuery('source').each(function () {
             let srcset = jQuery(this).attr('srcset');
             let dataSrcset = jQuery(this).attr('data-srcset');
             let src = jQuery(this).attr('src');
@@ -112,22 +111,27 @@ module.exports = () => {
             }
 
             if (srcset !== undefined) {
-              let img = srcset.substring(2, srcset.lastIndexOf(','));
-              let img2 = srcset.substring(srcset.lastIndexOf('../') + 2).trim();
-              srcset = `${img}, ${img2}`;
+              if (srcset.indexOf(',') !== -1) {
+                let img = srcset.substring(2, srcset.lastIndexOf(','));
+                let img2 = srcset.substring(srcset.lastIndexOf('../') + 2).trim();
+                srcset = `${img}, ${img2}`;
+              } else {
+              }
             }
 
             if (dataSrcset !== undefined) {
-              let img = dataSrcset.substring(2, dataSrcset.lastIndexOf(','));
-              let img2 = dataSrcset.substring(dataSrcset.lastIndexOf('../') + 2).trim();
-              dataSrcset = `${img}, ${img2}`;
+              if (dataSrcset.indexOf(',') !== -1) {
+                let img = dataSrcset.substring(2, dataSrcset.lastIndexOf(','));
+                let img2 = dataSrcset.substring(dataSrcset.lastIndexOf('../') + 2).trim();
+                dataSrcset = `${img}, ${img2}`;
+              }
             }
 
             jQuery(this).attr('data-srcset', dataSrcset);
             jQuery(this).attr('srcset', srcset);
             jQuery(this).attr('src', src);
           });
-          jQuery('use').each(function() {
+          jQuery('use').each(function () {
             let xlink = jQuery(this).attr('xlink:href');
 
             if (xlink.substr(0, 3) === '../') {
@@ -142,6 +146,6 @@ module.exports = () => {
         },
       }))
       .pipe($.gulp.dest(`${$.config.outputPath}/`))
-      .pipe($.bs.reload({ stream: true }));
+      .pipe($.bs.reload({stream: true}));
   });
 };

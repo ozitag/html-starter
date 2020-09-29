@@ -2,12 +2,28 @@
   <img src="../assets/images/{{img}}.{{fallback-ext}}"/>
 {{else}}
   <picture>
-    {{#if mobile-img}}
-      {{> core/picture-source media="max-width: 767px" img=mobile-img}}
+    {{#if img-mobile}}
+      {{#if ext-mobile}}
+        {{> core/picture-source media="max-width: 767px" img=img-mobile ext=ext-mobile}}
+      {{else}}
+        {{> core/picture-source media="max-width: 767px" img=img-mobile ext=ext}}
+      {{/if}}
     {{/if}}
 
-    {{#if tablet-img}}
-      {{> core/picture-source media="max-width: 1279px" img=tablet-img}}
+    {{#if img-tabletSmall}}
+      {{#if ext-tablet}}
+        {{> core/picture-source media="max-width: 979px" img=img-tabletSmall ext=ext-tablet}}
+      {{else}}
+        {{> core/picture-source media="max-width: 979px" img=img-mobile ext=ext}}
+      {{/if}}
+    {{/if}}
+
+    {{#if img-tablet}}
+      {{#if ext-tablet}}
+        {{> core/picture-source media="max-width: 1279px" img=img-tablet ext=ext-tablet}}
+      {{else}}
+        {{> core/picture-source media="max-width: 1279px" img=img-mobile ext=ext}}
+      {{/if}}
     {{/if}}
 
     {{> core/picture-source}}
