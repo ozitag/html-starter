@@ -2,11 +2,11 @@
   <img src="../assets/images/{{img}}.{{fallback-ext}}"/>
 {{else}}
   <picture>
-    {{#if img-mobile}}
-      {{#if ext-mobile}}
-        {{> core/picture-source media="max-width: 767px" img=img-mobile ext=ext-mobile}}
+    {{#if img-tablet}}
+      {{#if ext-tablet}}
+        {{> core/picture-source media="max-width: 1279px" img=img-tablet ext=ext-tablet}}
       {{else}}
-        {{> core/picture-source media="max-width: 767px" img=img-mobile ext=ext}}
+        {{> core/picture-source media="max-width: 1279px" img=img-tablet ext=ext}}
       {{/if}}
     {{/if}}
 
@@ -14,15 +14,15 @@
       {{#if ext-tablet}}
         {{> core/picture-source media="max-width: 979px" img=img-tabletSmall ext=ext-tablet}}
       {{else}}
-        {{> core/picture-source media="max-width: 979px" img=img-mobile ext=ext}}
+        {{> core/picture-source media="max-width: 979px" img=img-tabletSmall ext=ext}}
       {{/if}}
     {{/if}}
 
-    {{#if img-tablet}}
-      {{#if ext-tablet}}
-        {{> core/picture-source media="max-width: 1279px" img=img-tablet ext=ext-tablet}}
+    {{#if img-mobile}}
+      {{#if ext-mobile}}
+        {{> core/picture-source media="max-width: 767px" img=img-mobile ext=ext-mobile}}
       {{else}}
-        {{> core/picture-source media="max-width: 1279px" img=img-mobile ext=ext}}
+        {{> core/picture-source media="max-width: 767px" img=img-mobile ext=ext}}
       {{/if}}
     {{/if}}
 
