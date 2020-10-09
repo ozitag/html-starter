@@ -54,6 +54,7 @@
     "critical": "^1.3.4",
     "gulp-cli": "^2.2.0",
     "gulp-debug": "^4.0.0",
+    "gulp-nop": "^0.0.3",
     "gulp-save": "^1.3.0",
     "gulp-sitemap": "^7.6.0",
     "html5shiv": "^3.7.3",

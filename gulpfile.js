@@ -2,6 +2,7 @@
 
 global.$ = {
   gulp: require('gulp'),
+  nop: require('gulp-nop'),
   gulpPlugin: require('gulp-load-plugins')(),
   sass: require('gulp-sass'),
   webp: require('gulp-webp'),
