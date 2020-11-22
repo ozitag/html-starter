@@ -4,7 +4,6 @@
   $ui-aside-maw: 250px;
   $ui-container-gutters: 30px;
   $ui-container-gutters-mobile: #{$ui-container-gutters / 2};
-  font-family: Verdana, sans-serif;
 
   display: flex;
   width: 100%;
@@ -32,6 +31,7 @@
     background: rgba(249, 249, 249, 0.7);
     box-shadow: inset 0 1px 2px transparentize($color-white, 0.3);
     backdrop-filter: blur(80px);
+    font-family: Verdana, sans-serif;
 
     @include media(tabletSmall) {
       display: none;
@@ -80,6 +80,7 @@
       padding: 15px $ui-container-gutters;
       border-bottom: 1px solid $color-gray-20;
       background-color: $color-white;
+      font-family: Verdana, sans-serif;
 
       @include media(tabletSmall) {
         left: 0;
@@ -95,6 +96,7 @@
       padding: 0;
       font-size: 1.5em;
       line-height: 1.4;
+      font-family: Verdana, sans-serif;
     }
 
     &__content {
@@ -260,17 +262,16 @@
 
 .uikit {
   &-row {
-    flex-wrap: wrap;
-    @include clearfix;
     margin-top: 30px;
-
     &:first-child {
       margin-top: -30px;
     }
+
+    display: flex;
+    flex-wrap: wrap;
   }
 
   &-cell {
-    float: left;
     margin-top: 30px;
     margin-left: -1px;
   }

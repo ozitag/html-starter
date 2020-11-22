@@ -12,6 +12,9 @@
           <li>
             <button class="ui-aside__link" data-id="buttons">Buttons</button>
           </li>
+          <li>
+            <button class="ui-aside__link" data-id="buttons">Widgets</button>
+          </li>
         </ul>
       </nav>
     </aside>
@@ -26,6 +29,10 @@
 
         {{#> core/ui-kit/section title="Buttons" id="buttons"}}
           {{> ui-kit/buttons }}
+        {{/core/ui-kit/section}}
+
+        {{#> core/ui-kit/section title="Widgets" id="widgets"}}
+          {{> ui-kit/widgets }}
         {{/core/ui-kit/section}}
       </div>
     </section>
