@@ -28,10 +28,14 @@
 
     {{> core/picture-source}}
 
-    <img class="lazy"
-         data-sizes="auto"
-         data-original="../assets/images/{{img}}.{{fallback-ext}}"
-         src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-         alt="{{alt}}">
+    {{#if no-lazy}}
+      <img src="../assets/images/{{img}}.{{ext}}" alt="{{alt}}">
+    {{else}}
+      <img class="lazy"
+           data-sizes="auto"
+           data-original="../assets/images/{{img}}.{{ext}}"
+           src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+           alt="{{alt}}">
+    {{/if}}
   </picture>
 {{/ifCond}}
