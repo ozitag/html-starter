@@ -14,6 +14,11 @@
           </li>
           <li>
             <button class="ui-aside__link" data-id="buttons">Widgets</button>
+            <ul>
+              <li>
+                <button data-id="widgets-example">Example</button>
+              </li>
+            </ul>
           </li>
         </ul>
       </nav>
@@ -43,7 +48,7 @@
 
 <script defer>
   window.onload = () => {
-    const $btn = $('.ui-aside__link');
+    const $btn = $('.ui-aside__nav button');
 
     $btn.on('click', function() {
       const id = $(this).data('id');

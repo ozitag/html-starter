@@ -66,6 +66,21 @@
         background-color: transparentize($color-black, 0.95);
       }
     }
+
+    &__nav {
+      li ul {
+        li {
+          margin-left: 40px;
+          button{
+            padding: 5px 0;
+            font-size: 14px;
+            &:hover{
+              color: #666;
+            }
+          }
+        }
+      }
+    }
   }
 
   &-main {
@@ -263,31 +278,39 @@
 .uikit {
   &-row {
     margin-top: 30px;
-    &:first-child {
+
+    &__content {
+      display: flex;
+      flex-wrap: wrap;
       margin-top: -30px;
     }
 
-    display: flex;
-    flex-wrap: wrap;
+    &__title {
+      display: block;
+      text-align: left;
+      margin-bottom: 10px;
+      font-size: 17px;
+      font-weight: bold;
+    }
   }
 
   &-cell {
     margin-top: 30px;
     margin-left: -1px;
-  }
-
-  &-widget {
-    border: 1px solid #eee;
 
     &--background {
       .uikit-widget__content {
-        background: #eee;
+        background: #efefef;
       }
     }
+  }
+
+  &-widget {
+    border: 1px solid #ddd;
 
     &__title {
       padding: 5px 10px;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid #ddd;
       display: block;
       font-size: 12px;
       font-style: italic;
