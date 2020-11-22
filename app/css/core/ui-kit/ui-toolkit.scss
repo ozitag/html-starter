@@ -257,3 +257,52 @@
     }
   }
 }
+
+
+.uikit {
+  &-row {
+    flex-wrap: wrap;
+    @include clearfix;
+    margin-top: 30px;
+    &:first-child {
+      margin-top: -30px;
+    }
+  }
+
+  &-cell {
+    float: left;
+    margin-top: 30px;
+    margin-left: -1px;
+  }
+
+  &-widget {
+    border: 1px solid #eee;
+
+    &--background {
+      .uikit-widget__content {
+        background: #eee;
+      }
+    }
+
+    &__title {
+      padding: 5px 10px;
+      border-bottom: 1px solid #eee;
+      display: block;
+      font-size: 12px;
+      font-style: italic;
+      font-family: Verdana, sans-serif;
+      color: #333;
+      text-align: center;
+    }
+
+    &__content {
+      padding: 5px;
+
+      &-inner {
+        margin: 5px;
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+}
