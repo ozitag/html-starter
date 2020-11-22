@@ -1,7 +1,7 @@
 <tr>
   <td>{{this.name}}</td>
   <td>
-    <span class="ui-colors__item {{#if dark}}dark{{/if}}" style="background-color: {{this.hex}};"></span>
+    <span class="ui-colors__item {{#if dark}}dark{{/if}}" style="background-color: {{#if this.rgb}}{{this.rgb}}{{else}}{{this.hex}}{{/if}};"></span>
   </td>
   <td>{{this.hex}}</td>
   <td>{{this.rgb}}</td>
