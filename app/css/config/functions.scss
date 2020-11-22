@@ -13,6 +13,22 @@
   @return nth($keys, $index-key);
 }
 
+@function sqrt($r) {
+  $x0: 1;
+  $x1: $x0;
+
+  @for $i from 1 through 10 {
+    $x1: $x0 - ($x0 * $x0 - abs($r)) / (2 * $x0);
+    $x0: $x1;
+  }
+
+  @return $x1;
+}
+
+@function diagonal($diag) {
+  @return floor(abs(sqrt(2) * $diag));
+}
+
 // For z-index
 @function z($key) {
   @if map-has-key($z-layers, $key) {
