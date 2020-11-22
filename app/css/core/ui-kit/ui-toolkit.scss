@@ -13,14 +13,12 @@
     flex: 1 1 100%;
     display: flex;
     margin: auto;
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0.5),
-    0 20px 30px rgba(0, 0, 0, 0.1),
-    0 10px 50px rgba(0, 0, 0, 0.2);
+    height: 100%;
 
     @include media(tabletSmall) {
       display: block;
       max-height: initial;
-      border-radius: unset;
+      us: unset;
     }
   }
 
@@ -104,7 +102,7 @@
       overflow-y: auto;
 
       > *:first-child {
-        margin-top: 60px;
+        margin-top: 30px;
       }
 
       > * + * {
@@ -173,18 +171,6 @@
           width: 20%;
         }
       }
-
-      span {
-        $ui-t-value: 28px;
-        display: inline-block;
-        width: $ui-t-value;
-        height: $ui-t-value;
-        border-radius: 50%;
-
-        &.dark {
-          border: 1px solid $color-gray-100;
-        }
-      }
     }
   }
 
@@ -233,7 +219,7 @@
 
     thead {
       td {
-        color: transparentize($color-gray-100, 0.3);
+        color: transparentize($color-black, 0.3);
         font-size: 12px;
         font-weight: 400;
         line-height: 1;
@@ -244,16 +230,30 @@
       td {
         font-size: 15px;
         line-height: 1;
-        border-top: 1px solid $color-gray-40;
-        border-bottom: 1px solid $color-gray-40;
+        border-top: 1px solid #DFE3EC;
+        border-bottom: 1px solid #DFE3EC;
       }
     }
 
     caption {
       padding: 10px 0;
-      color: $color-gray-100;
+      color: $color-black;
       @include ui-font-title;
       text-align: left;
+    }
+  }
+
+  &-colors {
+    &__item {
+      $ui-t-value: 28px;
+      display: inline-block;
+      width: $ui-t-value;
+      height: $ui-t-value;
+      border-radius: 50%;
+
+      &.dark {
+        border: 1px solid $color-black;
+      }
     }
   }
 }
