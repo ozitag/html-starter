@@ -11,11 +11,17 @@ import svgPolyfill from 'svg4everybody';
 import jquery from 'jquery';
 import swiper from 'swiper';
 import imask from 'imask';
+import datepicker from 'js-datepicker';
+import { format as dateFormat } from 'date-fns';
 
 window.$ = window.jQuery = jquery;
 window.svg4everybody = svgPolyfill;
 window.Swiper = swiper;
 window.IMask = imask;
+window.datepicker = datepicker;
+window.dateHelper = {
+  format: dateFormat,
+};
 
 lazySizes.cfg.lazyClass = 'lazy';
 lazySizes.cfg.srcAttr = 'data-original';

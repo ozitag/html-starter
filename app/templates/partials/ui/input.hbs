@@ -1,6 +1,6 @@
 <div class="form-input {{#if icon}}form-input--icon{{/if}} {{#if mod}}{{mod}}{{/if}}">
   <input type="{{#if type}}{{type}}{{else}}text{{/if}}" placeholder="{{ placeholder }}"
-         class=" {{#if mask}}js-masked-input{{/if}} {{#if numeric}}js-numeric-input{{/if}}"
+         class=" {{#if mask}}js-masked-input{{/if}} {{#if date}}js-datepicker{{/if}} {{#if numeric}}js-numeric-input{{/if}}"
          {{#if maxlength}}maxlength="{{maxlength}}"{{/if}}  {{#if mask}}data-mask="{{mask}}"{{/if}}/>
   {{#if icon}}
     <i class="form-input__icon form-input__icon--card"></i>
