@@ -13,6 +13,9 @@
             <button class="ui-aside__link" data-id="buttons">Buttons</button>
           </li>
           <li>
+            <button class="ui-aside__link" data-id="forms">Form Elements</button>
+          </li>
+          <li>
             <button class="ui-aside__link" data-id="buttons">Widgets</button>
             <ul>
               <li>
@@ -31,6 +34,10 @@
         {{#> core/ui-kit/section-colors title="Colors" id="colors"}}
           {{> ui-kit/colors}}
         {{/core/ui-kit/section-colors}}
+
+        {{#> core/ui-kit/section title="Form Elements" id="forms"}}
+          {{> ui-kit/forms }}
+        {{/core/ui-kit/section}}
 
         {{#> core/ui-kit/section title="Buttons" id="buttons"}}
           {{> ui-kit/buttons }}

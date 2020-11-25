@@ -1,6 +1,6 @@
-class NumericInput {
+class NumericInput extends Widget {
   constructor(node) {
-    this.$node = node;
+    super(node, '.js-numeric-input');
 
     if (typeof setInputFilter === 'undefined') {
       throw new Error('Please, include input-filter.js');

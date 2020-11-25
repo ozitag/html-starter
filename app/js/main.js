@@ -13,5 +13,8 @@ import './src/utils/mobile-debug';
 import './src/widgets/popups';
 import './src/widgets/example';
 
+import './src/widgets/numeric-input';
+import './src/widgets/masked-input';
+
 import './src/app';
 
