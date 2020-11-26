@@ -13,11 +13,15 @@ import swiper from 'swiper';
 import imask from 'imask';
 import datepicker from 'js-datepicker';
 import { format as dateFormat } from 'date-fns';
+import select2 from 'select2';
+import PerfectScrollbar from 'perfect-scrollbar';
 
 window.$ = window.jQuery = jquery;
 window.svg4everybody = svgPolyfill;
 window.Swiper = swiper;
 window.IMask = imask;
+window.select2 = select2;
+window.PerfectScrollbar = PerfectScrollbar;
 window.datepicker = datepicker;
 window.dateHelper = {
   format: dateFormat,

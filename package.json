@@ -65,8 +65,10 @@
     "js-datepicker": "^5.16.0",
     "lazysizes": "^5.2.0-beta1",
     "normalize-scss": "^7.0.1",
+    "perfect-scrollbar": "^1.5.0",
     "picturefill": "^3.0.3",
     "react-app-polyfill": "^1.0.5",
+    "select2": "^4.0.13",
     "svg4everybody": "^2.1.9",
     "swiper": "^6.1.2"
   },
