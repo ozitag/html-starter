@@ -14,6 +14,14 @@
           </li>
           <li>
             <button class="ui-aside__link" data-id="forms">Form Elements</button>
+            <ul>
+              <li>
+                <button data-id="forms-inputs">Inputs</button>
+              </li>
+              <li>
+                <button data-id="forms-selects">Selects</button>
+              </li>
+            </ul>
           </li>
           <li>
             <button class="ui-aside__link" data-id="buttons">Widgets</button>
@@ -22,6 +30,9 @@
                 <button data-id="widgets-example">Example</button>
               </li>
             </ul>
+          </li>
+          <li>
+            <button class="ui-aside__link" data-id="features">Features</button>
           </li>
         </ul>
       </nav>
@@ -45,6 +56,10 @@
 
         {{#> core/ui-kit/section title="Widgets" id="widgets"}}
           {{> ui-kit/widgets }}
+        {{/core/ui-kit/section}}
+
+        {{#> core/ui-kit/section title="Features" id="features"}}
+          {{> ui-kit/features }}
         {{/core/ui-kit/section}}
       </div>
     </section>
