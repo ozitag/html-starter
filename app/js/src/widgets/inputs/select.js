@@ -1,8 +1,20 @@
+const locale = {
+  searchPlaceholder: 'Search...',
+  notFoundMessage: 'Not Found',
+};
+
 class Select extends Widget {
   constructor(node) {
     super(node, 'js-select');
 
     this.onChange = this.onChange.bind(this);
+    this.onFocus = this.onFocus.bind(this);
+    this.onBlur = this.onBlur.bind(this);
+
+    this.$container = this.$node.parentNode;
+
+    this.withSearch = !!this.$node.dataset.search;
+    this.placeholder = this.$node.dataset.placeholder;
 
     this.init();
   }
@@ -15,61 +27,98 @@ class Select extends Widget {
     }
   }
 
-  build() {
-    const withSearch = this.$node.dataset.selectSearch;
-    const emptyMessage = this.$node.dataset.selectEmpty || 'Не найдено';
+  onFocus() {
+    this.$container.classList.add('focus');
+  }
 
-    $(this.$node).select2({
-      placeholder: this.$node.dataset.label,
-      "language": {
-        "noResults": () => emptyMessage
-      }
-    }).on("select2:open", function () {
-      if (withSearch) {
-        $('.select2-dropdown').get(0).classList.add('_with-search');
-      }
-      const width = parseInt($('.select2-dropdown').get(0).style.width);
-      $('.select2-dropdown').css('min-width', (width + 1) + 'px');
-      new PerfectScrollbar($('.select2-results__options').get(0), {
-        minScrollbarLength: 20
-      });
+  onBlur() {
+    this.$container.classList.remove('focus');
+  }
 
-      $(this).data('select2').$dropdown.find(':input.select2-search__field').attr('placeholder', 'Поиск...');
-    });
+  enableMobileMode() {
+    this.$node.addEventListener('change', this.onChange);
+    this.$node.addEventListener('focus', this.onFocus);
+    this.$node.addEventListener('blur', this.onBlur);
 
-    if (withSearch) {
-      return;
+    const optionSelected = this.$node.querySelector('option[selected]');
+    const hasInitialValue = !this.placeholder || (optionSelected && optionSelected.innerText.length > 0);
+
+    this.$node.classList.remove('visually-hidden');
+    this.$container.classList.add('mobile');
+
+    if (this.placeholder && hasInitialValue === false) {
+      const $mobilePlaceholder = document.createElement('span');
+      $mobilePlaceholder.classList.add('select-placeholder');
+      $mobilePlaceholder.innerText = this.placeholder;
+      this.$container.append($mobilePlaceholder);
     }
 
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-      $(this.$node).select2('destroy');
-      $(this.$node).removeClass('visually-hidden');
-    }
-
-    $(this.$node).on('change', this.onChange);
-
-    let hasValue = $(this.$node).find('option[selected]').length > 0 || ($(this.$node).find('option').length > 0 && ($(this.$node).find('option').first().text() !== ''));
-    if (hasValue) {
+    if (hasInitialValue) {
       this.setAsSelected();
     } else {
       this.setAsNotSelected();
     }
   }
 
-  setAsSelected() {
-    this.$node.classList.add('selected');
-    const $label = this.$node.parentElement.querySelector('.form-select__label');
-    if ($label) {
-      $label.classList.add('active');
+  initSelect2(placeholder) {
+    $(this.$node).select2({
+      minimumResultsForSearch: -1,
+      placeholder: placeholder,
+      language: {
+        noResults: () => locale.notFoundMessage,
+      },
+    }).on('select2:open', () => {
+      const $selectDropdown = document.querySelector('.select2-dropdown');
+      const $selectOptions = document.querySelector('.select2-results__options');
+
+      if (this.withSearch) {
+        $selectDropdown.classList.add('select2-with-search');
+      }
+
+      const width = parseInt($selectDropdown.style.width);
+      $selectDropdown.style.minWidth = (width + 1) + 'px';
+
+      new PerfectScrollbar($selectOptions, {
+        minScrollbarLength: 20,
+      });
+
+      $(this.$node).data('select2').$dropdown.find(':input.select2-search__field').attr('placeholder', locale.searchPlaceholder);
+    }).on('change', this.onChange);
+  }
+
+  enableDesktopMode() {
+    const optionSelected = this.$node.querySelector('option[selected]');
+    const options = this.$node.querySelectorAll('option');
+    const hasInitialValue = (optionSelected && optionSelected.innerText.length > 0) ||
+      (!this.placeholder && options.length > 0 && options[0].innerText.length > 0);
+
+    if (this.placeholder && hasInitialValue === false) {
+      $(this.$node).prepend('<option selected></option>');
+    }
+
+    this.initSelect2(hasInitialValue ? this.placeholder : null);
+
+    if (hasInitialValue) {
+      this.setAsSelected();
+    } else {
+      this.setAsNotSelected();
     }
   }
 
-  setAsNotSelected() {
-    this.$node.classList.remove('selected');
-    const $label = this.$node.parentElement.querySelector('.form-select__label');
-    if ($label) {
-      $label.classList.remove('active');
+  build() {
+    if (isMobileOrTablet() && this.withSearch === false) {
+      this.enableMobileMode();
+    } else {
+      this.enableDesktopMode();
     }
+  }
+
+  setAsSelected() {
+    this.$node.parentNode.classList.add('selected');
+  }
+
+  setAsNotSelected() {
+    this.$node.parentNode.classList.remove('selected');
   }
 
   static init(el) {
