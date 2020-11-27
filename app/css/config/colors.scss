@@ -2,5 +2,8 @@
 $color-white: #FFFFFF;
 $color-black: #000000;
 $color-red: #FF0000;
+
 $color-primary: #DD6900;
+$color-primary-hover: darken($color-primary, 5%);
 $color-secondary: #1B74FD;
+$color-secondary-hover: darken($color-secondary, 5%);
