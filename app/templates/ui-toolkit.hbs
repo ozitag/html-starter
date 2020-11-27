@@ -16,10 +16,16 @@
             <button class="ui-aside__link" data-id="forms">Form Elements</button>
             <ul>
               <li>
-                <button data-id="forms-inputs">Inputs</button>
+                <button data-id="forms-input">Input</button>
               </li>
               <li>
-                <button data-id="forms-selects">Selects</button>
+                <button data-id="forms-select">Select</button>
+              </li>
+              <li>
+                <button data-id="forms-checkbox">Checkbox</button>
+              </li>
+              <li>
+                <button data-id="forms-radio">Radio</button>
               </li>
             </ul>
           </li>
@@ -39,19 +45,19 @@
     </aside>
     <section class="ui__main ui-main">
       <header class="ui-main__header">
-        <h1 class="ui-main__title">UI Kit</h1>
+        <h1 class="ui-main__title">OZiTAG UI Kit</h1>
       </header>
       <div class="ui-main__content">
         {{#> core/ui-kit/section-colors title="Colors" id="colors"}}
           {{> ui-kit/colors}}
         {{/core/ui-kit/section-colors}}
 
-        {{#> core/ui-kit/section title="Form Elements" id="forms"}}
-          {{> ui-kit/forms }}
-        {{/core/ui-kit/section}}
-
         {{#> core/ui-kit/section title="Buttons" id="buttons"}}
           {{> ui-kit/buttons }}
+        {{/core/ui-kit/section}}
+
+        {{#> core/ui-kit/section title="Form Elements" id="forms"}}
+          {{> ui-kit/forms }}
         {{/core/ui-kit/section}}
 
         {{#> core/ui-kit/section title="Widgets" id="widgets"}}

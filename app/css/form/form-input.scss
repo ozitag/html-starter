@@ -1,0 +1,74 @@
+.form-input {
+  input {
+    background: #FFFFFF;
+    border: 2px solid #DAE4ED;
+    border-radius: 12px;
+    padding: 0 16px;
+    height: 57px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 150%;
+    width: 100%;
+
+    @include mobile {
+      height: 50px;
+      padding: 0 14px;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 150%;
+    }
+
+    @include placeholder {
+      color: rgba(5, 36, 51, 0.2);
+    }
+  }
+
+  &--icon {
+    position: relative;
+
+    input {
+      padding-left: 48px;
+      @include mobile {
+        padding-left: 46px;
+      }
+    }
+  }
+
+  &--icon-right {
+    position: relative;
+
+    input {
+      padding-right: 48px;
+    }
+  }
+
+  &__icon {
+    content: '';
+    display: block;
+    @include align(false, true);
+    z-index: 1;
+    pointer-events: none;
+
+    left: 17px;
+    @include mobile {
+      left: 15px;
+    }
+
+    .form-input--icon-right &{
+      right: 17px;
+      left: auto;
+      @include mobile{
+        right: 15px;
+      }
+    }
+
+    /*
+    &--card {
+      @include sprite('input-card');
+    }
+
+    &--date {
+      @include sprite('input-date');
+    }*/
+  }
+}

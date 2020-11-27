@@ -1,18 +1,16 @@
-// Libraries
-@import "~normalize-scss/sass/normalize/import-now";
-@import '~swiper/swiper';
-
-// Base
 @import 'config/index';
 @import 'mixins/index';
 @import 'core/index';
 
+@import "~normalize-scss/sass/normalize/import-now";
+@import '~swiper/swiper';
+@import '~js-datepicker/src/datepicker';
 @import 'vendor/index';
 
-// Layout & Components
-@import 'layout/index';
-@import "popups/base";
 @import 'components/index';
-
-// Content
-@import "blocks/index";
+@import 'form/index';
+@import 'blocks/index';
+@import 'widgets/index';
+@import 'layout/index';
+@import 'pages/index';
+@import "popups/index";

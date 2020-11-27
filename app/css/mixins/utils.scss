@@ -97,8 +97,8 @@
   transform: rotate($deg);
 }
 
-@mixin transition($property: all, $duration: 150ms, $fn: ease-in-out) {
-  transition: $property $duration $fn;
+@mixin transition($duration: 300ms, $property: all,$fn: ease-in-out) {
+  transition: $duration $property $fn;
 }
 
 @mixin triangle($width, $dir, $color) {

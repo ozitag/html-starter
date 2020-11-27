@@ -40,7 +40,7 @@
 {{#> core/ui-kit/widget title='<select> (with Search)' width=350}}
   {{#> ui/field label="Select with Search" id="select_04"}}
     {{#> ui/select id="select_04" placeholder="Select Country" search=true }}
-      {{> modules/select/countries }}
+      {{> helpers/country-options }}
     {{/ui/select}}
   {{/ui/field}}
 {{/core/ui-kit/widget}}
@@ -48,7 +48,7 @@
 {{#> core/ui-kit/widget title='<select> (with Search and Default)' width=350}}
   {{#> ui/field label="Select with Search and Default" id="select_05"}}
     {{#> ui/select id="select_05" placeholder="Select Country" search=true }}
-      {{> modules/select/countries selected=true}}
+      {{> helpers/country-options selected=true }}
     {{/ui/select}}
   {{/ui/field}}
 {{/core/ui-kit/widget}}
