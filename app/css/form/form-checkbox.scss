@@ -24,7 +24,7 @@
       content: '';
       position: absolute;
       @include square(22px, #fff, 6px);
-      border: 1px solid #000;
+      border: 1px solid $color-input-border;
       left: 0;
       @include align(false, true);
     }

@@ -76,7 +76,7 @@ class Select extends Widget {
       }
 
       const width = parseInt($selectDropdown.style.width);
-      $selectDropdown.style.minWidth = (width + 1) + 'px';
+      $selectDropdown.style.minWidth = width + 'px';
 
       new PerfectScrollbar($selectOptions, {
         minScrollbarLength: 20,

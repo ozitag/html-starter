@@ -1,5 +1,5 @@
-
 .form-select {
+
   .select2 {
     width: 100% !important;
     display: block;
@@ -23,41 +23,44 @@
       display: flex;
       align-items: center;
       background: #FFFFFF;
-      border: 2px solid $color-gray;
+      border: 1px solid $color-input-border;
       box-sizing: border-box;
-      border-radius: 12px;
-      height: 57px;
-      line-height: 57px;
-      padding: 0 16px;
-      font-weight: 500;
-      font-size: 18px;
-      color: rgba(5, 36, 51, 0.2);
+      border-radius: 8px;
+      height: 44px;
+      line-height: 44px;
+      padding: 0 10px;
+      font-size: 14px;
       position: relative;
+      color: $color-placeholder;
 
       &:after {
         content: '';
         @include sprite('select2-arrow');
-        right: 16px;
+        right: 10px;
         @include align(false, true);
       }
     }
 
     &-container--open {
       .select2-selection__rendered {
+        border-color: $color-primary;
+        border-radius: 8px 8px 0 0;
+
         &:after {
           @include sprite('select2-arrow-active');
           transform: rotate(180deg) translateY(50%);
           margin-top: -1px;
         }
+      }
 
-        border-color: $color-blue;
+      &.select2-container--above .select2-selection__rendered {
+        border-radius: 0 0 8px 8px;
       }
     }
   }
 
-
   &.selected .select2 .select2-selection__rendered {
-    color: $color-dark;
+    color: #000;
   }
 }
 
@@ -78,22 +81,20 @@
     display: flex;
     align-items: center;
     background: #FFFFFF;
-    border: 2px solid $color-gray;
+    border: 1px solid $color-input-border;
     box-sizing: border-box;
-    border-radius: 12px;
-    height: 57px;
-    line-height: 53px;
+    border-radius: 8px;
+    height: 44px;
+    line-height: 44px;
     padding: 0 16px;
-    font-weight: 500;
-    font-size: 18px;
-    color: rgba(5, 36, 51, 0.2);
+    font-weight: 400;
+    font-size: 14px;
     position: relative;
 
     &:focus {
-      border-color: $color-blue;
+      border-color: $color-primary;
     }
   }
-
 
   .select-placeholder {
     position: absolute;
@@ -102,12 +103,10 @@
     bottom: 4px;
     right: 20px;
     background: $color-white;
-    color: rgba(5, 36, 51, 0.2);
     display: flex;
     align-items: center;
     padding-left: 10px;
-    font-weight: 500;
-    font-size: 18px;
+    font-size: 14px;
     pointer-events: none;
   }
 
@@ -123,7 +122,7 @@
 
   &.focus {
     select {
-      border-color: $color-blue;
+      border-color: $color-primary;
     }
 
     &:after {
@@ -134,37 +133,41 @@
   }
 }
 
-
 .select2-dropdown {
   background: #FFFFFF;
-  border-radius: 10px;
+
+  border-radius: 0 0 10px 10px;
+  &.select2-dropdown--above {
+    border-radius: 10px 10px 0 0;
+  }
+
   overflow: hidden;
-  box-shadow: 0px 6px 44px rgba(1, 64, 139, 0.24);
+  box-shadow: 0 6px 44px rgba(1, 64, 139, 0.24);
   display: block;
 
   .select2-results__options {
     margin: 6px 0;
-    max-height: 180px;
+    max-height: 164px;
     position: relative;
     overflow: auto;
   }
 
   .select2-results__option {
-    padding: 9px 16px;
+    padding: 10px 16px;
     font-weight: 500;
-    font-size: 18px;
+    font-size: 14px;
     line-height: 150%;
-    color: $color-dark;
 
     &:not(.select2-results__message) {
       cursor: pointer;
 
-      :hover {
-        background: rgba(218, 228, 237, 0.22);
+      &:hover {
+        background: rgba(248, 248, 248, 0.5);
+        color: $color-primary;
       }
     }
 
-    &.select2-results__message{
+    &.select2-results__message {
       font-weight: 400;
       display: block;
       text-align: center;
@@ -172,21 +175,14 @@
     }
 
     &[aria-selected="true"] {
-      background: $color-blue-light;
-      color: $color-blue;
+      background: $color-primary;
+      color: $color-white;
       position: relative;
-
-      &:after {
-        content: '';
-        @include align(false, true);
-        right: 15px;
-        @include sprite('select2-tick');
-      }
     }
   }
 
   .select2-search {
-    border-bottom: 1px solid $color-gray-20;
+    border-bottom: 1px solid #eee;
     width: 100%;
 
     display: none;
@@ -194,11 +190,8 @@
     &__field {
       border: 0 none;
       padding: 9px 16px;
-
-      font-weight: 500;
-      font-size: 18px;
+      font-size: 14px;
       line-height: 150%;
-      color: $color-dark;
 
       @include placeholder {
         color: $color-placeholder;
