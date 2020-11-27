@@ -1,13 +1,6 @@
 <div class="form-radio">
   <label class="form-radio__label" for="{{name}}_{{value}}">
     <input type="radio" {{#if checked}}checked{{/if}} id="{{name}}_{{value}}" name="{{name}}" value="{{value}}"/>
-    <div class="form-radio__inner">
-      <span class="form-radio__title">{{ label }}</span>
-      <span class="form-radio__text">{{ text }}</span>
-
-      {{#if badge}}
-        <span class="form-radio__badge">{{badge}}</span>
-      {{/if}}
-    </div>
+    <div class="form-radio__inner">{{{label}}}</div>
   </label>
 </div>

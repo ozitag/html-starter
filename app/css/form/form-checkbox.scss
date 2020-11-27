@@ -13,24 +13,18 @@
   &__label {
     cursor: pointer;
     display: block;
-    padding-left: 34px;
   }
 
   &__inner {
-    font-size: 18px;
-    line-height: 150%;
-    color: $color-black;
-
-    @include mobile {
-      font-size: 14px;
-      line-height: 21px;
-    }
+    display: block;
+    position: relative;
+    padding-left: 30px;
 
     &:before {
       content: '';
       position: absolute;
-      @include square(24px, #fff, 6px);
-      border: 2px solid #000;
+      @include square(22px, #fff, 6px);
+      border: 1px solid #000;
       left: 0;
       @include align(false, true);
     }
@@ -39,7 +33,7 @@
       content: '';
       position: absolute;
       opacity: 0;
-      left: 4px;
+      left: 3px;
       @include align(false, true);
       @include sprite('form-checkbox-tick');
     }
