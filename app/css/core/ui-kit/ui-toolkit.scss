@@ -95,7 +95,7 @@
       right: 0;
       z-index: z(header);
       padding: 15px $ui-container-gutters;
-      border-bottom: 1px solid rgba(218, 228, 237, 0.2);
+      border-bottom: 1px solid #eee;
       background-color: #fff;
       font-family: Verdana, sans-serif;
 
@@ -111,7 +111,7 @@
     &__title {
       margin: 0;
       padding: 0;
-      font-size: 1.5em;
+      font-size: 24px;
       line-height: 1.4;
       font-family: Verdana, sans-serif;
     }
@@ -120,10 +120,6 @@
       padding: 0 $ui-container-gutters;
       overflow-y: auto;
       padding-bottom: 50px;
-
-      > *:first-child {
-        margin-top: 30px;
-      }
 
       @include media(tabletSmall) {
         max-height: initial;
@@ -264,30 +260,79 @@
 .uikit {
 
   &-section {
-    margin: 40px -30px 0;
-    border-top: 1px solid #ddd;
-
-    &:first-child {
-      margin-top: 0;
-    }
+    margin: 0 -30px;
 
     &__title {
       color: #000;
-      font-size: 30px;
+      font-size: 20px;
       font-weight: bold;
       line-height: 1.3;
+      padding: 15px 30px;
+      display: block;
+      cursor: pointer;
+      position: relative;
+      transition: 0.3s all ease;
+
+      &:before, &:after {
+        content: '';
+        position: absolute;
+        background: #ccc;
+        display: block;
+        transition: 0.3s all ease;
+      }
+
+      &:before {
+        right: 28px;
+        width: 3px;
+        height: 20px;
+        opacity: 1;
+      }
+
+      &:after {
+        right: 20px;
+        width: 20px;
+        height: 3px;
+        top: 23px;
+      }
+
+      &:hover {
+        color: #666;
+
+        &:before, &:after {
+          background: #ddd;
+        }
+      }
+
+      .opened &{
+        &:before{
+          opacity: 0;
+        }
+      }
     }
 
     &__header {
       border-bottom: 1px solid #ddd;
-      padding: 15px 30px;
     }
 
     &__content {
-      padding: 20px 30px 0;
-
       > .uikit-row:first-child {
-        margin-top: -30px;
+        margin-top: -20px;
+      }
+
+      padding: 20px 30px 40px;
+
+      display: none;
+
+      .opened & {
+        display: block;
+      }
+
+      &.animate {
+        position: relative;
+        display: block;
+        height: 0;
+        overflow: hidden;
+        transition: height .32s ease;
       }
     }
   }
@@ -302,7 +347,7 @@
     &__content {
       display: flex;
       flex-wrap: wrap;
-      margin-top: -30px;
+      margin-top: -20px;
     }
 
     &__title {
@@ -317,10 +362,11 @@
   &-row {
     display: flex;
     width: 100%;
+    padding-left: 1px;
   }
 
   &-cell {
-    margin-top: 30px;
+    margin-top: 20px;
     margin-left: -1px;
 
     &--background {
