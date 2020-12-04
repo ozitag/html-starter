@@ -1,20 +1,12 @@
 // Colors
 $color-white: #FFFFFF;
 $color-black: #000000;
-$color-primary: #1B74FD;
-$color-secondary: #FD5800;
-$color-primary-variant: #00b763;
-$color-error: #FF0000;
+$color-red: #FF0000;
 
-// Gray
-$color-gray-100: #363C4E;
-$color-gray-80: #7C8292;
-$color-gray-60: #C7CBD6;
-$color-gray-40: #DFE3EC;
-$color-gray-20: #F2F4F8;
-$color-gray-10: #F6F9FF;
+$color-primary: #DD6900;
+$color-primary-hover: darken($color-primary, 5%);
+$color-secondary: #1B74FD;
+$color-secondary-hover: darken($color-secondary, 5%);
 
-// Blue
-$color-blue-100: #0038D7;
-$color-blue-80: #0042FF;
-$color-blue-70: #1B74FD;
+$color-placeholder: rgba(5, 36, 51, 0.2);
+$color-input-border: #DAE4ED;

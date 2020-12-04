@@ -1,0 +1,52 @@
+.form-checkbox {
+  display: block;
+  position: relative;
+  width: 100%;
+
+  input {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    border: 0 none;
+  }
+
+  &__label {
+    cursor: pointer;
+    display: block;
+  }
+
+  &__inner {
+    display: block;
+    position: relative;
+    padding-left: 30px;
+
+    &:before {
+      content: '';
+      position: absolute;
+      @include square(22px, #fff, 6px);
+      border: 1px solid $color-input-border;
+      left: 0;
+      @include align(false, true);
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      opacity: 0;
+      left: 3px;
+      @include align(false, true);
+      @include sprite('form-checkbox-tick');
+    }
+  }
+
+  input:checked + .form-checkbox__inner {
+    &:before {
+      background: $color-primary;
+      border-color: $color-primary;
+    }
+
+    &:after {
+      opacity: 1;
+    }
+  }
+}

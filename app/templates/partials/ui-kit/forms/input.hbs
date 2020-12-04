@@ -6,13 +6,19 @@
 
 {{#> core/ui-kit/widget title='.form-input (With Icon)' width=350}}
   {{#> ui/field label="Input with icon" id="input_02"}}
-    {{> ui/input id="input_02" icon="card" placeholder="Placeholder"}}
+    {{> ui/input id="input_02" placeholder="Placeholder" icon="date"}}
+  {{/ui/field}}
+{{/core/ui-kit/widget}}
+
+{{#> core/ui-kit/widget title='.form-input (With Icon on right)' width=350}}
+  {{#> ui/field label="Input with icon" id="input_02"}}
+    {{> ui/input id="input_02" placeholder="Placeholder" icon="date" icon-position="right"}}
   {{/ui/field}}
 {{/core/ui-kit/widget}}
 
 {{#> core/ui-kit/widget title='.form-input (Numeric)' width=350}}
   {{#> ui/field label="Numeric Input" id="input_03"}}
-    {{> ui/input id="input_03" numeric=true  placeholder="Placeholder"}}
+    {{> ui/input id="input_03" numeric=true placeholder="Placeholder"}}
   {{/ui/field}}
 {{/core/ui-kit/widget}}
 
@@ -24,7 +30,7 @@
 
 {{#> core/ui-kit/widget title='.form-input (Date)' width=350}}
   {{#> ui/field label="Date Input" id="input_05"}}
-    {{> ui/input id="input_05" date=true}}
+    {{> ui/input id="input_05" placeholder="Placeholder" date=true icon="date" icon-position="right"}}
   {{/ui/field}}
 {{/core/ui-kit/widget}}
 

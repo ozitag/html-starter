@@ -1,0 +1,53 @@
+.form-radio {
+  display: block;
+  position: relative;
+  width: 100%;
+
+  input {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    border: 0 none;
+  }
+
+  &__label {
+    cursor: pointer;
+    display: block;
+  }
+
+  &__inner {
+    display: block;
+    position: relative;
+    padding-left: 30px;
+
+    &:before {
+      content: '';
+      position: absolute;
+      @include circle(22px, #fff);
+      border: 1px solid $color-input-border;
+      left: 0;
+      @include align(false, true);
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      opacity: 0;
+      left: 5px;
+      @include align(false, true);
+      @include circle(12px, #fff);
+    }
+  }
+
+  input:checked + .form-radio__inner {
+    &:before {
+      background: $color-primary;
+      border-color: $color-primary;
+    }
+
+    &:after {
+      opacity: 1;
+    }
+  }
+}

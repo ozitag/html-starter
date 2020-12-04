@@ -1,0 +1,55 @@
+.form-input {
+  position: relative;
+
+  input {
+    background: #FFFFFF;
+    border: 1px solid $color-input-border;
+    border-radius: 8px;
+    padding: 0 10px;
+    height: 44px;
+    line-height: 44px;
+    font-size: 16px;
+    width: 100%;
+
+    @include placeholder {
+      color: $color-placeholder;
+    }
+  }
+
+  &--icon {
+    position: relative;
+
+    input {
+      padding-left: 36px;
+    }
+  }
+
+  &--icon-right {
+    position: relative;
+
+    input {
+      padding-left: 10px;
+      padding-right: 36px;
+    }
+  }
+
+  &__icon {
+    content: '';
+    display: block;
+    @include align(false, true);
+    z-index: 1;
+    pointer-events: none;
+    margin-top: -2px;
+
+    left: 10px;
+
+    .form-input--icon-right & {
+      right: 10px;
+      left: auto;
+    }
+
+    &--date {
+      @include sprite('input-date');
+    }
+  }
+}

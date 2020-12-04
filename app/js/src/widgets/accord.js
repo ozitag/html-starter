@@ -7,7 +7,7 @@ class Accord extends Widget {
     this.$toggle = options.toggleElement ? options.toggleElement : this.queryElement('.toggle');
     this.$body = options.bodyElement ? options.bodyElement : this.queryElement('.body');
 
-    this.opened = false;
+    this.opened = this.$node.classList.contains('opened');
     this.busy = false;
 
     this.onToggleClick = this.onToggleClick.bind(this);

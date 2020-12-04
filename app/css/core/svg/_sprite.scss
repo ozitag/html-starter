@@ -1,3 +1,7 @@
-$icons: (sprite: (width: 26px, height: 26px, pngPath: '../assets/images/sprite.png', svgPath: '../assets/images/sprite.svg'),
-popup-close: (width: 26px, height: 26px, backgroundX: 0px, backgroundY: 0px),
+$icons: (sprite: (width: 88px, height: 76px, pngPath: '../assets/images/sprite.png', svgPath: '../assets/images/sprite.svg'),
+form-checkbox-tick: (width: 16px, height: 12px, backgroundX: 0px, backgroundY: 0px),
+input-date: (width: 18px, height: 20px, backgroundX: -16px, backgroundY: -12px),
+popup-close: (width: 26px, height: 26px, backgroundX: -34px, backgroundY: -32px),
+select2-arrow: (width: 14px, height: 9px, backgroundX: -60px, backgroundY: -58px),
+select2-arrow-active: (width: 14px, height: 9px, backgroundX: -74px, backgroundY: -67px),
 );

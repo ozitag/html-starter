@@ -1,8 +1,8 @@
-<section class="ui-section" {{#if id}}id="{{id}}"{{/if}}>
-  <header class="ui-section__header">
-    <h2 class="ui-section__title">{{title}}</h2>
+<section class="uikit-section js-accord opened" {{#if id}}id="{{id}}"{{/if}}>
+  <header class="uikit-section__header">
+    <h2 class="uikit-section__title js-accord__toggle">{{title}}</h2>
   </header>
-  <div class="ui-section__content">
+  <div class="uikit-section__content js-accord__body">
     {{> @partial-block}}
   </div>
 </section>

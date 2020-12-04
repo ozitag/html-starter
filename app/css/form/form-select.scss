@@ -1,0 +1,205 @@
+.form-select {
+
+  .select2 {
+    width: 100% !important;
+    display: block;
+
+    .selection {
+      width: 100%;
+      display: block;
+    }
+
+    &-selection {
+      width: 100%;
+      display: block;
+
+      &__arrow {
+        display: none;
+      }
+    }
+
+    &-selection__rendered {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      background: #FFFFFF;
+      border: 1px solid $color-input-border;
+      box-sizing: border-box;
+      border-radius: 8px;
+      height: 44px;
+      line-height: 44px;
+      padding: 0 10px;
+      font-size: 14px;
+      position: relative;
+      color: $color-placeholder;
+
+      &:after {
+        content: '';
+        @include sprite('select2-arrow');
+        right: 10px;
+        @include align(false, true);
+      }
+    }
+
+    &-container--open {
+      .select2-selection__rendered {
+        border-color: $color-primary;
+        border-radius: 8px 8px 0 0;
+
+        &:after {
+          @include sprite('select2-arrow-active');
+          transform: rotate(180deg) translateY(50%);
+          margin-top: -1px;
+        }
+      }
+
+      &.select2-container--above .select2-selection__rendered {
+        border-radius: 0 0 8px 8px;
+      }
+    }
+  }
+
+  &.selected .select2 .select2-selection__rendered {
+    color: #000;
+  }
+}
+
+
+.form-select.mobile {
+  position: relative;
+
+  &:after {
+    content: '';
+    @include sprite('select2-arrow');
+    right: 16px;
+    @include align(false, true);
+  }
+
+  select {
+    appearance: none;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: #FFFFFF;
+    border: 1px solid $color-input-border;
+    box-sizing: border-box;
+    border-radius: 8px;
+    height: 44px;
+    line-height: 44px;
+    padding: 0 16px;
+    font-weight: 400;
+    font-size: 14px;
+    position: relative;
+
+    &:focus {
+      border-color: $color-primary;
+    }
+  }
+
+  .select-placeholder {
+    position: absolute;
+    left: 5px;
+    top: 4px;
+    bottom: 4px;
+    right: 20px;
+    background: $color-white;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    font-size: 14px;
+    pointer-events: none;
+  }
+
+  &.selected {
+    .select-placeholder {
+      display: none;
+    }
+
+    select {
+      color: $color-black;
+    }
+  }
+
+  &.focus {
+    select {
+      border-color: $color-primary;
+    }
+
+    &:after {
+      @include sprite('select2-arrow-active');
+      transform: rotate(180deg) translateY(50%);
+      margin-top: -1px;
+    }
+  }
+}
+
+.select2-dropdown {
+  background: #FFFFFF;
+
+  border-radius: 0 0 10px 10px;
+  &.select2-dropdown--above {
+    border-radius: 10px 10px 0 0;
+  }
+
+  overflow: hidden;
+  box-shadow: 0 6px 44px rgba(1, 64, 139, 0.24);
+  display: block;
+
+  .select2-results__options {
+    margin: 6px 0;
+    max-height: 164px;
+    position: relative;
+    overflow: auto;
+  }
+
+  .select2-results__option {
+    padding: 10px 16px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 150%;
+
+    &:not(.select2-results__message) {
+      cursor: pointer;
+
+      &:hover {
+        background: rgba(248, 248, 248, 0.5);
+        color: $color-primary;
+      }
+    }
+
+    &.select2-results__message {
+      font-weight: 400;
+      display: block;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    &[aria-selected="true"] {
+      background: $color-primary;
+      color: $color-white;
+      position: relative;
+    }
+  }
+
+  .select2-search {
+    border-bottom: 1px solid #eee;
+    width: 100%;
+
+    display: none;
+
+    &__field {
+      border: 0 none;
+      padding: 9px 16px;
+      font-size: 14px;
+      line-height: 150%;
+
+      @include placeholder {
+        color: $color-placeholder;
+      }
+    }
+  }
+
+  &.select2-with-search .select2-search {
+    display: block;
+  }
+}
