@@ -1,84 +1,28 @@
 class Store {
-    constructor(name, callback) {
+    constructor(name, defaultValue = [], options = {}, callback) {
         callback = callback || function () { };
 
         this._dbName = name;
 
         if (!localStorage.getItem(name)) {
-            let todos = [];
-
-            localStorage.setItem(name, JSON.stringify(todos));
+            localStorage.setItem(name, JSON.stringify(defaultValue));
         }
 
         callback.call(this, JSON.parse(localStorage.getItem(name)));
+
+        const defaults = {
+            prefix: '',
+        };
+
+        this.config = { ...defaults, ...options };
     }
 
-    find(query, callback) {
-        if (!callback) {
-            return;
-        }
-
-        let todos = JSON.parse(localStorage.getItem(this._dbName));
-
-        callback.call(this, todos.filter(function (todo) {
-            for (let q in query) {
-                if (query[q] !== todo[q]) {
-                    return false;
-                }
-            }
-            return true;
-        }));
-    }
-
-    findAll(callback) {
-        callback = callback || function () { };
-        callback.call(this, JSON.parse(localStorage.getItem(this._dbName)));
-    }
-
-    save(updateData, callback, id) {
-        let todos = JSON.parse(localStorage.getItem(this._dbName));
-
-        callback = callback || function () { };
-
-        if (id) {
-            for (let i = 0; i < todos.length; i++) {
-                if (todos[i].id === id) {
-                    for (let key in updateData) {
-                        todos[i][key] = updateData[key];
-                    }
-                    break;
-                }
-            }
-
-            localStorage.setItem(this._dbName, JSON.stringify(todos));
-            callback.call(this, todos);
+    __getPrefixedKey(key, options = {}) {
+        if (options.noPrefix) {
+            return key;
         } else {
-            updateData.id = new Date().getTime();
-
-            todos.push(updateData);
-            localStorage.setItem(this._dbName, JSON.stringify(todos));
-            callback.call(this, [updateData]);
+            return this.config.prefix + key;
         }
-    }
-
-    remove(id, callback) {
-        let todos = JSON.parse(localStorage.getItem(this._dbName));
-
-        for (let i = 0; i < todos.length; i++) {
-            if (todos[i].id == id) {
-                todos.splice(i, 1);
-                break;
-            }
-        }
-
-        localStorage.setItem(this._dbName, JSON.stringify(todos));
-        callback.call(this, todos);
-    }
-
-    drop(callback) {
-        let todos = [];
-        localStorage.setItem(this._dbName, JSON.stringify(todos));
-        callback.call(this, todos);
     }
 }
 
@@ -264,6 +208,10 @@ class Drawer {
             if (value === 'save') {
                 console.log('save');
                 this.close()
+
+                if (this.store) {
+
+                }
             } else {
                 this.close();
             }
