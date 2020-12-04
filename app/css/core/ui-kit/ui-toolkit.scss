@@ -28,15 +28,9 @@
     z-index: z(aside);
     width: $ui-aside-maw;
     height: 100vh;
-<<<<<<< HEAD
     // background: rgba(249, 249, 249, 0.7);
     // box-shadow: inset 0 1px 2px transparentize($color-white, 0.3);
     // backdrop-filter: blur(80px);
-=======
-    background: rgba(249, 249, 249, 0.7);
-    box-shadow: inset 0 1px 2px transparentize(#fff, 0.3);
-    backdrop-filter: blur(80px);
->>>>>>> fc640c10430586d4ecc0970e900930e20bbaf93d
     font-family: Verdana, sans-serif;
 
     @include media(tabletSmall) {
