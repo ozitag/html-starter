@@ -1,3 +1,87 @@
+class Store {
+    constructor(name, callback) {
+        callback = callback || function () { };
+
+        this._dbName = name;
+
+        if (!localStorage.getItem(name)) {
+            let todos = [];
+
+            localStorage.setItem(name, JSON.stringify(todos));
+        }
+
+        callback.call(this, JSON.parse(localStorage.getItem(name)));
+    }
+
+    find(query, callback) {
+        if (!callback) {
+            return;
+        }
+
+        let todos = JSON.parse(localStorage.getItem(this._dbName));
+
+        callback.call(this, todos.filter(function (todo) {
+            for (let q in query) {
+                if (query[q] !== todo[q]) {
+                    return false;
+                }
+            }
+            return true;
+        }));
+    }
+
+    findAll(callback) {
+        callback = callback || function () { };
+        callback.call(this, JSON.parse(localStorage.getItem(this._dbName)));
+    }
+
+    save(updateData, callback, id) {
+        let todos = JSON.parse(localStorage.getItem(this._dbName));
+
+        callback = callback || function () { };
+
+        if (id) {
+            for (let i = 0; i < todos.length; i++) {
+                if (todos[i].id === id) {
+                    for (let key in updateData) {
+                        todos[i][key] = updateData[key];
+                    }
+                    break;
+                }
+            }
+
+            localStorage.setItem(this._dbName, JSON.stringify(todos));
+            callback.call(this, todos);
+        } else {
+            updateData.id = new Date().getTime();
+
+            todos.push(updateData);
+            localStorage.setItem(this._dbName, JSON.stringify(todos));
+            callback.call(this, [updateData]);
+        }
+    }
+
+    remove(id, callback) {
+        let todos = JSON.parse(localStorage.getItem(this._dbName));
+
+        for (let i = 0; i < todos.length; i++) {
+            if (todos[i].id == id) {
+                todos.splice(i, 1);
+                break;
+            }
+        }
+
+        localStorage.setItem(this._dbName, JSON.stringify(todos));
+        callback.call(this, todos);
+    }
+
+    drop(callback) {
+        let todos = [];
+        localStorage.setItem(this._dbName, JSON.stringify(todos));
+        callback.call(this, todos);
+    }
+}
+
 const CLASS_NAME_DRAWER = 'js-drawer';
 const CLASS_NAME_DRAWER_EMBED_CONTAINER = 'js-drawer-embed-container';
 const CLASS_NAME_DRAWER_CONTAINER = 'js-drawer-container';
@@ -34,12 +118,14 @@ const defaults = {
     animations: {
         replace: 'crossfade 0.5s ease-in-out',
         toggle: 'slide 0.5s ease',
-    }
+    },
+    nameOfStore: 'target-drawer',
 };
 
 class Drawer {
     constructor(target, options) {
         this.config = {...defaults, ...options};
+        this.store = new Store(this.config.nameOfStore);
 
         if (!target) {
             throw new Error('Missing required attribute: target element (css selector or DOM node) must be provided');
@@ -105,7 +191,6 @@ class Drawer {
     setActiveById(panel) {
         let id;
         const previousActivePanel = this.targetElement.querySelector(`${SELECTOR_DRAWER_CONTENT_ITEM}.${CLASS_NAME_ACTIVE}`);
-        console.log(previousActivePanel);
         if (this.__isDOMElement(panel)) {
             id = panel.id;
         } else if (this.__isString(panel)) {
@@ -172,9 +257,25 @@ class Drawer {
         return target.classList.contains(CLASS_NAME_ACTIVE);
     }
 
+    __isStart(value) {
+        if (this.__isBoolean(value)) {
+            config.startOpen ? this.open() : this.close();
+        } else if (this.__isString(value)) {
+            if (value === 'save') {
+                console.log('save');
+                this.close()
+            } else {
+                this.close();
+            }
+        } else {
+            this.close();
+        }
+    }
+
     __applyConfig(config) {
         this.setPosition(config.position);
-        config.startOpen ? this.open() : this.close();
+        // config.startOpen ? this.open() : this.close();
+        this.__isStart(config.startOpen);
         this.setNavigationSize(
             config.navigationItemWidth,
             config.navigationItemHeight
@@ -332,8 +433,12 @@ class Drawer {
         return target && (target.nodeType === document.ELEMENT_NODE || target.nodeType === document.DOCUMENT_FRAGMENT_NODE);
     }
 
-    __isString(target) {
-        return typeof target === 'string';
+    __isString(value) {
+        return typeof value === 'string';
+    }
+
+    __isBoolean(value) {
+        return value === true || value === false || typeof value === 'boolean';
     }
 
     __getAnimationFromString(input) {
@@ -379,7 +484,7 @@ class Drawer {
 document.addEventListener('DOMContentLoaded', () => {
     const options = {
         toggleButton: '.js-drawer-toggle',
-        startOpen: true,
+        startOpen: 'save',
         embed: true,
         clickOutsideToClose: false,
     };
