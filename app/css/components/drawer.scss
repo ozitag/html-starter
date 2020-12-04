@@ -1,5 +1,5 @@
 .js-drawer {
-	position: absolute;
+	position: fixed;
     overflow: hidden;
     pointer-events: none;
     z-index: 10;
@@ -36,14 +36,16 @@
         width: 100%;
         position: absolute;
         pointer-events: all;
-        transition: all 0.5s ease;    
+        transition: all 0.5s ease;
     }
 
     .js-drawer-content {
-        background-color: #2f353f;
+        background: rgba(249, 249, 249, 0.7);
+        box-shadow: inset 0 1px 2px transparentize($color-white, 0.3);
+        backdrop-filter: blur(80px);
         height: 100%;
         width: 100%;
-
+        
         &-item {
             height: 100%;
             width: 100%;
@@ -175,21 +177,30 @@
     transform: translate(0,100%);
 }
 
+
+.js-drawer-toggle {
+    margin-right: 30px;
+}
+
 .js-drawer-burger {
-    width: 60px;
-    height: 45px;
+    --burger-width: 40px;
+    --burger-height: 30px;
+    --burger-line-height: 3px;
+    --burger-color: #dd6900;
+
+    width: var(--burger-width, 30px);
+    height: var(--burger-height, 30px);
     position: relative;
     transition-duration: 1s;
-    margin-right: 30px;
     cursor: pointer;
 }
 .js-drawer-burger span {
     top: 50%;
     transform: translate(0, -50%);
     left: 0;
-    height: 4px;
-    width: 60px;
-    background-color: #337AB7;
+    width: var(--burger-width, 30px);
+    height: var(--burger-line-height, 4px);
+    background-color: var(--burger-color, #337AB7);
     border-radius: 20px;
     position: absolute;
     transition-duration: .25s;
@@ -198,10 +209,10 @@
 .js-drawer-burger span:before {
     left: 0;
     position: absolute;
-    top: -18px;
-    height: 4px;
-    width: 60px;
-    background-color: #337AB7;
+    top: -10px;
+    width: var(--burger-width, 30px);
+    height: var(--burger-line-height, 4px);
+    background-color: var(--burger-color, #337AB7);
     content: "";
     border-radius: 20px;
     transition-duration: .25s;
@@ -210,10 +221,10 @@
 .js-drawer-burger span:after {
     left: 0;
     position: absolute;
-    top: 18px;
-    height: 4px;
-    width: 60px;
-    background-color: #337AB7;
+    top: 10px;
+    width: var(--burger-width, 30px);
+    height: var(--burger-line-height, 4px);
+    background-color: var(--burger-color, #337AB7);
     content: "";
     border-radius: 20px;
     transition-duration: .25s;

@@ -26,8 +26,8 @@ const defaults = {
     minClosedSize: 0,
     toggleButton: '',
     embed: false,
-    navigationItemWidth: '50px',
-    navigationItemHeight: '50px',
+    navigationItemWidth: '0px',
+    navigationItemHeight: '0px',
     autoclose: false,
     autocloseDelay: 5000,
     clickOutsideToClose: true,
@@ -105,7 +105,7 @@ class Drawer {
     setActiveById(panel) {
         let id;
         const previousActivePanel = this.targetElement.querySelector(`${SELECTOR_DRAWER_CONTENT_ITEM}.${CLASS_NAME_ACTIVE}`);
-
+        console.log(previousActivePanel);
         if (this.__isDOMElement(panel)) {
             id = panel.id;
         } else if (this.__isString(panel)) {
