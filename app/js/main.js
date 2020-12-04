@@ -12,6 +12,7 @@ import './src/utils/mobile-debug';
 
 import './src/widgets/example';
 
+import './src/widgets/drawer';
 import './src/widgets/popups';
 import './src/widgets/video-link';
 
