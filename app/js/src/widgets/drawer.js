@@ -135,6 +135,9 @@ class Drawer {
 
     open() {
         this.fire('beforeOpen', [this.targetElement]);
+        if (this.toggleButtonElement) {
+            this.toggleButtonElement.classList.add(CLASS_NAME_OPEN);
+        }
         this.targetElement.classList.remove(CLASS_NAME_CLOSED);
         this.targetElement.classList.add(CLASS_NAME_OPEN);
         this.containerElement.style.left = '';
@@ -144,6 +147,9 @@ class Drawer {
 
     close() {
         this.fire('beforeClose', [this.targetElement]);
+        if (this.toggleButtonElement) {
+            this.toggleButtonElement.classList.remove(CLASS_NAME_OPEN);
+        }
         this.targetElement.classList.remove(CLASS_NAME_OPEN);
         this.targetElement.classList.add(CLASS_NAME_CLOSED);
         this.containerElement.style.left = `${this.config.minClosedSize}px`;
@@ -193,18 +199,16 @@ class Drawer {
         }
 
         if (this.autocloseTimeout) {
-            this.containerElement.onmouseover = this.onMouseOver.bind(this);
-            this.containerElement.onmouseout = this.onMouseOut.bind(this);
+            this.containerElement.addEventListener('mouseover', this.onMouseOver.bind(this));
+            this.containerElement.addEventListener('mouseout', this.onMouseOut.bind(this));
         }
         if (this.config.clickOutsideToClose) {
             document.addEventListener('click', this.onDocumentClick.bind(this), false);
         }
         if (this.config.toggleButton) {
-            this.toggleButtonElement = document.querySelector(
-                this.config.toggleButton
-            );
+            this.toggleButtonElement = document.querySelector(this.config.toggleButton);
             if (this.toggleButtonElement) {
-                this.toggleButtonElement.onclick = this.onToggleButtonClick.bind(this);
+                this.toggleButtonElement.addEventListener('click', this.onToggleButtonClick.bind(this));
             }
         }
     }

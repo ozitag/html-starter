@@ -174,3 +174,63 @@
 .js-drawer.js-drawer-bottom .js-drawer-content-item.slidefade {
     transform: translate(0,100%);
 }
+
+.js-drawer-burger {
+    width: 60px;
+    height: 45px;
+    position: relative;
+    transition-duration: 1s;
+    margin-right: 30px;
+    cursor: pointer;
+}
+.js-drawer-burger span {
+    top: 50%;
+    transform: translate(0, -50%);
+    left: 0;
+    height: 4px;
+    width: 60px;
+    background-color: #337AB7;
+    border-radius: 20px;
+    position: absolute;
+    transition-duration: .25s;
+    transition-delay: .25s;    
+}
+.js-drawer-burger span:before {
+    left: 0;
+    position: absolute;
+    top: -18px;
+    height: 4px;
+    width: 60px;
+    background-color: #337AB7;
+    content: "";
+    border-radius: 20px;
+    transition-duration: .25s;
+    transition: transform .25s, top .25s .25s;
+}
+.js-drawer-burger span:after {
+    left: 0;
+    position: absolute;
+    top: 18px;
+    height: 4px;
+    width: 60px;
+    background-color: #337AB7;
+    content: "";
+    border-radius: 20px;
+    transition-duration: .25s;
+    transition: transform .25s, top .25s .25s;
+}
+.open .js-drawer-burger span {
+    transition-duration: 0.1s;
+    transition-delay: .25s;
+    background: transparent;
+}
+.open .js-drawer-burger span:before {
+    transition: top .25s, transform .25s .25s;
+    top: 0px;
+    transform: rotateZ(-45deg);
+}
+.open .js-drawer-burger span:after {
+    transition: top 0.4s, transform .25s .25s;
+    top: 0px;
+    transform: rotateZ(45deg);
+}
