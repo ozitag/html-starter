@@ -16,6 +16,7 @@ import './src/utils/input-filter';
 import './src/widgets/example';
 import './src/widgets/accord';
 
+import './src/widgets/drawer';
 import './src/widgets/popups';
 import './src/widgets/video-link';
 

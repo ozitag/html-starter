@@ -28,9 +28,9 @@
     z-index: z(aside);
     width: $ui-aside-maw;
     height: 100vh;
-    background: rgba(249, 249, 249, 0.7);
-    box-shadow: inset 0 1px 2px transparentize(#fff, 0.3);
-    backdrop-filter: blur(80px);
+    /* background: rgba(249, 249, 249, 0.7);
+    box-shadow: inset 0 1px 2px transparentize($color-white, 0.3);
+    backdrop-filter: blur(80px); */
     font-family: Verdana, sans-serif;
 
     @include media(tabletSmall) {
@@ -39,8 +39,10 @@
   }
 
   &__main {
+    position: relative;
     flex: 1 1 75%;
-    padding: $ui-header-mah 0 0 $ui-aside-maw;
+    // padding: $ui-header-mah 0 0 $ui-aside-maw;
+    padding: 0;
 
     @include media(tabletSmall) {
       padding: $ui-header-mah 0 0;
@@ -49,7 +51,7 @@
 
   &-aside {
     &__inner {
-      padding: 10px 0;
+      // padding: 10px 0;
     }
 
     &__link {
@@ -89,11 +91,13 @@
     background-color: #fff;
 
     &__header {
-      position: fixed;
+      position: sticky;
       top: 0;
       left: $ui-aside-maw;
       right: 0;
       z-index: z(header);
+      display: flex;
+      align-items: center;
       padding: 15px $ui-container-gutters;
       border-bottom: 1px solid #eee;
       background-color: #fff;
