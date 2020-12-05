@@ -3,6 +3,7 @@ import './src/core/observer';
 
 import './src/utils/helpers';
 import './src/utils/device';
+import './src/utils/events';
 import './src/utils/layout';
 import './src/utils/scroll-observer';
 import './src/utils/resize-observer';
