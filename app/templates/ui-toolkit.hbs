@@ -5,12 +5,7 @@
   <div class="ui__container">
     <aside class="ui__aside ui-aside js-drawer">
       <nav class="ui-aside__inner js-drawer-container">
-        {{!-- js-drawer-nav-container --}}
-        <div class="js-drawer-nav">
-          {{!-- <div class="js-drawer-nav-item">1</div> --}}
-        </div>
-
-        <ul class="ui-aside__nav js-drawer-content">
+        <ul class="ui-aside__nav">
           <li>
             <button class="ui-aside__link" data-id="colors">Colors</button>
           </li>
@@ -57,7 +52,7 @@
         </button>
         <h1 class="ui-main__title">OZiTAG UI Kit</h1>
       </header>
-      <div class="ui-main__content">
+      <div class="ui-main__content">        
         {{#> core/ui-kit/section-colors title="Colors" id="colors"}}
           {{> ui-kit/colors}}
         {{/core/ui-kit/section-colors}}
@@ -77,7 +72,7 @@
         {{#> core/ui-kit/section title="Features" id="features"}}
           {{> ui-kit/features }}
         {{/core/ui-kit/section}}
-      </div>
+      </>
     </section>
   </div>
 </main>
