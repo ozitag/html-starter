@@ -7,29 +7,6 @@
         transition: margin 0.5s ease;
     }
 
-    &-nav {
-        position: absolute;
-
-        &-item {
-            box-sizing: border-box;
-            background-color: #fff;
-            color: #2f353f;
-            cursor: pointer;
-            border: 1px solid #2f353f;
-            display: inline-block;
-
-            &:hover {
-                background-color: #ff8989;
-                color: #fff;
-            }
-
-            &.active {
-                background-color: #2f353f;
-                color: #fff;
-            }
-        }
-    }
-
     .js-drawer-container {
         height: 100%;
         width: 100%;
@@ -160,7 +137,6 @@
     transform: translate(0,100%);
 }
 
-
 .js-drawer-toggle {
     width: 40px;
     height: 40px;
@@ -173,7 +149,7 @@
     --burger-width: 24px;
     --burger-height: 24px;
     --burger-line-height: 2px;
-    --burger-color: #fff; // #dd6900
+    --burger-color: #fff;
 
     width: var(--burger-width, 30px);
     height: var(--burger-height, 30px);
@@ -181,6 +157,7 @@
     transition-duration: 1s;
     cursor: pointer;
 }
+
 .js-drawer-burger span {
     position: absolute;
     top: 50%;
@@ -189,10 +166,10 @@
     width: var(--burger-width, 30px);
     height: var(--burger-line-height, 4px);
     background-color: var(--burger-color, #337AB7);
-    // border-radius: 20px;
     transition-duration: .25s;
     transition-delay: .25s;    
 }
+
 .js-drawer-burger span:before {
     position: absolute;
     top: -6px;
@@ -201,10 +178,10 @@
     height: var(--burger-line-height, 4px);
     background-color: var(--burger-color, #337AB7);
     content: "";
-    // border-radius: 20px;
     transition-duration: .25s;
     transition: transform .25s, top .25s .25s;
 }
+
 .js-drawer-burger span:after {
     position: absolute;
     top: 6px;
@@ -213,20 +190,22 @@
     height: var(--burger-line-height, 4px);
     background-color: var(--burger-color, #337AB7);
     content: "";
-    // border-radius: 20px;
     transition-duration: .25s;
     transition: transform .25s, top .25s .25s;
 }
+
 .open .js-drawer-burger span {
     transition-duration: 0.1s;
     transition-delay: .25s;
     background: transparent;
 }
+
 .open .js-drawer-burger span:before {
     transition: top .25s, transform .25s .25s;
     top: 0px;
     transform: rotateZ(-45deg);
 }
+
 .open .js-drawer-burger span:after {
     transition: top 0.4s, transform .25s .25s;
     top: 0px;
