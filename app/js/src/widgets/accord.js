@@ -86,9 +86,8 @@ class Accord extends Widget {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const accords = document.querySelectorAll('.js-accord');
-  accords.forEach(item => {
-    Accord.init(item);
+  document.querySelectorAll('.js-accord').forEach((element) => {
+    Accord.init(element);
   });
 });
 

@@ -6,7 +6,9 @@
     <aside class="ui__aside ui-aside js-drawer">
       <div class="js-drawer-container">
         <div class="ui-aside__heading">
-          <h1 class="ui-aside__title">OZiTAG</h1>
+          <a href="/home.html" class="ui-aside__logo">
+            {{> components/image img="logo/logo-christmas" ext="png"}}
+          </a>
         </div>
         <nav class="ui-aside__inner">
           <ul class="ui-aside__nav">
@@ -55,7 +57,7 @@
             <span></span>
           </div>
         </button>
-        <h1 class="ui-main__title">UI Kit</h1>
+        <h1 class="ui-main__title">OZiTAG UI KIT</h1>
       </header>
       <div class="ui-main__content">        
         {{#> core/ui-kit/section-colors title="Colors" id="colors"}}

@@ -4,7 +4,7 @@ class UiToolkitHeader {
         this.selector = this.isSelector(selector);
         this.config = {
             position: 3,
-            ...options
+            ...options,
         };
 
         this.events();

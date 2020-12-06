@@ -6,8 +6,6 @@ const CLASS_NAME_OPEN = 'open';
 const CLASS_NAME_CLOSED = 'closed';
 const CLASS_NAME_NO_SCROLL = `${CLASS_NAME_DRAWER}-no-scroll`;
 
-const SELECTOR_DRAWER = `.${CLASS_NAME_DRAWER}`;
-const SELECTOR_DRAWER_EMBED_CONTAINER = `.${CLASS_NAME_DRAWER_EMBED_CONTAINER}`;
 const SELECTOR_DRAWER_CONTAINER = `.${CLASS_NAME_DRAWER_CONTAINER}`;
 
 const defaults = {
@@ -24,16 +22,12 @@ const defaults = {
     autoclose: false,
     autocloseDelay: 5000,
     clickOutsideToClose: true,
-    animations: {
-        replace: 'crossfade 0.5s ease-in-out',
-        toggle: 'slide 0.5s ease',
-    },
     nameOfStore: 'target-drawer',
 };
 
 class Drawer {
     constructor(target, options) {
-        this.config = {...defaults, ...options};
+        this.config = { ...defaults, ...options };
 
         if (!target) {
             throw new Error('Missing required attribute: target element (css selector or DOM node) must be provided');
@@ -49,6 +43,7 @@ class Drawer {
             this.targetElement.parentElement.classList.add(CLASS_NAME_DRAWER_EMBED_CONTAINER);
         }
         this.containerElement = this.targetElement.querySelector(SELECTOR_DRAWER_CONTAINER);
+        this.toggleButtonElement = document.querySelector(this.config.toggleButton);
         this.__applyConfig(this.config);
         this.__attachEventListeners();
     }
@@ -99,7 +94,7 @@ class Drawer {
         this.containerElement.style.left = `${this.config.minClosedSize}px`;
         this.__updateEmbeding();
         if (window.localStorage) {
-            window.localStorage.setItem(this.config.nameOfStore, JSON.stringify(false));    
+            window.localStorage.setItem(this.config.nameOfStore, JSON.stringify(false));
         }
         this.fire('afterClose', [this.targetElement]);
     }
@@ -121,7 +116,7 @@ class Drawer {
 
     __isStart(value) {
         if (this.__isBoolean(value)) {
-            config.startOpen ? this.open() : this.close();
+            this.config.startOpen ? this.open() : this.close();
         } else if (this.__isString(value) && value === 'save' && window.localStorage && window.localStorage.getItem(this.config.nameOfStore) !== null) {
             if (JSON.parse(window.localStorage.getItem(this.config.nameOfStore)) === true) {
                 this.open();
@@ -152,11 +147,8 @@ class Drawer {
         if (this.config.clickOutsideToClose) {
             document.addEventListener('click', this.onDocumentClick.bind(this), false);
         }
-        if (this.config.toggleButton) {
-            this.toggleButtonElement = document.querySelector(this.config.toggleButton);
-            if (this.toggleButtonElement) {
-                this.toggleButtonElement.addEventListener('click', this.onToggleButtonClick.bind(this));
-            }
+        if (this.config.toggleButton && this.toggleButtonElement) {
+            this.toggleButtonElement.addEventListener('click', this.onToggleButtonClick.bind(this));
         }
     }
 
@@ -182,14 +174,6 @@ class Drawer {
             this.targetElement.parentElement.style.marginBottom = this.isOpen()
                 ? `calc(${this.config.height} - ${this.config.navigationItemHeight})`
                 : `${this.config.minClosedSize}px`;
-        }
-    }
-
-    onNavButtonClick(event) {
-        if (!this.isOpen()) {
-            this.open();
-        } else if (this.isActive(event.currentTarget) && this.config.closeable) {
-            this.close();
         }
     }
 
@@ -238,41 +222,6 @@ class Drawer {
 
     __isBoolean(value) {
         return value === true || value === false || typeof value === 'boolean';
-    }
-
-    __getAnimationFromString(input) {
-        const animationOptions = input.split(' ');
-        return {
-            type: animationOptions[0],
-            speed: animationOptions[1],
-            easing: animationOptions[2]
-        };
-    }
-
-    __getTransitionFromAnimation(animation) {
-        let transitionString = '';
-        if (animation.type === 'slide') {
-            transitionString += 'transform ' + animation.speed + ' ' + animation.easing;
-        } else if (animation.type === 'crossfade') {
-            transitionString += 'opacity ' + animation.speed + ' ' + animation.easing;
-        } else if (animation.type === 'slidefade') {
-            transitionString += 'opacity ' + animation.speed + ' ' + animation.easing + ', ';
-            transitionString += 'transform ' + animation.speed + ' ' + animation.easing;
-        }
-        return transitionString;
-    }
-
-    __setVendorStyleProperty(target, propertyName, value) {
-        const capitalizedPropertyName = this.__capitalizeFirstLetter(propertyName);
-        target.style['webkit' + capitalizedPropertyName] = value;
-        target.style['Moz' + capitalizedPropertyName] = value;
-        target.style['ms' + capitalizedPropertyName] = value;
-        target.style['O' + capitalizedPropertyName] = value;
-        target.style[propertyName] = value;
-    }
-
-    __capitalizeFirstLetter(input) {
-        return input.charAt(0).toUpperCase() + input.slice(1);
     }
 
     static init(element, options) {
