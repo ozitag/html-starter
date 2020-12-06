@@ -26,7 +26,6 @@ import './src/widgets/inputs/select';
 
 import './src/widgets/ui-toolkit/ui-toolkit-drawer';
 import './src/widgets/ui-toolkit/ui-toolkit-header';
-import './src/widgets/ui-toolkit/ui-toolkit-screenfull';
 
 import './src/app';
 

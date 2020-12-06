@@ -53,5 +53,9 @@ class UiToolkitHeader {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.js-ui-toolkit-header').forEach((element) => UiToolkitHeader.init(element, 'js-ui-toolkit-header'));
+    document.querySelectorAll('.js-ui-toolkit-header').forEach((element) => {
+        UiToolkitHeader.init(element, 'js-ui-toolkit-header', {
+            position: 0,
+        });
+    });
 });
