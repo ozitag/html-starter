@@ -152,9 +152,8 @@
       align-items: center;
       padding: 15px $ui-container-gutters;
       font-family: Verdana, sans-serif;
-
-      background-color: #FBAB7E;
-      background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
+      background-color: rgba(251,171,126,.8);
+      background-image: linear-gradient(62deg,rgba(251,171,126,.8) 0,rgba(247,206,104,.8) 100%);
 
       @include media(tabletSmall) {
         left: 0;
@@ -499,4 +498,9 @@
       font-size: 20px;
     }
   }
+}
+
+
+.js-ui-toolkit-header--fixed {
+  box-shadow: 5px -1px 20px -5px #9c6533;
 }
