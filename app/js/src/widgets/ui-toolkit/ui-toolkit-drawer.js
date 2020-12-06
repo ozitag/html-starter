@@ -4,6 +4,7 @@ const CLASS_NAME_DRAWER_CONTAINER = 'js-drawer-container';
 const CLASS_NAME_ACTIVE = 'active';
 const CLASS_NAME_OPEN = 'open';
 const CLASS_NAME_CLOSED = 'closed';
+const CLASS_NAME_NO_SCROLL = `${CLASS_NAME_DRAWER}-no-scroll`;
 
 const SELECTOR_DRAWER = `.${CLASS_NAME_DRAWER}`;
 const SELECTOR_DRAWER_EMBED_CONTAINER = `.${CLASS_NAME_DRAWER_EMBED_CONTAINER}`;
@@ -73,6 +74,7 @@ class Drawer {
 
     open() {
         this.fire('beforeOpen', [this.targetElement]);
+        document.body.classList.add(CLASS_NAME_NO_SCROLL);
         if (this.toggleButtonElement) {
             this.toggleButtonElement.classList.add(CLASS_NAME_OPEN);
         }
@@ -88,6 +90,7 @@ class Drawer {
 
     close() {
         this.fire('beforeClose', [this.targetElement]);
+        document.body.classList.remove(CLASS_NAME_NO_SCROLL);
         if (this.toggleButtonElement) {
             this.toggleButtonElement.classList.remove(CLASS_NAME_OPEN);
         }

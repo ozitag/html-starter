@@ -7,6 +7,12 @@
         transition: margin 0.5s ease;
     }
 
+    &-no-scroll {
+        @include media(tabletSmall) {
+            overflow: hidden;
+        }
+    }
+
     .js-drawer-container {
         height: 100%;
         width: 100%;
