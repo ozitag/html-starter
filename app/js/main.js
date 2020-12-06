@@ -16,7 +16,6 @@ import './src/utils/input-filter';
 import './src/widgets/example';
 import './src/widgets/accord';
 
-import './src/widgets/drawer';
 import './src/widgets/popups';
 import './src/widgets/video-link';
 
@@ -24,6 +23,10 @@ import './src/widgets/inputs/numeric-input';
 import './src/widgets/inputs/masked-input';
 import './src/widgets/inputs/datepicker';
 import './src/widgets/inputs/select';
+
+import './src/widgets/ui-toolkit/ui-toolkit-drawer';
+import './src/widgets/ui-toolkit/ui-toolkit-header';
+import './src/widgets/ui-toolkit/ui-toolkit-screenfull';
 
 import './src/app';
 

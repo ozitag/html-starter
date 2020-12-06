@@ -39,9 +39,7 @@
 
     &::before {
       content: "";
-      background-color: #FBAB7E;
-      background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
-
+      background-color: #dd6900;
       position: absolute;
       top: 0;
       left: 0;
@@ -152,8 +150,7 @@
       align-items: center;
       padding: 15px $ui-container-gutters;
       font-family: Verdana, sans-serif;
-      background-color: rgba(251,171,126,.8);
-      background-image: linear-gradient(62deg,rgba(251,171,126,.8) 0,rgba(247,206,104,.8) 100%);
+      background-color: rgba(221, 105, 0, .98);
 
       @include media(tabletSmall) {
         left: 0;
@@ -170,6 +167,7 @@
       font-size: 24px;
       line-height: 1.4;
       font-family: Verdana, sans-serif;
+      color: #fff;
     }
 
     &__content {
