@@ -18,6 +18,22 @@
     width: 250px;
     height: 100%;
 
+    &__heading {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 20px;
+      height: 70px;
+    }
+
+    &__logo {
+      display: flex;
+
+      img {
+        height: 50px;
+      }
+    }
+
     &__link {
       display: flex;
       align-items: center;
