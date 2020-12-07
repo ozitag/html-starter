@@ -393,6 +393,21 @@
   }
 }
 
+.ui-colors {
+  font-family: var(--uikit-font-family);
+  
+  &__item {
+    $ui-t-value: 28px;
+    display: inline-block;
+    width: $ui-t-value;
+    height: $ui-t-value;
+    border-radius: 50%;
+
+    &.dark {
+      border: 1px solid #000;
+    }
+  }
+}
 
 .ui-colors {
   li {
