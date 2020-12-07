@@ -1,183 +1,183 @@
 .js-drawer {
-	position: fixed;
-    pointer-events: none;
-    z-index: 101;
+  position: fixed;
+  pointer-events: none;
+  z-index: 101;
 
-    &-embed-container {
-        transition: margin 0.5s ease;
-    }
+  &-embed-container {
+    transition: margin 0.5s ease;
+  }
 
-    &-no-scroll {
-        @include media(tabletSmall) {
-            overflow: hidden;
-        }
+  &-no-scroll {
+    @include media(tabletSmall) {
+      overflow: hidden;
     }
+  }
+
+  .js-drawer-container {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    pointer-events: all;
+    transition: all 0.5s ease;
+
+    // border-right: 1px solid #e4e7ed;
+    background: #fff;
+    color: #2b345f;
+    box-shadow: 1px 0 30px rgba(0, 0, 0, .1);
+  }
+
+  &.js-drawer-left {
+    top: 0;
+    left: 0;
 
     .js-drawer-container {
-        height: 100%;
-        width: 100%;
-        position: absolute;
-        pointer-events: all;
-        transition: all 0.5s ease;
-
-        // border-right: 1px solid #e4e7ed;
-        background: #fff;
-        color: #2b345f;
-        box-shadow: 1px 0 30px rgba(0,0,0,.1);
+      left: -100%;
     }
 
-    &.js-drawer-left {
-        top: 0;
-	    left: 0;
-    
-        .js-drawer-container {
-            left: -100%;
-        }
+    .js-drawer-nav {
+      left: 100%;
+      top: 15%;
+      margin-left: -1px;
+    }
+  }
 
-        .js-drawer-nav {
-            left: 100%;
-            top: 15%;
-            margin-left: -1px;
-        }
+  &.js-drawer-right {
+    right: 0;
+    top: 0;
+
+    .js-drawer-container {
+      right: 0;
     }
 
-    &.js-drawer-right {
-        right: 0;
-        top: 0;
+    .js-drawer-nav {
+      right: 100%;
+      top: 15%;
+      margin-right: -1px;
+    }
+  }
 
-        .js-drawer-container {
-            right: 0;
-        }
+  &.js-drawer-top {
+    top: 0px;
+    left: 0px;
 
-        .js-drawer-nav {
-            right: 100%;
-            top: 15%;
-            margin-right: -1px;
-        }
+    .js-drawer-container {
+      top: 0;
     }
 
-    &.js-drawer-top {
-        top: 0px;
-        left: 0px;
+    .js-drawer-nav {
+      top: 100%;
+      left: 15%;
+      margin-top: -1px;
+    }
+  }
 
-        .js-drawer-container {
-            top: 0;
-        }
+  &.js-drawer-bottom {
+    bottom: 0px;
+    left: 0px;
 
-        .js-drawer-nav {
-            top: 100%;
-            left: 15%;
-            margin-top: -1px;
-        }
+    .js-drawer-container {
+      bottom: 0;
     }
 
-    &.js-drawer-bottom {
-        bottom: 0px;
-        left: 0px;
-
-        .js-drawer-container {
-            bottom: 0;
-        }
-
-        .js-drawer-nav {
-            bottom: 100%;
-            left: 15%;
-            margin-bottom: -1px;
-        }
+    .js-drawer-nav {
+      bottom: 100%;
+      left: 15%;
+      margin-bottom: -1px;
     }
+  }
 }
 
 .js-drawer.js-drawer-left .js-drawer-nav-item, .js-drawer.js-drawer-right .js-drawer-nav-item {
-	margin: 5px 0;
+  margin: 5px 0;
 }
 
 .js-drawer.js-drawer-top .js-drawer-nav-item, .js-drawer.js-drawer-bottom .js-drawer-nav-item {
-	margin: 0 5px;
+  margin: 0 5px;
 }
 
 .js-drawer.js-drawer-left.open .js-drawer-container,
 .js-drawer.js-drawer-left .js-drawer-content-item.active.slide,
 .js-drawer.js-drawer-left .js-drawer-content-item.active.slidefade {
-	transform: translate(100%, 0);
+  transform: translate(100%, 0);
 }
 
 .js-drawer.js-drawer-left.closed .js-drawer-container,
 .js-drawer.js-drawer-left .js-drawer-content-item.slide,
 .js-drawer.js-drawer-left .js-drawer-content-item.slidefade {
-    transform: translate(0, 0);
+  transform: translate(0, 0);
 }
 
 .js-drawer-toggle {
-    width: 40px;
-    height: 40px;
-    padding: 8px;
-    margin-right: 15px;
-    margin-left: -8px;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  margin-right: 15px;
+  margin-left: -8px;
 }
 
 .js-drawer-burger {
-    --burger-width: 24px;
-    --burger-height: 24px;
-    --burger-line-height: 2px;
-    --burger-color: #fff;
+  --burger-width: 24px;
+  --burger-height: 24px;
+  --burger-line-height: 2px;
+  --burger-color: #fff;
 
-    width: var(--burger-width, 30px);
-    height: var(--burger-height, 30px);
-    position: relative;
-    transition-duration: 1s;
-    cursor: pointer;
+  width: var(--burger-width, 30px);
+  height: var(--burger-height, 30px);
+  position: relative;
+  transition-duration: 1s;
+  cursor: pointer;
 }
 
 .js-drawer-burger span {
-    position: absolute;
-    top: 50%;
-    transform: translate(0, -50%);
-    left: 0;
-    width: var(--burger-width, 30px);
-    height: var(--burger-line-height, 4px);
-    background-color: var(--burger-color, #337AB7);
-    transition-duration: .25s;
-    transition-delay: .25s;    
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  left: 0;
+  width: var(--burger-width, 30px);
+  height: var(--burger-line-height, 4px);
+  background-color: var(--burger-color, #337AB7);
+  transition-duration: .25s;
+  transition-delay: .25s;
 }
 
 .js-drawer-burger span:before {
-    position: absolute;
-    top: -6px;
-    left: 0;
-    width: var(--burger-width, 30px);
-    height: var(--burger-line-height, 4px);
-    background-color: var(--burger-color, #337AB7);
-    content: "";
-    transition-duration: .25s;
-    transition: transform .25s, top .25s .25s;
+  position: absolute;
+  top: -6px;
+  left: 0;
+  width: var(--burger-width, 30px);
+  height: var(--burger-line-height, 4px);
+  background-color: var(--burger-color, #337AB7);
+  content: "";
+  transition-duration: .25s;
+  transition: transform .25s, top .25s .25s;
 }
 
 .js-drawer-burger span:after {
-    position: absolute;
-    top: 6px;
-    left: 0;
-    width: var(--burger-width, 30px);
-    height: var(--burger-line-height, 4px);
-    background-color: var(--burger-color, #337AB7);
-    content: "";
-    transition-duration: .25s;
-    transition: transform .25s, top .25s .25s;
+  position: absolute;
+  top: 6px;
+  left: 0;
+  width: var(--burger-width, 30px);
+  height: var(--burger-line-height, 4px);
+  background-color: var(--burger-color, #337AB7);
+  content: "";
+  transition-duration: .25s;
+  transition: transform .25s, top .25s .25s;
 }
 
 .open .js-drawer-burger span {
-    transition-duration: 0.1s;
-    transition-delay: .25s;
-    background: transparent;
+  transition-duration: 0.1s;
+  transition-delay: .25s;
+  background: transparent;
 }
 
 .open .js-drawer-burger span:before {
-    transition: top .25s, transform .25s .25s;
-    top: 0px;
-    transform: rotateZ(-45deg);
+  transition: top .25s, transform .25s .25s;
+  top: 0px;
+  transform: rotateZ(-45deg);
 }
 
 .open .js-drawer-burger span:after {
-    transition: top 0.4s, transform .25s .25s;
-    top: 0px;
-    transform: rotateZ(45deg);
+  transition: top 0.4s, transform .25s .25s;
+  top: 0px;
+  transform: rotateZ(45deg);
 }

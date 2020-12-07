@@ -10,9 +10,8 @@
           {{> components/image img="logo/logo-christmas" ext="png"}}
         </a>
       </div>
-
-      <nav class="ui-aside__inner">
-        <ul class="ui-aside__nav">
+      <nav class="uikit-aside__content js-uikit-autogenerator-append">
+{{!--         <ul class="uikit-aside__nav">
           <li>
             <button class="ui-aside__link" data-id="colors">Colors</button>
           </li>
@@ -47,7 +46,7 @@
           <li>
             <button class="ui-aside__link" data-id="features">Features</button>
           </li>
-        </ul>
+        </ul> --}}
       </nav>
     </div>
   </aside>
@@ -59,7 +58,7 @@
       <h1 class="uikit-header__title">OZiTAG UI KIT</h1>
     </header>
     <div class="uikit-content-container">
-      <div class="uikit-content">
+      <div class="uikit-content js-uikit-autogenerator">
         {{#> core/ui-kit/section-colors title="Colors" id="colors"}}
           {{> ui-kit/colors}}
         {{/core/ui-kit/section-colors}}
@@ -162,8 +161,8 @@
 
 <script defer>
   window.onload = () => {
-    const $btn = $('.ui-aside__nav button');
-
+    const $btn = $('.uikit-aside__link a[href="#"]');
+    
     $btn.on('click', function () {
       const id = $(this).data('id');
 

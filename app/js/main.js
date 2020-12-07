@@ -1,7 +1,8 @@
 import './src/core/widget';
 import './src/core/observer';
-import './src/core/uikit/drawer';
+import './src/core/uikit/uikit-drawer';
 import './src/core/uikit/uikit-scroll-header';
+import './src/core/uikit/uikit-autogenerator';
 
 import './src/utils/helpers';
 import './src/utils/device';
