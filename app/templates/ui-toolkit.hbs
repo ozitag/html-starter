@@ -42,9 +42,7 @@
         {{/core/ui-kit/section}}
       </div>
     </div>
-    <footer class="uikit-footer">
-      <span class="copyright">Powered by <a href="https://ozitag.com/" target="_blank">OZiTAG</a></span>
-    </footer>
+    {{> core/ui-kit/footer }}
   </section>
 </main>
 
@@ -52,7 +50,7 @@
 
 <script defer>
   window.onload = () => {
-    const $btn = $('.uikit-aside__link a[href="#"]');
+    const $btn = $('.uikit-aside__nav a[href="#"][data-id]');
 
     $btn.on('click', function () {
       const id = $(this).data('id');

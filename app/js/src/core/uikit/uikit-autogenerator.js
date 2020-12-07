@@ -63,7 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const selector = '.js-uikit-autogenerator';
   document.querySelectorAll(selector).forEach((element) => Autogenerator.init(element, { selector }));
 
-  $('.uikit-aside__nav a[href="#"][data-id]').on('click', function () {
+  $('.uikit-aside__nav a[href="#"][data-id]').on('click', function (event) {
+    event.preventDefault();
     const id = $(this).data('id');
 
     $('html, body').animate({
