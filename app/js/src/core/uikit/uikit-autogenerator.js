@@ -7,13 +7,9 @@ class Autogenerator {
     };
 
     this.config = Object.assign({}, defaults, options);
-
     this.insertAdjacentElement = document.querySelector(`${this.config.selector}-append`);
 
-    let html = `
-      <ul class="uikit-aside__nav">
-    `;
-
+    let html = '';
     this.element.querySelectorAll(`${this.config.selector}-title`).forEach((title) => {
       const sectionElement = title.parentElement.parentElement;
 
@@ -46,10 +42,6 @@ class Autogenerator {
         </li>
       `;
     });
-
-    html += `
-      </ul>
-    `;
 
     this.insertAdjacentElement.insertAdjacentHTML('beforeend', html);
   }
