@@ -328,6 +328,18 @@
 
     &:last-child {
       border-radius: 0 0 .35rem .35rem;
+
+      .uikit-section__header {
+        border-bottom: none;
+      }
+
+      &.opened .uikit-section__header {
+        border-bottom: 1px solid #ddd;
+      }
+
+      .uikit-section__content {
+        border-bottom: none;
+      }
     }
 
     background-color: #fff;
