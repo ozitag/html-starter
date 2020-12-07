@@ -194,46 +194,6 @@
     }
   }
 
-
-  &-colors {
-    li {
-      @include media(mobile) {
-        overflow-x: auto;
-        max-width: calc(100vw - 30px);
-        @include hide-scrollbar;
-      }
-    }
-
-    table {
-      @include media(mobile) {
-        min-width: 675px;
-      }
-
-      td {
-        &:nth-child(1) {
-          width: 40%;
-
-          @include media(mobile) {
-            width: calc(100vw - 100px);
-          }
-        }
-
-        &:nth-child(2) {
-          width: 20%;
-
-          @include media(mobile) {
-            width: 100px;
-            text-align: center;
-          }
-        }
-
-        &:nth-child(3) {
-          width: 20%;
-        }
-      }
-    }
-  }
-
   &-buttons {
     &__container {
       display: flex;
