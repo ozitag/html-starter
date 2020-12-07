@@ -2,8 +2,6 @@
   "appName": "APP_NAME",
   "siteName": "OZiTAG Build Template",
   "siteUrl": "#",
-  "author": "OZiTAG",
-  "authorUrl": "https://ozitag.com/",
   "metaPath": ".meta",
   "sourcePath": "app",
   "destPath": "dist",

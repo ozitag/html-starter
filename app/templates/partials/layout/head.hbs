@@ -38,7 +38,7 @@
   <link rel="canonical" href="{{ page-url }}">
   <link rel="stylesheet" href="../css/main.css?v={{cache}}">
 
-  {{#if uikit}}
+  {{#if ui-kit}}
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&display=swap" rel="stylesheet">
   {{/if}}
@@ -74,5 +74,20 @@
 </head>
 
 <body class="page {{page-mod}} {{page-class}}">
-<div class="preloader js-preloader"></div>
+<div class="{{#if ui-kit}}uikit-preloader js-uikit-preloader{{else}}preloader js-preloader{{/if}}">
+  {{#if ui-kit}}
+    <div class="uikit-preloader-animation">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  {{/if}}
+</div>
 <div class="page__inner">
