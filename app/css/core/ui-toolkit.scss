@@ -164,6 +164,18 @@
         margin: 0 $ui-container-gutters-mobile 50px $ui-container-gutters-mobile;
       }
     }
+
+    &__footer {
+      padding: 15px $ui-container-gutters;
+      background-color: #fff;
+      text-align: right;
+
+      .copyright {
+        &:hover a {
+          color: #dd6900;
+        }
+      }
+    }
   }
 
 
