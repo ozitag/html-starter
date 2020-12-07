@@ -1,4 +1,4 @@
-class UiToolkitHeader {
+class ScrollHeader {
     constructor(element, selector, options) {
         this.element = this.isElement(element);
         this.selector = this.isSelector(selector);
@@ -47,14 +47,14 @@ class UiToolkitHeader {
         return selector ? (selector.substr(0, 1) === '.' ? selector.substr(1) : selector) : null;
     }
 
-    static init(element, selector) {
-        element && new UiToolkitHeader(element, selector);
+    static init(element, selector, options) {
+        element && new ScrollHeader(element, selector, options);
     }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.js-ui-toolkit-header').forEach((element) => {
-        UiToolkitHeader.init(element, 'js-ui-toolkit-header', {
+        ScrollHeader.init(element, 'js-ui-toolkit-header', {
             position: 0,
         });
     });

@@ -1,5 +1,7 @@
 import './src/core/widget';
 import './src/core/observer';
+import './src/core/ui-toolkit/drawer';
+import './src/core/ui-toolkit/scroll-header';
 
 import './src/utils/helpers';
 import './src/utils/device';
@@ -23,9 +25,6 @@ import './src/widgets/inputs/numeric-input';
 import './src/widgets/inputs/masked-input';
 import './src/widgets/inputs/datepicker';
 import './src/widgets/inputs/select';
-
-import './src/widgets/ui-toolkit/ui-toolkit-drawer';
-import './src/widgets/ui-toolkit/ui-toolkit-header';
 
 import './src/app';
 

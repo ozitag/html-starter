@@ -26,15 +26,15 @@ const defaults = {
 };
 
 class Drawer {
-    constructor(target, options) {
+    constructor(element, options) {
         this.config = { ...defaults, ...options };
 
-        if (!target) {
+        if (!element) {
             throw new Error('Missing required attribute: target element (css selector or DOM node) must be provided');
-        } else if (this.__isString(target)) {
-            this.targetElement = document.querySelector(target);
-        } else if (this.__isDOMElement(target)) {
-            this.targetElement = target;
+        } else if (this.__isString(element)) {
+            this.targetElement = document.querySelector(element);
+        } else if (this.__isDOMElement(element)) {
+            this.targetElement = element;
         } else {
             throw new Error('Incorrect type: target element must be DOM node or string css selector');
         }
