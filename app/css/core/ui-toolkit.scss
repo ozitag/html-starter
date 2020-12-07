@@ -38,6 +38,10 @@
 
   &__main {
     position: relative;
+    flex: 1 1 100%;
+    width: 100%;
+    padding: $ui-header-mah 0 0 $ui-aside-maw;
+    padding: 0;
 
     &::before {
       content: "";
@@ -50,11 +54,6 @@
       height: 220px;
       z-index: 0;
     }
-
-    flex: 1 1 100%;
-    width: 100%;
-    padding: $ui-header-mah 0 0 $ui-aside-maw;
-    padding: 0;
   }
 
   &-aside {
@@ -392,7 +391,6 @@
         margin-top: -20px;
       }
 
-      padding: 20px 30px 40px;
       border-bottom: 1px solid #ddd;
 
       display: none;
@@ -407,6 +405,10 @@
         height: 0;
         overflow: hidden;
         transition: height .32s ease;
+      }
+
+      &-container {
+        padding: 20px 30px 40px;
       }
 
       @include media(mobile) {
