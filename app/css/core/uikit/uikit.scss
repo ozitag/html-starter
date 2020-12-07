@@ -287,6 +287,21 @@
       display: flex;
       flex-wrap: wrap;
       margin-top: -20px;
+
+      &--btn {
+        .uikit-widget {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+
+          &__content {
+            flex: 1 1 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+      }
     }
 
     &__title {
@@ -317,7 +332,6 @@
   }
 
   &-widget {
-    height: 100%;
     border: 1px solid #ddd;
 
     &__title {
