@@ -1,7 +1,93 @@
 {{!UI Kit}}
+
 {{> layout/head page-title="OZiTAG UI Kit"}}
 
-<main class="ui">
+<main class="uikit">
+  <aside class="uikit-aside js-drawer">
+    <div class="js-drawer-container">
+      <div class="uikit-aside__heading">
+        <a href="/home.html" class="ui-aside__logo">
+          {{> components/image img="logo/logo-christmas" ext="png"}}
+        </a>
+      </div>
+
+      <nav class="ui-aside__inner">
+        <ul class="ui-aside__nav">
+          <li>
+            <button class="ui-aside__link" data-id="colors">Colors</button>
+          </li>
+          <li>
+            <button class="ui-aside__link" data-id="buttons">Buttons</button>
+          </li>
+          <li>
+            <button class="ui-aside__link" data-id="forms">Form Elements</button>
+            <ul>
+              <li>
+                <button data-id="forms-input">Input</button>
+              </li>
+              <li>
+                <button data-id="forms-select">Select</button>
+              </li>
+              <li>
+                <button data-id="forms-checkbox">Checkbox</button>
+              </li>
+              <li>
+                <button data-id="forms-radio">Radio</button>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <button class="ui-aside__link" data-id="buttons">Widgets</button>
+            <ul>
+              <li>
+                <button data-id="widgets-example">Example</button>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <button class="ui-aside__link" data-id="features">Features</button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
+  <section class="uikit-main">
+    <header class="uikit-header js-uikit-header">
+      <button class="uikit-btn js-drawer-toggle" type="button">
+        <div class="js-drawer-burger"><span></span></div>
+      </button>
+      <h1 class="uikit-header__title">OZiTAG UI KIT</h1>
+    </header>
+    <div class="uikit-content-container">
+      <div class="uikit-content">
+        {{#> core/ui-kit/section-colors title="Colors" id="colors"}}
+          {{> ui-kit/colors}}
+        {{/core/ui-kit/section-colors}}
+        
+        {{#> core/ui-kit/section title="Buttons" id="buttons"}}
+          {{> ui-kit/buttons }}
+        {{/core/ui-kit/section}}
+        
+        {{#> core/ui-kit/section title="Form Elements" id="forms"}}
+          {{> ui-kit/forms }}
+        {{/core/ui-kit/section}}
+        
+        {{#> core/ui-kit/section title="Widgets" id="widgets"}}
+          {{> ui-kit/widgets }}
+        {{/core/ui-kit/section}}
+        
+        {{#> core/ui-kit/section title="Features" id="features"}}
+          {{> ui-kit/features }}
+        {{/core/ui-kit/section}}
+      </div>
+    </div>
+    <footer class="uikit-footer">
+      <span class="copyright">Powered by <a href="https://ozitag.com/" target="_blank">OZiTAG</a></span>
+    </footer>
+  </section>
+</main>
+
+{{!-- <main class="ui">
   <div class="ui__container">
     <aside class="ui__aside ui-aside js-drawer">
       <div class="js-drawer-container">
@@ -61,25 +147,7 @@
       </header>
       <div class="ui-main__content-container">
         <div class="ui-main__content">
-          {{#> core/ui-kit/section-colors title="Colors" id="colors"}}
-            {{> ui-kit/colors}}
-          {{/core/ui-kit/section-colors}}
-
-          {{#> core/ui-kit/section title="Buttons" id="buttons"}}
-            {{> ui-kit/buttons }}
-          {{/core/ui-kit/section}}
-
-          {{#> core/ui-kit/section title="Form Elements" id="forms"}}
-            {{> ui-kit/forms }}
-          {{/core/ui-kit/section}}
-
-          {{#> core/ui-kit/section title="Widgets" id="widgets"}}
-            {{> ui-kit/widgets }}
-          {{/core/ui-kit/section}}
-
-          {{#> core/ui-kit/section title="Features" id="features"}}
-            {{> ui-kit/features }}
-          {{/core/ui-kit/section}}
+          
         </div>
       </div>
       
@@ -88,7 +156,7 @@
       </footer>
     </section>
   </div>
-</main>
+</main> --}}
 
 {{> popups/example}}
 

@@ -75,7 +75,6 @@ class Drawer {
         }
         this.targetElement.classList.remove(CLASS_NAME_CLOSED);
         this.targetElement.classList.add(CLASS_NAME_OPEN);
-        this.containerElement.style.left = '';
         this.__updateEmbeding();
         if (window.localStorage) {
             window.localStorage.setItem(this.config.nameOfStore, JSON.stringify(true));
@@ -91,7 +90,6 @@ class Drawer {
         }
         this.targetElement.classList.remove(CLASS_NAME_OPEN);
         this.targetElement.classList.add(CLASS_NAME_CLOSED);
-        this.containerElement.style.left = `${this.config.minClosedSize}px`;
         this.__updateEmbeding();
         if (window.localStorage) {
             window.localStorage.setItem(this.config.nameOfStore, JSON.stringify(false));

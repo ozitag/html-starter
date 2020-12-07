@@ -1,11 +1,11 @@
 @import 'svg/svg';
 @import 'png/mixins';
 @import 'png/png-sprite';
-@import "grid";
+@import 'grid';
 
-@import "reset";
+@import 'reset';
 
-@import 'ui-toolkit';
+@import 'uikit/index';
 
 @import 'preloader';
 @import 'image';

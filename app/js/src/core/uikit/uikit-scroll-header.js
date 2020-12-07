@@ -1,11 +1,8 @@
-class ScrollHeader {
+class UikitScrollHeader {
     constructor(element, selector, options) {
         this.element = this.isElement(element);
         this.selector = this.isSelector(selector);
-        this.config = {
-            position: 3,
-            ...options,
-        };
+        this.config = { position: 3, ...options };
 
         this.events();
     }
@@ -26,12 +23,12 @@ class ScrollHeader {
     }
 
     onScrollEvents() {
-        const SELECTOR_FIXED = `${this.selector}--fixed`;
+        const SELECTOR_BOX_SHADOW = `${this.selector}_box-shadow`;
 
         if (this.scrollTop > this.config.position) {
-            this.element.classList.add(SELECTOR_FIXED);
+            this.element.classList.add(SELECTOR_BOX_SHADOW);
         } else {
-            this.element.classList.remove(SELECTOR_FIXED);
+            this.element.classList.remove(SELECTOR_BOX_SHADOW);
         }
     }
 
@@ -48,13 +45,13 @@ class ScrollHeader {
     }
 
     static init(element, selector, options) {
-        element && new ScrollHeader(element, selector, options);
+        element && new UikitScrollHeader(element, selector, options);
     }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.js-ui-toolkit-header').forEach((element) => {
-        ScrollHeader.init(element, 'js-ui-toolkit-header', {
+    document.querySelectorAll('.js-uikit-header').forEach((element) => {
+        UikitScrollHeader.init(element, 'uikit-header', {
             position: 0,
         });
     });

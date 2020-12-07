@@ -27,11 +27,11 @@
     }
 
     &.js-drawer-left {
-	    left: 0px;
-        top: 0px;
-
+        top: 0;
+	    left: 0;
+    
         .js-drawer-container {
-            left: 0;
+            left: -100%;
         }
 
         .js-drawer-nav {
@@ -42,8 +42,8 @@
     }
 
     &.js-drawer-right {
-        right: 0px;
-        top: 0px;
+        right: 0;
+        top: 0;
 
         .js-drawer-container {
             right: 0;
@@ -88,59 +88,23 @@
 }
 
 .js-drawer.js-drawer-left .js-drawer-nav-item, .js-drawer.js-drawer-right .js-drawer-nav-item {
-	margin: 5px 0px;
+	margin: 5px 0;
 }
 
 .js-drawer.js-drawer-top .js-drawer-nav-item, .js-drawer.js-drawer-bottom .js-drawer-nav-item {
-	margin: 0px 5px;
+	margin: 0 5px;
 }
 
 .js-drawer.js-drawer-left.open .js-drawer-container,
 .js-drawer.js-drawer-left .js-drawer-content-item.active.slide,
 .js-drawer.js-drawer-left .js-drawer-content-item.active.slidefade {
-	transform: translate(0,0);
+	transform: translate(100%, 0);
 }
 
 .js-drawer.js-drawer-left.closed .js-drawer-container,
 .js-drawer.js-drawer-left .js-drawer-content-item.slide,
 .js-drawer.js-drawer-left .js-drawer-content-item.slidefade {
-    transform: translate(-100%,0);
-}
-
-.js-drawer.js-drawer-right.open .js-drawer-container,
-.js-drawer.js-drawer-right .js-drawer-content-item.active.slide,
-.js-drawer.js-drawer-right .js-drawer-content-item.active.slidefade {
-	transform: translate(0,0);
-}
-
-.js-drawer.js-drawer-right.closed .js-drawer-container,
-.js-drawer.js-drawer-right .js-drawer-content-item.slide,
-.js-drawer.js-drawer-right .js-drawer-content-item.slidefade {
-    transform: translate(100%,0);
-}
-
-.js-drawer.js-drawer-top.open .js-drawer-container,
-.js-drawer.js-drawer-top .js-drawer-content-item.active.slide,
-.js-drawer.js-drawer-top .js-drawer-content-item.active.slidefade {
-	transform: translate(0,0);
-}
-
-.js-drawer.js-drawer-top.closed .js-drawer-container,
-.js-drawer.js-drawer-top .js-drawer-content-item.slide,
-.js-drawer.js-drawer-top .js-drawer-content-item.slidefade {
-    transform: translate(0,-100%);
-}
-
-.js-drawer.js-drawer-bottom.open .js-drawer-container,
-.js-drawer.js-drawer-bottom .js-drawer-content-item.active.slide,
-.js-drawer.js-drawer-bottom .js-drawer-content-item.active.slidefade {
-	transform: translate(0,0);
-}
-
-.js-drawer.js-drawer-bottom.closed .js-drawer-container,
-.js-drawer.js-drawer-bottom .js-drawer-content-item.slide,
-.js-drawer.js-drawer-bottom .js-drawer-content-item.slidefade {
-    transform: translate(0,100%);
+    transform: translate(0, 0);
 }
 
 .js-drawer-toggle {

@@ -1,0 +1,115 @@
+.uikit {
+    --uikit-background-color: #f4f5fa;
+    
+    min-height: 100vh;
+    background-color: var(--uikit-background-color, #f4f5fa);
+
+    @include media(mobile) {
+        width: 100%;
+    }
+    
+    &-aside {
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 101;
+
+        width: 250px;
+        height: 100%;
+    }
+
+    &-main {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        min-height: 100%;
+
+        &::before {
+            content: "";
+            background-color: #dd6900;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 220px;
+            z-index: 0;
+        }
+    }
+
+    &-header {
+        position: sticky;
+        top: 0;
+        left: 250px;
+        right: 0;
+        z-index: z(header);
+        display: flex;
+        align-items: center;
+        padding: 15px 30px;
+        font-family: Verdana, sans-serif;
+        background-color: rgba(221, 105, 0, .96);
+
+        &_box-shadow {
+            box-shadow: 5px -1px 20px -5px #9c6533;
+        }
+
+        @include media(tabletSmall) {
+            left: 0;
+        }
+
+        @include media(mobile) {
+            padding: 15px;
+        }
+
+        &__title {
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+            color: #fff;
+        }
+    }
+
+    &-content-container {
+        position: relative;
+        margin: 0 30px;
+
+        @include media(mobile) {
+          margin: 0 15px;
+        }
+    }
+
+    &-content {
+        flex: 1 0 auto;
+        padding-bottom: 50px;
+
+        @include media(mobile) {
+          padding-bottom: 50px;
+        }
+    }
+
+    &-footer {
+        position: sticky;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 102;
+        padding: 15px 30px;
+        background-color: #fff;
+        text-align: right;
+        font-size: 16px;
+        box-shadow: 30px 0 30px rgba(0,0,0,.1);
+        flex: 0 0 auto;
+
+        .copyright {
+            &:hover a {
+                color: #dd6900;
+            }
+        }
+    }
+
+    &-btn {
+
+    }
+}

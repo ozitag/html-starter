@@ -1,7 +1,7 @@
 import './src/core/widget';
 import './src/core/observer';
-import './src/core/ui-toolkit/drawer';
-import './src/core/ui-toolkit/scroll-header';
+import './src/core/uikit/drawer';
+import './src/core/uikit/uikit-scroll-header';
 
 import './src/utils/helpers';
 import './src/utils/device';
