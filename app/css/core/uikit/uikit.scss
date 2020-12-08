@@ -201,10 +201,12 @@
       }
 
       &:before {
+        top: 50%;
         right: 28px;
         width: 3px;
         height: 20px;
         opacity: 1;
+        transform: translate(0, -50%);
 
         @include media(mobile) {
           right: 23px;
@@ -215,7 +217,8 @@
         right: 20px;
         width: 20px;
         height: 3px;
-        top: 23px;
+        top: 50%;
+        transform: translate(0, -50%);
 
         @include media(mobile) {
           right: 15px;

@@ -3,7 +3,7 @@ class Autogenerator {
     this.element = element;
 
     const defaults = {
-      selector: '',
+      selector: 'js-autogenerator',
     };
 
     this.config = Object.assign({}, defaults, options);

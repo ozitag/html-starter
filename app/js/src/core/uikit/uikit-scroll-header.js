@@ -8,8 +8,8 @@ class UikitScrollHeader {
     }
 
     events() {
-        window.addEventListener('DOMContentLoaded', this.updateScrollTopPosition.bind(this));
-        window.addEventListener('scroll', this.updateScrollTopPosition.bind(this));
+        document.addEventListener('DOMContentLoaded', this.updateScrollTopPosition.bind(this));
+        onScroll(this.updateScrollTopPosition.bind(this));
         this.initScrollEvents();
     }
 
@@ -18,8 +18,8 @@ class UikitScrollHeader {
     }
 
     initScrollEvents() {
-        window.addEventListener('DOMContentLoaded', this.onScrollEvents.bind(this));
-        window.addEventListener('scroll', this.onScrollEvents.bind(this));
+        document.addEventListener('DOMContentLoaded', this.onScrollEvents.bind(this));
+        onScroll(this.onScrollEvents.bind(this));
     }
 
     onScrollEvents() {
@@ -36,7 +36,7 @@ class UikitScrollHeader {
         if (element && element instanceof HTMLElement) {
             return element;
         } else {
-            throw new Error(`Widget "ui toolkit header": Missing required attribute: target element (DOM node) must be provided`);
+            throw new Error(`Widget "uikit scroll header": Missing required attribute: target element (DOM node) must be provided`);
         }
     }
 
