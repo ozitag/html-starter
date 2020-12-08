@@ -42,6 +42,7 @@ module.exports = () => {
     );
     const db = { ...initParams, ...data, ...links };
 
+
     return $.gulp.src([
       `${$.config.sourcePath}/${$.config.hbsPath}/pages/*.hbs`,
       `${$.config.sourcePath}/${$.config.hbsPath}/ui-toolkit.hbs`,

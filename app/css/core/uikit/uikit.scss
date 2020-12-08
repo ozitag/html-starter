@@ -276,6 +276,28 @@
         }
       }
     }
+
+    &__copy-message {
+      padding: 12px 24px;
+      background-color: $color-black;
+      color: $color-white;
+
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 6px;
+
+      font-size: 14px;
+      overflow: hidden;
+      opacity: 0;
+      transition: all 0.3s ease-in-out;
+
+      &.active {
+        overflow: visible;
+        opacity: 1;
+      }
+    }
   }
 
   &-subsection {
@@ -409,6 +431,15 @@
         font-size: 15px;
         line-height: 1;
         border-top: 1px solid #DFE3EC;
+
+        &.js-td-copy {
+          cursor: pointer;
+
+          &:hover {
+            transition: all 0.3s ease-in-out;
+            color: $color-primary;
+          }
+        }
       }
     }
 

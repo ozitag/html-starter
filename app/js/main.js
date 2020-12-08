@@ -28,5 +28,7 @@ import './src/widgets/inputs/masked-input';
 import './src/widgets/inputs/datepicker';
 import './src/widgets/inputs/select';
 
+import './src/widgets/copied-to-clipboard';
+
 import './src/app';
 
