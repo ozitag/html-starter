@@ -1,17 +1,9 @@
-//Color
-$uikit-color-primary: #f4f5fa;
+$uikit-primary-color: #dd6900;
+$uikit-preloader-background: #fff;
+$uikit-preloader-color: $uikit-primary-color;
+$uikit-background-color: #f4f5fa;
+$uikit-sidebar-background-color: #fff;
+$uikit-sidebar-text-color: #2b345f;
 $uikit-burger-color: #fff;
-$uikit-preloader-color: #dd6900;
 
-//Fonts
-$uikitBaseFont: 'Comfortaa', cursive;
-
-//Burger size
-$burgerWidth: 24px;
-$burgerHeight: 24px;
-$burgerLineHeight: 2px;
-
-//Preloader
-$preloaderCount: 10;
-$preloaderTime: 2;
-$preloaderSize: 100;
+$uikit-base-font: 'Comfortaa', cursive;
