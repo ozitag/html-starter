@@ -118,7 +118,7 @@
     margin: 0 30px;
 
     @include media(mobile) {
-      margin: 0 15px;
+      margin: 0;
     }
   }
 
@@ -271,10 +271,9 @@
 
       &-container {
         padding: 20px 30px 40px;
-      }
-
-      @include media(mobile) {
-        padding: 20px 15px;
+        @include media(mobile) {
+          padding: 30px 15px 40px;
+        }
       }
     }
   }
@@ -290,6 +289,10 @@
       display: flex;
       flex-wrap: wrap;
       margin-top: -20px;
+
+      @include media(mobile) {
+        justify-content: center;
+      }
 
       &--btn {
         .uikit-widget {
@@ -327,6 +330,10 @@
     margin-top: 20px;
     margin-left: -1px;
 
+    @include media(mobile) {
+      width: 100%;
+    }
+
     &--background {
       .uikit-widget__content {
         background: #efefef;
@@ -355,6 +362,13 @@
         margin: 5px;
         display: flex;
         justify-content: center;
+
+        @include media(mobile) {
+          margin: 0 auto;
+          padding: 5px;
+          max-width: 100%;
+          width: auto !important;
+        }
       }
     }
   }
@@ -411,7 +425,7 @@
 
   &-colors {
     font-family: var(--uikit-font-family);
-    
+
     &__item {
       $ui-t-value: 28px;
       display: inline-block;
