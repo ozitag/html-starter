@@ -41,20 +41,16 @@ class Accord extends Widget {
   }
 
   open() {
-    if (this.opened) return;
     this.$node.classList.add('opened');
     this.expand();
-    this.opened = true;
     this.trigger('opening');
 
     setTimeout(() => this.scrollToView(), 300);
   }
 
   close() {
-    if (!this.opened) return;
     this.collapse();
     this.$node.classList.remove('opened');
-    this.opened = false;
   }
 
   onToggleClick(e) {
@@ -62,7 +58,7 @@ class Accord extends Widget {
     if (this.busy) return;
     this.busy = true;
 
-    !this.opened ? this.open() : this.close();
+    !this.$node.classList.contains('opened') ? this.open() : this.close();
   }
 
   collapse() {

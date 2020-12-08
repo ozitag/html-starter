@@ -59,8 +59,16 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault();
     const id = $(this).data('id');
 
+    const activeSection = document.getElementById(id);
+    const accord = activeSection.closest('.js-accord');
+    console.log(accord, 'accord');
+
+    if(!accord.classList.contains('opened')) {
+      accord.classList.add('opened');
+    }
+
     $('html, body').animate({
-      scrollTop: $(`#${id}`).offset().top - 70,
+      scrollTop: $(`#${id}`).offset().top - 80,
     }, 600);
   });
 });
