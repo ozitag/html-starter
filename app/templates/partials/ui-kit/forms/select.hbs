@@ -1,4 +1,4 @@
-{{#> core/ui-kit/widget title='<select>' width=350}}
+{{#> core/ui-kit/blocks/widget title='<select>' width=350}}
   {{#> ui/field label="Simple Select" id="select_01"}}
     {{#> ui/select id="select_01" }}
       <option value="0">United States</option>
@@ -9,9 +9,9 @@
       <option value="5">Russian 2</option>
     {{/ui/select}}
   {{/ui/field}}
-{{/core/ui-kit/widget}}
+{{/core/ui-kit/blocks/widget}}
 
-{{#> core/ui-kit/widget title='<select> (with Placeholder)' width=350}}
+{{#> core/ui-kit/blocks/widget title='<select> (with Placeholder)' width=350}}
   {{#> ui/field label="Select with Placeholder" id="select_02"}}
     {{#> ui/select id="select_02" placeholder="Select Country" }}
       <option value="0">United States</option>
@@ -22,9 +22,9 @@
       <option value="5">Russian 2</option>
     {{/ui/select}}
   {{/ui/field}}
-{{/core/ui-kit/widget}}
+{{/core/ui-kit/blocks/widget}}
 
-{{#> core/ui-kit/widget title='<select> (with Default)' width=350}}
+{{#> core/ui-kit/blocks/widget title='<select> (with Default)' width=350}}
   {{#> ui/field label="Select with Default value" id="select_03"}}
     {{#> ui/select id="select_03" placeholder="Select Country" }}
       <option value="0">United States</option>
@@ -35,20 +35,20 @@
       <option value="5">Russian 2</option>
     {{/ui/select}}
   {{/ui/field}}
-{{/core/ui-kit/widget}}
+{{/core/ui-kit/blocks/widget}}
 
-{{#> core/ui-kit/widget title='<select> (with Search)' width=350}}
+{{#> core/ui-kit/blocks/widget title='<select> (with Search)' width=350}}
   {{#> ui/field label="Select with Search" id="select_04"}}
     {{#> ui/select id="select_04" placeholder="Select Country" search=true }}
       {{> helpers/country-options }}
     {{/ui/select}}
   {{/ui/field}}
-{{/core/ui-kit/widget}}
+{{/core/ui-kit/blocks/widget}}
 
-{{#> core/ui-kit/widget title='<select> (with Search and Default)' width=350}}
+{{#> core/ui-kit/blocks/widget title='<select> (with Search and Default)' width=350}}
   {{#> ui/field label="Select with Search and Default" id="select_05"}}
     {{#> ui/select id="select_05" placeholder="Select Country" search=true }}
       {{> helpers/country-options selected=true }}
     {{/ui/select}}
   {{/ui/field}}
-{{/core/ui-kit/widget}}
+{{/core/ui-kit/blocks/widget}}
