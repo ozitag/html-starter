@@ -24,19 +24,14 @@
   }
 }
 
-$count: 10;
-$time: 2;
-$size: 100;
-$color: #dd6900;
-
 .uikit-preloader-animation {
-  width: $size + px;
-  height: $size + px;
+  width: $preloaderSize + px;
+  height: $preloaderSize + px;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
-  animation: rotatePreloader $time + s infinite ease-in;
+  animation: rotatePreloader $preloaderTime + s infinite ease-in;
 }
 
 @keyframes rotatePreloader {
@@ -62,33 +57,33 @@ $color: #dd6900;
   top: 0%;
   width: 10%;
   height: 10%;
-  background-color: $color;
+  background-color: $uikit-preloader-color;
   transform: translateX(-50%);
   border-radius: 50%;
 }
 
-@for $i from 1 through $count {
+@for $i from 1 through $preloaderCount {
   .uikit-preloader-animation div:nth-child(#{$i}) {
-    transform: rotateZ(((360 / $count) * ($i - 1)) + deg);
-    animation: rotateCircle + $i $time + s infinite linear;
-    z-index: $count - $i;
+    transform: rotateZ(((360 / $preloaderCount) * ($i - 1)) + deg);
+    animation: rotateCircle + $i $preloaderTime + s infinite linear;
+    z-index: $preloaderCount - $i;
   }
   @keyframes rotateCircle#{$i} {
-    #{percentage(((50 / $count) * ($i - 1)) / 100)} {
+    #{percentage(((50 / $preloaderCount) * ($i - 1)) / 100)} {
       opacity: 0;
     }
-    #{percentage((((50 / $count) + 0.0001) * ($i - 1)) / 100)} {
+    #{percentage((((50 / $preloaderCount) + 0.0001) * ($i - 1)) / 100)} {
       opacity: 1;
-      transform: rotateZ((0 - ((360 / $count) * ($i - 2))) + deg);
+      transform: rotateZ((0 - ((360 / $preloaderCount) * ($i - 2))) + deg);
     }
-    #{percentage((((50 / $count) * ($i - 0)) + 2) / 100)} {
-      transform: rotateZ((0 - ((360 / $count) * ($i - 1))) + deg);
+    #{percentage((((50 / $preloaderCount) * ($i - 0)) + 2) / 100)} {
+      transform: rotateZ((0 - ((360 / $preloaderCount) * ($i - 1))) + deg);
     }
-    #{percentage(((50 + ((50 / $count) * ($i - 0))) + 2) / 100)} {
-      transform: rotateZ((0 - ((360 / $count) * ($i - 1))) + deg);
+    #{percentage(((50 + ((50 / $preloaderCount) * ($i - 0))) + 2) / 100)} {
+      transform: rotateZ((0 - ((360 / $preloaderCount) * ($i - 1))) + deg);
     }
     100% {
-      transform: rotateZ((0 - ((360 / $count) * ($count - 1))) + deg);
+      transform: rotateZ((0 - ((360 / $preloaderCount) * ($preloaderCount - 1))) + deg);
       opacity: 1;
     }
   }

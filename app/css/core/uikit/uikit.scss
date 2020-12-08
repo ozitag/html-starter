@@ -1,9 +1,6 @@
 .uikit {
-  --uikit-font-family: 'Comfortaa', cursive;
-  --uikit-background-color: #f4f5fa;
-
   min-height: 100vh;
-  background-color: var(--uikit-background-color);
+  background-color: $uikit-color-primary;
 
   @include media(mobile) {
     width: 100%;
@@ -40,7 +37,7 @@
       align-items: center;
       padding: 8px 20px;
       font-size: 18px;
-      font-family: var(--uikit-font-family);
+      font-family: $uikitBaseFont;
 
       &:hover {
         color: #c45d00;
@@ -52,7 +49,7 @@
       align-items: center;
       padding: 5px 40px;
       font-size: 16px;
-      font-family: var(--uikit-font-family);
+      font-family: $uikitBaseFont;
 
       &:hover {
         color: #c45d00;
@@ -108,7 +105,7 @@
       padding: 0;
       font-size: 20px;
       color: #fff;
-      font-family: var(--uikit-font-family);
+      font-family: $uikitBaseFont;
     }
   }
 
@@ -145,7 +142,7 @@
 
     .copyright {
       font-size: 14px;
-      font-family: var(--uikit-font-family);
+      font-family: $uikitBaseFont;
 
       &:hover a {
         color: #dd6900;
@@ -190,7 +187,7 @@
       cursor: pointer;
       position: relative;
       transition: 0.3s all ease;
-      font-family: var(--uikit-font-family);
+      font-family: $uikitBaseFont;
 
       &:before, &:after {
         content: '';
@@ -338,7 +335,7 @@
       margin-bottom: 10px;
       font-size: 17px;
       font-weight: bold;
-      font-family: var(--uikit-font-family);
+      font-family: $uikitBaseFont;
     }
   }
 
@@ -374,7 +371,7 @@
       font-style: italic;
       color: #333;
       text-align: center;
-      font-family: var(--uikit-font-family);
+      font-family: $uikitBaseFont;
     }
 
     &__content {
@@ -454,7 +451,7 @@
   }
 
   &-colors {
-    font-family: var(--uikit-font-family);
+    font-family: $uikitBaseFont;
 
     &__item {
       $ui-t-value: 28px;

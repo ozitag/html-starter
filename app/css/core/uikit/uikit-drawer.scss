@@ -116,19 +116,16 @@
 }
 
 .js-drawer-burger {
-  --burger-width: 24px;
-  --burger-height: 24px;
-  --burger-line-height: 2px;
-  --burger-color: #fff;
-
-  width: var(--burger-width, 30px);
-  height: var(--burger-height, 30px);
+  width: $burgerWidth;
+  height: $burgerHeight;
   position: relative;
   transition-duration: 1s;
   cursor: pointer;
 
   &:hover {
-    --burger-color: rgba(255, 255, 255, 0.7);
+    span, span:before, span:after {
+      background-color: rgba(255, 255, 255, 0.7);
+    }
   }
 }
 
@@ -137,9 +134,9 @@
   top: 50%;
   transform: translate(0, -50%);
   left: 0;
-  width: var(--burger-width, 30px);
-  height: var(--burger-line-height, 4px);
-  background-color: var(--burger-color, #337AB7);
+  width: $burgerWidth;
+  height: $burgerLineHeight;
+  background-color: $uikit-burger-color;
   transition-duration: .25s;
   transition-delay: .25s;
   transition: all 0.25s 0.25s, background-color 0.3s ease-in-out;
@@ -149,9 +146,9 @@
   position: absolute;
   top: -6px;
   left: 0;
-  width: var(--burger-width, 30px);
-  height: var(--burger-line-height, 4px);
-  background-color: var(--burger-color, #337AB7);
+  width: $burgerWidth;
+  height: $burgerLineHeight;
+  background-color: $uikit-burger-color;
   content: "";
   transition-duration: .25s;
   transition: transform .25s, top .25s .25s, background-color 0.3s ease-in-out;
@@ -161,9 +158,9 @@
   position: absolute;
   top: 6px;
   left: 0;
-  width: var(--burger-width, 30px);
-  height: var(--burger-line-height, 4px);
-  background-color: var(--burger-color, #337AB7);
+  width: $burgerWidth;
+  height: $burgerLineHeight;
+  background-color: $uikit-burger-color;
   content: "";
   transition-duration: .25s;
   transition: transform .25s, top .25s .25s, background-color 0.3s ease-in-out;
