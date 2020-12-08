@@ -40,10 +40,7 @@ module.exports = () => {
     const links = JSON.parse(
       $.fs.readFileSync(`${$.config.sourcePath}/${$.config.dbPath}/links.json`),
     );
-    const uikit = JSON.parse(
-      $.fs.readFileSync(`${$.config.sourcePath}/${$.config.dbPath}/uikit.json`),
-    );
-    const db = { ...initParams, ...data, ...links, ...uikit };
+    const db = { ...initParams, ...data, ...links };
 
     return $.gulp.src([
       `${$.config.sourcePath}/${$.config.hbsPath}/pages/*.hbs`,
