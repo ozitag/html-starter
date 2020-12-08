@@ -10,6 +10,8 @@ class Accord extends Widget {
     this.opened = this.$node.classList.contains('opened');
     this.busy = false;
 
+    this.eventHandlers = {};
+
     this.onToggleClick = this.onToggleClick.bind(this);
   }
 
@@ -21,20 +23,46 @@ class Accord extends Widget {
     this.$toggle.removeEventListener('click', this.onToggleClick);
   }
 
+  on(event, handler) {
+    if (!(event in this.eventHandlers)) {
+      this.eventHandlers[event] = [];
+    }
+    this.eventHandlers[event].push(handler);
+  }
+
+  trigger(event) {
+    if (event in this.eventHandlers) {
+      this.eventHandlers[event].forEach(eventHandler => eventHandler());
+    }
+  }
+
+  scrollToView() {
+    startScrollTo(this.$node);
+  }
+
+  open() {
+    if (this.opened) return;
+    this.$node.classList.add('opened');
+    this.expand();
+    this.opened = true;
+    this.trigger('opening');
+
+    setTimeout(() => this.scrollToView(), 300);
+  }
+
+  close() {
+    if (!this.opened) return;
+    this.collapse();
+    this.$node.classList.remove('opened');
+    this.opened = false;
+  }
+
   onToggleClick(e) {
     e.preventDefault();
     if (this.busy) return;
     this.busy = true;
 
-    if (this.opened === false) {
-      this.$node.classList.add('opened');
-      this.expand();
-    } else {
-      this.collapse();
-      this.$node.classList.remove('opened');
-    }
-
-    this.opened = !this.opened;
+    !this.opened ? this.open() : this.close();
   }
 
   collapse() {
