@@ -55,20 +55,36 @@ document.addEventListener('DOMContentLoaded', () => {
   const selector = '.js-uikit-autogenerator';
   document.querySelectorAll(selector).forEach((element) => Autogenerator.init(element, { selector }));
 
-  $('.uikit-aside__nav a[href="#"][data-id]').on('click', function (event) {
+  $('.uikit-aside__nav a[href="#"][data-id]').on('click', function(event) {
     event.preventDefault();
     const id = $(this).data('id');
 
     const activeSection = document.getElementById(id);
     const accord = activeSection.closest('.js-accord');
-    console.log(accord, 'accord');
+    const accords = document.querySelectorAll('.js-accord');
 
-    if(!accord.classList.contains('opened')) {
+    if (!accord.classList.contains('opened')) {
       accord.classList.add('opened');
     }
 
     $('html, body').animate({
       scrollTop: $(`#${id}`).offset().top - 80,
     }, 600);
+
+    accords.forEach((item) => {
+      item.classList.add('inactive');
+      setTimeout(() => {
+        item.classList.remove('inactive');
+      }, 2100);
+    });
+
+    accord.classList.remove('inactive');
+    accord.classList.add('animate');
+
+    setTimeout(() => {
+      accord.classList.remove('animate');
+    }, 2100);
+
+
   });
 });

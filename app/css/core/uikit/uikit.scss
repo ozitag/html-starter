@@ -144,7 +144,7 @@
       font-size: 14px;
       font-family: $uikit-base-font;
 
-      a:hover{
+      a:hover {
         color: $uikit-primary-color;
       }
     }
@@ -172,6 +172,16 @@
     }
 
     background-color: #fff;
+    will-change: transform;
+
+    &.animate {
+      animation: animateWidget 1.5s ease-in 0.6s;
+    }
+
+    &.inactive {
+      animation: inactiveWidget 1.5s ease-in 0.6s;
+    }
+
 
     &__title {
       color: #000;
@@ -429,6 +439,7 @@
         justify-content: center;
         flex-wrap: wrap;
       }
+
       tr {
         @include media(mobile) {
           flex: 0 0 50%;
@@ -494,5 +505,37 @@
         border: 1px solid #000;
       }
     }
+  }
+}
+
+@keyframes animateWidget {
+  0% {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: scale(1.01) translate3d(0, 0, 0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  100% {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+}
+
+@keyframes inactiveWidget {
+  0% {
+    opacity: 1;
+    filter: grayscale(0);
+  }
+
+  50% {
+    opacity: 0.4;
+    filter: grayscale(1);
+  }
+
+  100% {
+    opacity: 1;
+    filter: grayscale(0);
   }
 }
