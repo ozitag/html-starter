@@ -1,6 +1,6 @@
 .uikit {
   min-height: 100vh;
-  background-color: $uikit-color-primary;
+  background-color: $uikit-background-color;
 
   @include media(mobile) {
     width: 100%;
@@ -37,7 +37,7 @@
       align-items: center;
       padding: 8px 20px;
       font-size: 18px;
-      font-family: $uikitBaseFont;
+      font-family: $uikit-base-font;
 
       &:hover {
         color: #c45d00;
@@ -49,7 +49,7 @@
       align-items: center;
       padding: 5px 40px;
       font-size: 16px;
-      font-family: $uikitBaseFont;
+      font-family: $uikit-base-font;
 
       &:hover {
         color: #c45d00;
@@ -66,7 +66,7 @@
 
     &::before {
       content: "";
-      background-color: #dd6900;
+      background-color: $uikit-primary-color;
       position: absolute;
       top: 0;
       left: 0;
@@ -86,10 +86,10 @@
     display: flex;
     align-items: center;
     padding: 15px 30px;
-    background-color: rgba(221, 105, 0, .96);
+    background-color: $uikit-primary-color;
 
     &_box-shadow {
-      box-shadow: 5px -1px 20px -5px #9c6533;
+      box-shadow: 5px -1px 20px -5px $uikit-primary-color;
     }
 
     @include media(tabletSmall) {
@@ -104,8 +104,8 @@
       margin: 0;
       padding: 0;
       font-size: 20px;
-      color: #fff;
-      font-family: $uikitBaseFont;
+      color: $uikit-burger-color;
+      font-family: $uikit-base-font;
     }
   }
 
@@ -134,7 +134,7 @@
     bottom: 0;
     z-index: 102;
     padding: 15px 30px;
-    background-color: #fff;
+    background-color: $uikit-sidebar-background-color;
     text-align: right;
     font-size: 16px;
     box-shadow: 30px 0 30px rgba(0, 0, 0, .1);
@@ -142,14 +142,10 @@
 
     .copyright {
       font-size: 14px;
-      font-family: $uikitBaseFont;
+      font-family: $uikit-base-font;
 
-      &:hover a {
-        color: #dd6900;
-
-        &:hover {
-          color: #c45d00;
-        }
+      a:hover{
+        color: $uikit-primary-color;
       }
     }
   }
@@ -187,7 +183,7 @@
       cursor: pointer;
       position: relative;
       transition: 0.3s all ease;
-      font-family: $uikitBaseFont;
+      font-family: $uikit-base-font;
 
       &:before, &:after {
         content: '';
@@ -335,7 +331,7 @@
       margin-bottom: 10px;
       font-size: 17px;
       font-weight: bold;
-      font-family: $uikitBaseFont;
+      font-family: $uikit-base-font;
     }
   }
 
@@ -371,7 +367,7 @@
       font-style: italic;
       color: #333;
       text-align: center;
-      font-family: $uikitBaseFont;
+      font-family: $uikit-base-font;
     }
 
     &__content {
@@ -485,7 +481,7 @@
   }
 
   &-colors {
-    font-family: $uikitBaseFont;
+    font-family: $uikit-base-font;
 
     &__item {
       $ui-t-value: 28px;

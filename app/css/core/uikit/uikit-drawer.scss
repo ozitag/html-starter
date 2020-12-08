@@ -19,10 +19,8 @@
     position: absolute;
     pointer-events: all;
     transition: all 0.5s ease;
-
-    // border-right: 1px solid #e4e7ed;
-    background: #fff;
-    color: #2b345f;
+    background: $uikit-sidebar-background-color;
+    color: $uikit-sidebar-text-color;
     box-shadow: 1px 0 30px rgba(0, 0, 0, .1);
   }
 
@@ -116,8 +114,8 @@
 }
 
 .js-drawer-burger {
-  width: $burgerWidth;
-  height: $burgerHeight;
+  width: 24px;
+  height: 24px;
   position: relative;
   transition-duration: 1s;
   cursor: pointer;
@@ -134,8 +132,8 @@
   top: 50%;
   transform: translate(0, -50%);
   left: 0;
-  width: $burgerWidth;
-  height: $burgerLineHeight;
+  width: 24px;
+  height: 2px;
   background-color: $uikit-burger-color;
   transition-duration: .25s;
   transition-delay: .25s;
@@ -146,8 +144,8 @@
   position: absolute;
   top: -6px;
   left: 0;
-  width: $burgerWidth;
-  height: $burgerLineHeight;
+  width: 24px;
+  height: 2px;
   background-color: $uikit-burger-color;
   content: "";
   transition-duration: .25s;
@@ -158,8 +156,8 @@
   position: absolute;
   top: 6px;
   left: 0;
-  width: $burgerWidth;
-  height: $burgerLineHeight;
+  width: 24px;
+  height: 2px;
   background-color: $uikit-burger-color;
   content: "";
   transition-duration: .25s;
