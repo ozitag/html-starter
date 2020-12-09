@@ -51,6 +51,12 @@ module.exports = () => {
       .pipe($.gulpPlugin.plumber())
       .pipe($.gulpPlugin.compileHandlebars(db, options))
       .pipe($.gulpPlugin.rename(path => {
+        let string = path.basename;
+
+        if(string === 'page') {
+          path.basename = 'ui-toolkit';
+        }
+
         path.dirname = '';
         path.extname = '.html';
       }))

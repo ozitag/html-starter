@@ -3,7 +3,7 @@ module.exports = () => {
     return $.gulp.src(`${$.config.outputPath}/**/*.html`)
       .pipe($.gulpPlugin.cheerio({
         run: jQuery => {
-          jQuery('script').each(function () {
+          jQuery('script').each(function() {
             let src = jQuery(this).attr('src');
             if (
               src !== undefined &&
@@ -15,7 +15,7 @@ module.exports = () => {
 
             jQuery(this).attr('src', src);
           });
-          jQuery('meta').each(function () {
+          jQuery('meta').each(function() {
             let content = jQuery(this).attr('content');
 
             if (content !== undefined && content.substr(0, 2) === './') {
@@ -28,7 +28,7 @@ module.exports = () => {
 
             jQuery(this).attr('content', content);
           });
-          jQuery('link').each(function () {
+          jQuery('link').each(function() {
             let href = jQuery(this).attr('href');
 
             if (href !== undefined && href.substr(0, 2) === './') {
@@ -41,7 +41,7 @@ module.exports = () => {
 
             jQuery(this).attr('href', href);
           });
-          jQuery('a').each(function () {
+          jQuery('a').each(function() {
             let href = jQuery(this).attr('href');
 
             function checkLinkPath(checkPosition) {
@@ -50,8 +50,6 @@ module.exports = () => {
               if (linkPath.match('--')) {
                 let filePath = linkPath.split('--').join('/');
                 return href = `/${filePath}/`;
-              } else if (linkPath.match('page')) {
-                return href = `ui-toolkit`;
               } else if (!linkPath.match('home')) {
                 return href = `/${linkPath}/`;
               } else {
@@ -81,7 +79,7 @@ module.exports = () => {
             }
             jQuery(this).attr('href', href);
           });
-          jQuery('img').each(function () {
+          jQuery('img').each(function() {
             let src = jQuery(this).attr('src');
             let srcset = jQuery(this).attr('srcset');
             let dataOriginal = jQuery(this).attr('data-original');
@@ -103,7 +101,7 @@ module.exports = () => {
             jQuery(this).attr('srcset', srcset);
             jQuery(this).attr('data-original', dataOriginal);
           });
-          jQuery('source').each(function () {
+          jQuery('source').each(function() {
             let srcset = jQuery(this).attr('srcset');
             let dataSrcset = jQuery(this).attr('data-srcset');
             let src = jQuery(this).attr('src');
@@ -133,7 +131,7 @@ module.exports = () => {
             jQuery(this).attr('srcset', srcset);
             jQuery(this).attr('src', src);
           });
-          jQuery('use').each(function () {
+          jQuery('use').each(function() {
             let xlink = jQuery(this).attr('xlink:href');
 
             if (xlink.substr(0, 3) === '../') {
@@ -148,6 +146,6 @@ module.exports = () => {
         },
       }))
       .pipe($.gulp.dest(`${$.config.outputPath}/`))
-      .pipe($.bs.reload({stream: true}));
+      .pipe($.bs.reload({ stream: true }));
   });
 };
