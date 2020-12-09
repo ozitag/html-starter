@@ -71,20 +71,21 @@ document.addEventListener('DOMContentLoaded', () => {
       scrollTop: $(`#${id}`).offset().top - 80,
     }, 600);
 
-    accords.forEach((item) => {
-      item.classList.add('inactive');
+    if(!activeSection.classList.contains('uikit-subsection')) {
+
+      accords.forEach((item) => {
+        item.classList.add('inactive');
+        setTimeout(() => {
+          item.classList.remove('inactive');
+        }, 2100);
+      });
+
+      accord.classList.remove('inactive');
+      accord.classList.add('animate');
+
       setTimeout(() => {
-        item.classList.remove('inactive');
+        accord.classList.remove('animate');
       }, 2100);
-    });
-
-    accord.classList.remove('inactive');
-    accord.classList.add('animate');
-
-    setTimeout(() => {
-      accord.classList.remove('animate');
-    }, 2100);
-
-
+    }
   });
 });
