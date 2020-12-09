@@ -10,9 +10,14 @@ class CopyToClipboard {
   addEvents() {
     this.copyText.addEventListener('click', (e) => {
       e.preventDefault();
-      this.textCopy(this.copyText.textContent);
 
-     this.setActive(this.message);
+      if (this.copyText.querySelector('.uikit-colors__item')) {
+        this.textCopy(this.copyText.nextElementSibling.textContent);
+      } else {
+        this.textCopy(this.copyText.textContent);
+      }
+
+      this.setActive(this.message);
 
       setTimeout(() => this.removeActive(this.message), 800);
     });
