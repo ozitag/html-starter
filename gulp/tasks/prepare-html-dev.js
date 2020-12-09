@@ -1,6 +1,6 @@
 module.exports = () => {
   $.gulp.task('prepareHtmlDev', () => {
-    const templates = $.fs.readdirSync(`${$.config.sourcePath}/${$.config.hbsPath}/pages`).concat(['ui-toolkit.hbs']);
+    const templates = $.fs.readdirSync(`${$.config.sourcePath}/${$.config.hbsPath}/pages`).concat(['page.hbs']);
     const html = [];
     const pages = {};
 
@@ -13,8 +13,8 @@ module.exports = () => {
 
       const file = $.fs
         .readFileSync(
-          `${$.config.sourcePath}/${$.config.hbsPath}/${pageName === 'ui-toolkit' ?
-            pageName : 'pages/' + pageName}.hbs`,
+          `${$.config.sourcePath}/${$.config.hbsPath}/${pageName === 'page' ?
+            'partials/core/ui-kit/' + pageName : 'pages/' + pageName}.hbs`,
         ).toString();
 
       if (file.indexOf('{{!') !== -1) pages[pageName].title = file.substring(3, file.indexOf('}}'));
@@ -47,7 +47,7 @@ module.exports = () => {
 
             jQuery(this).attr('src', src);
           });
-          jQuery('a').each(function () {
+          jQuery('a').each(function() {
             const href = jQuery(this).attr('href');
 
             if (!href || href.substr(0, 1) === '#' ||

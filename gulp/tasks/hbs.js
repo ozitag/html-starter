@@ -45,7 +45,7 @@ module.exports = () => {
 
     return $.gulp.src([
       `${$.config.sourcePath}/${$.config.hbsPath}/pages/*.hbs`,
-      `${$.config.sourcePath}/${$.config.hbsPath}/ui-toolkit.hbs`,
+      `${$.config.sourcePath}/${$.config.hbsPath}/partials/core/ui-kit/page.hbs`,
       `${$.config.sourcePath}/${$.config.hbsPath}/ajax/*.hbs`,
     ])
       .pipe($.gulpPlugin.plumber())

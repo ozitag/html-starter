@@ -50,6 +50,8 @@ module.exports = () => {
               if (linkPath.match('--')) {
                 let filePath = linkPath.split('--').join('/');
                 return href = `/${filePath}/`;
+              } else if (linkPath.match('page')) {
+                return href = `ui-toolkit`;
               } else if (!linkPath.match('home')) {
                 return href = `/${linkPath}/`;
               } else {
