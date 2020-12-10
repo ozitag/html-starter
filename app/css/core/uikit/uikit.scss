@@ -301,6 +301,7 @@
       padding: 12px 24px;
       background-color: $color-black;
       color: $color-white;
+      z-index: 5;
 
       position: fixed;
       bottom: 80px;
@@ -481,7 +482,7 @@
         line-height: 1;
         border-top: 1px solid #DFE3EC;
 
-        &.js-td-copy {
+        &.js-copy-to-clipboard {
           cursor: pointer;
 
           &:hover {

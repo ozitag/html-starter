@@ -9,6 +9,7 @@ class CopyToClipboard {
 
   addEvents() {
     this.copyText.addEventListener('click', (e) => {
+      console.log('12221');
       e.preventDefault();
 
       if (this.copyText.querySelector('.uikit-colors__item')) {
@@ -36,9 +37,7 @@ class CopyToClipboard {
     try {
       document.execCommand('copy');
       target.remove();
-      console.log('Copied to clipboard: "' + text + '"');
     } catch (e) {
-      console.log('Can\'t copy string on this browser. Try to use Chrome, Firefox or Opera.');
     }
   }
 
@@ -56,8 +55,9 @@ class CopyToClipboard {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const copyText = document.querySelectorAll('.js-td-copy');
+  const copyText = document.querySelectorAll('.js-copy-to-clipboard');
   copyText.forEach(item => {
+    console.log(item, 'item');
     CopyToClipboard.init(item);
   });
 });
