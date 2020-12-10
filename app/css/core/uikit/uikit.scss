@@ -351,6 +351,10 @@
     display: flex;
     width: 100%;
     padding-left: 1px;
+    @include mobile {
+      display: block;
+      padding-left: 0;
+    }
   }
 
   &-cell {
