@@ -9,7 +9,6 @@ class CopyToClipboard {
 
   addEvents() {
     this.copyText.addEventListener('click', (e) => {
-      console.log('12221');
       e.preventDefault();
 
       if (this.copyText.querySelector('.uikit-colors__item')) {
@@ -57,7 +56,6 @@ class CopyToClipboard {
 document.addEventListener('DOMContentLoaded', () => {
   const copyText = document.querySelectorAll('.js-copy-to-clipboard');
   copyText.forEach(item => {
-    console.log(item, 'item');
     CopyToClipboard.init(item);
   });
 });
