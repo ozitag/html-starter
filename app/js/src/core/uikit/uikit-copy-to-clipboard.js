@@ -9,8 +9,6 @@ class CopyToClipboard {
 
   addEvents() {
     this.copyText.addEventListener('click', (e) => {
-      e.preventDefault();
-
       if (this.copyText.querySelector('.uikit-colors__item')) {
         this.textCopy(this.copyText.nextElementSibling.textContent);
       } else {
@@ -20,16 +18,15 @@ class CopyToClipboard {
       this.setActive(this.message);
 
       setTimeout(() => this.removeActive(this.message), 800);
+      return false;
     });
   }
 
   textCopy(text) {
     const target = document.createElement('textarea');
     target.style.position = 'absolute';
-    target.style.left = '-9999px';
-    target.style.top = '0';
     target.textContent = text;
-    document.body.appendChild(target);
+    this.copyText.appendChild(target);
     target.focus();
     target.setSelectionRange(0, target.value.length);
 
