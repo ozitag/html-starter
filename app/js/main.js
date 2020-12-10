@@ -3,7 +3,7 @@ import './src/core/observer';
 import './src/core/uikit/uikit-drawer';
 import './src/core/uikit/uikit-scroll-header';
 import './src/core/uikit/uikit-autogenerator';
-import './src/core/uikit/copy-to-clipboard';
+import './src/core/uikit/uikit-copy-to-clipboard';
 
 import './src/utils/helpers';
 import './src/utils/device';
