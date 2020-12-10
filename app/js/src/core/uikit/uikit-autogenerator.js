@@ -60,8 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const id = $(this).data('id');
 
     const activeSection = document.getElementById(id);
-    const accord = activeSection.closest('.js-accord');
-    const accords = document.querySelectorAll('.js-accord');
+    const accord = activeSection.closest('.js-uikit-accord');
+    const accords = document.querySelectorAll('.js-uikit-accord');
 
     if (!accord.classList.contains('opened')) {
       accord.classList.add('opened');

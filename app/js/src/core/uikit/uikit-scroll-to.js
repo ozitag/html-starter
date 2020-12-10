@@ -1,20 +1,9 @@
-class ScrollTo {
+class UikitScrollTo {
   static startAnimation(targetElem, noAnimate) {
-    const header = document.querySelector('.js-header');
-
-    let targetPos = targetElem.getBoundingClientRect().top;
-
-    if (document.querySelector('.js-inner-header')) {
-      targetPos -= 53;
-    }
-
-    if (noAnimate) {
-      ScrollTo.respond(targetElem);
-      return scrollTo(0, targetPos);
-    }
+    let targetPos = targetElem.getBoundingClientRect().top - 70;
 
     if ('scrollBehavior' in document.body.style) {
-      ScrollTo.respond(targetElem);
+      UikitScrollTo.respond(targetElem);
       return scrollBy({
         top: targetPos,
         behavior: 'smooth',
@@ -29,14 +18,14 @@ class ScrollTo {
 
     function animation(currentTime) {
       const elapsedTime = currentTime - startTime;
-      const nextStep = ScrollTo.timingFunction(
+      const nextStep = UikitScrollTo.timingFunction(
         elapsedTime, startPos, targetPos, duration,
       );
 
       scrollTo(0, nextStep);
 
       if (elapsedTime < duration) raf(animation);
-      else ScrollTo.respond(targetElem);
+      else UikitScrollTo.respond(targetElem);
     }
   }
 
@@ -55,4 +44,4 @@ class ScrollTo {
   }
 }
 
-window.startScrollTo = ScrollTo.startAnimation;
+window.startUikitScrollTo = UikitScrollTo.startAnimation;
