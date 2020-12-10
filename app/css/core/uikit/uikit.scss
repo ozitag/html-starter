@@ -335,21 +335,6 @@
       @include media(mobile) {
         justify-content: center;
       }
-
-      &--btn {
-        .uikit-widget {
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-
-          &__content {
-            flex: 1 1 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          }
-        }
-      }
     }
 
     &__title {
@@ -497,7 +482,7 @@
 
           &:hover {
             transition: all 0.3s ease-in-out;
-            color: $color-primary;
+            color: $uikit-primary-color;
           }
         }
 
