@@ -98,6 +98,10 @@ class Accord extends Widget {
     widgetInstances.get(elem).destroy();
   }
 
+  static get(elem) {
+    return widgetInstances.get(elem);
+  }
+
   static init(elem, options = {}) {
     if (widgetInstances.has(elem) === false) {
       widgetInstances.set(elem, new Accord(elem, options));

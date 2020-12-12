@@ -1,59 +1,89 @@
-let busy = false;
+const widgetInstances = new Map();
 
-class Accord {
-  constructor (item) {
-    this.accord = item;
-    this.addEvents();
+class Accord extends Widget {
+  constructor(item, options = {}) {
+    super(item, 'js-accord');
+
+    this.$toggle = options.toggleElement ? options.toggleElement : this.queryElement('.toggle');
+    this.$body = options.bodyElement ? options.bodyElement : this.queryElement('.body');
+
+    this.opened = this.$node.classList.contains('opened');
+    this.busy = false;
+
+    this.eventHandlers = {};
+
+    this.onToggleClick = this.onToggleClick.bind(this);
   }
 
-  addEvents () {
-    this.accord.addEventListener('click', () => {
-      if (busy) return false;
-      busy = true;
+  build() {
+    this.$toggle.addEventListener('click', this.onToggleClick);
+  }
 
-      if (this.accord.classList.contains('active')) {
-        Accord.collapse(this.accord.nextElementSibling);
-        Accord.removeActive(this.accord);
-      } else {
-        const container = this.accord.closest('.js-accords');
-        const currActive = container.querySelector('.js-accord.active');
+  destroy() {
+    this.$toggle.removeEventListener('click', this.onToggleClick);
+  }
 
-        if (currActive) {
-          Accord.collapse(currActive.nextElementSibling);
-          Accord.removeActive(currActive);
-        }
+  on(event, handler) {
+    if (!(event in this.eventHandlers)) {
+      this.eventHandlers[event] = [];
+    }
+    this.eventHandlers[event].push(handler);
+  }
 
-        Accord.setActive(this.accord);
-        Accord.expand(this.accord.nextElementSibling);
-      }
+  trigger(event) {
+    if (event in this.eventHandlers) {
+      this.eventHandlers[event].forEach(eventHandler => eventHandler());
+    }
+  }
+
+  scrollToView() {
+    startScrollTo(this.$node);
+  }
+
+  open() {
+    this.$node.classList.add('opened');
+    this.expand();
+    this.trigger('opening');
+
+    setTimeout(() => this.scrollToView(), 300);
+  }
+
+  close() {
+    this.collapse();
+    this.$node.classList.remove('opened');
+  }
+
+  onToggleClick(e) {
+    e.preventDefault();
+    if (this.busy) return;
+    this.busy = true;
+
+    !this.$node.classList.contains('opened') ? this.open() : this.close();
+  }
+
+  collapse() {
+    this.animate({
+      from: this.$body.scrollHeight,
+      to: 0,
     });
   }
 
-  static collapse (elem) {
-    const height = {
-      from: elem.scrollHeight,
-      to: 0,
-    };
-
-    Accord.animate(elem, height);
-  }
-
-  static expand (elem) {
-    const height = {
+  expand() {
+    this.animate({
       from: 0,
-      to: elem.scrollHeight,
-    };
-
-    Accord.animate(elem, height);
+      to: this.$body.scrollHeight,
+    });
   }
 
-  static animate (elem, height) {
+  animate(height) {
+    const elem = this.$body;
+
     const handler = e => {
       if (e.target !== e.currentTarget) return false;
       elem.removeEventListener(endEvents.transition, handler);
       elem.classList.remove('animate');
       elem.style.height = '';
-      busy = false;
+      this.busy = false;
     };
     elem.addEventListener(endEvents.transition, handler);
 
@@ -64,22 +94,29 @@ class Accord {
     });
   }
 
-  static setActive (elem) {
-    elem.classList.add('active');
+  static destroy(elem) {
+    widgetInstances.get(elem).destroy();
   }
 
-  static removeActive (elem) {
-    elem.classList.remove('active');
+  static get(elem) {
+    return widgetInstances.get(elem);
   }
 
-  static init (elem) {
-    new Accord(elem);
+  static init(elem, options = {}) {
+    if (widgetInstances.has(elem) === false) {
+      widgetInstances.set(elem, new Accord(elem, options));
+    }
+
+    widgetInstances.get(elem).build();
+
+    return widgetInstances.get(elem);
   }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const accords = document.querySelectorAll('.js-accord');
-  accords.forEach(item => {
-    Accord.init(item);
+  document.querySelectorAll('.js-accord').forEach((element) => {
+    Accord.init(element);
   });
 });
+
+window.Accord = Accord;
