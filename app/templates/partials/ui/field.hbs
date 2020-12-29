@@ -3,5 +3,5 @@
   <div class="form-field__input">
     {{> @partial-block}}
   </div>
-  <span class="form-field__note">{{ note }}</span>
+  {{#if note}}<span class="form-field__note">{{ note }}</span>{{/if}}
 </div>
