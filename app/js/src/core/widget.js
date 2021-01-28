@@ -1,20 +1,32 @@
 class Widget {
   constructor(node, selector, breakpoint = null) {
     this.$node = node;
+    if (!this.$node) {
+      return;
+    }
 
     this.selector = selector ? (selector.substr(0, 1) === '.' ? selector.substr(1) : selector) : null;
 
     this.breakpoint = breakpoint;
     this.breakpointStatus = null;
+
+    this.inited = false;
   }
 
   init() {
+    if (this.inited) {
+      this.updateBreakpointCache();
+      return;
+    }
+
     if (this.breakpoint) {
       onResize(this.updateBreakpointCache.bind(this));
       this.updateBreakpointCache();
-    } else{
+    } else {
       this.build();
     }
+
+    this.inited = true;
   }
 
   checkBreakpoint() {
@@ -23,14 +35,22 @@ class Widget {
         return true;
       case 'mobile':
         return isMobileLayout();
+      case 'mobile up':
+        return !isMobileLayout();
       case 'tablet':
         return isTabletLayout();
+      case 'tablet up':
+        return !isTabletLayout();
       case 'tablet-mobile':
         return isMobileLayout() || isTabletLayout();
+      case 'smallTablet-mobile':
+        return isMobileLayout() || (isTabletLayout() && !isBigTabletLayout());
       case 'laptop':
         return isLaptopLayout();
       case 'desktop':
         return isDesktopLayout();
+      case 'no-desktop':
+        return !isDesktopLayout();
       case 'bigTablet-desktop':
         return isDesktopLayout() || isBigTabletLayout();
       default:
@@ -66,9 +86,12 @@ class Widget {
 
   /**
    * @param selector
+   * @param required
    * @returns Node
    */
-  queryElement(selector) {
+  queryElement(selector, required = true) {
+    if (!this.$node) return null;
+
     let $node = null;
 
     if (selector) {
@@ -82,7 +105,7 @@ class Widget {
       }
     }
 
-    if (!$node) {
+    if (!$node && required) {
       throw new Error(`Widget "${this.selector}" Error: Child element (selector "${selector}") not found`);
     }
 
@@ -94,6 +117,8 @@ class Widget {
    * @returns Node[]
    */
   queryElements(selector) {
+    if (!this.$node) return null;
+
     let $nodes = null;
 
     if (selector) {
