@@ -8,6 +8,12 @@ class Popup {
     this.init();
   }
 
+  off(event) {
+    if (event in this.eventHandlers) {
+      delete this.eventHandlers[event];
+    }
+  }
+
   on(event, callback) {
     if (!(event in this.eventHandlers)) {
       this.eventHandlers[event] = [];
@@ -44,16 +50,36 @@ class Popup {
       .forEach(element => element.addEventListener('click', this.onCloseClick.bind(this)));
   }
 
-  close() {
+  close(instantClose = false) {
+    if (instantClose) {
+      this.nodeElement.classList.add('instant');
+    }
+
     this.nodeElement.classList.remove('opened');
+
+    if (instantClose) {
+      setTimeout(() => {
+        this.nodeElement.classList.remove('instant');
+      });
+    }
 
     setTimeout(() => {
       this.trigger('closed');
     }, 0);
   }
 
-  open() {
+  open(instantOpen = false) {
+    if (instantOpen) {
+      this.nodeElement.classList.add('instant');
+    }
+
     this.nodeElement.classList.add('opened');
+
+    if (instantOpen) {
+      setTimeout(() => {
+        this.nodeElement.classList.remove('instant');
+      });
+    }
   }
 }
 
@@ -70,7 +96,7 @@ class PopupManager {
 
     this.popups[popup.getId()] = popup;
 
-    document.querySelectorAll('.js-popup-open[data-popup]').forEach(button => {
+    document.querySelectorAll('.js-popup-open[data-popup="' + popup.getId() + '"]').forEach(button => {
       button.addEventListener('click', e => {
         e.preventDefault();
         this.open(e.target.dataset.popup);
@@ -83,14 +109,29 @@ class PopupManager {
       throw new Error('popup not found');
     }
 
+    if (this.visiblePopup && this.visiblePopup.getId() === popupId) {
+      return;
+    }
+
     this.createOverlay();
 
+    if (this.visiblePopup) {
+      this.visiblePopup.close(true);
+    }
+
     const popup = this.popups[popupId];
-    popup.open();
+    popup.open(this.visiblePopup !== null);
 
     this.visiblePopup = popup;
 
-    popup.on('closed', () => this.hideOverlay());
+    popup.on('closed', () => {
+      popup.off('closed');
+
+      if (this.visiblePopup === popup) {
+        this.visiblePopup = null;
+        this.hideOverlay();
+      }
+    });
   }
 
   createOverlay() {

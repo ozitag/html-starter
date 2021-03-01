@@ -43,6 +43,10 @@
     opacity: 1;
   }
 
+  &.instant{
+    transition: none;
+  }
+
   &__header {
     height: 123px;
     display: flex;
