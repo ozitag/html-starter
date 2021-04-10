@@ -282,3 +282,24 @@
     transform: translate(-50%, -50%) rotate(-45deg);
   }
 }
+
+@mixin custom-scrollbar {
+  overflow-y: auto;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: 0.375rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #eee;
+
+    &:hover {
+      background-color: #eee;
+    }
+  }
+}
