@@ -68,11 +68,10 @@ module.exports = () => {
     );
     const db = { ...initParams, ...data, ...links };
 
-
     return $.gulp.src([
       `${$.config.sourcePath}/${$.config.hbsPath}/pages/*.hbs`,
       `${$.config.sourcePath}/${$.config.hbsPath}/partials/core/ui-kit/page.hbs`,
-      `${$.config.sourcePath}/${$.config.hbsPath}/ajax/*.hbs`,
+      `${$.config.sourcePath}/${$.config.hbsPath}/ajax/*.json`,
     ])
       .pipe($.gulpPlugin.plumber())
       .pipe($.gulpPlugin.compileHandlebars(db, options))
@@ -83,8 +82,13 @@ module.exports = () => {
           path.basename = 'ui-toolkit';
         }
 
-        path.dirname = '';
-        path.extname = '.html';
+        if(path.extname === '.json'){
+          path.dirname = 'ajax';
+          path.extname = '.json';
+        } else{
+          path.dirname = '';
+          path.extname = '.html';
+        }
       }))
       .pipe($.gulpPlugin.trim())
       .pipe($.gulp.dest(`${$.config.outputPath}/html`))
