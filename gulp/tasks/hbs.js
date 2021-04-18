@@ -10,6 +10,9 @@ module.exports = () => {
       `${$.config.sourcePath}/${$.config.hbsPath}/partials`,
     ],
     helpers: {
+      json: function (object) {
+        return JSON.stringify(object);
+      },
       times: function(n, block) {
         let accum = '';
         for (let i = 0; i < n; ++i) accum += block.fn(i + 1);
