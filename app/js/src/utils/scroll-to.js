@@ -56,3 +56,4 @@ class ScrollTo {
 }
 
 window.startScrollTo = ScrollTo.startAnimation;
+window.startScrollAtTop = noAnimation => ScrollTo.startAnimation(document.querySelector('body'), noAnimation);
