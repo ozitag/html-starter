@@ -255,3 +255,12 @@
     @content;
   }
 }
+
+
+@mixin hover-on-desktop {
+  &:hover {
+    @media screen and (min-width: 1260px) {
+      @content;
+    }
+  }
+}
