@@ -124,7 +124,7 @@ class Widget {
     if (selector) {
       if (selector[0] === '.') {
         $nodes = this.$node.querySelectorAll('.' + this.selector + '__' + selector.substr(1));
-        if (!$nodes) {
+        if ($nodes.length === 0) {
           $nodes = this.$node.querySelectorAll(selector);
         }
       } else {
