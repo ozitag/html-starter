@@ -2900,10 +2900,10 @@ data-uri-to-buffer@0.0.3:
   resolved "https://registry.yarnpkg.com/data-uri-to-buffer/-/data-uri-to-buffer-0.0.3.tgz#18ae979a6a0ca994b0625853916d2662bbae0b1a"
   integrity sha1-GK6XmmoMqZSwYlhTkW0mYruuCxo=
 
-date-fns@^2.16.1:
-  version "2.16.1"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.16.1.tgz#05775792c3f3331da812af253e1a935851d3834b"
-  integrity sha512-sAJVKx/FqrLYHAQeN7VpJrPhagZc9R4ImZIWYRFZaaohR3KzmuK88touwsSwSVT8Qcbd4zoDsnGfX4GFB4imyQ==
+date-fns@^2.21.1:
+  version "2.21.1"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.21.1.tgz#679a4ccaa584c0706ea70b3fa92262ac3009d2b0"
+  integrity sha512-m1WR0xGiC6j6jNFAyW4Nvh4WxAi4JF4w9jRJwSI8nBmNcyZXPcP9VUQG+6gHQXAmqaGEKDKhOqAtENDC941UkA==
 
 dateformat@^1.0.7-1.2.3:
   version "1.0.12"
@@ -3194,10 +3194,10 @@ dom-serializer@~0.1.0:
     domelementtype "^1.3.0"
     entities "^1.1.1"
 
-dom7@^3.0.0-alpha.7:
-  version "3.0.0-alpha.7"
-  resolved "https://registry.yarnpkg.com/dom7/-/dom7-3.0.0-alpha.7.tgz#3b4ba156a83fa37fb3fa34b8ab40a1a41a56feb1"
-  integrity sha512-3epkQPsKsbk2Dixqqgm2DT/KzhiAPByjDK7emu6owwFLbM5UoiqWKgdsH+6PpMEgoeR6Ex/bW1UbOe0FWZU0zg==
+dom7@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/dom7/-/dom7-3.0.0.tgz#b861ce5d67a6becd7aaa3ad02942ff14b1240331"
+  integrity sha512-oNlcUdHsC4zb7Msx7JN3K0Nro1dzJ48knvBOnDPKJ2GV9wl1i5vydJZUSyOfrkKFDZEud/jBsTk92S/VGSAe/g==
   dependencies:
     ssr-window "^3.0.0-alpha.1"
 
@@ -4645,7 +4645,7 @@ gulp-cheerio@^0.6.3:
     plugin-error "^0.1.2"
     through2 "^0.6.3"
 
-gulp-cli@^2.2.0:
+gulp-cli@^2.2.0, gulp-cli@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/gulp-cli/-/gulp-cli-2.3.0.tgz#ec0d380e29e52aa45e47977f0d32e18fd161122f"
   integrity sha512-zzGBl5fHo0EKSXsHzjspp3y5CONegCm8ErO5Qh0UzFzk2y4tMvzLWhoDokADbarfZRL2pGpRp7yt6gfJX4ph7A==
@@ -5318,10 +5318,10 @@ imagemin@^7.0.0:
     p-pipe "^3.0.0"
     replace-ext "^1.0.0"
 
-imask@^6.0.5:
-  version "6.0.5"
-  resolved "https://registry.yarnpkg.com/imask/-/imask-6.0.5.tgz#313250391bd957204cb4262426b54260929051ca"
-  integrity sha512-V9RVdbQsMxXLHK97FYR3wuHeyAc26q/0WeuRONRoqP4IFTKb472+akrFW/VPSBFYdB1PTI6impx1YgI/EDpWcQ==
+imask@^6.0.7:
+  version "6.0.7"
+  resolved "https://registry.yarnpkg.com/imask/-/imask-6.0.7.tgz#20a626a80e277231d7d5c27cf45d816c035b748e"
+  integrity sha512-zyiKRSzuocb2adasVSz0ku9xxejDRs5wME7Dt5Uk1l83HGBFUP7A8y8Z6TytLCtCiS/A1aArlCTqLcOkoVNbNQ==
 
 immutable@^3:
   version "3.8.2"
@@ -5431,10 +5431,10 @@ interpret@^1.4.0:
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.4.0.tgz#665ab8bc4da27a774a40584e812e3e0fa45b1a1e"
   integrity sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA==
 
-intersection-observer@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/intersection-observer/-/intersection-observer-0.7.0.tgz#ee16bee978db53516ead2f0a8154b09b400bbdc9"
-  integrity sha512-Id0Fij0HsB/vKWGeBe9PxeY45ttRiBmhFyyt/geBdDHBYNctMRTE3dC1U3ujzz3lap+hVXlEcVaB56kZP/eEUg==
+intersection-observer@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/intersection-observer/-/intersection-observer-0.12.0.tgz#6c84628f67ce8698e5f9ccf857d97718745837aa"
+  integrity sha512-2Vkz8z46Dv401zTWudDGwO7KiGHNDkMv417T5ItcNYfmvHR/1qCTVBO9vwH8zZmQ0WkA/1ARwpysR9bsnop4NQ==
 
 into-stream@^3.1.0:
   version "3.1.0"
@@ -5873,20 +5873,20 @@ jpegtran-bin@^4.0.0:
     bin-wrapper "^4.0.0"
     logalot "^2.0.0"
 
-jquery@^3.3.1:
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.5.1.tgz#d7b4d08e1bfdb86ad2f1a3d039ea17304717abb5"
-  integrity sha512-XwIBPqcMn57FxfT+Go5pzySnm4KWkT1Tv7gjrpT1srtf8Weynl6R273VJ5GjkRb51IzMp5nbaPjJXMWeju2MKg==
+jquery@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.0.tgz#c72a09f15c1bdce142f49dbf1170bdf8adac2470"
+  integrity sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==
 
 js-base64@^2.1.8:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.6.2.tgz#cf9301bc5cc756892a9a6c8d7138322e5944fb0d"
   integrity sha512-1hgLrLIrmCgZG+ID3VoLNLOSwjGnoZa8tyrUdEteMeIzsT6PH7PMLyUvbDwzNE56P3PNxyvuIOx4Uh2E5rzQIw==
 
-js-datepicker@^5.16.0:
-  version "5.16.0"
-  resolved "https://registry.yarnpkg.com/js-datepicker/-/js-datepicker-5.16.0.tgz#1a4bcc01453a9f79700fba2866f091b55f27f766"
-  integrity sha512-PXS1YzaksNDj5VpaPg8iFn775L9eYM2b49MgoHqDfz51vjTTMowr3R/mgYSC7NeWFRyJiZJJ4oKrHaSe7tSk/g==
+js-datepicker@^5.18.0:
+  version "5.18.0"
+  resolved "https://registry.yarnpkg.com/js-datepicker/-/js-datepicker-5.18.0.tgz#d96be9f77940913bdd8ee6906ad42fbe6b49a262"
+  integrity sha512-t8s5zBdqJIbB0QhWUeHDZOG6u9B1X9F8CQ4ucRzcOt5sQvA8Dxb/SdPBCktDlrzBDInAgnvzQ3QKzP9EokUAsQ==
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
@@ -6074,10 +6074,10 @@ layout@~2.2.0:
   dependencies:
     bin-pack "~1.0.1"
 
-lazysizes@^5.2.0-beta1:
-  version "5.2.2"
-  resolved "https://registry.yarnpkg.com/lazysizes/-/lazysizes-5.2.2.tgz#800e5914725fef1863bd9a1e19e1bb423c536f8b"
-  integrity sha512-fYgOv1Y35M86/7qyAdPPqoOhuyZrjxEAPxqwToRY2bO/PoBJ4lSqZYuZoavNp6eyuLpIAdHodpsPfj2Lkt86FQ==
+lazysizes@^5.3.1:
+  version "5.3.2"
+  resolved "https://registry.yarnpkg.com/lazysizes/-/lazysizes-5.3.2.tgz#27f974c26f5fcc33e7db765c0f4930488c8a2984"
+  integrity sha512-22UzWP+Vedi/sMeOr8O7FWimRVtiNJV2HCa+V8+peZOw6QbswN9k58VUhd7i6iK5bw5QkYrF01LJbeJe0PV8jg==
 
 lazystream@^1.0.0:
   version "1.0.0"
@@ -9370,7 +9370,12 @@ sshpk@^1.7.0:
     safer-buffer "^2.0.2"
     tweetnacl "~0.14.0"
 
-ssr-window@^3.0.0-alpha.1, ssr-window@^3.0.0-alpha.4:
+ssr-window@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/ssr-window/-/ssr-window-3.0.0.tgz#fd5b82801638943e0cc704c4691801435af7ac37"
+  integrity sha512-q+8UfWDg9Itrg0yWK7oe5p/XRCJpJF9OBtXfOPgSJl+u3Xd5KI328RUEvUqSMVM9CiQUEf1QdBzJMkYGErj9QA==
+
+ssr-window@^3.0.0-alpha.1:
   version "3.0.0-alpha.4"
   resolved "https://registry.yarnpkg.com/ssr-window/-/ssr-window-3.0.0-alpha.4.tgz#0c69a18c4305ecccdd8e11596155ca07b635f345"
   integrity sha512-+dBRP/pZ+VyITxTzD0lMDzDwN/BmfUl8xi2e6t5Nz4+FqUphfcBLB1OOUSYCRNFB25rD3c8AJRYpY5rHTbL+kg==
@@ -9739,13 +9744,13 @@ svgo@^1.1.1, svgo@^1.2.1, svgo@^1.3.2:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-swiper@^6.1.2:
-  version "6.1.2"
-  resolved "https://registry.yarnpkg.com/swiper/-/swiper-6.1.2.tgz#334693491915da51954fa388115c521dfba1eb6a"
-  integrity sha512-g3+4yHwHD1+qjhr7cxqKyJ/zTyo1SnQv5eUVE0QdygRyb13KejtISXbN44xkLmJIw9WOS/xa7Fg5YtyBH2Kg+A==
+swiper@^6.5.8:
+  version "6.5.8"
+  resolved "https://registry.yarnpkg.com/swiper/-/swiper-6.5.8.tgz#8a4f38145f99faa5d11b8d0306fc82e12801bcd5"
+  integrity sha512-SW8bNkJf8jCB4VdZsA1EZ3c87xshHS4f83YZVqT9ppkDKgspOfk9/I6dTtKGJFlsZpuE1S5X0LUAa7+QEaC0fQ==
   dependencies:
-    dom7 "^3.0.0-alpha.7"
-    ssr-window "^3.0.0-alpha.4"
+    dom7 "^3.0.0"
+    ssr-window "^3.0.0"
 
 symbol-observable@1.0.1:
   version "1.0.1"
