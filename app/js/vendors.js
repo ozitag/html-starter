@@ -10,11 +10,15 @@ import 'lazysizes/plugins/object-fit/ls.object-fit';
 import svgPolyfill from 'svg4everybody';
 import jquery from 'jquery';
 import swiper from 'swiper';
+import SwiperCore, {Navigation, Pagination} from 'swiper/core';
+
 import imask from 'imask';
 import datepicker from 'js-datepicker';
-import { format as dateFormat } from 'date-fns';
+import {format as dateFormat} from 'date-fns';
 import select2 from 'select2';
 import PerfectScrollbar from 'perfect-scrollbar';
+
+SwiperCore.use([Navigation, Pagination]);
 
 window.$ = window.jQuery = jquery;
 window.svg4everybody = svgPolyfill;
