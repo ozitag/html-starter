@@ -54,8 +54,10 @@ function initShare () {
 
       if (handler === null) return false;
 
+      const url = this.getOgParam('url') ? this.getOgParam('url') : window.location.href;
+
       handler(
-        getOgParam('url'),
+        url,
         getOgParam('title'),
         getOgParam('description'),
         getOgParam('image'),
