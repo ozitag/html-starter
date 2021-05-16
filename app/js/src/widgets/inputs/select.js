@@ -83,6 +83,8 @@ class Select extends Widget {
       });
 
       $(this.$node).data('select2').$dropdown.find(':input.select2-search__field').attr('placeholder', locale.searchPlaceholder);
+    }).on('select2:select', (e) => {
+      triggerInputChange(this.$node);
     }).on('change', this.onChange);
   }
 
