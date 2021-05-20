@@ -19,6 +19,7 @@ import './src/utils/preloader';
 import './src/utils/vh-hack';
 import './src/utils/mobile-debug';
 import './src/utils/input-filter';
+import './src/utils/cookie';
 
 import './src/widgets/example';
 import './src/widgets/accord';
