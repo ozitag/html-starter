@@ -1,5 +1,9 @@
 <div class="form-select">
-  <select class="js-select visually-hidden" {{#if placeholder}}data-placeholder="{{placeholder}}"{{/if}} {{#if search}}data-search="1"{{/if}}>
+  <select class="js-select visually-hidden" {{#if placeholder}}data-placeholder="{{placeholder}}"{{/if}} {{#if
+          search}}data-search="1"{{/if}}>
+    {{#if empty}}
+      <option disabled selected value></option>
+    {{/if}}
     {{> @partial-block}}
   </select>
 </div>

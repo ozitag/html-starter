@@ -145,6 +145,12 @@
   box-shadow: 0 6px 44px rgba(1, 64, 139, 0.24);
   display: block;
 
+  &._with-empty {
+    .select2-results__option:first-child {
+      display: none;
+    }
+  }
+
   .select2-results__options {
     margin: 6px 0;
     max-height: 164px;

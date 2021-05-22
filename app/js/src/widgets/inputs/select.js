@@ -60,7 +60,7 @@ class Select extends Widget {
     }
   }
 
-  initSelect2(placeholder) {
+  initSelect2(placeholder, hasEmptyValue) {
     $(this.$node).select2({
       minimumResultsForSearch: -1,
       placeholder: placeholder,
@@ -69,6 +69,10 @@ class Select extends Widget {
       },
     }).on('select2:open', () => {
       const $selectDropdown = document.querySelector('.select2-dropdown');
+      if(hasEmptyValue){
+        $selectDropdown.classList.add('_with-empty');
+      }
+
       const $selectOptions = document.querySelector('.select2-results__options');
 
       if (this.withSearch) {
@@ -91,14 +95,14 @@ class Select extends Widget {
   enableDesktopMode() {
     const optionSelected = this.$node.querySelector('option[selected]');
     const options = this.$node.querySelectorAll('option');
-    const hasInitialValue = (optionSelected && optionSelected.innerText.length > 0) ||
-      (!this.placeholder && options.length > 0 && options[0].innerText.length > 0);
+    const hasInitialValue = (optionSelected && optionSelected.innerText.length > 0);
+    const hasEmptyValue = options.length && options[0].disabled;
 
     if (this.placeholder && hasInitialValue === false) {
       $(this.$node).prepend('<option selected></option>');
     }
 
-    this.initSelect2(hasInitialValue ? this.placeholder : null);
+    this.initSelect2(hasInitialValue ? this.placeholder : null, hasEmptyValue);
 
     if (hasInitialValue) {
       this.setAsSelected();
