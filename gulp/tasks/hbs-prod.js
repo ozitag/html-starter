@@ -16,6 +16,13 @@ module.exports = () => {
           accum += block.fn(i + 1);
         return accum;
       },
+      exists: function(variable, options) {
+        if (typeof variable !== 'undefined') {
+          return options.fn(this);
+        } else {
+          return options.inverse(this);
+        }
+      },
       when: function(v1, operator, v2, options) {
         switch (operator) {
           case '==':
