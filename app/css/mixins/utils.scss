@@ -283,7 +283,7 @@
   }
 }
 
-@mixin custom-scrollbar {
+@mixin custom-scrollbar($color: #ccc) {
   overflow-y: auto;
   scrollbar-width: thin;
 
@@ -296,10 +296,10 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #eee;
+    background-color: $color;
 
     &:hover {
-      background-color: #eee;
+      background-color: $color;
     }
   }
 }
