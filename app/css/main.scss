@@ -1,8 +1,9 @@
 @import 'config/index';
 @import 'mixins/index';
-@import 'core/index';
 
 @import "~normalize-scss/sass/normalize/import-now";
+@import 'core/index';
+
 @import '~swiper/swiper';
 @import '~js-datepicker/src/datepicker';
 @import 'vendor/index';

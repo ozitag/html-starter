@@ -26,7 +26,7 @@ input, textarea {
   }
 
   &[type=number] {
-    -moz-appearance:textfield;
+    -moz-appearance: textfield;
   }
 
   &::-ms-clear {
@@ -38,7 +38,7 @@ input, textarea {
   }
 
   &::-webkit-input-placeholder {
-    line-height:normal!important;
+    line-height: normal !important;
   }
 }
 
@@ -70,7 +70,6 @@ nav {
   margin: 0;
   list-style-type: none;
 }
-
 
 
 a {
@@ -110,4 +109,9 @@ body {
   color: #000;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+  padding: 0;
 }
