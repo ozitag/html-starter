@@ -134,6 +134,19 @@ class Widget {
 
     return $nodes;
   }
+  
+  data(attribute, defaultValue = null) {
+    let dataAttributeName = "";
+    for (let i = 0; i < attribute.length; i++) {
+      if (attribute[i] !== '-') {
+        dataAttributeName += attribute[i];
+      } else if (i < attribute.length - 1) {
+        dataAttributeName += attribute[++i].toUpperCase();
+      }
+    }
+
+    return dataAttributeName in this.$node.dataset ? this.$node.dataset[dataAttributeName] : defaultValue;
+  }
 
 }
 
