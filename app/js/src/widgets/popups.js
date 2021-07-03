@@ -66,6 +66,8 @@ class Popup {
     setTimeout(() => {
       this.trigger('closed');
     }, 0);
+
+    showScrollbar();
   }
 
   open(instantOpen = false) {
@@ -80,6 +82,8 @@ class Popup {
         this.nodeElement.classList.remove('instant');
       });
     }
+
+    hideScrollbar();
   }
 }
 
@@ -88,7 +92,10 @@ class PopupManager {
   constructor() {
     this.popups = {};
 
+    this.openCallbacks = {};
+
     this.visiblePopup = null;
+
   }
 
   add(nodeElement) {
@@ -99,7 +106,7 @@ class PopupManager {
     document.querySelectorAll('.js-popup-open[data-popup="' + popup.getId() + '"]').forEach(button => {
       button.addEventListener('click', e => {
         e.preventDefault();
-        this.open(e.target.dataset.popup);
+        this.open(popup.getId());
       });
     });
   }
@@ -132,6 +139,12 @@ class PopupManager {
         this.hideOverlay();
       }
     });
+
+    if (popupId in this.openCallbacks) {
+      this.openCallbacks[popupId].forEach(callback => {
+        callback(popup.nodeElement);
+      });
+    }
   }
 
   createOverlay() {
@@ -162,6 +175,20 @@ class PopupManager {
 
       this.overlay = null;
     }
+  }
+
+  close() {
+    if (this.visiblePopup) {
+      this.visiblePopup.close();
+    }
+  }
+
+  onOpen(popupId, callback) {
+    if (!(popupId in this.openCallbacks)) {
+      this.openCallbacks[popupId] = [];
+    }
+
+    this.openCallbacks[popupId].push(callback);
   }
 
   init() {
