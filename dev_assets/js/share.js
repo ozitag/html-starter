@@ -1,5 +1,5 @@
 const Share = {
-  vk: (purl, ptitle, pimg, text) => {
+  vkontakte: (purl, ptitle, pimg, text) => {
     let url = 'http://vkontakte.ru/share.php?';
     url += 'url=' + encodeURIComponent(purl);
     url += '&title=' + encodeURIComponent(ptitle);
@@ -16,7 +16,7 @@ const Share = {
     url += '&imageUrl=' + encodeURIComponent(pimg);
     Share.popup(url);
   },
-  fb: (purl, ptitle, pimg, text) => {
+  facebook: (purl, ptitle, pimg, text) => {
     let url = 'http://www.facebook.com/sharer.php?s=100';
     url += '&p[title]=' + encodeURIComponent(ptitle);
     url += '&p[summary]=' + encodeURIComponent(text);
@@ -24,7 +24,7 @@ const Share = {
     url += '&p[images][0]=' + encodeURIComponent(pimg);
     Share.popup('https://www.facebook.com/sharer/sharer.php?u=' + purl);
   },
-  tw: (purl, ptitle, pimg, text) => {
+  twitter: (purl, ptitle, pimg, text) => {
     let url = 'http://twitter.com/share?';
     if (typeof ptitle !== 'undefined') {
       url += 'text=' + encodeURIComponent(ptitle.length ? ptitle : text);
@@ -33,28 +33,32 @@ const Share = {
     url += '&counturl=' + encodeURIComponent(purl);
     Share.popup(url);
   },
+  linkedin: (purl, ptitle, pimg, text) => {
+    let url = 'https://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(purl) + '&title=' + ptitle + '&summary=' + text;
+    Share.popup(url);
+  },
   popup: url => {
     window.open(url, '', 'toolbar=0,status=0,width=626,height=436');
   },
 };
 
-function getOgParam (param) {
+function getOgParam(param) {
   const elem = document.querySelector('meta[property="og:' + param + '"]');
-  return elem.content || '';
+  return elem && elem.content || '';
 }
 
-function initShare () {
-  const buttons = document.querySelectorAll('.js-social-share [data-social]');
+function initShare() {
+  const buttons = document.querySelectorAll('.js-social-share[data-social]');
   buttons.forEach(button => {
     button.addEventListener('click', e => {
       e.preventDefault();
-      const { currentTarget } = e;
+      const {currentTarget} = e;
       const social = currentTarget.dataset.social;
-      const handler =  Share[social] || null;
+      const handler = Share[social] || null;
 
       if (handler === null) return false;
 
-      const url = this.getOgParam('url') ? this.getOgParam('url') : window.location.href;
+      const url = getOgParam('url') ? getOgParam('url') : window.location.href;
 
       handler(
         url,
@@ -66,4 +70,6 @@ function initShare () {
   });
 }
 
-window.initShare = initShare;
+document.addEventListener('DOMContentLoaded', e => {
+  initShare();
+});
